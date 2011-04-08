@@ -71,7 +71,7 @@ public class JWebLiteFilter implements Filter {
 				JWebLiteInterface reqClassInstance = (JWebLiteInterface) reqClass
 						.newInstance();
 				reqClassInstance.doRequest(req, resp);
-				request.setAttribute(this.attrPrefix, reqClassInstance);
+				req.setAttribute(this.attrPrefix, reqClassInstance);
 			} catch (Exception e) {
 				throw new ServletException(e);
 			}
