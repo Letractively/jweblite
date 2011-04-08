@@ -77,7 +77,7 @@ public class JWebLiteFilter implements Filter {
 			}
 		}
 		// pass the request along the filter chain
-		chain.doFilter(request, response);
+		chain.doFilter(req, resp);
 	}
 
 }
