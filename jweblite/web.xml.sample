@@ -15,6 +15,10 @@
 			<param-name>AttrPrefix</param-name>
 			<param-value>JWL</param-value>
 		</init-param>
+		<init-param>
+			<param-name>Encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>JWebLiteFilter</filter-name>

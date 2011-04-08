@@ -1,0 +1,5 @@
+﻿jQuery Multiple Select Box Plugin
+
+Version 0.1.1
+====================
+．Add Encoding
