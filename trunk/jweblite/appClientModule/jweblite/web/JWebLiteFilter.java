@@ -19,6 +19,7 @@ import jweblite.util.StringUtils;
 public class JWebLiteFilter implements Filter {
 
 	private String attrPrefix = "JWL";
+	private String encoding = "UTF-8";
 
 	/**
 	 * Default constructor.
@@ -31,9 +32,13 @@ public class JWebLiteFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		String thisPrefix = fConfig.getInitParameter("AttrPrefix");
-		if (thisPrefix != null && thisPrefix.length() > 0) {
-			this.attrPrefix = thisPrefix;
+		String attrPrefix = fConfig.getInitParameter("AttrPrefix");
+		String encoding = fConfig.getInitParameter("Encoding");
+		if (attrPrefix != null && attrPrefix.length() > 0) {
+			this.attrPrefix = attrPrefix;
+		}
+		if (encoding != null && encoding.length() > 0) {
+			this.encoding = encoding;
 		}
 	}
 
@@ -48,7 +53,8 @@ public class JWebLiteFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletRequest req = new JWebLiteRequestWrapper(
+				(HttpServletRequest) request, this.encoding);
 		HttpServletResponse resp = (HttpServletResponse) response;
 		// parse
 		Class reqClass = null;
