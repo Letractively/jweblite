@@ -1,8 +1,6 @@
 package jweblite.web;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Iterator;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -51,27 +49,18 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	}
 
 	@Override
-	public Map getParameterMap() {
-		Map result = super.getParameterMap();
+	public String[] getParameterValues(String name) {
+		String[] result = super.getParameterValues(name);
 		if (result != null && this.isGetMethod && this.encoding != null) {
-			Iterator it = result.keySet().iterator();
-			while (it.hasNext()) {
-				String key = (String) it.next();
-				String[] value = (String[]) result.get(key);
+			for (int i = 0; i < result.length; i++) {
+				String value = result[i];
 				if (value == null) {
 					continue;
 				}
-				for (int i = 0; i < value.length; i++) {
-					String childValue = value[i];
-					if (childValue == null) {
-						continue;
-					}
-					try {
-						value[i] = new String(
-								childValue.getBytes("ISO-8859-1"),
-								this.encoding);
-					} catch (Exception e) {
-					}
+				try {
+					result[i] = new String(value.getBytes("ISO-8859-1"),
+							this.encoding);
+				} catch (Exception e) {
 				}
 			}
 		}
