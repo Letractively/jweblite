@@ -1,5 +1,8 @@
 package jweblite.util;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 public class StringUtils {
 
 	/**
@@ -53,6 +56,24 @@ public class StringUtils {
 			}
 		}
 		return result.toString();
+	}
+
+	/**
+	 * Join
+	 * 
+	 * @param c
+	 *            Collection
+	 * @return String
+	 */
+	public static String join(Collection c) {
+		StringBuffer sb = new StringBuffer();
+		if (c != null) {
+			Iterator it = c.iterator();
+			while (it.hasNext()) {
+				sb.append(it.next());
+			}
+		}
+		return sb.toString();
 	}
 
 }
