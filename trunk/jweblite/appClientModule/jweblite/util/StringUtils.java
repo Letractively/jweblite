@@ -1,7 +1,10 @@
 package jweblite.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public class StringUtils {
 
@@ -56,6 +59,22 @@ public class StringUtils {
 			}
 		}
 		return result.toString();
+	}
+
+	/**
+	 * Split
+	 * 
+	 * @param str
+	 *            String
+	 * @param regex
+	 *            String
+	 * @return List
+	 */
+	public static List split(String str, String regex) {
+		if (str != null) {
+			return Arrays.asList(str.split(regex));
+		}
+		return new ArrayList();
 	}
 
 	/**
