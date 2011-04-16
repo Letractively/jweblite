@@ -10,7 +10,7 @@
 
 	Hello ${JWL.test}!
 
-	<form action="index.jsp" method="get">
+	<form action="" method="get">
 		<input type="text" name="test" value="${JWL.test}" /><input
 			type="submit" />
 	</form>
