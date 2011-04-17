@@ -53,7 +53,7 @@ public class JWebLiteFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest req = new JWebLiteRequestWrapper(
+		JWebLiteRequestWrapper req = new JWebLiteRequestWrapper(
 				(HttpServletRequest) request, this.encoding);
 		HttpServletResponse resp = (HttpServletResponse) response;
 		// parse
