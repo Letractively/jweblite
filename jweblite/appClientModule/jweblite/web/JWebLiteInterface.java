@@ -1,6 +1,5 @@
 package jweblite.web;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface JWebLiteInterface {
@@ -9,11 +8,11 @@ public interface JWebLiteInterface {
 	 * Do Request
 	 * 
 	 * @param request
-	 *            HttpServletRequest
+	 *            JWebLiteRequestWrapper
 	 * @param response
 	 *            HttpServletResponse
 	 */
-	public void doRequest(HttpServletRequest request,
+	public void doRequest(JWebLiteRequestWrapper request,
 			HttpServletResponse response);
 
 }
