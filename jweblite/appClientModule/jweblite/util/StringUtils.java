@@ -82,14 +82,19 @@ public class StringUtils {
 	 * 
 	 * @param c
 	 *            Collection
+	 * @param token
+	 *            String
 	 * @return String
 	 */
-	public static String join(Collection c) {
+	public static String join(Collection c, String token) {
 		StringBuffer sb = new StringBuffer();
 		if (c != null) {
 			Iterator it = c.iterator();
 			while (it.hasNext()) {
 				sb.append(it.next());
+				if (it.hasNext()) {
+					sb.append(token);
+				}
 			}
 		}
 		return sb.toString();
