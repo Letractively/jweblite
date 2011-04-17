@@ -4,15 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>jweblite-example</title>
+<title>Insert title here</title>
 </head>
 <body>
 
-	JWebLite Example
+	Hello ${JWL.test}!
 
-	<ul>
-		<li><a href="helloworld.jsp">Hello World</a></li>
-	</ul>
+	<form action="" method="get">
+		<input type="text" name="test" value="${JWL.test}" /><input
+			type="submit" />
+	</form>
 
 </body>
 </html>
