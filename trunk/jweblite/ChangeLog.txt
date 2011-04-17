@@ -2,6 +2,7 @@
 
 Version 0.1.2
 ====================
+．More utils
 ．Minor changes
 ．Minor bug fixes
 
