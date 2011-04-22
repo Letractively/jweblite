@@ -5,8 +5,13 @@ import jweblite.web.JWebLiteRequestWrapper;
 
 public class Helloworld implements JWebLiteInterface {
 
+	private static final long serialVersionUID = 1L;
+
 	private String test = null;
 
+	/**
+	 * Default constructor.
+	 */
 	public Helloworld() {
 		super();
 	}
