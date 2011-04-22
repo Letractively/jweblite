@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 public class NumberUtils {
 
 	/**
-	 * To Scale Double
+	 * To Fixed Double
 	 * 
 	 * @param d
 	 *            double
@@ -14,7 +14,7 @@ public class NumberUtils {
 	 *            int
 	 * @return double
 	 */
-	public static double toScaleDouble(double d, int scale) {
+	public static double toFixedDouble(double d, int scale) {
 		return new BigDecimal(d).setScale(scale, RoundingMode.HALF_UP)
 				.doubleValue();
 	}
