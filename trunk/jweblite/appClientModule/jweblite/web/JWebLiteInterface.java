@@ -1,8 +1,10 @@
 package jweblite.web;
 
+import java.io.Serializable;
+
 import javax.servlet.http.HttpServletResponse;
 
-public interface JWebLiteInterface {
+public interface JWebLiteInterface extends Serializable {
 
 	/**
 	 * Do Request
