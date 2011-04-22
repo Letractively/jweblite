@@ -59,9 +59,11 @@ public class JWebLiteFilter implements Filter {
 		// parse
 		Class reqClass = null;
 		try {
-			String reqUrl = req.getServletPath();
-			reqClass = Class.forName(StringUtils
-					.parseUrlPathToClassName(reqUrl));
+			String reqClassName = StringUtils.parseUrlPathToClassName(req
+					.getServletPath());
+			if (reqClassName != null) {
+				reqClass = Class.forName(reqClassName);
+			}
 		} catch (Exception e) {
 		}
 		// init

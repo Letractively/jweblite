@@ -16,13 +16,15 @@ public class StringUtils {
 	 * @return String
 	 */
 	public static String toTitleCase(CharSequence cs) {
+		int csLength = -1;
+		if (cs == null || (csLength = cs.length()) <= 0) {
+			return "";
+		}
 		StringBuffer result = new StringBuffer();
-		int csLength = (cs != null ? cs.length() : 0);
-		if (csLength > 0) {
-			result.append(Character.toTitleCase(cs.charAt(0)));
-			if (csLength > 1) {
-				result.append(cs.subSequence(1, csLength));
-			}
+		// length > 0
+		result.append(Character.toTitleCase(cs.charAt(0)));
+		if (csLength > 1) {
+			result.append(cs.subSequence(1, csLength));
 		}
 		return result.toString();
 	}
@@ -35,28 +37,30 @@ public class StringUtils {
 	 * @return String
 	 */
 	public static String parseUrlPathToClassName(String url) {
-		StringBuffer result = new StringBuffer();
 		int lastUrlCommaIndex = -1;
-		if (url != null
-				&& (lastUrlCommaIndex = url.lastIndexOf(".")) == url
+		if (url == null
+				|| (lastUrlCommaIndex = url.lastIndexOf(".")) != url
 						.indexOf(".")) {
-			try {
-				String resultClassUri = url.substring(
-						(url.startsWith("/") ? 1 : 0),
-						(lastUrlCommaIndex >= 0 ? lastUrlCommaIndex : url
-								.length())).replace("/", ".");
-				if (resultClassUri.length() > 0) {
-					int resultClassNameIndex = resultClassUri.lastIndexOf(".") + 1;
-					if (resultClassNameIndex > 0) {
-						result.append(resultClassUri.substring(0,
-								resultClassNameIndex));
-					}
-					// to title case
-					result.append(StringUtils.toTitleCase(resultClassUri
-							.substring(resultClassNameIndex)));
+			return null;
+		}
+		StringBuffer result = new StringBuffer();
+		try {
+			String resultClassUri = url
+					.substring(
+							(url.startsWith("/") ? 1 : 0),
+							(lastUrlCommaIndex >= 0 ? lastUrlCommaIndex : url
+									.length())).replace("/", ".");
+			if (resultClassUri.length() > 0) {
+				int resultClassNameIndex = resultClassUri.lastIndexOf(".") + 1;
+				if (resultClassNameIndex > 0) {
+					result.append(resultClassUri.substring(0,
+							resultClassNameIndex));
 				}
-			} catch (Exception e) {
+				// to title case
+				result.append(StringUtils.toTitleCase(resultClassUri
+						.substring(resultClassNameIndex)));
 			}
+		} catch (Exception e) {
 		}
 		return result.toString();
 	}
@@ -70,11 +74,11 @@ public class StringUtils {
 	 *            String
 	 * @return List
 	 */
-	public static List split(String str, String regex) {
-		if (str != null) {
-			return Arrays.asList(str.split(regex));
+	public static List<String> split(String str, String regex) {
+		if (str == null) {
+			new ArrayList();
 		}
-		return new ArrayList();
+		return Arrays.asList(str.split(regex));
 	}
 
 	/**
@@ -82,19 +86,20 @@ public class StringUtils {
 	 * 
 	 * @param c
 	 *            Collection
-	 * @param token
+	 * @param separator
 	 *            String
 	 * @return String
 	 */
-	public static String join(Collection c, String token) {
+	public static String join(Collection c, String separator) {
+		if (c == null) {
+			return "";
+		}
 		StringBuffer sb = new StringBuffer();
-		if (c != null) {
-			Iterator it = c.iterator();
-			while (it.hasNext()) {
-				sb.append(it.next());
-				if (it.hasNext()) {
-					sb.append(token);
-				}
+		Iterator it = c.iterator();
+		while (it.hasNext()) {
+			sb.append(it.next());
+			if (it.hasNext()) {
+				sb.append(separator);
 			}
 		}
 		return sb.toString();
