@@ -1,16 +1,7 @@
 package jweblite.util;
 
-public class Callback<T> {
+public interface Callback<T> {
 
-	/**
-	 * Default constructor.
-	 */
-	public Callback() {
-		super();
-	}
-
-	public T callback() {
-		return null;
-	}
+	public T callback();
 
 }
