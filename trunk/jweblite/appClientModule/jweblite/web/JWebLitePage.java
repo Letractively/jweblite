@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.servlet.http.HttpServletResponse;
 
-public interface JWebLiteInterface extends Serializable {
+public interface JWebLitePage extends Serializable {
 
 	/**
 	 * Do Request
