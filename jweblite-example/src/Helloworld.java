@@ -1,9 +1,9 @@
 import javax.servlet.http.HttpServletResponse;
 
-import jweblite.web.JWebLiteInterface;
+import jweblite.web.JWebLitePage;
 import jweblite.web.JWebLiteRequestWrapper;
 
-public class Helloworld implements JWebLiteInterface {
+public class Helloworld implements JWebLitePage {
 
 	private static final long serialVersionUID = 1L;
 
