@@ -67,10 +67,9 @@ public class JWebLiteFilter implements Filter {
 		} catch (Exception e) {
 		}
 		// init
-		if (reqClass != null
-				&& JWebLiteInterface.class.isAssignableFrom(reqClass)) {
+		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
 			try {
-				JWebLiteInterface reqClassInstance = (JWebLiteInterface) reqClass
+				JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 						.newInstance();
 				reqClassInstance.doRequest(req, resp);
 				req.setAttribute(this.attrPrefix, reqClassInstance);
