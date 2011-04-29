@@ -67,18 +67,21 @@ public class JWebLiteFilter implements Filter {
 		} catch (Exception e) {
 		}
 		// init
+		boolean isSkipped = true;
 		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
 			try {
 				JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 						.newInstance();
-				reqClassInstance.doRequest(req, resp);
+				isSkipped = reqClassInstance.doRequest(req, resp);
 				req.setAttribute(this.attrPrefix, reqClassInstance);
 			} catch (Exception e) {
 				throw new ServletException(e);
 			}
 		}
 		// pass the request along the filter chain
-		chain.doFilter(req, resp);
+		if (isSkipped) {
+			chain.doFilter(req, resp);
+		}
 	}
 
 }

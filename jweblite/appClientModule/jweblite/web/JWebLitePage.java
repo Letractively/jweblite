@@ -13,8 +13,9 @@ public interface JWebLitePage extends Serializable {
 	 *            JWebLiteRequestWrapper
 	 * @param response
 	 *            HttpServletResponse
+	 * @return boolean
 	 */
-	public void doRequest(JWebLiteRequestWrapper request,
+	public boolean doRequest(JWebLiteRequestWrapper request,
 			HttpServletResponse response);
 
 }

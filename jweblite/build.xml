@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jweblite" default="deploy" basedir=".">
+
+	<property name="version" value="0.1.3" />
+
+	<!-- ================================= 
+          target: clean              
+         ================================= -->
+	<target name="clean" description="clean">
+		<delete file="${ant.project.name}-${version}.jar" />
+	</target>
+
+	<!-- ================================= 
+          target: compress              
+         ================================= -->
+	<target name="compress" depends="clean" description="compress">
+		<jar destfile="${ant.project.name}-${version}.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Title" value="${ant.project.name}" />
+				<attribute name="Implementation-Version" value="${version}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- ================================= 
+          target: apidocs              
+         ================================= -->
+	<target name="apidocs" depends="compress" description="apidocs">
+		<mkdir dir="apidocs" />
+	</target>
+
+	<!-- ================================= 
+          target: deploy              
+         ================================= -->
+	<target name="deploy" depends="apidocs" description="deploy">
+		<zip destfile="${ant.project.name}-${version}.zip" update="true">
+			<zipfileset prefix="${ant.project.name}-${version}" dir="${basedir}">
+				<include name="apidocs" />
+				<include name="${ant.project.name}-${version}.jar" />
+				<include name="ChangeLog.txt" />
+				<include name="web.xml.sample" />
+			</zipfileset>
+		</zip>
+	</target>
+
+</project>
