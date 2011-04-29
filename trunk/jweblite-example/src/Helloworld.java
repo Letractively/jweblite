@@ -17,8 +17,10 @@ public class Helloworld implements JWebLitePage {
 	}
 
 	@Override
-	public void doRequest(JWebLiteRequestWrapper req, HttpServletResponse resp) {
+	public boolean doRequest(JWebLiteRequestWrapper req,
+			HttpServletResponse resp) {
 		this.test = req.getParameter("test", "World");
+		return true;
 	}
 
 	public String getTest() {
