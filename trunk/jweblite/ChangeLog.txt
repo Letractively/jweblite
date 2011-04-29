@@ -1,5 +1,9 @@
 ﻿jQuery Multiple Select Box Plugin
 
+Version 0.1.3
+====================
+．Minor changes
+
 Version 0.1.2
 ====================
 ．More utils
