@@ -19,9 +19,7 @@ public class Helloservlet implements JWebLitePage {
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
 			HttpServletResponse resp) {
-		resp.setContentType("text/html");
-		resp.setHeader("Cache-Control", "no-cache");
-		resp.setHeader("Connection", "Keep-Alive");
+		resp.setContentType("text/html; charset=UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		// write
 		BufferedWriter bw = null;
