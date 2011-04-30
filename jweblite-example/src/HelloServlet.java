@@ -5,14 +5,14 @@ import javax.servlet.http.HttpServletResponse;
 import jweblite.web.JWebLitePage;
 import jweblite.web.JWebLiteRequestWrapper;
 
-public class Helloservlet implements JWebLitePage {
+public class HelloServlet implements JWebLitePage {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Default constructor.
 	 */
-	public Helloservlet() {
+	public HelloServlet() {
 		super();
 	}
 
