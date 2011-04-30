@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jweblite-example" default="deploy" basedir=".">
+
+	<!-- ================================= 
+          target: clean              
+         ================================= -->
+	<target name="clean" description="clean">
+		<delete file="${ant.project.name}.war" />
+	</target>
+
+	<!-- ================================= 
+          target: deploy              
+         ================================= -->
+	<target name="deploy" depends="clean" description="deploy">
+		<war destfile="${ant.project.name}.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent" />
+			<classes dir="build/classes" />
+			<lib file="../jweblite/jweblite-*.jar" />
+		</war>
+	</target>
+
+</project>
