@@ -57,15 +57,7 @@ public class JWebLiteFilter implements Filter {
 				(HttpServletRequest) request, this.encoding);
 		HttpServletResponse resp = (HttpServletResponse) response;
 		// parse
-		Class reqClass = null;
-		try {
-			String reqClassName = StringUtils.parseUrlPathToClassName(req
-					.getServletPath());
-			if (reqClassName != null) {
-				reqClass = Class.forName(reqClassName);
-			}
-		} catch (Exception e) {
-		}
+		Class reqClass = this.getClassNameByUrl(req.getServletPath());
 		// init
 		boolean isSkipped = true;
 		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
@@ -82,6 +74,29 @@ public class JWebLiteFilter implements Filter {
 		if (isSkipped) {
 			chain.doFilter(req, resp);
 		}
+	}
+
+	/**
+	 * Get Class Name By Url
+	 * 
+	 * @param url
+	 *            String
+	 * @return Class
+	 */
+	public Class getClassNameByUrl(String url) {
+		if (url == null) {
+			return null;
+		}
+		Class result = null;
+		try {
+			// parse
+			String reqClassName = StringUtils.parseUrlPathToClassName(url);
+			if (reqClassName != null) {
+				result = Class.forName(reqClassName);
+			}
+		} catch (Exception e) {
+		}
+		return result;
 	}
 
 }

@@ -45,20 +45,23 @@ public class StringUtils {
 		}
 		StringBuffer result = new StringBuffer();
 		try {
-			String resultClassUri = url
+			// replace '/' to '.'
+			String resultClassName = url
 					.substring(
 							(url.startsWith("/") ? 1 : 0),
 							(lastUrlCommaIndex >= 0 ? lastUrlCommaIndex : url
 									.length())).replace("/", ".");
-			if (resultClassUri.length() > 0) {
-				int resultClassNameIndex = resultClassUri.lastIndexOf(".") + 1;
-				if (resultClassNameIndex > 0) {
-					result.append(resultClassUri.substring(0,
-							resultClassNameIndex));
+			if (resultClassName.length() > 0) {
+				// package name
+				int resultClassNamePackageIndex = resultClassName
+						.lastIndexOf(".") + 1;
+				if (resultClassNamePackageIndex > 0) {
+					result.append(resultClassName.substring(0,
+							resultClassNamePackageIndex));
 				}
-				// to title case
-				result.append(StringUtils.toTitleCase(resultClassUri
-						.substring(resultClassNameIndex)));
+				// class name : title case
+				result.append(toTitleCase(resultClassName
+						.substring(resultClassNamePackageIndex)));
 			}
 		} catch (Exception e) {
 		}
