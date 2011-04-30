@@ -16,6 +16,10 @@
 			<fileset dir="WebContent" />
 			<classes dir="build/classes" />
 			<lib file="../jweblite/jweblite-*.jar" />
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Title" value="${ant.project.name}" />
+			</manifest>
 		</war>
 	</target>
 
