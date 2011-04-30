@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="jweblite" default="deploy" basedir=".">
 
-	<property name="version" value="0.1.3" />
+	<property name="version" value="0.1.4" />
 
 	<!-- ================================= 
           target: clean              
          ================================= -->
 	<target name="clean" description="clean">
+		<delete dir="apidocs" />
 		<delete file="${ant.project.name}-${version}.jar" />
 	</target>
 
@@ -27,7 +28,9 @@
           target: apidocs              
          ================================= -->
 	<target name="apidocs" depends="compress" description="apidocs">
-		<mkdir dir="apidocs" />
+		<javadoc sourcepath="appClientModule" destdir="apidocs" windowtitle="${ant.project.name}-${version}" author="true" version="true" use="true">
+			<doctitle>${ant.project.name}-${version}</doctitle>
+		</javadoc>
 	</target>
 
 	<!-- ================================= 
@@ -36,7 +39,7 @@
 	<target name="deploy" depends="apidocs" description="deploy">
 		<zip destfile="${ant.project.name}-${version}.zip" update="true">
 			<zipfileset prefix="${ant.project.name}-${version}" dir="${basedir}">
-				<include name="apidocs" />
+				<include name="apidocs/" />
 				<include name="${ant.project.name}-${version}.jar" />
 				<include name="ChangeLog.txt" />
 				<include name="web.xml.sample" />
