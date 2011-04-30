@@ -59,9 +59,9 @@ public class StringUtils {
 					result.append(resultClassName.substring(0,
 							resultClassNamePackageIndex));
 				}
-				// class name : title case
-				result.append(toTitleCase(resultClassName
-						.substring(resultClassNamePackageIndex)));
+				// class name
+				result.append(resultClassName
+						.substring(resultClassNamePackageIndex));
 			}
 		} catch (Exception e) {
 		}
