@@ -3,7 +3,7 @@ import javax.servlet.http.HttpServletResponse;
 import jweblite.web.JWebLitePage;
 import jweblite.web.JWebLiteRequestWrapper;
 
-public class Helloworld implements JWebLitePage {
+public class HelloWorld implements JWebLitePage {
 
 	private static final long serialVersionUID = 1L;
 
@@ -12,7 +12,7 @@ public class Helloworld implements JWebLitePage {
 	/**
 	 * Default constructor.
 	 */
-	public Helloworld() {
+	public HelloWorld() {
 		super();
 	}
 
