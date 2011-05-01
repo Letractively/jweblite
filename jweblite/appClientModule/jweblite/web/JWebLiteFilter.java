@@ -57,7 +57,7 @@ public class JWebLiteFilter implements Filter {
 				(HttpServletRequest) request, this.encoding);
 		HttpServletResponse resp = (HttpServletResponse) response;
 		// parse
-		Class reqClass = this.getClassNameByUrl(req.getServletPath());
+		Class reqClass = this.getReferenceClassByUrl(req.getServletPath());
 		// init
 		boolean isSkipped = true;
 		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
@@ -77,13 +77,13 @@ public class JWebLiteFilter implements Filter {
 	}
 
 	/**
-	 * Get Class Name By Url
+	 * Get Reference Class By Url
 	 * 
 	 * @param url
 	 *            String
 	 * @return Class
 	 */
-	public Class getClassNameByUrl(String url) {
+	public Class getReferenceClassByUrl(String url) {
 		if (url == null) {
 			return null;
 		}
