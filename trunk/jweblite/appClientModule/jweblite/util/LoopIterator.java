@@ -24,6 +24,21 @@ public class LoopIterator<T> {
 	}
 
 	/**
+	 * Previous
+	 * 
+	 * @return T
+	 */
+	public T previous() {
+		if (array == null || arraySize <= 0) {
+			return null;
+		}
+		// increase index
+		index = this.getPreviousIndex();
+		// get element
+		return array[index];
+	}
+
+	/**
 	 * Next
 	 * 
 	 * @return T
@@ -32,13 +47,36 @@ public class LoopIterator<T> {
 		if (array == null || arraySize <= 0) {
 			return null;
 		}
-		// increase index
-		index++;
+		// get next index
+		index = this.getNextIndex();
+		// get element
+		return array[index];
+	}
+
+	/**
+	 * Get Previous Index
+	 * 
+	 * @return int
+	 */
+	public int getPreviousIndex() {
+		int index = this.index - 1;
+		if (index < 0 || index >= arraySize) {
+			index = (arraySize > 0 ? arraySize - 1 : 0);
+		}
+		return index;
+	}
+
+	/**
+	 * Get Next Index
+	 * 
+	 * @return int
+	 */
+	public int getNextIndex() {
+		int index = this.index + 1;
 		if (index < 0 || index >= arraySize) {
 			index = 0;
 		}
-		// get element
-		return array[index];
+		return index;
 	}
 
 	/**
