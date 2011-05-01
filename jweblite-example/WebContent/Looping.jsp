@@ -4,18 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Hello World</title>
+<title>Looping</title>
 </head>
 <body>
 
-	<h3 style="text-decoration: underline;">Hello World</h3>
+	<h3 style="text-decoration: underline;">Looping</h3>
 
-	Hello ${JWL.test}!
 
-	<form action="" method="get">
-		<input type="text" name="test" value="${JWL.test}" /><input
-			type="submit" />
-	</form>
+	<ul>
+		<li>${JWL.nextColor}</li>
+		<li>${JWL.nextColor}</li>
+		<li>${JWL.nextColor}</li>
+		<li>${JWL.nextColor}</li>
+		<li>${JWL.nextColor}</li>
+	</ul>
 
 </body>
 </html>
