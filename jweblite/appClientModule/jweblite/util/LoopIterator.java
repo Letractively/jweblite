@@ -1,12 +1,16 @@
 package jweblite.util;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class LoopIterator<T> {
+public class LoopIterator<T> implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private int index = -1;
 
 	private T[] array = null;
 	private int arraySize = 0;
-	private int index = -1;
 
 	/**
 	 * Default constructor.
@@ -24,33 +28,41 @@ public class LoopIterator<T> {
 	}
 
 	/**
-	 * Previous
+	 * Get Previous
 	 * 
 	 * @return T
 	 */
-	public T previous() {
-		if (array == null || arraySize <= 0) {
+	public T getPrevious() {
+		if (this.array == null || this.arraySize <= 0) {
 			return null;
 		}
-		// increase index
-		index = this.getPreviousIndex();
+		// decrease index
+		if (this.index < 0 || this.index >= this.arraySize) {
+			this.index = this.arraySize - 1;
+		} else {
+			this.index = this.getPreviousIndex();
+		}
 		// get element
-		return array[index];
+		return this.array[this.index];
 	}
 
 	/**
-	 * Next
+	 * Get Next
 	 * 
 	 * @return T
 	 */
-	public T next() {
-		if (array == null || arraySize <= 0) {
+	public T getNext() {
+		if (this.array == null || this.arraySize <= 0) {
 			return null;
 		}
-		// get next index
-		index = this.getNextIndex();
+		// increase index
+		if (this.index < 0 || this.index >= this.arraySize) {
+			this.index = 0;
+		} else {
+			this.index = this.getNextIndex();
+		}
 		// get element
-		return array[index];
+		return this.array[this.index];
 	}
 
 	/**
@@ -60,8 +72,8 @@ public class LoopIterator<T> {
 	 */
 	public int getPreviousIndex() {
 		int index = this.index - 1;
-		if (index < 0 || index >= arraySize) {
-			index = (arraySize > 0 ? arraySize - 1 : 0);
+		if (index < 0 || index >= this.arraySize) {
+			index = (this.arraySize > 0 ? this.arraySize - 1 : 0);
 		}
 		return index;
 	}
@@ -73,7 +85,7 @@ public class LoopIterator<T> {
 	 */
 	public int getNextIndex() {
 		int index = this.index + 1;
-		if (index < 0 || index >= arraySize) {
+		if (index < 0 || index >= this.arraySize) {
 			index = 0;
 		}
 		return index;
@@ -84,35 +96,6 @@ public class LoopIterator<T> {
 	 */
 	public void reset() {
 		this.index = -1;
-	}
-
-	/**
-	 * Size
-	 * 
-	 * @return int
-	 */
-	public int size() {
-		return arraySize;
-	}
-
-	/**
-	 * Get Array
-	 * 
-	 * @return T[]
-	 */
-	public T[] getArray() {
-		return array;
-	}
-
-	/**
-	 * Set Array
-	 * 
-	 * @param array
-	 *            T[]
-	 */
-	public void setArray(T[] array) {
-		this.array = array;
-		this.arraySize = (array != null ? array.length : 0);
 	}
 
 	/**
@@ -132,6 +115,35 @@ public class LoopIterator<T> {
 	 */
 	public void setIndex(int index) {
 		this.index = index;
+	}
+
+	/**
+	 * Get Array
+	 * 
+	 * @return T[]
+	 */
+	public T[] getArray() {
+		return array;
+	}
+
+	/**
+	 * Get Array Size
+	 * 
+	 * @return int
+	 */
+	public int getArraySize() {
+		return arraySize;
+	}
+
+	/**
+	 * Set Array
+	 * 
+	 * @param array
+	 *            T[]
+	 */
+	public void setArray(T[] array) {
+		this.array = array;
+		this.arraySize = (array != null ? array.length : 0);
 	}
 
 }
