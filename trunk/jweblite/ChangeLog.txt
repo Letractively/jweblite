@@ -1,4 +1,4 @@
-﻿jQuery Multiple Select Box Plugin
+﻿JWebLite
 
 Version 0.1.6
 ====================
