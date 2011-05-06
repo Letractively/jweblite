@@ -1,4 +1,4 @@
-package jweblite.util;
+package jweblite.data;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,22 +7,26 @@ public abstract class DataProvider<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int perpage = 20;
-	private int index = 0;
+	private int perPage = 20;
+	private int currentIndex = 0;
 	private int viewCountPrefix = 4;
 	private int viewCountSuffix = 5;
 
-	private List<T> list = null;
+	private List<T> viewList = null;
 	private int totalSize = 0;
 	private int totalPageCount = 1;
 
 	/**
 	 * Default constructor.
 	 */
-	public DataProvider(int perpage, int index) {
+	public DataProvider(int perPage, int currentIndex) {
 		super();
-		this.index = index;
-		this.perpage = perpage;
+		if (currentIndex >= 0) {
+			this.currentIndex = currentIndex;
+		}
+		if (perPage > 0) {
+			this.perPage = perPage;
+		}
 		// init
 		this.initialize();
 	}
@@ -30,9 +34,9 @@ public abstract class DataProvider<T> implements Serializable {
 	/**
 	 * Default constructor.
 	 */
-	public DataProvider(int perpage, int index, int viewCountPrefix,
+	public DataProvider(int perPage, int currentIndex, int viewCountPrefix,
 			int viewCountSuffix) {
-		this(perpage, index);
+		this(perPage, currentIndex);
 		this.viewCountPrefix = viewCountPrefix;
 		this.viewCountSuffix = viewCountSuffix;
 		// init
@@ -42,73 +46,80 @@ public abstract class DataProvider<T> implements Serializable {
 	/**
 	 * Initialize
 	 */
-	private void initialize() {
-		this.list = this.loadList(this.index * this.perpage, this.perpage);
-		this.totalSize = this.loadSize();
-		this.totalPageCount = this.totalSize / this.perpage + 1;
+	protected void initialize() {
+		this.viewList = this.loadViewList(this.currentIndex * this.perPage,
+				this.perPage);
+		this.totalSize = this.loadTotalSize();
+		this.totalPageCount = this.totalSize / this.perPage + 1;
 	}
 
 	/**
-	 * Load List
+	 * Load View List
 	 * 
 	 * @param first
 	 *            int
 	 * @param count
 	 *            int
 	 */
-	public abstract List<T> loadList(int first, int count);
+	public abstract List<T> loadViewList(int first, int count);
 
 	/**
-	 * Load Size
+	 * Load Total Size
 	 * 
 	 * @return int
 	 */
-	public abstract int loadSize();
+	public abstract int loadTotalSize();
 
 	/**
-	 * Get Perpage
+	 * Get PerPage
 	 * 
 	 * @return int
 	 */
-	public int getPerpage() {
-		return perpage;
+	public int getPerPage() {
+		return perPage;
 	}
 
 	/**
-	 * Set Perpage
+	 * Set PerPage
 	 * 
-	 * @param perpage
+	 * @param perPage
 	 *            int
 	 */
-	public void setPerpage(int perpage) {
-		this.perpage = perpage;
-		// recalculate
-		this.list = this.loadList(this.index * perpage + 1, this.perpage);
-		this.totalPageCount = this.totalSize / this.perpage + 1;
-	}
-
-	/**
-	 * Get Index
-	 * 
-	 * @return int
-	 */
-	public int getIndex() {
-		return index;
-	}
-
-	/**
-	 * Set Index
-	 * 
-	 * @param index
-	 *            int
-	 */
-	public void setIndex(int index) {
-		if (this.index < 0 || this.index >= this.totalPageCount) {
+	public void setPerPage(int perPage) {
+		if (perPage <= 0) {
 			return;
 		}
-		this.index = index;
+		this.perPage = perPage;
 		// recalculate
-		this.list = this.loadList(this.index * this.perpage + 1, this.perpage);
+		this.currentIndex = 0;
+		this.viewList = this.loadViewList(this.currentIndex * perPage + 1,
+				perPage);
+		this.totalPageCount = this.totalSize / perPage + 1;
+	}
+
+	/**
+	 * Get View Index
+	 * 
+	 * @return int
+	 */
+	public int getCurrentIndex() {
+		return currentIndex;
+	}
+
+	/**
+	 * Set View Index
+	 * 
+	 * @param currentIndex
+	 *            int
+	 */
+	public void setCurrentIndex(int currentIndex) {
+		if (currentIndex < 0 || currentIndex >= this.totalPageCount) {
+			return;
+		}
+		this.currentIndex = currentIndex;
+		// recalculate
+		this.viewList = this.loadViewList(currentIndex * this.perPage + 1,
+				this.perPage);
 	}
 
 	/**
@@ -117,7 +128,7 @@ public abstract class DataProvider<T> implements Serializable {
 	 * @return int
 	 */
 	public boolean isHasPrevious() {
-		return this.index > 0;
+		return this.currentIndex > 0;
 	}
 
 	/**
@@ -126,7 +137,7 @@ public abstract class DataProvider<T> implements Serializable {
 	 * @return int
 	 */
 	public boolean isHasNext() {
-		return this.index < this.totalPageCount - 1;
+		return this.currentIndex < this.totalPageCount - 1;
 	}
 
 	/**
@@ -173,7 +184,7 @@ public abstract class DataProvider<T> implements Serializable {
 	 * @return int
 	 */
 	public int getMinimumViewIndex() {
-		int minIndex = this.index - this.viewCountPrefix;
+		int minIndex = this.currentIndex - this.viewCountPrefix;
 		if (minIndex < 0) {
 			minIndex = 0;
 		}
@@ -186,7 +197,7 @@ public abstract class DataProvider<T> implements Serializable {
 	 * @return int
 	 */
 	public int getMaximumViewIndex() {
-		int maxIndex = this.index + this.viewCountSuffix;
+		int maxIndex = this.currentIndex + this.viewCountSuffix;
 		if (maxIndex >= this.totalPageCount) {
 			maxIndex = this.totalPageCount - 1;
 		}
@@ -194,20 +205,20 @@ public abstract class DataProvider<T> implements Serializable {
 	}
 
 	/**
-	 * Get List
+	 * Get View List
 	 * 
 	 * @return List<T>
 	 */
-	public List<T> getList() {
-		return list;
+	public List<T> getViewList() {
+		return viewList;
 	}
 
 	/**
-	 * Get Size
+	 * Get Total Size
 	 * 
 	 * @return int
 	 */
-	public int getSize() {
+	public int getTotalSize() {
 		return totalSize;
 	}
 
