@@ -16,34 +16,36 @@ public class CollectionDataProvider<T> extends DataProvider<T> {
 	/**
 	 * Default constructor.
 	 */
-	public CollectionDataProvider(T[] array, int perPage, int currentIndex) {
-		super(perPage, currentIndex);
+	public CollectionDataProvider(T[] array, int perPage) {
+		super(perPage);
 		this.setAllArray(array);
+		this.setCurrentIndex(0);
 	}
 
 	/**
 	 * Default constructor.
 	 */
-	public CollectionDataProvider(Collection<T> c, int perPage, int currentIndex) {
-		this(CollectionUtils.toArray(c), perPage, currentIndex);
+	public CollectionDataProvider(Collection<T> c, int perPage) {
+		this(CollectionUtils.toArray(c), perPage);
 	}
 
 	/**
 	 * Default constructor.
 	 */
-	public CollectionDataProvider(T[] array, int perPage, int currentIndex,
-			int viewCountPrefix, int viewCountSuffix) {
-		super(perPage, currentIndex, viewCountPrefix, viewCountSuffix);
+	public CollectionDataProvider(T[] array, int perPage, int viewCountPrefix,
+			int viewCountSuffix) {
+		super(perPage, viewCountPrefix, viewCountSuffix);
 		this.setAllArray(array);
+		this.setCurrentIndex(0);
 	}
 
 	/**
 	 * Default constructor.
 	 */
 	public CollectionDataProvider(Collection<T> c, int perPage,
-			int currentIndex, int viewCountPrefix, int viewCountSuffix) {
-		this(CollectionUtils.toArray(c), perPage, currentIndex,
-				viewCountPrefix, viewCountSuffix);
+			int viewCountPrefix, int viewCountSuffix) {
+		this(CollectionUtils.toArray(c), perPage, viewCountPrefix,
+				viewCountSuffix);
 	}
 
 	@Override
