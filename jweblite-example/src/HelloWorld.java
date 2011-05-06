@@ -20,15 +20,11 @@ public class HelloWorld implements JWebLitePage {
 	public boolean doRequest(JWebLiteRequestWrapper req,
 			HttpServletResponse resp) {
 		this.test = req.getParameter("test", "World");
-		return true;
+		return false;
 	}
 
 	public String getTest() {
 		return test;
-	}
-
-	public void setTest(String test) {
-		this.test = test;
 	}
 
 }

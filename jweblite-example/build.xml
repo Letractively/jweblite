@@ -15,7 +15,10 @@
 		<war destfile="${ant.project.name}.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="WebContent" />
 			<classes dir="build/classes" />
+
+			<lib file="../../ex_lib/Jstl-1.2/*.jar" />
 			<lib file="../jweblite/jweblite-*.jar" />
+
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
 				<attribute name="Implementation-Title" value="${ant.project.name}" />

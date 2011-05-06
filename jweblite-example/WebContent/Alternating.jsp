@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="style/stylesheet.css" rel="stylesheet" type="text/css" />
-<title>Hello World</title>
+<title>Looping</title>
 </head>
 <body>
 
@@ -13,15 +13,16 @@
 		<a href="index.html">JWebLite Example</a>
 	</h3>
 	<fieldset>
-		<legend>Hello World</legend>
+		<legend>Alternating</legend>
 		<div>
 
-			Hello ${JWL.test}!
-
-			<form action="" method="get">
-				<input type="text" name="test" value="${JWL.test}" /><input
-					type="submit" />
-			</form>
+			<ul>
+				<li style="color: ${JWL.colorIterator.next};">${JWL.colorIterator.next}</li>
+				<li style="color: ${JWL.colorIterator.next};">${JWL.colorIterator.next}</li>
+				<li style="color: ${JWL.colorIterator.next};">${JWL.colorIterator.next}</li>
+				<li style="color: ${JWL.colorIterator.next};">${JWL.colorIterator.next}</li>
+				<li style="color: ${JWL.colorIterator.next};">${JWL.colorIterator.next}</li>
+			</ul>
 
 		</div>
 	</fieldset>

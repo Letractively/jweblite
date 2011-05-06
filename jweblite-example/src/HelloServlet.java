@@ -37,7 +37,7 @@ public class HelloServlet implements JWebLitePage {
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 
 }

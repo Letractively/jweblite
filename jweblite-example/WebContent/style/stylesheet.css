@@ -1,0 +1,44 @@
+body,form,p,hr {
+	font-family: Tahoma, Georgia;
+	padding: 0px;
+	margin: 0px;
+	font-size: 12px;
+}
+
+body {
+	margin: 20px 30px 500px 30px;
+}
+
+a:link,a:visited,a:hover,a:active {
+	color: #0000FF;
+	text-decoration: none;
+}
+
+img {
+	border: 0px;
+}
+
+ul {
+	padding: 0px;
+	margin: 0px;
+	list-style-position: inside;
+}
+
+fieldset {
+	padding: 0 15px 15px 15px;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+legend {
+	padding: 10px 5px;
+}
+
+legend a {
+	color: blue;
+	text-decoration: underline;
+	font-style: italic;
+	font-weight: bold;
+}
