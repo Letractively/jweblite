@@ -92,7 +92,7 @@ public abstract class DataProvider<T> implements Serializable {
 	}
 
 	/**
-	 * Get View Index
+	 * Get Current Index
 	 * 
 	 * @return int
 	 */
@@ -101,7 +101,7 @@ public abstract class DataProvider<T> implements Serializable {
 	}
 
 	/**
-	 * Set View Index
+	 * Set Current Index
 	 * 
 	 * @param currentIndex
 	 *            int
@@ -119,7 +119,7 @@ public abstract class DataProvider<T> implements Serializable {
 	/**
 	 * Is Has Previous
 	 * 
-	 * @return int
+	 * @return boolean
 	 */
 	public boolean isHasPrevious() {
 		return this.currentIndex > 0;
@@ -128,7 +128,7 @@ public abstract class DataProvider<T> implements Serializable {
 	/**
 	 * Is Has Next
 	 * 
-	 * @return int
+	 * @return boolean
 	 */
 	public boolean isHasNext() {
 		return this.currentIndex < this.totalPageCount - 1;
