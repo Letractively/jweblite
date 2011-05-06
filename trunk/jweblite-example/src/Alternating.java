@@ -4,7 +4,7 @@ import jweblite.util.LoopIterator;
 import jweblite.web.JWebLitePage;
 import jweblite.web.JWebLiteRequestWrapper;
 
-public class Looping implements JWebLitePage {
+public class Alternating implements JWebLitePage {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,18 +14,18 @@ public class Looping implements JWebLitePage {
 	/**
 	 * Default constructor.
 	 */
-	public Looping() {
+	public Alternating() {
 		super();
 	}
 
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
 			HttpServletResponse resp) {
-		return true;
+		return false;
 	}
 
-	public String getNextColor() {
-		return colorIterator.next();
+	public LoopIterator<String> getColorIterator() {
+		return colorIterator;
 	}
 
 }
