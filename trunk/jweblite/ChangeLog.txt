@@ -1,5 +1,11 @@
 ﻿jQuery Multiple Select Box Plugin
 
+Version 0.1.6
+====================
+．Add DataProvider
+．Add CollectionDataProvider
+．Minor bug fixes
+
 Version 0.1.5
 ====================
 ．Add LoopIterator
