@@ -1,6 +1,7 @@
 package jweblite.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DataProvider<T> implements Serializable {
@@ -19,11 +20,8 @@ public abstract class DataProvider<T> implements Serializable {
 	/**
 	 * Default constructor.
 	 */
-	public DataProvider(int perPage, int currentIndex) {
+	public DataProvider(int perPage) {
 		super();
-		if (currentIndex >= 0) {
-			this.currentIndex = currentIndex;
-		}
 		if (perPage > 0) {
 			this.perPage = perPage;
 		}
@@ -34,9 +32,8 @@ public abstract class DataProvider<T> implements Serializable {
 	/**
 	 * Default constructor.
 	 */
-	public DataProvider(int perPage, int currentIndex, int viewCountPrefix,
-			int viewCountSuffix) {
-		this(perPage, currentIndex);
+	public DataProvider(int perPage, int viewCountPrefix, int viewCountSuffix) {
+		this(perPage);
 		this.viewCountPrefix = viewCountPrefix;
 		this.viewCountSuffix = viewCountSuffix;
 		// init
@@ -47,8 +44,6 @@ public abstract class DataProvider<T> implements Serializable {
 	 * Initialize
 	 */
 	protected void initialize() {
-		this.viewList = this.loadViewList(this.currentIndex * this.perPage,
-				this.perPage);
 		this.totalSize = this.loadTotalSize();
 		this.totalPageCount = this.totalSize / this.perPage + 1;
 	}
@@ -92,8 +87,7 @@ public abstract class DataProvider<T> implements Serializable {
 		this.perPage = perPage;
 		// recalculate
 		this.currentIndex = 0;
-		this.viewList = this.loadViewList(this.currentIndex * perPage + 1,
-				perPage);
+		this.viewList = this.loadViewList(this.currentIndex * perPage, perPage);
 		this.totalPageCount = this.totalSize / perPage + 1;
 	}
 
@@ -118,7 +112,7 @@ public abstract class DataProvider<T> implements Serializable {
 		}
 		this.currentIndex = currentIndex;
 		// recalculate
-		this.viewList = this.loadViewList(currentIndex * this.perPage + 1,
+		this.viewList = this.loadViewList(currentIndex * this.perPage,
 				this.perPage);
 	}
 
@@ -202,6 +196,20 @@ public abstract class DataProvider<T> implements Serializable {
 			maxIndex = this.totalPageCount - 1;
 		}
 		return maxIndex;
+	}
+
+	/**
+	 * Get View Index List
+	 * 
+	 * @return List<Integer>
+	 */
+	public List<Integer> getViewIndexList() {
+		List<Integer> viewIndexList = new ArrayList();
+		for (int i = this.getMinimumViewIndex(); i <= this
+				.getMaximumViewIndex(); i++) {
+			viewIndexList.add(i);
+		}
+		return viewIndexList;
 	}
 
 	/**
