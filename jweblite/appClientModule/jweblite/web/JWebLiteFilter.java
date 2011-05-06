@@ -59,19 +59,19 @@ public class JWebLiteFilter implements Filter {
 		// parse
 		Class reqClass = this.getReferenceClassByUrl(req.getServletPath());
 		// init
-		boolean isSkipped = true;
+		boolean isIgnoreViewer = false;
 		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
 			try {
 				JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 						.newInstance();
-				isSkipped = reqClassInstance.doRequest(req, resp);
+				isIgnoreViewer = reqClassInstance.doRequest(req, resp);
 				req.setAttribute(this.attrPrefix, reqClassInstance);
 			} catch (Exception e) {
 				throw new ServletException(e);
 			}
 		}
 		// pass the request along the filter chain
-		if (isSkipped) {
+		if (!isIgnoreViewer) {
 			chain.doFilter(req, resp);
 		}
 	}
