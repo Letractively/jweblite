@@ -1,5 +1,6 @@
 package jweblite.util;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 
 public class CollectionUtils {
@@ -15,7 +16,16 @@ public class CollectionUtils {
 		if (c == null) {
 			return null;
 		}
-		T[] array = (T[]) new Object[c.size()];
+		int cSize = c.size();
+		if (cSize == 0) {
+			return (T[]) new Object[cSize];
+		}
+		Class<?> clazz = null;
+		for (T child : c) {
+			clazz = child.getClass();
+			break;
+		}
+		T[] array = (T[]) Array.newInstance(clazz, cSize);
 		int index = 0;
 		for (T child : c) {
 			array[index] = child;
