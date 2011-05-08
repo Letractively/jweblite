@@ -86,6 +86,16 @@ public class CollectionDataProvider<T> extends DataProvider<T> {
 	}
 
 	/**
+	 * Set All Array
+	 * 
+	 * @param c
+	 *            Collection<T>
+	 */
+	public void setAllArray(Collection<T> c) {
+		this.setAllArray(CollectionUtils.toArray(c));
+	}
+
+	/**
 	 * Get All Array Size
 	 * 
 	 * @return int
