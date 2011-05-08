@@ -19,7 +19,6 @@ public class CollectionDataProvider<T> extends DataProvider<T> {
 	public CollectionDataProvider(T[] array, int perPage) {
 		super(perPage);
 		this.setAllArray(array);
-		this.setCurrentIndex(0);
 	}
 
 	/**
@@ -36,7 +35,6 @@ public class CollectionDataProvider<T> extends DataProvider<T> {
 			int viewCountSuffix) {
 		super(perPage, viewCountPrefix, viewCountSuffix);
 		this.setAllArray(array);
-		this.setCurrentIndex(0);
 	}
 
 	/**
@@ -51,7 +49,7 @@ public class CollectionDataProvider<T> extends DataProvider<T> {
 	@Override
 	public List<T> loadViewList(int first, int count) {
 		if (this.allArray == null) {
-			return new ArrayList<T>();
+			return null;
 		}
 		List<T> list = new ArrayList<T>();
 		for (int i = first; i < first + count && i < this.allArraySize; i++) {
@@ -84,6 +82,7 @@ public class CollectionDataProvider<T> extends DataProvider<T> {
 		this.allArray = allArray;
 		this.allArraySize = (this.allArray != null ? allArray.length : 0);
 		this.initialize();
+		this.setCurrentIndex(0);
 	}
 
 	/**
