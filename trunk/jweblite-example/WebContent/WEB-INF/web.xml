@@ -15,7 +15,7 @@
 		<filter-class>jweblite.web.JWebLiteFilter</filter-class>
 		<init-param>
 			<param-name>AttrPrefix</param-name>
-			<param-value>JWL</param-value>
+			<param-value>Jwl</param-value>
 		</init-param>
 		<init-param>
 			<param-name>Encoding</param-name>
