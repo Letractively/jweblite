@@ -1,5 +1,9 @@
 ﻿JWebLite
 
+Version 0.1.7
+====================
+．Minor changes
+
 Version 0.1.6
 ====================
 ．Add DataProvider

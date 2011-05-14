@@ -18,7 +18,7 @@ import jweblite.util.StringUtils;
  */
 public class JWebLiteFilter implements Filter {
 
-	private String attrPrefix = "JWL";
+	private String attrPrefix = "Jwl";
 	private String encoding = "UTF-8";
 
 	/**
@@ -66,7 +66,8 @@ public class JWebLiteFilter implements Filter {
 						.newInstance();
 				isIgnoreViewer = reqClassInstance.doRequest(req, resp);
 				req.setAttribute(this.attrPrefix, reqClassInstance);
-			} catch (Exception e) {
+				req.setAttribute(this.attrPrefix + "Req", req);
+			} catch (Throwable e) {
 				throw new ServletException(e);
 			}
 		}
