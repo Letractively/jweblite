@@ -17,28 +17,29 @@
 		<legend>Paging Navigation</legend>
 		<div>
 
+			<c:set var="dataProvider" value="${Jwl.dataProvider}" />
 			<table border="1" cellpadding="5" cellspacing="1">
-				<c:forEach var="userName" items="${JWL.dataProvider.viewList}">
+				<c:forEach var="viewItem" items="${dataProvider.viewList}">
 					<tr>
-						<td>${userName}</td>
+						<td>${viewItem}</td>
 					</tr>
 				</c:forEach>
 			</table>
 			<br />
 			<!-- Paging Navigation -->
-			<c:if test="${JWL.dataProvider.hasPrevious}">
-				<a href="?page=${JWL.dataProvider.currentIndex - 1}">&#60;&#60;</a>
+			<c:if test="${dataProvider.hasPrevious}">
+				<a href="?page=${dataProvider.currentIndex - 1}">&#60;&#60;</a>
 			</c:if>
-			<c:forEach var="pageIndex" items="${JWL.dataProvider.viewIndexList}">
+			<c:forEach var="pageIndex" items="${dataProvider.viewIndexList}">
 				<c:choose>
-					<c:when test="${pageIndex != JWL.dataProvider.currentIndex}">
+					<c:when test="${pageIndex != dataProvider.currentIndex}">
 						<a href="?page=${pageIndex}">${pageIndex + 1}</a>
 					</c:when>
 					<c:otherwise>${pageIndex + 1}</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			<c:if test="${JWL.dataProvider.hasNext}">
-				<a href="?page=${JWL.dataProvider.currentIndex + 1}">&#62;&#62;</a>
+			<c:if test="${dataProvider.hasNext}">
+				<a href="?page=${dataProvider.currentIndex + 1}">&#62;&#62;</a>
 			</c:if>
 
 		</div>

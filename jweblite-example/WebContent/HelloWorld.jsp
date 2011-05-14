@@ -16,10 +16,10 @@
 		<legend>Hello World</legend>
 		<div>
 
-			Hello ${JWL.test}!
+			Hello ${Jwl.test}!
 
 			<form action="" method="get">
-				<input type="text" name="test" value="${JWL.test}" /><input
+				<input type="text" name="test" value="${Jwl.test}" /><input
 					type="submit" />
 			</form>
 
