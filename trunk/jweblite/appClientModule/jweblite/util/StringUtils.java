@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import jweblite.util.callback.EachCallback;
+
 public class StringUtils {
 
 	/**
@@ -91,21 +93,44 @@ public class StringUtils {
 	 *            Collection
 	 * @param separator
 	 *            String
+	 * @param callback
+	 *            EachCallback
 	 * @return String
 	 */
-	public static String join(Collection c, String separator) {
+	public static <T> String join(Collection<T> c, String separator,
+			EachCallback<T> callback) {
 		if (c == null) {
 			return "";
 		}
 		StringBuffer sb = new StringBuffer();
-		Iterator it = c.iterator();
+		Iterator<T> it = c.iterator();
+		int index = 0;
 		while (it.hasNext()) {
-			sb.append(it.next());
+			T t = it.next();
+			if (callback == null) {
+				sb.append(t);
+			} else {
+				sb.append(callback.callback(t, index));
+			}
 			if (it.hasNext()) {
 				sb.append(separator);
 			}
+			index++;
 		}
 		return sb.toString();
+	}
+
+	/**
+	 * Join
+	 * 
+	 * @param c
+	 *            Collection
+	 * @param separator
+	 *            String
+	 * @return String
+	 */
+	public static <T> String join(Collection<T> c, String separator) {
+		return join(c, separator, null);
 	}
 
 }
