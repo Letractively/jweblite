@@ -7,7 +7,12 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
+
+	private Log log = LogFactory.getLog(this.getClass());
 
 	private String encoding = null;
 	private boolean isGetMethod = true;

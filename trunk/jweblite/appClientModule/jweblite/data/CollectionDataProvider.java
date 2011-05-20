@@ -6,9 +6,13 @@ import java.util.List;
 
 import jweblite.util.CollectionUtils;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class CollectionDataProvider<T> extends DataProvider<T> {
 
 	private static final long serialVersionUID = 1L;
+	private Log log = LogFactory.getLog(this.getClass());
 
 	private T[] allArray = null;
 	private int allArraySize = 0;

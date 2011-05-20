@@ -7,8 +7,9 @@
           target: clean              
          ================================= -->
 	<target name="clean" description="clean">
-		<delete dir="apidocs" />
 		<delete file="${ant.project.name}-${version}.jar" />
+		<delete dir="dependencies" />
+		<delete dir="apidocs" />
 	</target>
 
 	<!-- ================================= 
@@ -25,9 +26,21 @@
 	</target>
 
 	<!-- ================================= 
+          target: dependencies              
+         ================================= -->
+	<target name="dependencies" depends="compress" description="dependencies">
+		<copy todir="dependencies" overwrite="true" flatten="true">
+			<fileset dir="../../ex_lib">
+				<include name="Jstl-1.2/*.jar" />
+				<include name="commons-logging-1.1.1.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- ================================= 
           target: apidocs              
          ================================= -->
-	<target name="apidocs" depends="compress" description="apidocs">
+	<target name="apidocs" depends="dependencies" description="apidocs">
 		<javadoc sourcepath="appClientModule" destdir="apidocs" windowtitle="${ant.project.name}-${version}" author="true" version="true" use="true">
 			<doctitle>${ant.project.name}-${version}</doctitle>
 		</javadoc>
@@ -37,9 +50,10 @@
           target: deploy              
          ================================= -->
 	<target name="deploy" depends="apidocs" description="deploy">
-		<zip destfile="${ant.project.name}-${version}.zip" update="true">
+		<zip destfile="${ant.project.name}-${version}.zip">
 			<zipfileset prefix="${ant.project.name}-${version}" dir="${basedir}">
 				<include name="apidocs/" />
+				<include name="dependencies/" />
 				<include name="${ant.project.name}-${version}.jar" />
 				<include name="ChangeLog.txt" />
 				<include name="web.xml.sample" />

@@ -8,7 +8,12 @@ import java.util.List;
 
 import jweblite.util.callback.EachCallback;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class StringUtils {
+
+	private Log log = LogFactory.getLog(this.getClass());
 
 	/**
 	 * To Title Case
