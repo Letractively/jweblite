@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="jweblite-example" default="deploy" basedir=".">
 
+	<property name="libPath" location="../jweblite/dependencies" />
+
 	<!-- ================================= 
           target: clean              
          ================================= -->
@@ -15,7 +17,7 @@
 		<war destfile="${ant.project.name}.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="WebContent" />
 			<classes dir="build/classes" />
-			<lib dir="../jweblite/dependencies" />
+			<lib dir="${libPath}" />
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
 				<attribute name="Implementation-Title" value="${ant.project.name}" />
