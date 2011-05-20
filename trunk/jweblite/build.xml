@@ -2,6 +2,7 @@
 <project name="jweblite" default="deploy" basedir=".">
 
 	<property name="version" value="0.1.6" />
+	<property name="libPath" location="../../ex_lib" />
 
 	<!-- ================================= 
           target: clean              
@@ -31,7 +32,7 @@
          ================================= -->
 	<target name="dependencies" depends="compress" description="dependencies">
 		<copy todir="dependencies" overwrite="true" flatten="true">
-			<fileset dir="../../ex_lib">
+			<fileset dir="${libPath}">
 				<include name="Jstl-1.2/*.jar" />
 				<include name="commons-logging-1.1.1.jar" />
 			</fileset>
