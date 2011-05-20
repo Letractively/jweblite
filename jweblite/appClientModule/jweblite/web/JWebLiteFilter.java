@@ -56,9 +56,9 @@ public class JWebLiteFilter implements Filter {
 			}
 		}
 		if (this.log.isInfoEnabled()) {
-			this.log.info(String.format(
-					"[ AttrPrefix: %s, Encoding: %s, UrlPathPadding: %s ]",
-					attrPrefix, encoding, urlPathPadding));
+			this.log.info(String
+					.format("ServerInfo [ AttrPrefix: %s, Encoding: %s, UrlPathPadding: %s ]",
+							attrPrefix, encoding, urlPathPadding));
 		}
 	}
 
@@ -80,11 +80,11 @@ public class JWebLiteFilter implements Filter {
 		Class reqClass = this.getReferenceClassByUrl(req.getServletPath(),
 				this.urlPathPadding);
 		if (this.log.isInfoEnabled()) {
-			this.log.info(String.format(
-					"[ ClientIP: %s, ReqUrl: %s, ReqParam: %s, ReqClass: %s ]",
-					req.getRemoteAddr(), req.getRequestURI(),
-					req.getQueryString(),
-					(reqClass != null ? reqClass.getName() : null)));
+			this.log.info(String
+					.format("RequestInfo [ ClientIP: %s, ReqUrl: %s, ReqParam: %s, ReqClass: %s ]",
+							req.getRemoteAddr(), req.getRequestURI(),
+							req.getQueryString(),
+							(reqClass != null ? reqClass.getName() : null)));
 		}
 		// init
 		boolean isIgnoreViewer = false;
