@@ -20,6 +20,7 @@ public class JWebLiteFilter implements Filter {
 
 	private String attrPrefix = "Jwl";
 	private String encoding = "UTF-8";
+	private int urlPathPadding = 0;
 
 	/**
 	 * Default constructor.
@@ -34,11 +35,20 @@ public class JWebLiteFilter implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 		String attrPrefix = fConfig.getInitParameter("AttrPrefix");
 		String encoding = fConfig.getInitParameter("Encoding");
+		String urlPathPadding = fConfig.getInitParameter("UrlPathPadding");
 		if (attrPrefix != null && attrPrefix.length() > 0) {
 			this.attrPrefix = attrPrefix;
 		}
 		if (encoding != null && encoding.length() > 0) {
 			this.encoding = encoding;
+		}
+		if (urlPathPadding != null && urlPathPadding.length() > 0) {
+			try {
+				if ((this.urlPathPadding = Integer.parseInt(urlPathPadding)) < 0) {
+					this.urlPathPadding = 0;
+				}
+			} catch (Exception e) {
+			}
 		}
 	}
 
@@ -57,7 +67,8 @@ public class JWebLiteFilter implements Filter {
 				(HttpServletRequest) request, this.encoding);
 		HttpServletResponse resp = (HttpServletResponse) response;
 		// parse
-		Class reqClass = this.getReferenceClassByUrl(req.getServletPath());
+		Class reqClass = this.getReferenceClassByUrl(req.getServletPath(),
+				this.urlPathPadding);
 		// init
 		boolean isIgnoreViewer = false;
 		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
@@ -84,14 +95,15 @@ public class JWebLiteFilter implements Filter {
 	 *            String
 	 * @return Class
 	 */
-	public Class getReferenceClassByUrl(String url) {
+	public Class getReferenceClassByUrl(String url, int urlPathPadding) {
 		if (url == null) {
 			return null;
 		}
 		Class result = null;
 		try {
 			// parse
-			String reqClassName = StringUtils.parseUrlPathToClassName(url);
+			String reqClassName = StringUtils.parseUrlPathToClassName(url,
+					urlPathPadding);
 			if (reqClassName != null) {
 				result = Class.forName(reqClassName);
 			}
