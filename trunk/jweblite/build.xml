@@ -8,6 +8,7 @@
          ================================= -->
 	<target name="clean" description="clean">
 		<delete file="${ant.project.name}-${version}.jar" />
+		<delete file="${ant.project.name}-${version}.zip" />
 		<delete dir="dependencies" />
 		<delete dir="apidocs" />
 	</target>
