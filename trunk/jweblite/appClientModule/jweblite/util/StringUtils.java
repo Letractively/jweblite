@@ -36,23 +36,30 @@ public class StringUtils {
 	 * 
 	 * @param url
 	 *            String
+	 * @param urlPathPadding
+	 *            int
 	 * @return String
 	 */
-	public static String parseUrlPathToClassName(String url) {
+	public static String parseUrlPathToClassName(String url, int urlPathPadding) {
+		// skip invalid pattern
+		if (url == null) {
+			return null;
+		}
+		String currentUrl = url
+				.substring(indexOf(url, "/", urlPathPadding) + 1);
+		int urlLength = -1;
 		int lastUrlCommaIndex = -1;
-		if (url == null
-				|| (lastUrlCommaIndex = url.lastIndexOf(".")) != url
+		if ((urlLength = currentUrl.length()) == 0
+				|| (lastUrlCommaIndex = currentUrl.lastIndexOf(".")) != currentUrl
 						.indexOf(".")) {
 			return null;
 		}
 		StringBuffer result = new StringBuffer();
 		try {
-			// replace '/' to '.'
-			String resultClassName = url
-					.substring(
-							(url.startsWith("/") ? 1 : 0),
-							(lastUrlCommaIndex >= 0 ? lastUrlCommaIndex : url
-									.length())).replace("/", ".");
+			// replace all '/' to '.'
+			String resultClassName = currentUrl.substring(0,
+					(lastUrlCommaIndex >= 0 ? lastUrlCommaIndex : urlLength))
+					.replace("/", ".");
 			if (resultClassName.length() > 0) {
 				// package name
 				int resultClassNamePackageIndex = resultClassName
@@ -131,6 +138,33 @@ public class StringUtils {
 	 */
 	public static <T> String join(Collection<T> c, String separator) {
 		return join(c, separator, null);
+	}
+
+	/**
+	 * Index Of
+	 * 
+	 * @param str
+	 *            String
+	 * @param searchStr
+	 *            String
+	 * @param repeat
+	 *            int
+	 * @return int
+	 */
+	public static int indexOf(String str, String searchStr, int repeat) {
+		if (str == null || searchStr == null || str.length() == 0
+				|| searchStr.length() == 0) {
+			return -1;
+		}
+		int result = -1;
+		int currentRepeat = (repeat > 0 ? repeat : 0);
+		int offset = -1;
+		while (currentRepeat >= 0
+				&& (offset = str.indexOf(searchStr, offset + 1)) != -1) {
+			result = offset;
+			currentRepeat--;
+		}
+		return result;
 	}
 
 }

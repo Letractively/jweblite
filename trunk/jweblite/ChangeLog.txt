@@ -2,6 +2,7 @@
 
 Version 0.1.7
 ====================
+．Add UrlPathPadding
 ．Minor changes
 
 Version 0.1.6
