@@ -13,10 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import jweblite.util.StringUtils;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Servlet Filter implementation class JWebLiteFilter
  */
 public class JWebLiteFilter implements Filter {
+
+	private Log log = LogFactory.getLog(this.getClass());
 
 	private String attrPrefix = "Jwl";
 	private String encoding = "UTF-8";
@@ -50,6 +55,11 @@ public class JWebLiteFilter implements Filter {
 			} catch (Exception e) {
 			}
 		}
+		if (this.log.isInfoEnabled()) {
+			this.log.info(String.format(
+					"[ AttrPrefix: %s, Encoding: %s, UrlPathPadding: %s ]",
+					attrPrefix, encoding, urlPathPadding));
+		}
 	}
 
 	/**
@@ -69,6 +79,13 @@ public class JWebLiteFilter implements Filter {
 		// parse
 		Class reqClass = this.getReferenceClassByUrl(req.getServletPath(),
 				this.urlPathPadding);
+		if (this.log.isInfoEnabled()) {
+			this.log.info(String.format(
+					"[ ClientIP: %s, ReqUrl: %s, ReqParam: %s, ReqClass: %s ]",
+					req.getRemoteAddr(), req.getRequestURI(),
+					req.getQueryString(),
+					(reqClass != null ? reqClass.getName() : null)));
+		}
 		// init
 		boolean isIgnoreViewer = false;
 		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {

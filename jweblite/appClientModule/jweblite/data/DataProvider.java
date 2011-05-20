@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public abstract class DataProvider<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private Log log = LogFactory.getLog(this.getClass());
 
 	private int perPage = 20;
 	private int currentIndex = 0;

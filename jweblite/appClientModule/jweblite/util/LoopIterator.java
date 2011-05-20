@@ -3,9 +3,13 @@ package jweblite.util;
 import java.io.Serializable;
 import java.util.Collection;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class LoopIterator<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private Log log = LogFactory.getLog(this.getClass());
 
 	private int index = -1;
 
