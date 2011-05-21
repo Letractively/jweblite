@@ -2,6 +2,7 @@
 
 Version 0.1.7
 ====================
+．More EL function support
 ．Add UrlPathPadding
 ．Minor changes
 
