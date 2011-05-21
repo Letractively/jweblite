@@ -119,7 +119,7 @@
 	<function>
 		<name>split</name>
 		<function-class>jweblite.util.el.StringELUtils</function-class>
-		<function-signature><![CDATA[ java.lang.String[] split(java.lang.String, java.lang.String, java.lang.Integer) ]]></function-signature>
+		<function-signature><![CDATA[ java.lang.String[] split(java.lang.String, java.lang.String, int) ]]></function-signature>
 	</function>
 
 	<!-- startsWith -->
@@ -133,7 +133,7 @@
 	<function>
 		<name>substring</name>
 		<function-class>jweblite.util.el.StringELUtils</function-class>
-		<function-signature><![CDATA[ java.lang.String substring(java.lang.String, int, java.lang.Integer) ]]></function-signature>
+		<function-signature><![CDATA[ java.lang.String substring(java.lang.String, int, int) ]]></function-signature>
 	</function>
 
 	<!-- toCharArray -->
