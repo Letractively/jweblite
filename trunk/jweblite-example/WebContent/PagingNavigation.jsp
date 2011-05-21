@@ -10,8 +10,8 @@
 </head>
 <body>
 
-	<h3 style="text-decoration: underline;">
-		<a href="index.html">JWebLite Example</a>
+	<h3>
+		<a href="index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
 		<legend>Paging Navigation</legend>
