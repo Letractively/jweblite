@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="StringUtils"
 	uri="https://code.google.com/p/jweblite/StringUtils"%>
+<%@ taglib prefix="StringELUtils"
+	uri="https://code.google.com/p/jweblite/StringELUtils"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,14 +13,27 @@
 </head>
 <body>
 
-	<h3 style="text-decoration: underline;">
-		<a href="index.html">JWebLite Example</a>
+	<h3>
+		<a href="index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
 		<legend>Hello EL Tag Lib</legend>
 		<div>
 
-			<p>${StringUtils:join(Jwl.numberList, ",")}</p>
+			<div style="font-size: small; font-weight: bold;">String:
+				HelloELTagLib</div>
+			<div style="font-size: small; font-weight: bold;">Array:
+				${Jwl.numberList}</div>
+			<br />
+
+			<ul>
+				<li>String substring:
+					${StringELUtils:substring("HelloELTagLib", 7, -1)}</li>
+				<li>Array join: ${StringUtils:join(Jwl.numberList, ", ")}</li>
+				<li>String concat:
+					${StringELUtils:concat(StringELUtils:substring("HelloELTagLib", 7,
+					-1), StringUtils:join(Jwl.numberList, ", "))}</li>
+			</ul>
 
 		</div>
 	</fieldset>
