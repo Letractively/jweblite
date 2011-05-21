@@ -286,14 +286,14 @@ public class StringELUtils {
 	 * @param regex
 	 *            String
 	 * @param limit
-	 *            Integer
+	 *            int
 	 * @return String[]
 	 */
-	public static String[] split(String str, String regex, Integer limit) {
+	public static String[] split(String str, String regex, int limit) {
 		if (str == null) {
 			return null;
 		}
-		if (limit == null) {
+		if (limit < 0) {
 			return str.split(regex);
 		}
 		return str.split(regex, limit);
@@ -323,14 +323,14 @@ public class StringELUtils {
 	 * @param beginIndex
 	 *            int
 	 * @param endIndex
-	 *            Integer
+	 *            int
 	 * @return String
 	 */
-	public static String substring(String str, int beginIndex, Integer endIndex) {
+	public static String substring(String str, int beginIndex, int endIndex) {
 		if (str == null) {
 			return null;
 		}
-		if (endIndex == null) {
+		if (endIndex < 0) {
 			return str.substring(beginIndex);
 		}
 		return str.substring(beginIndex, endIndex);
