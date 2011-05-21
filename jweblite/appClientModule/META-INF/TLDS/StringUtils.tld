@@ -6,6 +6,10 @@
 	<short-name>StringUtils</short-name>
 	<uri>https://code.google.com/p/jweblite/StringUtils</uri>
 
+	<!-- ============================================================================================================== -->
+	<!-- jweblite.util.StringUtils -->
+	<!-- ============================================================================================================== -->
+
 	<!-- toTitleCase -->
 	<function>
 		<name>toTitleCase</name>

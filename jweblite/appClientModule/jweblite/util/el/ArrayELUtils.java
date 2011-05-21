@@ -10,6 +10,12 @@ public class ArrayELUtils {
 	private Log log = LogFactory.getLog(this.getClass());
 
 	/**
+	 * ========================================================================
+	 * java.util.Arrays
+	 * ========================================================================
+	 */
+
+	/**
 	 * To String
 	 * 
 	 * @param a

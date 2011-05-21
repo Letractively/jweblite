@@ -7,4 +7,10 @@ public class CollectionELUtils {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
+	/**
+	 * ========================================================================
+	 * java.util.Collections
+	 * ========================================================================
+	 */
+
 }

@@ -1,11 +1,18 @@
 package jweblite.util.el;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class StringELUtils {
 
 	private Log log = LogFactory.getLog(this.getClass());
+
+	/**
+	 * ========================================================================
+	 * java.lang.String
+	 * ========================================================================
+	 */
 
 	/**
 	 * Char At
@@ -422,6 +429,54 @@ public class StringELUtils {
 			return null;
 		}
 		return String.valueOf(obj);
+	}
+
+	/**
+	 * ========================================================================
+	 * org.apache.commons.lang.StringEscapeUtils
+	 * ========================================================================
+	 */
+
+	/**
+	 * Escape Html
+	 * 
+	 * @param str
+	 *            String
+	 * @return String
+	 */
+	public static String escapeHtml(String str) {
+		if (str == null) {
+			return null;
+		}
+		return StringEscapeUtils.escapeHtml(str);
+	}
+
+	/**
+	 * Escape JavaScript
+	 * 
+	 * @param str
+	 *            String
+	 * @return String
+	 */
+	public static String escapeJavaScript(String str) {
+		if (str == null) {
+			return null;
+		}
+		return StringEscapeUtils.escapeJavaScript(str);
+	}
+
+	/**
+	 * Escape Xml
+	 * 
+	 * @param str
+	 *            String
+	 * @return String
+	 */
+	public static String escapeXml(String str) {
+		if (str == null) {
+			return null;
+		}
+		return StringEscapeUtils.escapeXml(str);
 	}
 
 }
