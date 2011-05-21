@@ -35,6 +35,7 @@
 			<fileset dir="${libPath}">
 				<include name="Jstl-1.2/*.jar" />
 				<include name="commons-logging-1.1.1.jar" />
+				<include name="commons-lang-2.6.jar" />
 			</fileset>
 		</copy>
 	</target>

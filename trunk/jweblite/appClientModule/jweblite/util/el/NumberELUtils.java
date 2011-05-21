@@ -7,4 +7,10 @@ public class NumberELUtils {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
+	/**
+	 * ========================================================================
+	 * java.lang.Number
+	 * ========================================================================
+	 */
+
 }
