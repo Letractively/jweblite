@@ -3,25 +3,25 @@
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd ">
 	<tlib-version>1.0</tlib-version>
-	<short-name>ArrayELUtils</short-name>
-	<uri>https://code.google.com/p/jweblite/ArrayELUtils</uri>
+	<short-name>CollectionELUtils</short-name>
+	<uri>https://code.google.com/p/jweblite/CollectionELUtils</uri>
 
 	<!-- ============================================================================================================== -->
-	<!-- java.util.Arrays -->
+	<!-- java.util.Collections -->
 	<!-- ============================================================================================================== -->
 
-	<!-- asList -->
+	<!-- sort -->
 	<function>
-		<name>asList</name>
-		<function-class>jweblite.util.el.ArrayELUtils</function-class>
-		<function-signature><![CDATA[ java.util.List asList(java.lang.Object[]) ]]></function-signature>
+		<name>sort</name>
+		<function-class>jweblite.util.el.CollectionELUtils</function-class>
+		<function-signature><![CDATA[ java.util.List sort(java.util.List) ]]></function-signature>
 	</function>
 
-	<!-- toString -->
+	<!-- reverse -->
 	<function>
-		<name>toString</name>
-		<function-class>jweblite.util.el.ArrayELUtils</function-class>
-		<function-signature><![CDATA[ java.lang.String toString(java.lang.Object[]) ]]></function-signature>
+		<name>reverse</name>
+		<function-class>jweblite.util.el.CollectionELUtils</function-class>
+		<function-signature><![CDATA[ java.util.List reverse(java.util.List) ]]></function-signature>
 	</function>
 
 </taglib>

@@ -13,4 +13,22 @@ public class NumberELUtils {
 	 * ========================================================================
 	 */
 
+	/**
+	 * Parse Int
+	 * 
+	 * @param str
+	 *            String
+	 * @return int
+	 */
+	public static int parseInt(String str) {
+		if (str == null) {
+			return -1;
+		}
+		try {
+			return Integer.parseInt(str);
+		} catch (Exception e) {
+		}
+		return -1;
+	}
+
 }
