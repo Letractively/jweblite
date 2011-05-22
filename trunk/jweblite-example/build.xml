@@ -2,6 +2,9 @@
 <project name="jweblite-example" default="deploy" basedir=".">
 
 	<property name="libPath" location="../jweblite/dependencies" />
+	<tstamp>
+		<format property="TODAY" pattern="yyyy-MM-dd" />
+	</tstamp>
 
 	<!-- ================================= 
           target: clean              
@@ -20,6 +23,7 @@
 			<lib dir="${libPath}" />
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${TODAY}" />
 				<attribute name="Implementation-Title" value="${ant.project.name}" />
 			</manifest>
 		</war>
