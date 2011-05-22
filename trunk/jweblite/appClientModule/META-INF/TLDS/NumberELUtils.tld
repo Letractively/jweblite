@@ -3,25 +3,18 @@
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd ">
 	<tlib-version>1.0</tlib-version>
-	<short-name>ArrayELUtils</short-name>
-	<uri>https://code.google.com/p/jweblite/ArrayELUtils</uri>
+	<short-name>NumberELUtils</short-name>
+	<uri>https://code.google.com/p/jweblite/NumberELUtils</uri>
 
 	<!-- ============================================================================================================== -->
-	<!-- java.util.Arrays -->
+	<!-- java.lang.Number -->
 	<!-- ============================================================================================================== -->
 
-	<!-- asList -->
+	<!-- parseInt -->
 	<function>
-		<name>asList</name>
-		<function-class>jweblite.util.el.ArrayELUtils</function-class>
-		<function-signature><![CDATA[ java.util.List asList(java.lang.Object[]) ]]></function-signature>
-	</function>
-
-	<!-- toString -->
-	<function>
-		<name>toString</name>
-		<function-class>jweblite.util.el.ArrayELUtils</function-class>
-		<function-signature><![CDATA[ java.lang.String toString(java.lang.Object[]) ]]></function-signature>
+		<name>parseInt</name>
+		<function-class>jweblite.util.el.NumberELUtils</function-class>
+		<function-signature><![CDATA[ int parseInt(java.lang.String) ]]></function-signature>
 	</function>
 
 </taglib>
