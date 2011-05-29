@@ -23,38 +23,15 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 
 	private final File repository;
 	private final int maxSize;
-	private Map<String, String> parametersMap = Collections
-			.unmodifiableMap(new HashMap());
-	private Map<String, FileItem> fileItemsMap = Collections
-			.unmodifiableMap(new HashMap());
+	private final boolean isMultipart;
+	private Map<String, String> parametersMap = new HashMap();
+	private Map<String, FileItem> fileItemsMap = new HashMap();
 
 	/**
 	 * Default constructor.
 	 * 
 	 * @param req
 	 *            HttpServletRequest
-	 * @param repository
-	 *            File
-	 * @param maxSize
-	 *            int
-	 * @throws FileUploadException
-	 */
-	public JWebLiteMultipartRequestWrapper(HttpServletRequest req,
-			File repository, int maxSize) throws FileUploadException {
-		super(req);
-		// init
-		this.repository = repository;
-		this.maxSize = maxSize;
-		this.initialize(req);
-	}
-
-	/**
-	 * Default constructor.
-	 * 
-	 * @param req
-	 *            HttpServletRequest
-	 * @param encoding
-	 *            String
 	 * @param repository
 	 *            File
 	 * @param maxSize
@@ -62,14 +39,29 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	 * @throws UnsupportedEncodingException
 	 * @throws FileUploadException
 	 */
-	public JWebLiteMultipartRequestWrapper(HttpServletRequest req,
-			String encoding, File repository, int maxSize)
-			throws UnsupportedEncodingException, FileUploadException {
-		super(req, encoding);
+	public JWebLiteMultipartRequestWrapper(JWebLiteRequestWrapper req,
+			File repository, int maxSize) throws UnsupportedEncodingException,
+			FileUploadException {
+		super(req, req.getEncoding());
 		// init
 		this.repository = repository;
 		this.maxSize = maxSize;
-		this.initialize(req);
+		String contentType = null;
+		if (!this.isGetMethod()
+				&& (contentType = req.getContentType()) != null
+				&& (contentType = contentType.toLowerCase())
+						.startsWith("multipart/")) {
+			this.isMultipart = true;
+		} else {
+			this.isMultipart = false;
+		}
+		if (this.isMultipart) {
+			this.initialize(req);
+			// unmodifiable
+			this.parametersMap = Collections
+					.unmodifiableMap(this.parametersMap);
+			this.fileItemsMap = Collections.unmodifiableMap(this.fileItemsMap);
+		}
 	}
 
 	/**
@@ -86,6 +78,9 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 		List<FileItem> items = uploadHandler.parseRequest(req);
 		for (FileItem item : items) {
 			String fieldName = item.getFieldName();
+			if (fieldName == null) {
+				continue;
+			}
 			if (item.isFormField()) {
 				this.parametersMap.put(fieldName, item.getString());
 			} else {
@@ -123,7 +118,7 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 
 	@Override
 	public boolean isMultipart() {
-		return true;
+		return isMultipart;
 	}
 
 	@Override
