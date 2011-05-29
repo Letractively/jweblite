@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.servlet.http.HttpServletResponse;
 
+import jweblite.web.wrapper.JWebLiteRequestWrapper;
+
 public interface JWebLitePage extends Serializable {
 
 	/**

@@ -1,4 +1,4 @@
-package jweblite.web;
+package jweblite.web.wrapper;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,7 +16,8 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	private Log log = LogFactory.getLog(this.getClass());
 
 	private String encoding = null;
-	private boolean isGetMethod = true;
+	private final boolean isGetMethod;
+	private final boolean isMultipart;
 
 	/**
 	 * Default constructor.
@@ -26,6 +28,7 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	public JWebLiteRequestWrapper(HttpServletRequest req) {
 		super(req);
 		this.isGetMethod = ("GET".equalsIgnoreCase(req.getMethod()));
+		this.isMultipart = this.isMultipart();
 	}
 
 	/**
@@ -35,6 +38,7 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 *            HttpServletRequest
 	 * @param encoding
 	 *            String
+	 * @throws UnsupportedEncodingException
 	 */
 	public JWebLiteRequestWrapper(HttpServletRequest req, String encoding)
 			throws UnsupportedEncodingException {
@@ -72,6 +76,17 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * Get File Parameter
+	 * 
+	 * @param name
+	 *            String
+	 * @return FileItem
+	 */
+	public FileItem getFileParameter(String name) {
+		return null;
 	}
 
 	/**
@@ -203,6 +218,43 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 */
 	public Date getDateParameter(String name, String pattern, Date defaultValue) {
 		return this.getDateParameter(name, pattern, defaultValue, defaultValue);
+	}
+
+	/**
+	 * Get Encoding
+	 * 
+	 * @return String
+	 */
+	public String getEncoding() {
+		return encoding;
+	}
+
+	/**
+	 * Set Encoding
+	 * 
+	 * @param encoding
+	 *            String
+	 */
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+	/**
+	 * Is Get Method
+	 * 
+	 * @return boolean
+	 */
+	public boolean isGetMethod() {
+		return isGetMethod;
+	}
+
+	/**
+	 * Is Multipart
+	 * 
+	 * @return boolean
+	 */
+	public boolean isMultipart() {
+		return isMultipart;
 	}
 
 }
