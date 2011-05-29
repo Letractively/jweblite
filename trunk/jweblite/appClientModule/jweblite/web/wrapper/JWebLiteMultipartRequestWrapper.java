@@ -1,5 +1,6 @@
 package jweblite.web.wrapper;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -19,9 +21,10 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
+	private final File repository;
+	private final int maxSize;
 	private Map<String, String> parametersMap = Collections
 			.unmodifiableMap(new HashMap());
-
 	private Map<String, FileItem> fileItemsMap = Collections
 			.unmodifiableMap(new HashMap());
 
@@ -30,11 +33,18 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	 * 
 	 * @param req
 	 *            HttpServletRequest
+	 * @param repository
+	 *            File
+	 * @param maxSize
+	 *            int
 	 * @throws FileUploadException
 	 */
-	public JWebLiteMultipartRequestWrapper(HttpServletRequest req)
-			throws FileUploadException {
+	public JWebLiteMultipartRequestWrapper(HttpServletRequest req,
+			File repository, int maxSize) throws FileUploadException {
 		super(req);
+		// init
+		this.repository = repository;
+		this.maxSize = maxSize;
 		this.initialize(req);
 	}
 
@@ -45,13 +55,20 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	 *            HttpServletRequest
 	 * @param encoding
 	 *            String
+	 * @param repository
+	 *            File
+	 * @param maxSize
+	 *            int
 	 * @throws UnsupportedEncodingException
 	 * @throws FileUploadException
 	 */
 	public JWebLiteMultipartRequestWrapper(HttpServletRequest req,
-			String encoding) throws UnsupportedEncodingException,
-			FileUploadException {
+			String encoding, File repository, int maxSize)
+			throws UnsupportedEncodingException, FileUploadException {
 		super(req, encoding);
+		// init
+		this.repository = repository;
+		this.maxSize = maxSize;
 		this.initialize(req);
 	}
 
@@ -62,10 +79,10 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	 *            HttpServletRequest
 	 * @throws FileUploadException
 	 */
-	public void initialize(HttpServletRequest req) throws FileUploadException {
-		// Create a new file upload handler
-		ServletFileUpload uploadHandler = this.initFileUploadHandler();
-		// Parse the request
+	private void initialize(HttpServletRequest req) throws FileUploadException {
+		// create a new file upload handler
+		ServletFileUpload uploadHandler = this.createFileUploadHandler();
+		// parse the request
 		List<FileItem> items = uploadHandler.parseRequest(req);
 		for (FileItem item : items) {
 			String fieldName = item.getFieldName();
@@ -82,8 +99,26 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	 * 
 	 * @return ServletFileUpload
 	 */
-	public ServletFileUpload initFileUploadHandler() {
-		return new ServletFileUpload(new DiskFileItemFactory());
+	public FileItemFactory createFileItemFactory() {
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		factory.setSizeThreshold(4096);
+		if (this.repository != null) {
+			factory.setRepository(this.repository);
+		}
+		return factory;
+	}
+
+	/**
+	 * Create File Upload Handler
+	 * 
+	 * @return ServletFileUpload
+	 */
+	public ServletFileUpload createFileUploadHandler() {
+		ServletFileUpload uploadHandler = new ServletFileUpload(
+				this.createFileItemFactory());
+		uploadHandler.setSizeMax(this.maxSize);
+		return uploadHandler;
+
 	}
 
 	@Override
@@ -108,6 +143,24 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	@Override
 	public FileItem getFileParameter(String name) {
 		return this.fileItemsMap.get(name);
+	}
+
+	/**
+	 * Get Repository
+	 * 
+	 * @return File
+	 */
+	public File getRepository() {
+		return repository;
+	}
+
+	/**
+	 * Get Max Size
+	 * 
+	 * @return int
+	 */
+	public int getMaxSize() {
+		return maxSize;
 	}
 
 }
