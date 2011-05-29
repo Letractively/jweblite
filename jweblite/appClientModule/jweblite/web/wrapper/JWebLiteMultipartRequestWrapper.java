@@ -70,8 +70,10 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	 * @param req
 	 *            HttpServletRequest
 	 * @throws FileUploadException
+	 * @throws UnsupportedEncodingException
 	 */
-	private void initialize(HttpServletRequest req) throws FileUploadException {
+	private void initialize(HttpServletRequest req) throws FileUploadException,
+			UnsupportedEncodingException {
 		// create a new file upload handler
 		ServletFileUpload uploadHandler = this.createFileUploadHandler();
 		// parse the request
@@ -82,7 +84,8 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 				continue;
 			}
 			if (item.isFormField()) {
-				this.parametersMap.put(fieldName, item.getString());
+				this.parametersMap.put(fieldName,
+						item.getString(this.getEncoding()));
 			} else {
 				this.fileItemsMap.put(fieldName, item);
 			}
@@ -112,6 +115,7 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 		ServletFileUpload uploadHandler = new ServletFileUpload(
 				this.createFileItemFactory());
 		uploadHandler.setSizeMax(this.maxSize);
+		uploadHandler.setHeaderEncoding(this.getEncoding());
 		return uploadHandler;
 
 	}
