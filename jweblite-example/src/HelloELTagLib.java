@@ -4,7 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.web.JWebLitePage;
-import jweblite.web.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 public class HelloELTagLib implements JWebLitePage {
 

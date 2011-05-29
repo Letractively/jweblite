@@ -1,7 +1,7 @@
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.web.JWebLitePage;
-import jweblite.web.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 public class HelloWorld implements JWebLitePage {
 

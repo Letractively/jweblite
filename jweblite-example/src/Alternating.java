@@ -2,7 +2,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import jweblite.util.LoopIterator;
 import jweblite.web.JWebLitePage;
-import jweblite.web.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 public class Alternating implements JWebLitePage {
 
