@@ -46,12 +46,8 @@
 		</copy>
 		<javac srcdir="appClientModule" destdir="deploy/classes" fork="true" source="1.5" target="1.5" debug="on">
 			<classpath>
-				<fileset dir="dependencies">
-					<include name="*.jar" />
-				</fileset>
-				<fileset dir="${serverLibPath}">
-					<include name="*.jar" />
-				</fileset>
+				<fileset dir="dependencies" />
+				<fileset dir="${serverLibPath}" />
 			</classpath>
 		</javac>
 		<jar destfile="${ant.project.name}-${version}.jar" basedir="deploy/classes">
