@@ -12,6 +12,7 @@
 	<target name="clean" description="clean">
 		<delete file="${ant.project.name}.war" />
 		<delete dir="dependencies" />
+		<delete dir="deploy" />
 	</target>
 
 	<!-- ================================= 
@@ -32,7 +33,7 @@
          ================================= -->
 	<target name="compile" depends="dependencies" description="compile">
 		<mkdir dir="deploy/classes" />
-		<copy todir="deploy/classes">
+		<copy todir="deploy/classes" overwrite="true">
 			<fileset dir="src">
 				<exclude name="**/*.launch" />
 				<exclude name="**/*.java" />
@@ -54,7 +55,6 @@
 				<attribute name="Implementation-Title" value="${ant.project.name}" />
 			</manifest>
 		</war>
-		<delete dir="deploy" />
 	</target>
 
 </project>
