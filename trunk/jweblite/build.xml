@@ -22,6 +22,7 @@
           target: dependencies              
          ================================= -->
 	<target name="dependencies" depends="clean" description="dependencies">
+		<mkdir dir="dependencies" />
 		<copy todir="dependencies" overwrite="true" flatten="true">
 			<fileset dir="${libPath}">
 				<include name="Jstl-1.2/*.jar" />
@@ -38,7 +39,7 @@
          ================================= -->
 	<target name="compress" depends="dependencies" description="compress">
 		<mkdir dir="deploy/classes" />
-		<copy todir="deploy/classes">
+		<copy todir="deploy/classes" overwrite="true">
 			<fileset dir="appClientModule">
 				<exclude name="**/*.launch" />
 				<exclude name="**/*.java" />
