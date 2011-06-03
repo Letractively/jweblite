@@ -58,7 +58,6 @@
 				<attribute name="Implementation-Version" value="${version}" />
 			</manifest>
 		</jar>
-		<delete dir="deploy" />
 	</target>
 
 	<!-- ================================= 
