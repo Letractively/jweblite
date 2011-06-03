@@ -15,6 +15,7 @@
 		<delete file="${ant.project.name}-${version}.zip" />
 		<delete dir="dependencies" />
 		<delete dir="apidocs" />
+		<delete dir="deploy" />
 	</target>
 
 	<!-- ================================= 
