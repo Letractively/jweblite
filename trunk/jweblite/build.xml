@@ -2,7 +2,6 @@
 <project name="jweblite" default="deploy" basedir=".">
 
 	<property name="version" value="0.2.0" />
-	<property name="libPath" location="../../ex_lib" />
 	<property name="serverLibPath" location="../../apache-tomcat-6.0.32/lib" />
 	<tstamp>
 		<format property="TODAY" pattern="yyyy-MM-dd" />
@@ -24,7 +23,7 @@
 	<target name="dependencies" depends="clean" description="dependencies">
 		<mkdir dir="dependencies" />
 		<copy todir="dependencies" overwrite="true" flatten="true">
-			<fileset dir="${libPath}">
+			<fileset dir="../../ex_lib">
 				<include name="Jstl-1.2/*.jar" />
 				<include name="commons-logging-1.1.1.jar" />
 				<include name="commons-lang-2.6.jar" />
