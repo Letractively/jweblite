@@ -36,7 +36,7 @@
 	<!-- ================================= 
           target: compile              
          ================================= -->
-	<target name="compress" depends="dependencies" description="compress">
+	<target name="compile" depends="dependencies" description="compile">
 		<mkdir dir="deploy/classes" />
 		<copy todir="deploy/classes" overwrite="true">
 			<fileset dir="appClientModule">
@@ -64,7 +64,7 @@
 	<!-- ================================= 
           target: apidocs              
          ================================= -->
-	<target name="apidocs" depends="compress" description="apidocs">
+	<target name="apidocs" depends="compile" description="apidocs">
 		<javadoc sourcepath="appClientModule" destdir="apidocs" windowtitle="${ant.project.name}-${version}" author="true" version="true" use="true">
 			<doctitle>${ant.project.name}-${version}</doctitle>
 		</javadoc>
