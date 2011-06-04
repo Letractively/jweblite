@@ -36,7 +36,7 @@
 		<copy todir="deploy/classes" overwrite="true">
 			<fileset dir="src">
 				<exclude name="**/*.launch" />
-				<exclude name="**/*.java" />
+				<!-- <exclude name="**/*.java" /> -->
 			</fileset>
 		</copy>
 		<javac srcdir="src" destdir="deploy/classes" fork="true" source="1.5" target="1.5" debug="on">
