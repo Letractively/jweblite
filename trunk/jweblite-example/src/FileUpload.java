@@ -5,7 +5,6 @@ import jweblite.web.wrapper.JWebLiteMultipartRequestWrapper;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 
 public class FileUpload implements JWebLitePage {
 
