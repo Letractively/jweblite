@@ -3,7 +3,6 @@ package jweblite.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import jweblite.util.callback.EachCallback;
@@ -115,16 +114,15 @@ public class StringUtils {
 			return "";
 		}
 		StringBuffer sb = new StringBuffer();
-		Iterator<T> it = c.iterator();
+		int lastIndex = c.size() - 1;
 		int index = 0;
-		while (it.hasNext()) {
-			T t = it.next();
+		for (T child : c) {
 			if (callback == null) {
-				sb.append(t);
+				sb.append(child);
 			} else {
-				sb.append(callback.callback(t, index));
+				sb.append(callback.callback(child, index));
 			}
-			if (it.hasNext()) {
+			if (index < lastIndex) {
 				sb.append(separator);
 			}
 			index++;
@@ -143,6 +141,19 @@ public class StringUtils {
 	 */
 	public static <T> String join(Collection<T> c, String separator) {
 		return join(c, separator, null);
+	}
+
+	/**
+	 * Join
+	 * 
+	 * @param array
+	 *            T[]
+	 * @param separator
+	 *            String
+	 * @return String
+	 */
+	public static <T> String join(T[] array, String separator) {
+		return join(Arrays.asList(array), separator, null);
 	}
 
 	/**

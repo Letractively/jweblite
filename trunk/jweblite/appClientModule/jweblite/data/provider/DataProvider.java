@@ -1,4 +1,4 @@
-package jweblite.data;
+package jweblite.data.provider;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -205,7 +205,7 @@ public abstract class DataProvider<T> implements Serializable {
 	/**
 	 * Get View Index List
 	 * 
-	 * @return List<Integer>
+	 * @return List
 	 */
 	public List<Integer> getViewIndexList() {
 		List<Integer> viewIndexList = new ArrayList();
@@ -219,7 +219,7 @@ public abstract class DataProvider<T> implements Serializable {
 	/**
 	 * Get View List
 	 * 
-	 * @return List<T>
+	 * @return List
 	 */
 	public List<T> getViewList() {
 		return viewList;
