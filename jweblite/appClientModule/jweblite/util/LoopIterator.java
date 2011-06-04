@@ -1,6 +1,7 @@
 package jweblite.util;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.apache.commons.logging.Log;
@@ -13,22 +14,23 @@ public class LoopIterator<T> implements Serializable {
 
 	private int index = -1;
 
-	private T[] array = null;
-	private int arraySize = 0;
-
-	/**
-	 * Default constructor.
-	 */
-	public LoopIterator(T[] array) {
-		super();
-		this.setArray(array);
-	}
+	private Collection<T> list = null;
+	private Object[] listRefArray = null;
+	private int listSize = 0;
 
 	/**
 	 * Default constructor.
 	 */
 	public LoopIterator(Collection<T> c) {
-		this(CollectionUtils.toArray(c));
+		super();
+		this.setList(c);
+	}
+
+	/**
+	 * Default constructor.
+	 */
+	public LoopIterator(T[] array) {
+		this(Arrays.asList(array));
 	}
 
 	/**
@@ -37,17 +39,17 @@ public class LoopIterator<T> implements Serializable {
 	 * @return T
 	 */
 	public T getPrevious() {
-		if (this.array == null || this.arraySize <= 0) {
+		if (this.listRefArray == null || this.listSize <= 0) {
 			return null;
 		}
 		// decrease index
-		if (this.index < 0 || this.index >= this.arraySize) {
-			this.index = this.arraySize - 1;
+		if (this.index < 0 || this.index >= this.listSize) {
+			this.index = this.listSize - 1;
 		} else {
 			this.index = this.getPreviousIndex();
 		}
 		// get element
-		return this.array[this.index];
+		return (T) this.listRefArray[this.index];
 	}
 
 	/**
@@ -56,17 +58,17 @@ public class LoopIterator<T> implements Serializable {
 	 * @return T
 	 */
 	public T getNext() {
-		if (this.array == null || this.arraySize <= 0) {
+		if (this.listRefArray == null || this.listSize <= 0) {
 			return null;
 		}
 		// increase index
-		if (this.index < 0 || this.index >= this.arraySize) {
+		if (this.index < 0 || this.index >= this.listSize) {
 			this.index = 0;
 		} else {
 			this.index = this.getNextIndex();
 		}
 		// get element
-		return this.array[this.index];
+		return (T) this.listRefArray[this.index];
 	}
 
 	/**
@@ -76,8 +78,8 @@ public class LoopIterator<T> implements Serializable {
 	 */
 	public int getPreviousIndex() {
 		int index = this.index - 1;
-		if (index < 0 || index >= this.arraySize) {
-			index = (this.arraySize > 0 ? this.arraySize - 1 : 0);
+		if (index < 0 || index >= this.listSize) {
+			index = (this.listSize > 0 ? this.listSize - 1 : 0);
 		}
 		return index;
 	}
@@ -89,7 +91,7 @@ public class LoopIterator<T> implements Serializable {
 	 */
 	public int getNextIndex() {
 		int index = this.index + 1;
-		if (index < 0 || index >= this.arraySize) {
+		if (index < 0 || index >= this.listSize) {
 			index = 0;
 		}
 		return index;
@@ -122,32 +124,33 @@ public class LoopIterator<T> implements Serializable {
 	}
 
 	/**
-	 * Get Array
+	 * Get List
 	 * 
-	 * @return T[]
+	 * @return Collection
 	 */
-	public T[] getArray() {
-		return array;
+	public Collection<T> getList() {
+		return list;
 	}
 
 	/**
-	 * Get Array Size
+	 * Get List Size
 	 * 
 	 * @return int
 	 */
-	public int getArraySize() {
-		return arraySize;
+	public int getListSize() {
+		return listSize;
 	}
 
 	/**
-	 * Set Array
+	 * Set List
 	 * 
-	 * @param array
-	 *            T[]
+	 * @param list
+	 *            Collection
 	 */
-	public void setArray(T[] array) {
-		this.array = array;
-		this.arraySize = (array != null ? array.length : 0);
+	public void setList(Collection<T> list) {
+		this.list = list;
+		this.listRefArray = (list != null ? list.toArray() : null);
+		this.listSize = (list != null ? list.size() : 0);
 	}
 
 }

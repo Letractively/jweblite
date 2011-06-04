@@ -15,28 +15,16 @@ public class CollectionUtils {
 	 * 
 	 * @param c
 	 *            Collection
+	 * @param clazz
+	 *            Class
 	 * @return T[]
 	 */
-	public static <T> T[] toArray(Collection<T> c) {
+	public static <T> T[] toArray(Collection<T> c, Class<?> clazz) {
 		if (c == null) {
 			return null;
 		}
-		int cSize = c.size();
-		if (cSize == 0) {
-			return (T[]) new Object[cSize];
-		}
-		Class<?> clazz = null;
-		for (T child : c) {
-			clazz = child.getClass();
-			break;
-		}
-		T[] array = (T[]) Array.newInstance(clazz, cSize);
-		int index = 0;
-		for (T child : c) {
-			array[index] = child;
-			index++;
-		}
-		return array;
+		T[] array = (T[]) Array.newInstance(clazz, c.size());
+		return c.toArray(array);
 	}
 
 }
