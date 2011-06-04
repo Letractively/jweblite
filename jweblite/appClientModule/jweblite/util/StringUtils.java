@@ -153,7 +153,10 @@ public class StringUtils {
 	 * @return String
 	 */
 	public static <T> String join(T[] array, String separator) {
-		return join(Arrays.asList(array), separator, null);
+		if (array == null) {
+			return "";
+		}
+		return join(Arrays.asList(array), separator);
 	}
 
 	/**
