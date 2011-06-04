@@ -1,6 +1,6 @@
 import javax.servlet.http.HttpServletResponse;
 
-import jweblite.data.CollectionDataProvider;
+import jweblite.data.provider.CollectionDataProvider;
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
