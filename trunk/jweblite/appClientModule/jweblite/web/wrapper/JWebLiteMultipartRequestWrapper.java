@@ -75,6 +75,7 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	 */
 	private void initialize(HttpServletRequest req, boolean isMultipart)
 			throws FileUploadException, UnsupportedEncodingException {
+		// copy parameters from parameters map
 		for (Enumeration<String> e = req.getParameterNames(); e
 				.hasMoreElements();) {
 			String paramName = e.nextElement();

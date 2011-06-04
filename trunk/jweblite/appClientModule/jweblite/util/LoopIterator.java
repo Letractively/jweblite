@@ -30,7 +30,7 @@ public class LoopIterator<T> implements Serializable {
 	 * Default constructor.
 	 */
 	public LoopIterator(T[] array) {
-		this(Arrays.asList(array));
+		this((array != null ? Arrays.asList(array) : null));
 	}
 
 	/**

@@ -19,7 +19,7 @@ public class CollectionDataProvider<T> extends DataProvider<T> {
 	 * Default constructor.
 	 */
 	public CollectionDataProvider(T[] array, int perPage) {
-		this(Arrays.asList(array), perPage);
+		this((array != null ? Arrays.asList(array) : null), perPage);
 	}
 
 	/**
@@ -35,7 +35,8 @@ public class CollectionDataProvider<T> extends DataProvider<T> {
 	 */
 	public CollectionDataProvider(T[] array, int perPage, int viewCountPrefix,
 			int viewCountSuffix) {
-		this(Arrays.asList(array), perPage, viewCountPrefix, viewCountSuffix);
+		this((array != null ? Arrays.asList(array) : null), perPage,
+				viewCountPrefix, viewCountSuffix);
 	}
 
 	/**
