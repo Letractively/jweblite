@@ -26,6 +26,7 @@
 				</c:forEach>
 			</table>
 			<br />
+
 			<!-- Paging Navigation -->
 			<c:if test="${dataProvider.hasPrevious}">
 				<a href="?page=${dataProvider.currentIndex - 1}">&#60;&#60;</a>
