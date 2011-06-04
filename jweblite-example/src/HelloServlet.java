@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
+import org.apache.commons.io.IOUtils;
+
 public class HelloServlet implements JWebLitePage {
 
 	private static final long serialVersionUID = 1L;
@@ -30,12 +32,7 @@ public class HelloServlet implements JWebLitePage {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (bw != null) {
-				try {
-					bw.close();
-				} catch (Exception e2) {
-				}
-			}
+			IOUtils.closeQuietly(bw);
 		}
 		return true;
 	}
