@@ -77,6 +77,7 @@ public class JWebLiteFilter implements Filter {
 		JWebLiteRequestWrapper req = new JWebLiteRequestWrapper(
 				(HttpServletRequest) request, this.encoding);
 		HttpServletResponse resp = (HttpServletResponse) response;
+		resp.setCharacterEncoding(this.encoding);
 		// parse
 		Class reqClass = this.getReferenceClassByUrl(req.getServletPath(),
 				this.urlPathPadding);
