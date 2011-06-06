@@ -15,15 +15,12 @@ public class PagesTag extends TagSupport {
 
 	private Boolean test = null;
 
-	private String var = null;
 	private String selected = null;
-	private String empty = null;
 
 	// private
 	private String index = null;
-	private DataProvider provider = null;
+	private int currentIndex = -1;
 	private Iterator<Integer> indexIterator = null;
-	private Iterator dataIterator = null;
 
 	/**
 	 * Default constructor.
@@ -40,12 +37,10 @@ public class PagesTag extends TagSupport {
 		}
 		PagingTag parent = (PagingTag) tag;
 		this.index = parent.getIndex();
-		this.provider = parent.getProvider();
+		DataProvider provider = parent.getProvider();
 		if (provider != null) {
 			try {
-				this.indexIterator = this.provider.getViewIndexList()
-						.iterator();
-				this.dataIterator = this.provider.getViewList().iterator();
+				this.indexIterator = provider.getViewIndexList().iterator();
 			} catch (Exception e) {
 				throw new JspTagException("iterate pages tag error");
 			}
@@ -74,19 +69,11 @@ public class PagesTag extends TagSupport {
 	public boolean iterate() {
 		// test
 		if (this.test == null) {
-			if (this.provider == null || this.indexIterator == null
-					|| !this.indexIterator.hasNext()) {
+			if (this.indexIterator == null || !this.indexIterator.hasNext()) {
 				return false;
 			}
 		} else if (!this.test.booleanValue()) {
 			return false;
-		}
-		// var
-		boolean hasNext = (this.dataIterator != null && this.dataIterator
-				.hasNext());
-		Object data = (hasNext ? this.dataIterator.next() : null);
-		if (this.var != null) {
-			this.pageContext.setAttribute(this.var, data);
 		}
 		// index
 		int index = (this.indexIterator != null && this.indexIterator.hasNext() ? this.indexIterator
@@ -95,32 +82,18 @@ public class PagesTag extends TagSupport {
 			this.pageContext.setAttribute(this.index, index);
 		}
 		// selected
-		int currentIndex = (this.provider != null ? this.provider
-				.getCurrentIndex() : 0);
 		if (this.selected != null) {
 			this.pageContext.setAttribute(this.selected,
-					(index == currentIndex));
-		}
-		// empty
-		if (this.empty != null) {
-			this.pageContext.setAttribute(this.empty, !hasNext);
+					(index == this.currentIndex));
 		}
 		return true;
 	}
 
 	@Override
 	public int doEndTag() throws JspException {
-		// var
-		if (this.var != null) {
-			this.pageContext.removeAttribute(this.var);
-		}
 		// selected
 		if (this.selected != null) {
 			this.pageContext.removeAttribute(this.selected);
-		}
-		// empty
-		if (this.empty != null) {
-			this.pageContext.removeAttribute(this.empty);
 		}
 		return TagSupport.EVAL_PAGE;
 	}
@@ -145,25 +118,6 @@ public class PagesTag extends TagSupport {
 	}
 
 	/**
-	 * Get Var
-	 * 
-	 * @return String
-	 */
-	public String getVar() {
-		return var;
-	}
-
-	/**
-	 * Set Var
-	 * 
-	 * @param var
-	 *            String
-	 */
-	public void setVar(String var) {
-		this.var = var;
-	}
-
-	/**
 	 * Get Selected
 	 * 
 	 * @return String
@@ -180,25 +134,6 @@ public class PagesTag extends TagSupport {
 	 */
 	public void setSelected(String selected) {
 		this.selected = selected;
-	}
-
-	/**
-	 * Get Empty
-	 * 
-	 * @return String
-	 */
-	public String getEmpty() {
-		return empty;
-	}
-
-	/**
-	 * Set Empty
-	 * 
-	 * @param empty
-	 *            String
-	 */
-	public void setEmpty(String empty) {
-		this.empty = empty;
 	}
 
 }
