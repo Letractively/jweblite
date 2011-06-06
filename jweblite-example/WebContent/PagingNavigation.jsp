@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="PagingTag"
+	uri="https://code.google.com/p/jweblite/PagingTag"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,21 +29,22 @@
 			</table>
 			<br />
 
-			<!-- Paging Navigation -->
-			<c:if test="${dataProvider.hasPrevious}">
-				<a href="?page=${dataProvider.currentIndex - 1}">&#60;&#60;</a>
-			</c:if>
-			<c:forEach var="pageIndex" items="${dataProvider.viewIndexList}">
-				<c:choose>
-					<c:when test="${pageIndex != dataProvider.currentIndex}">
-						<a href="?page=${pageIndex}">${pageIndex + 1}</a>
-					</c:when>
-					<c:otherwise>${pageIndex + 1}</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${dataProvider.hasNext}">
-				<a href="?page=${dataProvider.currentIndex + 1}">&#62;&#62;</a>
-			</c:if>
+			<!-- Paging Navigation (extension) -->
+			<PagingTag:paging index="index" provider="${dataProvider}">
+				<PagingTag:prev>
+					<a href="?page=${index}">&#60;&#60;</a>
+				</PagingTag:prev>
+				<PagingTag:pages selected="selected">
+					<c:set var="viewIndex" value="${index + 1}" />
+					<c:if test="${selected == true}">${viewIndex}</c:if>
+					<c:if test="${selected == false}">
+						<a href="?page=${index}">${viewIndex}</a>
+					</c:if>
+				</PagingTag:pages>
+				<PagingTag:next>
+					<a href="?page=${index}">&#62;&#62;</a>
+				</PagingTag:next>
+			</PagingTag:paging>
 
 		</div>
 	</fieldset>
