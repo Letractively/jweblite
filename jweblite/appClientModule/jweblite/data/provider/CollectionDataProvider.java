@@ -70,10 +70,21 @@ public class CollectionDataProvider<T> extends DataProvider<T> {
 		return (this.list != null ? this.list.size() : 0);
 	}
 
+	/**
+	 * Get List
+	 * 
+	 * @return Collection
+	 */
 	public Collection<T> getList() {
 		return list;
 	}
 
+	/**
+	 * Set List
+	 * 
+	 * @param list
+	 *            Collection
+	 */
 	public void setList(Collection<T> list) {
 		this.list = list;
 		this.initialize();
