@@ -29,7 +29,7 @@
 			</table>
 			<br />
 
-			<!-- Paging Navigation (extension) -->
+			<!-- Paging Navigation -->
 			<PagingTag:paging index="index" provider="${dataProvider}">
 				<PagingTag:prev>
 					<a href="?page=${index}">&#60;&#60;</a>
