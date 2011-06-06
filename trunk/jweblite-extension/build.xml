@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jweblite-extension" default="compile" basedir=".">
+
+	<property name="version" value="0.2.2" />
+	<property name="serverLibPath" location="../../jakarta-tomcat-5.0.30/common/lib" />
+	<tstamp>
+		<format property="TODAY" pattern="yyyy-MM-dd" />
+	</tstamp>
+
+	<!-- ================================= 
+          target: clean              
+         ================================= -->
+	<target name="clean" description="clean">
+		<delete file="${ant.project.name}-${version}.jar" />
+		<delete dir="dependencies" />
+		<delete dir="deploy" />
+	</target>
+
+	<!-- ================================= 
+          target: dependencies              
+         ================================= -->
+	<target name="dependencies" depends="clean" description="dependencies">
+		<mkdir dir="dependencies" />
+		<copy todir="dependencies" overwrite="true" flatten="true">
+			<fileset dir="../jweblite">
+				<include name="jweblite-*.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+	<target name="compile" depends="dependencies" description="compile">
+		<mkdir dir="deploy/classes" />
+		<copy todir="deploy/classes" overwrite="true">
+			<fileset dir="appClientModule">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<javac srcdir="appClientModule" destdir="deploy/classes" fork="true" source="1.5" target="1.5" debug="on">
+			<classpath>
+				<fileset dir="dependencies" />
+				<fileset dir="${serverLibPath}" />
+			</classpath>
+		</javac>
+		<jar destfile="${ant.project.name}-${version}.jar" basedir="deploy/classes">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${TODAY}" />
+				<attribute name="Implementation-Title" value="${ant.project.name}" />
+				<attribute name="Implementation-Version" value="${version}" />
+			</manifest>
+		</jar>
+	</target>
+
+</project>
