@@ -1,6 +1,6 @@
 import javax.servlet.http.HttpServletResponse;
 
-import jweblite.util.LoopIterator;
+import jweblite.util.iterator.LoopIterator;
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
