@@ -1,5 +1,11 @@
 ﻿JWebLite
 
+Version 0.2.3
+====================
+．Add WebResource
+．Add CaptchaImage
+．Add PropertiesUtils
+
 Version 0.2.2
 ====================
 ．Add PagingTag
