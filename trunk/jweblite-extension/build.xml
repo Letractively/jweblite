@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="jweblite-extension" default="compile" basedir=".">
 
-	<property name="version" value="0.2.2" />
+	<property name="version" value="0.2.3" />
 	<property name="serverLibPath" location="../../jakarta-tomcat-5.0.30/common/lib" />
 	<tstamp>
 		<format property="TODAY" pattern="yyyy-MM-dd" />
@@ -23,7 +23,7 @@
 		<mkdir dir="dependencies" />
 		<copy todir="dependencies" overwrite="true" flatten="true">
 			<fileset dir="../jweblite">
-				<include name="jweblite-*.jar" />
+				<include name="jweblite-${version}.jar" />
 			</fileset>
 		</copy>
 	</target>
