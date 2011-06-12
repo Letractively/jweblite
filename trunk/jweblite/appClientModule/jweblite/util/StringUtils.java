@@ -1,12 +1,16 @@
 package jweblite.util;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import jweblite.util.callback.EachCallback;
 
+import org.apache.commons.codec.net.BCodec;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -182,6 +186,34 @@ public class StringUtils {
 				&& (offset = str.indexOf(searchStr, offset + 1)) != -1) {
 			result = offset;
 			currentRepeat--;
+		}
+		return result;
+	}
+
+	/**
+	 * Encode File Name
+	 * 
+	 * @param req
+	 *            HttpServletRequest
+	 * @param fileName
+	 *            String
+	 * @param encoding
+	 *            String
+	 * @return String
+	 */
+	public static String encodeFileName(HttpServletRequest req,
+			String fileName, String encoding) {
+		if (req == null || fileName == null || encoding == null) {
+			return "";
+		}
+		String result = "";
+		try {
+			if (req.getHeader("User-Agent").indexOf("MSIE") != -1) {
+				result = URLEncoder.encode(fileName, encoding);
+			} else {
+				result = new BCodec().encode(fileName, encoding);
+			}
+		} catch (Exception e) {
 		}
 		return result;
 	}

@@ -1,5 +1,7 @@
 package jweblite.util.callback;
 
-public interface Callback<T> {
+import java.io.Serializable;
+
+public interface Callback<T> extends Serializable {
 
 }
