@@ -22,7 +22,6 @@ public class HelloServlet implements JWebLitePage {
 	public boolean doRequest(JWebLiteRequestWrapper req,
 			HttpServletResponse resp) {
 		resp.setContentType("text/html; charset=UTF-8");
-		resp.setCharacterEncoding("UTF-8");
 		// write
 		BufferedWriter bw = null;
 		try {
