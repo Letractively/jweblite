@@ -18,4 +18,11 @@ public interface WebResource extends Serializable {
 	 */
 	public String getFileName();
 
+	/**
+	 * Get Encoding
+	 * 
+	 * @return String
+	 */
+	public String getEncoding();
+
 }
