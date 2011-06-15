@@ -19,10 +19,13 @@ import jweblite.resource.DynamicWebResource;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public abstract class CaptchaImage extends DynamicWebResource {
 
 	private static final long serialVersionUID = 1L;
+	private Log log = LogFactory.getLog(this.getClass());
 
 	private final String challenge;
 	private Font font = new Font("SansSerif", Font.PLAIN, 36);
@@ -80,7 +83,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 			ImageIO.write(bi, "JPEG", baos);
 			baos.flush();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.warn("Write data failed!", e);
 		} finally {
 			IOUtils.closeQuietly(baos);
 		}
