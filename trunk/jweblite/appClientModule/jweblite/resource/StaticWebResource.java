@@ -9,13 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import jweblite.util.StringUtils;
 import jweblite.web.JWebLitePage;
+import jweblite.web.JWebLitePageHeader;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public abstract class StaticWebResource implements JWebLitePage, WebResource {
+public abstract class StaticWebResource implements JWebLitePage,
+		JWebLitePageHeader, WebResource {
 
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(this.getClass());
@@ -28,13 +30,7 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 	}
 
 	@Override
-	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
-		// contentType
-		String contentType = this.getContentType();
-		if (contentType != null) {
-			resp.setContentType(contentType);
-		}
+	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp) {
 		// encoding
 		String encoding = this.getEncoding();
 		if (encoding == null) {
@@ -47,6 +43,24 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 						encoding)) != null) {
 			resp.setHeader("Content-Disposition", "filename=".concat(fileName));
 		}
+		// cacheable
+		if (this.isCacheable()) {
+			resp.setHeader("Pragma", "no-cache");
+			resp.setHeader("Cache-Control", "no-cache");
+			resp.setDateHeader("Expires", 0);
+		}
+	}
+
+	@Override
+	public boolean doRequest(JWebLiteRequestWrapper req,
+			HttpServletResponse resp) {
+		// contentType
+		String contentType = this.getContentType();
+		if (contentType != null) {
+			resp.setContentType(contentType);
+		}
+		// header
+		this.doHeader(req, resp);
 		// write
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
@@ -68,6 +82,11 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 	@Override
 	public String getEncoding() {
 		return null;
+	}
+
+	@Override
+	public boolean isCacheable() {
+		return true;
 	}
 
 	/**
