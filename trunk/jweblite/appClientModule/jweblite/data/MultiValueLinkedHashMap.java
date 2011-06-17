@@ -11,7 +11,8 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class MultiValueLinkedHashMap extends LinkedHashMap {
+public class MultiValueLinkedHashMap extends LinkedHashMap implements
+		MultiValueMap {
 
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(this.getClass());
@@ -52,12 +53,7 @@ public class MultiValueLinkedHashMap extends LinkedHashMap {
 		super(m);
 	}
 
-	/**
-	 * Put
-	 * 
-	 * @param key
-	 *            Object
-	 */
+	@Override
 	public void put(Object key) {
 		List valueList = (List) super.get(key);
 		if (valueList == null) {
@@ -76,14 +72,7 @@ public class MultiValueLinkedHashMap extends LinkedHashMap {
 		return valueList.add(value) ? value : null;
 	}
 
-	/**
-	 * Put All
-	 * 
-	 * @param key
-	 *            Object
-	 * @param c
-	 *            Collection
-	 */
+	@Override
 	public void putAll(Object key, Collection c) {
 		List valueList = (List) super.get(key);
 		if (valueList == null) {
@@ -93,25 +82,15 @@ public class MultiValueLinkedHashMap extends LinkedHashMap {
 		valueList.addAll(c);
 	}
 
-	/**
-	 * Put All Reversed
-	 * 
-	 * @param key
-	 *            Object
-	 * @param c
-	 *            Collection
-	 * @param isReverseFirst
-	 *            boolean
-	 * @return Object
-	 */
+	@Override
 	public void putAllReversed(Object key, Collection list,
-			boolean isReverseFirst) {
+			boolean isReverseBefore) {
 		List valueList = (List) super.get(key);
 		if (valueList == null) {
 			valueList = new ArrayList();
 			super.put(key, valueList);
 		}
-		if (isReverseFirst) {
+		if (isReverseBefore) {
 			int valueListSize = valueList.size();
 			for (Object value : list) {
 				valueList.add(valueListSize, value);
@@ -134,22 +113,12 @@ public class MultiValueLinkedHashMap extends LinkedHashMap {
 		return allValueList;
 	}
 
-	/**
-	 * Values Original
-	 * 
-	 * @return Collection
-	 */
+	@Override
 	public Collection valuesOriginal() {
 		return super.values();
 	}
 
-	/**
-	 * Values Reversed
-	 * 
-	 * @param isDeeply
-	 *            boolean
-	 * @return Collection
-	 */
+	@Override
 	public Collection valuesReversed(boolean isDeeply) {
 		List allValueList = new ArrayList();
 
