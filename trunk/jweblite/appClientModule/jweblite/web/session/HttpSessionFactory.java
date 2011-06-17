@@ -87,4 +87,8 @@ public class HttpSessionFactory implements HttpSessionBindingListener,
 		this.unboundEventList = null;
 	}
 
+	public int getActivationCount() {
+		return activationCount;
+	}
+
 }
