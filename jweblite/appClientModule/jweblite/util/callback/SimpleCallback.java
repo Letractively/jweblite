@@ -1,6 +1,6 @@
 package jweblite.util.callback;
 
-public interface SimpleCallback<T> extends Callback<T> {
+public interface SimpleCallback<T> extends Callback {
 
 	/**
 	 * Callback
