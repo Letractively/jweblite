@@ -25,4 +25,11 @@ public interface WebResource extends Serializable {
 	 */
 	public String getEncoding();
 
+	/**
+	 * Is Cacheable
+	 * 
+	 * @return boolean
+	 */
+	public boolean isCacheable();
+
 }

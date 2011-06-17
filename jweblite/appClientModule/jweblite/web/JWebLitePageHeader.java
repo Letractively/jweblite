@@ -6,18 +6,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
-public interface JWebLitePage extends Serializable {
+public interface JWebLitePageHeader extends Serializable {
 
 	/**
-	 * Do Request
+	 * Do Header
 	 * 
 	 * @param req
 	 *            JWebLiteRequestWrapper
 	 * @param resp
 	 *            HttpServletResponse
-	 * @return boolean
 	 */
-	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp);
+	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp);
 
 }
