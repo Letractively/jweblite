@@ -37,9 +37,7 @@ public class HttpSessionFactory implements HttpSessionBindingListener,
 	public void valueBound(HttpSessionBindingEvent event) {
 		this.activationCount++;
 		if (this.boundEventList != null) {
-			synchronized (this) {
-				this.boundEventList.callback(event.getSession());
-			}
+			this.boundEventList.callback(event.getSession());
 		}
 	}
 
@@ -47,9 +45,7 @@ public class HttpSessionFactory implements HttpSessionBindingListener,
 	public void valueUnbound(HttpSessionBindingEvent event) {
 		this.activationCount--;
 		if (this.unboundEventList != null) {
-			synchronized (this) {
-				this.unboundEventList.callback(event.getSession());
-			}
+			this.unboundEventList.callback(event.getSession());
 		}
 	}
 
