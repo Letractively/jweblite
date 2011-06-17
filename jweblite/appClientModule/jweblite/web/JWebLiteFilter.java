@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.util.StringUtils;
+import jweblite.web.session.HttpSessionFactory;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 import org.apache.commons.logging.Log;
@@ -97,7 +98,11 @@ public class JWebLiteFilter implements Filter {
 						.newInstance();
 				isIgnoreViewer = reqClassInstance.doRequest(req, resp);
 				req.setAttribute(this.attrPrefix, reqClassInstance);
-				req.setAttribute(this.attrPrefix + "Req", req);
+				req.setAttribute(this.attrPrefix.concat("Req"), req);
+				// session
+				req.getSession().setAttribute(
+						this.attrPrefix.concat("SessionFactory"),
+						HttpSessionFactory.get());
 			} catch (Throwable e) {
 				throw new ServletException(e);
 			}
