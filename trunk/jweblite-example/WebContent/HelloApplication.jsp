@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="style/stylesheet.css" rel="stylesheet" type="text/css" />
-<title>Hello Session</title>
+<title>Hello Application</title>
 </head>
 <body>
 
@@ -13,12 +13,12 @@
 		<a href="index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Hello Session</legend>
+		<legend>Hello Application</legend>
 		<div>
 
-			Hello ${test}!
+			Hello ${Jwl.initClassName}!
 
-			<p>Total session: ${JwlSessionFactory.activationCount}</p>
+			<p>Server started at: ${Jwl.test}</p>
 
 		</div>
 	</fieldset>
