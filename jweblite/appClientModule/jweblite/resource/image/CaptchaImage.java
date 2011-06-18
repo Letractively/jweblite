@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 
 import jweblite.resource.DynamicWebResource;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
@@ -88,6 +89,12 @@ public abstract class CaptchaImage extends DynamicWebResource {
 			IOUtils.closeQuietly(baos);
 		}
 		return (baos != null ? baos.toByteArray() : null);
+	}
+
+	@Override
+	public void doFinalize(JWebLiteRequestWrapper req, HttpServletResponse resp) {
+		super.doFinalize(req, resp);
+		//req.getSession(true).setAttribute(, arg1);
 	}
 
 	/**

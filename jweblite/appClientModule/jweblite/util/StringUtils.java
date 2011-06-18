@@ -1,9 +1,11 @@
 package jweblite.util;
 
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -216,6 +218,149 @@ public class StringUtils {
 		} catch (Exception e) {
 		}
 		return result;
+	}
+
+	/**
+	 * Get String Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param nullValue
+	 *            String
+	 * @param isIgnoreEmpty
+	 *            boolean
+	 * @return String
+	 */
+	public static String getStringValue(String str, String nullValue,
+			boolean isIgnoreEmpty) {
+		if (str == null || (isIgnoreEmpty && str.length() <= 0)) {
+			return nullValue;
+		}
+		return str;
+	}
+
+	/**
+	 * Get String Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param nullValue
+	 *            String
+	 * @return String
+	 */
+	public static String getStringValue(String str, String nullValue) {
+		return getStringValue(str, nullValue, false);
+	}
+
+	/**
+	 * Get Int Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param errorValue
+	 *            int
+	 * @param nullValue
+	 *            int
+	 * @return int
+	 */
+	public static int getIntValue(String str, int errorValue, int nullValue) {
+		if (str == null) {
+			return nullValue;
+		}
+		try {
+			return Integer.parseInt(str);
+		} catch (Exception e) {
+		}
+		return errorValue;
+	}
+
+	/**
+	 * Get Int Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param errorValue
+	 *            int
+	 * @return int
+	 */
+	public static int getIntValue(String str, int errorValue) {
+		return getIntValue(str, errorValue, errorValue);
+	}
+
+	/**
+	 * Get Double Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param errorValue
+	 *            double
+	 * @param nullValue
+	 *            double
+	 * @return double
+	 */
+	public static double getDoubleValue(String str, double errorValue,
+			double nullValue) {
+		if (str == null) {
+			return nullValue;
+		}
+		try {
+			return Double.parseDouble(str);
+		} catch (Exception e) {
+		}
+		return errorValue;
+	}
+
+	/**
+	 * Get Double Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param errorValue
+	 *            double
+	 * @return double
+	 */
+	public static double getDoubleValue(String str, double errorValue) {
+		return getDoubleValue(str, errorValue, errorValue);
+	}
+
+	/**
+	 * Get Date Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param pattern
+	 *            String
+	 * @param errorValue
+	 *            Date
+	 * @param nullValue
+	 *            Date
+	 * @return Date
+	 */
+	public static Date getDateValue(String str, String pattern,
+			Date errorValue, Date nullValue) {
+		if (str == null) {
+			return nullValue;
+		}
+		try {
+			return new SimpleDateFormat(pattern).parse(str);
+		} catch (Exception e) {
+		}
+		return errorValue;
+	}
+
+	/**
+	 * Get Date Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param pattern
+	 *            String
+	 * @param errorValue
+	 *            Date
+	 * @return Date
+	 */
+	public static Date getDateValue(String str, String pattern, Date errorValue) {
+		return getDateValue(str, pattern, errorValue, errorValue);
 	}
 
 }

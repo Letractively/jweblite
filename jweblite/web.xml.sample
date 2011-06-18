@@ -24,6 +24,10 @@
 			<param-name>UrlPathPadding</param-name>
 			<param-value>0</param-value>
 		</init-param>
+		<init-param>
+			<param-name>InitClassName</param-name>
+			<param-value></param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>JWebLiteFilter</filter-name>
