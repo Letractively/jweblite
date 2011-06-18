@@ -15,6 +15,9 @@ public class PagingNavigation implements JWebLitePage {
 	private CollectionDataProvider<String> dataProvider = new CollectionDataProvider(
 			userNameArray, 3);
 
+	/**
+	 * Default constructor.
+	 */
 	public PagingNavigation() {
 		super();
 	}

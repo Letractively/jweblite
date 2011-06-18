@@ -22,7 +22,7 @@
 		</init-param>
 		<init-param>
 			<param-name>InitClassName</param-name>
-			<param-value>WebApplication</param-value>
+			<param-value>application.WebApplication</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
