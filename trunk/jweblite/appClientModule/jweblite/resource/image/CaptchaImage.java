@@ -97,37 +97,11 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp)
 			throws SkipException {
 		// get challenge from session
-		HttpSession session = req.getSession(true);
-		String attrPrefix = JWebLiteApplication.get().getFilterConfig()
-				.getAttrPrefix();
-		String captchaId = (String) session.getAttribute(attrPrefix
-				.concat("CaptchaImageId"));
-		if (captchaId == null) {
-			throw new SkipException();
-		}
-		this.challenge = (String) session.getAttribute(attrPrefix.concat(
-				"CaptchaImageChallenge_").concat(captchaId));
+		this.challenge = getChallenge(req);
 		if (this.challenge == null) {
 			throw new SkipException();
 		}
 		super.doHeader(req, resp);
-	}
-
-	@Override
-	public void doFinalize(JWebLiteRequestWrapper req, HttpServletResponse resp) {
-		super.doFinalize(req, resp);
-		// remove challenge from session
-		HttpSession session = req.getSession();
-		if (session != null) {
-			String attrPrefix = JWebLiteApplication.get().getFilterConfig()
-					.getAttrPrefix();
-			String captchaId = (String) session.getAttribute(attrPrefix
-					.concat("CaptchaImageId"));
-			if (captchaId != null) {
-				session.removeAttribute(attrPrefix.concat(
-						"CaptchaImageChallenge_").concat(captchaId));
-			}
-		}
 	}
 
 	/**
@@ -147,6 +121,26 @@ public abstract class CaptchaImage extends DynamicWebResource {
 		session.setAttribute(attrPrefix.concat("CaptchaImageChallenge_")
 				.concat(captchaImageId), challenge);
 		return challenge;
+	}
+
+	/**
+	 * Get Challenge (could be a wrong challenge by another captcha image
+	 * request)
+	 * 
+	 * @return String
+	 */
+	public static String getChallenge(JWebLiteRequestWrapper req) {
+		// set challenge to the session
+		HttpSession session = req.getSession(true);
+		String attrPrefix = JWebLiteApplication.get().getFilterConfig()
+				.getAttrPrefix();
+		String captchaId = (String) session.getAttribute(attrPrefix
+				.concat("CaptchaImageId"));
+		if (captchaId == null) {
+			return null;
+		}
+		return (String) session.getAttribute(attrPrefix.concat(
+				"CaptchaImageChallenge_").concat(captchaId));
 	}
 
 	/**

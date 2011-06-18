@@ -104,6 +104,23 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	}
 
 	/**
+	 * Get Parameter
+	 * 
+	 * @param name
+	 *            String
+	 * @param nullValue
+	 *            String
+	 * @param isIgnoreEmpty
+	 *            boolean
+	 * @return String
+	 */
+	public String getParameter(String name, String nullValue,
+			boolean isIgnoreEmpty) {
+		return StringUtils.getStringValue(this.getParameter(name), nullValue,
+				isIgnoreEmpty);
+	}
+
+	/**
 	 * Get Int Parameter
 	 * 
 	 * @param name
