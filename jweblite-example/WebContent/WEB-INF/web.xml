@@ -20,6 +20,10 @@
 			<param-name>Encoding</param-name>
 			<param-value>UTF-8</param-value>
 		</init-param>
+		<init-param>
+			<param-name>InitClassName</param-name>
+			<param-value>WebApplication</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>JWebLiteFilter</filter-name>
