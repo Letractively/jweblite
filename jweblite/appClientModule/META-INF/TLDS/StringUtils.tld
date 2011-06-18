@@ -38,4 +38,32 @@
 		<function-signature><![CDATA[ int indexOf(java.lang.String, java.lang.String, int) ]]></function-signature>
 	</function>
 
+	<!-- getStringValue -->
+	<function>
+		<name>getStringValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String getStringValue(java.lang.String, java.lang.String, boolean) ]]></function-signature>
+	</function>
+
+	<!-- getIntValue -->
+	<function>
+		<name>getIntValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ int getIntValue(java.lang.String, int, int) ]]></function-signature>
+	</function>
+
+	<!-- getDoubleValue -->
+	<function>
+		<name>getDoubleValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ double getDoubleValue(java.lang.String, double, double) ]]></function-signature>
+	</function>
+
+	<!-- getDateValue -->
+	<function>
+		<name>getDateValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.util.Date getDateValue(java.lang.String, java.lang.String, java.util.Date, java.util.Date) ]]></function-signature>
+	</function>
+
 </taglib>

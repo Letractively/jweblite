@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns:j2ee="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd ">
+	<tlib-version>1.0</tlib-version>
+	<short-name>DateELUtils</short-name>
+	<uri>https://code.google.com/p/jweblite/DateELUtils</uri>
+
+	<!-- ============================================================================================================== -->
+	<!-- java.util.Date -->
+	<!-- ============================================================================================================== -->
+
+	<!-- currentTimeMillis -->
+	<function>
+		<name>currentTimeMillis</name>
+		<function-class>jweblite.util.el.DateELUtils</function-class>
+		<function-signature><![CDATA[ long currentTimeMillis() ]]></function-signature>
+	</function>
+
+	<!-- currentDate -->
+	<function>
+		<name>currentDate</name>
+		<function-class>jweblite.util.el.DateELUtils</function-class>
+		<function-signature><![CDATA[ java.util.Date currentDate() ]]></function-signature>
+	</function>
+
+	<!-- formatDate -->
+	<function>
+		<name>formatDate</name>
+		<function-class>jweblite.util.el.DateELUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String formatDate(java.util.Date, java.lang.String) ]]></function-signature>
+	</function>
+
+	<!-- parseDate -->
+	<function>
+		<name>parseDate</name>
+		<function-class>jweblite.util.el.DateELUtils</function-class>
+		<function-signature><![CDATA[ java.util.Date parseDate(java.lang.String, java.lang.String) ]]></function-signature>
+	</function>
+
+</taglib>
