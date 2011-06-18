@@ -20,7 +20,7 @@
 		<div>
 
 			<c:set var="dataProvider" value="${Jwl.dataProvider}" />
-			<table border="1" cellpadding="5" cellspacing="1">
+			<table border="1" cellpadding="5" cellspacing="0">
 				<c:forEach var="viewItem" items="${dataProvider.viewList}">
 					<tr>
 						<td>${viewItem}</td>
