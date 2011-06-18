@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import jweblite.util.StringUtils;
 import jweblite.web.application.JWebLiteApplication;
-import jweblite.web.application.JWebLiteApplicationBoundListener;
+import jweblite.web.application.JWebLiteApplicationListener;
 import jweblite.web.session.JWebLiteSessionFactory;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
@@ -55,12 +55,6 @@ public class JWebLiteFilter implements Filter {
 				log.warn("Init class failed!", e);
 			}
 		}
-		// trigger bound event
-		Object initClassInstance = null;
-		if ((initClassInstance = application.getInitClass()) != null
-				&& initClassInstance instanceof JWebLiteApplicationBoundListener) {
-			((JWebLiteApplicationBoundListener) initClassInstance).bound();
-		}
 	}
 
 	/**
@@ -70,8 +64,8 @@ public class JWebLiteFilter implements Filter {
 		// trigger unbound event
 		Object initClassInstance = null;
 		if ((initClassInstance = JWebLiteApplication.get().getInitClass()) != null
-				&& initClassInstance instanceof JWebLiteApplicationBoundListener) {
-			((JWebLiteApplicationBoundListener) initClassInstance).unbound();
+				&& initClassInstance instanceof JWebLiteApplicationListener) {
+			((JWebLiteApplicationListener) initClassInstance).destroy();
 		}
 	}
 
