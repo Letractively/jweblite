@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.resource.DynamicWebResource;
+import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 import org.apache.commons.io.IOUtils;
@@ -94,7 +95,21 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	@Override
 	public void doFinalize(JWebLiteRequestWrapper req, HttpServletResponse resp) {
 		super.doFinalize(req, resp);
-		//req.getSession(true).setAttribute(, arg1);
+		req.getSession(true).setAttribute(
+				JWebLiteApplication.get().getFilterConfig().getAttrPrefix()
+						.concat("CaptchaImageChallenge"), this.challenge);
+	}
+
+	/**
+	 * Get Challenge (could be a wrong challenge by another captcha image
+	 * request)
+	 * 
+	 * @return String
+	 */
+	public static String getChallenge(JWebLiteRequestWrapper req) {
+		return (String) req.getSession(true).getAttribute(
+				JWebLiteApplication.get().getFilterConfig().getAttrPrefix()
+						.concat("CaptchaImageChallenge"));
 	}
 
 	/**
@@ -148,7 +163,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	 *            Graphics2D
 	 */
 	public void paintChallenge(Graphics2D g2) {
-		if (this.getChallenge() == null || this.getChallenge().length() <= 0) {
+		if (this.challenge == null || this.challenge.length() <= 0) {
 			return;
 		}
 		AffineTransform originalAffineTransform = g2.getTransform();
