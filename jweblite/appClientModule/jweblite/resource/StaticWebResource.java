@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import jweblite.util.StringUtils;
 import jweblite.web.JWebLitePage;
 import jweblite.web.JWebLitePageEvent;
+import jweblite.web.SkipException;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 import org.apache.commons.io.IOUtils;
@@ -32,17 +33,21 @@ public abstract class StaticWebResource implements JWebLitePage,
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
 			HttpServletResponse resp) {
-		// header
-		this.doHeader(req, resp);
-		// body
-		this.doBody(req, resp);
-		// finalize
-		this.doFinalize(req, resp);
+		try {
+			// header
+			this.doHeader(req, resp);
+			// body
+			this.doBody(req, resp);
+			// finalize
+			this.doFinalize(req, resp);
+		} catch (SkipException e) {
+		}
 		return true;
 	}
 
 	@Override
-	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp) {
+	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp)
+			throws SkipException {
 		// contentType
 		String contentType = this.getContentType();
 		if (contentType != null) {
@@ -69,7 +74,8 @@ public abstract class StaticWebResource implements JWebLitePage,
 	}
 
 	@Override
-	public void doBody(JWebLiteRequestWrapper req, HttpServletResponse resp) {
+	public void doBody(JWebLiteRequestWrapper req, HttpServletResponse resp)
+			throws SkipException {
 		// write
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
