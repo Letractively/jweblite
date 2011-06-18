@@ -15,8 +15,10 @@ public interface JWebLitePageEvent extends Serializable {
 	 *            JWebLiteRequestWrapper
 	 * @param resp
 	 *            HttpServletResponse
+	 * @throws SkipException
 	 */
-	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp);
+	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp)
+			throws SkipException;
 
 	/**
 	 * Do Body
@@ -25,8 +27,10 @@ public interface JWebLitePageEvent extends Serializable {
 	 *            JWebLiteRequestWrapper
 	 * @param resp
 	 *            HttpServletResponse
+	 * @throws SkipException
 	 */
-	public void doBody(JWebLiteRequestWrapper req, HttpServletResponse resp);
+	public void doBody(JWebLiteRequestWrapper req, HttpServletResponse resp)
+			throws SkipException;
 
 	/**
 	 * Do Finalize

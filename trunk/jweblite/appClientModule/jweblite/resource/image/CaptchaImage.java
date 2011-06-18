@@ -15,8 +15,10 @@ import java.io.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import jweblite.resource.DynamicWebResource;
+import jweblite.web.SkipException;
 import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
@@ -29,7 +31,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(this.getClass());
 
-	private final String challenge;
+	private String challenge = null;
 	private Font font = new Font("SansSerif", Font.PLAIN, 36);
 	private int width = 200;
 	private int height = 50;
@@ -40,7 +42,6 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	 */
 	public CaptchaImage() {
 		super();
-		this.challenge = this.generateChallenge();
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 
 	@Override
 	public String getFileName() {
-		return String.valueOf(System.currentTimeMillis());
+		return null;
 	}
 
 	@Override
@@ -93,32 +94,59 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	}
 
 	@Override
+	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp)
+			throws SkipException {
+		// get challenge from session
+		HttpSession session = req.getSession(true);
+		String attrPrefix = JWebLiteApplication.get().getFilterConfig()
+				.getAttrPrefix();
+		String captchaId = (String) session.getAttribute(attrPrefix
+				.concat("CaptchaImageId"));
+		if (captchaId == null) {
+			throw new SkipException();
+		}
+		this.challenge = (String) session.getAttribute(attrPrefix.concat(
+				"CaptchaImageChallenge_").concat(captchaId));
+		if (this.challenge == null) {
+			throw new SkipException();
+		}
+		super.doHeader(req, resp);
+	}
+
+	@Override
 	public void doFinalize(JWebLiteRequestWrapper req, HttpServletResponse resp) {
 		super.doFinalize(req, resp);
-		req.getSession(true).setAttribute(
-				JWebLiteApplication.get().getFilterConfig().getAttrPrefix()
-						.concat("CaptchaImageChallenge"), this.challenge);
+		// remove challenge from session
+		HttpSession session = req.getSession();
+		if (session != null) {
+			String attrPrefix = JWebLiteApplication.get().getFilterConfig()
+					.getAttrPrefix();
+			String captchaId = (String) session.getAttribute(attrPrefix
+					.concat("CaptchaImageId"));
+			if (captchaId != null) {
+				session.removeAttribute(attrPrefix.concat(
+						"CaptchaImageChallenge_").concat(captchaId));
+			}
+		}
 	}
 
 	/**
-	 * Get Challenge (could be a wrong challenge by another captcha image
-	 * request)
+	 * Create Challenge
 	 * 
 	 * @return String
 	 */
-	public static String getChallenge(JWebLiteRequestWrapper req) {
-		return (String) req.getSession(true).getAttribute(
-				JWebLiteApplication.get().getFilterConfig().getAttrPrefix()
-						.concat("CaptchaImageChallenge"));
-	}
-
-	/**
-	 * Gererate Challenge
-	 * 
-	 * @return String
-	 */
-	public String generateChallenge() {
-		return String.valueOf((int) (Math.random() * 10000));
+	public static String createChallenge(JWebLiteRequestWrapper req,
+			String challenge) {
+		// set challenge to the session
+		HttpSession session = req.getSession(true);
+		String attrPrefix = JWebLiteApplication.get().getFilterConfig()
+				.getAttrPrefix();
+		String captchaImageId = String.valueOf(System.currentTimeMillis());
+		session.setAttribute(attrPrefix.concat("CaptchaImageId"),
+				captchaImageId);
+		session.setAttribute(attrPrefix.concat("CaptchaImageChallenge_")
+				.concat(captchaImageId), challenge);
+		return challenge;
 	}
 
 	/**
