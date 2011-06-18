@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.util.StringUtils;
-import jweblite.web.session.HttpSessionFactory;
+import jweblite.web.application.JWebLiteApplication;
+import jweblite.web.application.JWebLiteApplicationBoundListener;
+import jweblite.web.session.JWebLiteSessionFactory;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 import org.apache.commons.logging.Log;
@@ -25,10 +27,6 @@ public class JWebLiteFilter implements Filter {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
-	private String attrPrefix = "Jwl";
-	private String encoding = "UTF-8";
-	private int urlPathPadding = 0;
-
 	/**
 	 * Default constructor.
 	 */
@@ -40,27 +38,28 @@ public class JWebLiteFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		String attrPrefix = fConfig.getInitParameter("AttrPrefix");
-		String encoding = fConfig.getInitParameter("Encoding");
-		String urlPathPadding = fConfig.getInitParameter("UrlPathPadding");
-		if (attrPrefix != null && attrPrefix.length() > 0) {
-			this.attrPrefix = attrPrefix;
-		}
-		if (encoding != null && encoding.length() > 0) {
-			this.encoding = encoding;
-		}
-		if (urlPathPadding != null && urlPathPadding.length() > 0) {
+		// init filter config
+		JWebLiteFilterConfig filterConfig = new JWebLiteFilterConfig(fConfig);
+
+		JWebLiteApplication application = JWebLiteApplication.get();
+		application.setFilterConfig(filterConfig);
+		// init class
+		String initClassName = filterConfig.getInitClassName();
+		if (initClassName != null) {
 			try {
-				if ((this.urlPathPadding = Integer.parseInt(urlPathPadding)) < 0) {
-					this.urlPathPadding = 0;
+				Class initClass = Class.forName(initClassName);
+				if (initClass != null) {
+					application.setInitClass(initClass.newInstance());
 				}
 			} catch (Exception e) {
+				log.warn("Init class failed!", e);
 			}
 		}
-		if (this.log.isInfoEnabled()) {
-			this.log.info(String
-					.format("ServerInfo [ AttrPrefix: %s, Encoding: %s, UrlPathPadding: %s ]",
-							attrPrefix, encoding, urlPathPadding));
+		// trigger bound event
+		Object initClassInstance = null;
+		if ((initClassInstance = application.getInitClass()) != null
+				&& initClassInstance instanceof JWebLiteApplicationBoundListener) {
+			((JWebLiteApplicationBoundListener) initClassInstance).bound();
 		}
 	}
 
@@ -68,6 +67,12 @@ public class JWebLiteFilter implements Filter {
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
+		// trigger unbound event
+		Object initClassInstance = null;
+		if ((initClassInstance = JWebLiteApplication.get().getInitClass()) != null
+				&& initClassInstance instanceof JWebLiteApplicationBoundListener) {
+			((JWebLiteApplicationBoundListener) initClassInstance).unbound();
+		}
 	}
 
 	/**
@@ -75,14 +80,18 @@ public class JWebLiteFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+		// filter config
+		JWebLiteFilterConfig filterConfig = JWebLiteApplication.get()
+				.getFilterConfig();
+		// starting
 		JWebLiteRequestWrapper req = new JWebLiteRequestWrapper(
-				(HttpServletRequest) request, this.encoding);
+				(HttpServletRequest) request, filterConfig.getEncoding());
 		HttpServletResponse resp = (HttpServletResponse) response;
 		resp.setHeader("Implementation-Title", "jweblite");
-		resp.setCharacterEncoding(this.encoding);
+		resp.setCharacterEncoding(filterConfig.getEncoding());
 		// parse
 		Class reqClass = this.getReferenceClassByUrl(req.getServletPath(),
-				this.urlPathPadding);
+				filterConfig.getUrlPathPadding());
 		if (this.log.isInfoEnabled()) {
 			this.log.info(String
 					.format("RequestInfo [ ClientIP: %s, ReqUrl: %s, ReqParam: %s, ReqClass: %s ]",
@@ -90,19 +99,20 @@ public class JWebLiteFilter implements Filter {
 							req.getQueryString(),
 							(reqClass != null ? reqClass.getName() : null)));
 		}
-		// init
+		// init class
 		boolean isIgnoreViewer = false;
 		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
 			try {
 				JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 						.newInstance();
 				isIgnoreViewer = reqClassInstance.doRequest(req, resp);
-				req.setAttribute(this.attrPrefix, reqClassInstance);
-				req.setAttribute(this.attrPrefix.concat("Req"), req);
+				req.setAttribute(filterConfig.getAttrPrefix(), reqClassInstance);
+				req.setAttribute(filterConfig.getAttrPrefix().concat("Req"),
+						req);
 				// session
-				req.getSession().setAttribute(
-						this.attrPrefix.concat("SessionFactory"),
-						HttpSessionFactory.get());
+				req.getSession(true).setAttribute(
+						filterConfig.getAttrPrefix().concat("SessionFactory"),
+						JWebLiteSessionFactory.get());
 			} catch (Throwable e) {
 				throw new ServletException(e);
 			}

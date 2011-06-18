@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import jweblite.util.StringUtils;
 import jweblite.web.JWebLitePage;
-import jweblite.web.JWebLitePageHeader;
+import jweblite.web.JWebLitePageEvent;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 import org.apache.commons.io.IOUtils;
@@ -14,7 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public abstract class DynamicWebResource implements JWebLitePage,
-		JWebLitePageHeader, WebResource {
+		JWebLitePageEvent, WebResource {
 
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(this.getClass());
@@ -27,7 +27,24 @@ public abstract class DynamicWebResource implements JWebLitePage,
 	}
 
 	@Override
+	public boolean doRequest(JWebLiteRequestWrapper req,
+			HttpServletResponse resp) {
+		// header
+		this.doHeader(req, resp);
+		// body
+		this.doBody(req, resp);
+		// finalize
+		this.doFinalize(req, resp);
+		return true;
+	}
+
+	@Override
 	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp) {
+		// contentType
+		String contentType = this.getContentType();
+		if (contentType != null) {
+			resp.setContentType(contentType);
+		}
 		// encoding
 		String encoding = this.getEncoding();
 		if (encoding == null) {
@@ -49,15 +66,7 @@ public abstract class DynamicWebResource implements JWebLitePage,
 	}
 
 	@Override
-	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
-		// contentType
-		String contentType = this.getContentType();
-		if (contentType != null) {
-			resp.setContentType(contentType);
-		}
-		// header
-		this.doHeader(req, resp);
+	public void doBody(JWebLiteRequestWrapper req, HttpServletResponse resp) {
 		// write
 		BufferedOutputStream bos = null;
 		try {
@@ -69,7 +78,11 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		} finally {
 			IOUtils.closeQuietly(bos);
 		}
-		return true;
+	}
+
+	@Override
+	public void doFinalize(JWebLiteRequestWrapper req, HttpServletResponse resp) {
+		// nothing
 	}
 
 	@Override

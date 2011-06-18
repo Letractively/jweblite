@@ -1,11 +1,12 @@
 package jweblite.web.wrapper;
 
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+
+import jweblite.util.StringUtils;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
@@ -94,16 +95,12 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 * 
 	 * @param name
 	 *            String
-	 * @param oldValue
+	 * @param nullValue
 	 *            String
 	 * @return String
 	 */
-	public String getParameter(String name, String oldValue) {
-		String result = this.getParameter(name);
-		if (result == null) {
-			return oldValue;
-		}
-		return result;
+	public String getParameter(String name, String nullValue) {
+		return StringUtils.getStringValue(this.getParameter(name), nullValue);
 	}
 
 	/**
@@ -111,22 +108,15 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 * 
 	 * @param name
 	 *            String
-	 * @param defaultValue
+	 * @param errorValue
 	 *            int
-	 * @param oldValue
+	 * @param nullValue
 	 *            int
 	 * @return int
 	 */
-	public int getIntParameter(String name, int defaultValue, int oldValue) {
-		String result = this.getParameter(name);
-		if (result == null) {
-			return oldValue;
-		}
-		try {
-			return Integer.parseInt(result);
-		} catch (Exception e) {
-		}
-		return defaultValue;
+	public int getIntParameter(String name, int errorValue, int nullValue) {
+		return StringUtils.getIntValue(this.getParameter(name), errorValue,
+				nullValue);
 	}
 
 	/**
@@ -134,12 +124,12 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 * 
 	 * @param name
 	 *            String
-	 * @param defaultValue
+	 * @param errorValue
 	 *            int
 	 * @return int
 	 */
-	public int getIntParameter(String name, int defaultValue) {
-		return this.getIntParameter(name, defaultValue, defaultValue);
+	public int getIntParameter(String name, int errorValue) {
+		return StringUtils.getIntValue(this.getParameter(name), errorValue);
 	}
 
 	/**
@@ -147,23 +137,16 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 * 
 	 * @param name
 	 *            String
-	 * @param defaultValue
+	 * @param errorValue
 	 *            double
-	 * @param oldValue
+	 * @param nullValue
 	 *            double
 	 * @return double
 	 */
-	public double getDoubleParameter(String name, double defaultValue,
-			double oldValue) {
-		String result = this.getParameter(name);
-		if (result == null) {
-			return oldValue;
-		}
-		try {
-			return Double.parseDouble(result);
-		} catch (Exception e) {
-		}
-		return defaultValue;
+	public double getDoubleParameter(String name, double errorValue,
+			double nullValue) {
+		return StringUtils.getDoubleValue(this.getParameter(name), errorValue,
+				nullValue);
 	}
 
 	/**
@@ -171,12 +154,12 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 * 
 	 * @param name
 	 *            String
-	 * @param defaultValue
+	 * @param errorValue
 	 *            double
 	 * @return double
 	 */
-	public double getDoubleParameter(String name, double defaultValue) {
-		return this.getDoubleParameter(name, defaultValue, defaultValue);
+	public double getDoubleParameter(String name, double errorValue) {
+		return StringUtils.getDoubleValue(this.getParameter(name), errorValue);
 	}
 
 	/**
@@ -186,23 +169,16 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 *            String
 	 * @param pattern
 	 *            String
-	 * @param defaultValue
+	 * @param errorValue
 	 *            Date
-	 * @param oldValue
+	 * @param nullValue
 	 *            Date
 	 * @return Date
 	 */
-	public Date getDateParameter(String name, String pattern,
-			Date defaultValue, Date oldValue) {
-		String result = this.getParameter(name);
-		if (result == null) {
-			return oldValue;
-		}
-		try {
-			return new SimpleDateFormat(pattern).parse(result);
-		} catch (Exception e) {
-		}
-		return defaultValue;
+	public Date getDateParameter(String name, String pattern, Date errorValue,
+			Date nullValue) {
+		return StringUtils.getDateValue(this.getParameter(name), pattern,
+				errorValue, nullValue);
 	}
 
 	/**
@@ -212,12 +188,13 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 *            String
 	 * @param pattern
 	 *            String
-	 * @param defaultValue
+	 * @param errorValue
 	 *            Date
 	 * @return Date
 	 */
-	public Date getDateParameter(String name, String pattern, Date defaultValue) {
-		return this.getDateParameter(name, pattern, defaultValue, defaultValue);
+	public Date getDateParameter(String name, String pattern, Date errorValue) {
+		return StringUtils.getDateValue(this.getParameter(name), pattern,
+				errorValue);
 	}
 
 	/**

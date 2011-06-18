@@ -27,7 +27,7 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	private Log log = LogFactory.getLog(this.getClass());
 
 	private final File repository;
-	private final int maxSize;
+	private final long maxSize;
 	private final boolean isMultipart;
 	private Map parametersMap = new MultiValueHashMap();
 	private Map<String, FileItem> fileItemsMap = new HashMap();
@@ -40,12 +40,12 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	 * @param repository
 	 *            File
 	 * @param maxSize
-	 *            int
+	 *            long
 	 * @throws UnsupportedEncodingException
 	 * @throws FileUploadException
 	 */
 	public JWebLiteMultipartRequestWrapper(JWebLiteRequestWrapper req,
-			File repository, int maxSize) throws UnsupportedEncodingException,
+			File repository, long maxSize) throws UnsupportedEncodingException,
 			FileUploadException {
 		super(req, req.getEncoding());
 		// init
@@ -176,9 +176,9 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	/**
 	 * Get Max Size
 	 * 
-	 * @return int
+	 * @return long
 	 */
-	public int getMaxSize() {
+	public long getMaxSize() {
 		return maxSize;
 	}
 
