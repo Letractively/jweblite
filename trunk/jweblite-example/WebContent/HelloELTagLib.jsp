@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="RequestELUtils"
+	uri="https://code.google.com/p/jweblite/RequestELUtils"%>
 <%@ taglib prefix="StringUtils"
 	uri="https://code.google.com/p/jweblite/StringUtils"%>
 <%@ taglib prefix="StringELUtils"
@@ -19,6 +21,8 @@
 	<fieldset>
 		<legend>Hello EL Tag Lib</legend>
 		<div>
+
+			Hello ${RequestELUtils:getParameter(JwlReq, "test", "")}!
 
 			<div style="font-size: small; font-weight: bold;">String:
 				HelloELTagLib</div>
