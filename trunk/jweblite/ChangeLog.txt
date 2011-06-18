@@ -1,5 +1,13 @@
 ﻿JWebLite
 
+Version 0.3.0
+====================
+．Add JWebLiteApplication
+．Add JWebLiteSessionFactory
+．Add RequestELUtils
+．Add DateELUtils
+．Minor changes
+
 Version 0.2.3
 ====================
 ．Add WebResource
