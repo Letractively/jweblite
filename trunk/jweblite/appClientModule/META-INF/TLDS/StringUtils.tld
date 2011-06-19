@@ -45,6 +45,13 @@
 		<function-signature><![CDATA[ java.lang.String getStringValue(java.lang.String, java.lang.String, boolean) ]]></function-signature>
 	</function>
 
+	<!-- getHtmlStringValue -->
+	<function>
+		<name>getHtmlStringValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String getHtmlStringValue(java.lang.String, java.lang.String, boolean) ]]></function-signature>
+	</function>
+
 	<!-- getIntValue -->
 	<function>
 		<name>getIntValue</name>

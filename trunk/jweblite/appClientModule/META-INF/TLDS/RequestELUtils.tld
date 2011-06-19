@@ -17,6 +17,13 @@
 		<function-signature><![CDATA[ java.lang.String getParameter(jweblite.web.wrapper.JWebLiteRequestWrapper, java.lang.String, java.lang.String) ]]></function-signature>
 	</function>
 
+	<!-- getHtmlParameter -->
+	<function>
+		<name>getHtmlParameter</name>
+		<function-class>jweblite.util.el.RequestELUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String getHtmlParameter(jweblite.web.wrapper.JWebLiteRequestWrapper, java.lang.String, java.lang.String) ]]></function-signature>
+	</function>
+
 	<!-- getIntParameter -->
 	<function>
 		<name>getIntParameter</name>
