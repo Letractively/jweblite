@@ -34,7 +34,7 @@ public class JWebLiteRequestDispatcher implements Serializable {
 	 *            HttpServletRequest
 	 * @return ServletRequestDispatchSettings
 	 */
-	public ServletRequestDispatchSettings doDispatch(HttpServletRequest req) {
+	public JWebLiteRequestDispatchSettings doDispatch(HttpServletRequest req) {
 		String servletPath = req.getServletPath();
 		String currentUrl = servletPath.substring(StringUtils.indexOf(
 				servletPath, "/", this.urlPathPadding) + 1);
@@ -65,8 +65,7 @@ public class JWebLiteRequestDispatcher implements Serializable {
 			}
 		} catch (Exception e) {
 		}
-		return new ServletRequestDispatchSettings(result.toString(),
-				servletPath);
+		return new JWebLiteRequestDispatchSettings(result.toString(), null);
 	}
 
 }
