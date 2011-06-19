@@ -47,7 +47,7 @@ public class JWebLiteFilter implements Filter {
 		// init request dispatcher
 		this.application.setRequestDispatcher(new JWebLiteRequestDispatcher(
 				filterConfig.getUrlPathPadding()));
-		// init class
+		// init application class
 		String initClassName = filterConfig.getInitClassName();
 		if (initClassName != null) {
 			try {
