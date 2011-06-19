@@ -84,18 +84,21 @@ public class JWebLiteFilter implements Filter {
 		JWebLiteFilterConfig filterConfig = this.application.getFilterConfig();
 		String attrPrefix = filterConfig.getAttrPrefix();
 		// redirect by request dispatcher
+		String reqDispatcherFowardId = attrPrefix.concat("ReqDispatcherFoward");
 		ServletRequestDispatchSettings requestDispatchSettings = (ServletRequestDispatchSettings) req
-				.getAttribute(attrPrefix.concat("ReqDispatcherFoward"));
-		if (requestDispatchSettings == null
-				&& this.application.getRequestDispatcher() != null
-				&& (requestDispatchSettings = this.application
-						.getRequestDispatcher().doDispatch(req)) != null) {
-			req.setAttribute(attrPrefix.concat("ReqDispatcherFoward"),
-					requestDispatchSettings);
-			req.getRequestDispatcher(
-					requestDispatchSettings.getReferenceResourcePath())
-					.forward(req, resp);
-			return;
+				.getAttribute(reqDispatcherFowardId);
+		if (requestDispatchSettings == null) {
+			if (this.application.getRequestDispatcher() != null
+					&& (requestDispatchSettings = this.application
+							.getRequestDispatcher().doDispatch(req)) != null) {
+				req.setAttribute(reqDispatcherFowardId, requestDispatchSettings);
+				req.getRequestDispatcher(
+						requestDispatchSettings.getReferenceResourcePath())
+						.forward(req, resp);
+				return;
+			}
+		} else {
+			req.removeAttribute(reqDispatcherFowardId);
 		}
 		// starting
 		JWebLiteRequestWrapper reqWrapper = new JWebLiteRequestWrapper(req,
@@ -139,5 +142,4 @@ public class JWebLiteFilter implements Filter {
 			chain.doFilter(reqWrapper, resp);
 		}
 	}
-
 }
