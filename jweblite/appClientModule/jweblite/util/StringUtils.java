@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import jweblite.util.callback.EachCallback;
 
 import org.apache.commons.codec.net.BCodec;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -204,6 +205,42 @@ public class StringUtils {
 	 */
 	public static String getStringValue(String str, String nullValue) {
 		return getStringValue(str, nullValue, false);
+	}
+
+	/**
+	 * Get Html String Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param nullValue
+	 *            String
+	 * @param isIgnoreEmpty
+	 *            boolean
+	 * @return String
+	 */
+	public static String getHtmlStringValue(String str, String nullValue,
+			boolean isIgnoreEmpty) {
+		String result = str;
+		if (str == null || (isIgnoreEmpty && str.length() <= 0)) {
+			result = nullValue;
+		}
+		if (result != null) {
+			result = StringEscapeUtils.escapeHtml(result);
+		}
+		return result;
+	}
+
+	/**
+	 * Get Html String Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param nullValue
+	 *            String
+	 * @return String
+	 */
+	public static String getHtmlStringValue(String str, String nullValue) {
+		return getHtmlStringValue(str, nullValue, false);
 	}
 
 	/**

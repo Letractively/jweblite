@@ -34,6 +34,22 @@ public class RequestELUtils {
 	}
 
 	/**
+	 * Get Html Parameter
+	 * 
+	 * @param req
+	 *            JWebLiteRequestWrapper
+	 * @param name
+	 *            String
+	 * @param nullValue
+	 *            String
+	 * @return String
+	 */
+	public static String getHtmlParameter(JWebLiteRequestWrapper req,
+			String name, String nullValue) {
+		return req.getHtmlParameter(name, nullValue);
+	}
+
+	/**
 	 * Get Int Parameter
 	 * 
 	 * @param req
