@@ -42,52 +42,6 @@ public class StringUtils {
 	}
 
 	/**
-	 * Parse Url Path To Class Name
-	 * 
-	 * @param url
-	 *            String
-	 * @param urlPathPadding
-	 *            int
-	 * @return String
-	 */
-	public static String parseUrlPathToClassName(String url, int urlPathPadding) {
-		// skip invalid pattern
-		if (url == null) {
-			return null;
-		}
-		String currentUrl = url
-				.substring(indexOf(url, "/", urlPathPadding) + 1);
-		int urlLength = -1;
-		int lastUrlCommaIndex = -1;
-		if ((urlLength = currentUrl.length()) == 0
-				|| (lastUrlCommaIndex = currentUrl.lastIndexOf(".")) != currentUrl
-						.indexOf(".")) {
-			return null;
-		}
-		StringBuffer result = new StringBuffer();
-		try {
-			// replace all '/' to '.'
-			String resultClassName = currentUrl.substring(0,
-					(lastUrlCommaIndex >= 0 ? lastUrlCommaIndex : urlLength))
-					.replace("/", ".");
-			if (resultClassName.length() > 0) {
-				// package name
-				int resultClassNamePackageIndex = resultClassName
-						.lastIndexOf(".") + 1;
-				if (resultClassNamePackageIndex > 0) {
-					result.append(resultClassName.substring(0,
-							resultClassNamePackageIndex));
-				}
-				// class name
-				result.append(resultClassName
-						.substring(resultClassNamePackageIndex));
-			}
-		} catch (Exception e) {
-		}
-		return result.toString();
-	}
-
-	/**
 	 * Split
 	 * 
 	 * @param str

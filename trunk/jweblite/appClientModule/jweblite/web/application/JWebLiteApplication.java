@@ -3,6 +3,7 @@ package jweblite.web.application;
 import java.io.Serializable;
 
 import jweblite.web.JWebLiteFilterConfig;
+import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,6 +17,7 @@ public class JWebLiteApplication implements Serializable {
 
 	private JWebLiteFilterConfig filterConfig = null;
 	private Object initClass = null;
+	private JWebLiteRequestDispatcher requestDispatcher = null;
 
 	/**
 	 * Default constructor.
@@ -69,6 +71,25 @@ public class JWebLiteApplication implements Serializable {
 	 */
 	public void setInitClass(Object initClass) {
 		this.initClass = initClass;
+	}
+
+	/**
+	 * Get Request Dispatcher
+	 * 
+	 * @return JWebLiteRequestDispatcher
+	 */
+	public JWebLiteRequestDispatcher getRequestDispatcher() {
+		return requestDispatcher;
+	}
+
+	/**
+	 * Set Request Dispatcher
+	 * 
+	 * @param requestDispatcher
+	 *            JWebLiteRequestDispatcher
+	 */
+	public void setRequestDispatcher(JWebLiteRequestDispatcher requestDispatcher) {
+		this.requestDispatcher = requestDispatcher;
 	}
 
 }
