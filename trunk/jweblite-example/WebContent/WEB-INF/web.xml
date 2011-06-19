@@ -28,5 +28,8 @@
 	<filter-mapping>
 		<filter-name>JWebLiteFilter</filter-name>
 		<url-pattern>*.jsp</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 </web-app>
