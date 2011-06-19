@@ -86,18 +86,19 @@ public class JWebLiteFilter implements Filter {
 		// redirect by request dispatcher
 		String servletPath = req.getServletPath();
 		String reqDispatcherFowardId = attrPrefix.concat("ReqDispatcherFoward");
-		JWebLiteRequestDispatchSettings requestDispatchSettings = (JWebLiteRequestDispatchSettings) req
+		// reqDispatchSettings could be null
+		JWebLiteRequestDispatchSettings reqDispatchSettings = (JWebLiteRequestDispatchSettings) req
 				.getAttribute(reqDispatcherFowardId);
-		if (requestDispatchSettings == null) {
+		if (reqDispatchSettings == null) {
 			JWebLiteRequestDispatcher reqDispatcher = this.application
 					.getRequestDispatcher();
 			String refResourcePath = null;
 			if (reqDispatcher != null
-					&& (requestDispatchSettings = reqDispatcher.doDispatch(req)) != null
-					&& (refResourcePath = requestDispatchSettings
+					&& (reqDispatchSettings = reqDispatcher.doDispatch(req)) != null
+					&& (refResourcePath = reqDispatchSettings
 							.getReferenceResourcePath()) != null
 					&& !refResourcePath.equalsIgnoreCase(servletPath)) {
-				req.setAttribute(reqDispatcherFowardId, requestDispatchSettings);
+				req.setAttribute(reqDispatcherFowardId, reqDispatchSettings);
 				req.getRequestDispatcher(refResourcePath).forward(req, resp);
 				return;
 			}
@@ -120,9 +121,8 @@ public class JWebLiteFilter implements Filter {
 		// parse
 		Class reqClass = null;
 		String refClassName = null;
-		if (requestDispatchSettings != null
-				&& (refClassName = requestDispatchSettings
-						.getReferenceClassName()) != null) {
+		if (reqDispatchSettings != null
+				&& (refClassName = reqDispatchSettings.getReferenceClassName()) != null) {
 			try {
 				reqClass = Class.forName(refClassName);
 			} catch (Exception e) {
@@ -130,10 +130,15 @@ public class JWebLiteFilter implements Filter {
 		}
 		if (this.log.isInfoEnabled()) {
 			this.log.info(String
-					.format("RequestInfo [ ClientIP: %s, OriginalServletPath: %s, ReqUrl: %s, ReqParam: %s, ReqClass: %s ]",
-							reqWrapper.getRemoteAddr(), requestDispatchSettings
-									.getOriginalServletPath(), reqWrapper
-									.getRequestURI(), reqWrapper
+					.format("RequestInfo [ ClientIP: %s, OriReqUri: %s, OriServletPath: %s, ReqServletPath: %s, ReqParam: %s, ReqClass: %s ]",
+							reqWrapper.getRemoteAddr(),
+							(reqDispatchSettings != null ? reqDispatchSettings
+									.getOriginalRequestUri() : reqWrapper
+									.getRequestURI()),
+							(reqDispatchSettings != null ? reqDispatchSettings
+									.getOriginalServletPath() : reqWrapper
+									.getServletPath()), reqWrapper
+									.getServletPath(), reqWrapper
 									.getQueryString(),
 							(reqClass != null ? reqClass.getName() : null)));
 		}
