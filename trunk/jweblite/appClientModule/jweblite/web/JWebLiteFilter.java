@@ -116,7 +116,8 @@ public class JWebLiteFilter implements Filter {
 		if ((initClassInstance = this.application.getInitClass()) != null
 				&& initClassInstance instanceof JWebLiteApplicationListener) {
 			applicationListener = (JWebLiteApplicationListener) initClassInstance;
-			applicationListener.doBeforeRequest(reqWrapper, resp);
+			applicationListener.doBeforeRequest(reqWrapper, resp,
+					reqDispatchSettings);
 		}
 		// parse
 		Class reqClass = null;
