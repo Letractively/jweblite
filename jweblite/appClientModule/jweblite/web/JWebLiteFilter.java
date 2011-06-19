@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.application.JWebLiteApplicationListener;
+import jweblite.web.dispatcher.JWebLiteRequestDispatchSettings;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
-import jweblite.web.dispatcher.ServletRequestDispatchSettings;
 import jweblite.web.session.JWebLiteSessionFactory;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
@@ -85,16 +85,19 @@ public class JWebLiteFilter implements Filter {
 		String attrPrefix = filterConfig.getAttrPrefix();
 		// redirect by request dispatcher
 		String reqDispatcherFowardId = attrPrefix.concat("ReqDispatcherFoward");
-		ServletRequestDispatchSettings requestDispatchSettings = (ServletRequestDispatchSettings) req
+		JWebLiteRequestDispatchSettings requestDispatchSettings = (JWebLiteRequestDispatchSettings) req
 				.getAttribute(reqDispatcherFowardId);
 		if (requestDispatchSettings == null) {
-			if (this.application.getRequestDispatcher() != null
-					&& (requestDispatchSettings = this.application
-							.getRequestDispatcher().doDispatch(req)) != null) {
+			JWebLiteRequestDispatcher reqDispatcher = this.application
+					.getRequestDispatcher();
+			String refResourcePath = null;
+			if (reqDispatcher != null
+					&& (requestDispatchSettings = reqDispatcher.doDispatch(req)) != null
+					&& (refResourcePath = requestDispatchSettings
+							.getReferenceResourcePath()) != null
+					&& !refResourcePath.equalsIgnoreCase(req.getServletPath())) {
 				req.setAttribute(reqDispatcherFowardId, requestDispatchSettings);
-				req.getRequestDispatcher(
-						requestDispatchSettings.getReferenceResourcePath())
-						.forward(req, resp);
+				req.getRequestDispatcher(refResourcePath).forward(req, resp);
 				return;
 			}
 		} else {
@@ -105,12 +108,24 @@ public class JWebLiteFilter implements Filter {
 				filterConfig.getEncoding());
 		resp.setHeader("Implementation-Title", "jweblite");
 		resp.setCharacterEncoding(filterConfig.getEncoding());
+		// trigger doBeforeRequest event
+		Object initClassInstance = null;
+		JWebLiteApplicationListener applicationListener = null;
+		if ((initClassInstance = this.application.getInitClass()) != null
+				&& initClassInstance instanceof JWebLiteApplicationListener) {
+			applicationListener = (JWebLiteApplicationListener) initClassInstance;
+			applicationListener.doBeforeRequest(reqWrapper, resp);
+		}
 		// parse
 		Class reqClass = null;
-		try {
-			reqClass = Class.forName(requestDispatchSettings
-					.getReferenceClassName());
-		} catch (Exception e) {
+		String refClassName = null;
+		if (requestDispatchSettings != null
+				&& (refClassName = requestDispatchSettings
+						.getReferenceClassName()) != null) {
+			try {
+				reqClass = Class.forName(refClassName);
+			} catch (Exception e) {
+			}
 		}
 		if (this.log.isInfoEnabled()) {
 			this.log.info(String
@@ -137,9 +152,18 @@ public class JWebLiteFilter implements Filter {
 				throw new ServletException(e);
 			}
 		}
+		// trigger doAfterRequest event
+		if (applicationListener != null) {
+			applicationListener.doBeforeRender(reqWrapper, resp);
+		}
 		// pass the request along the filter chain
 		if (!isIgnoreViewer) {
 			chain.doFilter(reqWrapper, resp);
 		}
+		// trigger doAfterRequest event
+		if (applicationListener != null) {
+			applicationListener.doAfterRequest(reqWrapper, resp);
+		}
 	}
+
 }

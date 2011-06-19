@@ -2,7 +2,7 @@ package jweblite.web.dispatcher;
 
 import java.io.Serializable;
 
-public class ServletRequestDispatchSettings implements Serializable {
+public class JWebLiteRequestDispatchSettings implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -12,14 +12,14 @@ public class ServletRequestDispatchSettings implements Serializable {
 	/**
 	 * Default constructor.
 	 */
-	public ServletRequestDispatchSettings() {
+	public JWebLiteRequestDispatchSettings() {
 		super();
 	}
 
 	/**
 	 * Default constructor.
 	 */
-	public ServletRequestDispatchSettings(String referenceClassName,
+	public JWebLiteRequestDispatchSettings(String referenceClassName,
 			String referenceResourcePath) {
 		super();
 		this.referenceClassName = referenceClassName;
