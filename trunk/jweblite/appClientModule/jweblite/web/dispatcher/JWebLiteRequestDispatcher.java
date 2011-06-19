@@ -65,7 +65,7 @@ public class JWebLiteRequestDispatcher implements Serializable {
 			}
 		} catch (Exception e) {
 		}
-		return new JWebLiteRequestDispatchSettings(result.toString(), null);
+		return new JWebLiteRequestDispatchSettings(req, result.toString(), null);
 	}
 
 }

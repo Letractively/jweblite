@@ -84,6 +84,7 @@ public class JWebLiteFilter implements Filter {
 		JWebLiteFilterConfig filterConfig = this.application.getFilterConfig();
 		String attrPrefix = filterConfig.getAttrPrefix();
 		// redirect by request dispatcher
+		String servletPath = req.getServletPath();
 		String reqDispatcherFowardId = attrPrefix.concat("ReqDispatcherFoward");
 		JWebLiteRequestDispatchSettings requestDispatchSettings = (JWebLiteRequestDispatchSettings) req
 				.getAttribute(reqDispatcherFowardId);
@@ -95,7 +96,7 @@ public class JWebLiteFilter implements Filter {
 					&& (requestDispatchSettings = reqDispatcher.doDispatch(req)) != null
 					&& (refResourcePath = requestDispatchSettings
 							.getReferenceResourcePath()) != null
-					&& !refResourcePath.equalsIgnoreCase(req.getServletPath())) {
+					&& !refResourcePath.equalsIgnoreCase(servletPath)) {
 				req.setAttribute(reqDispatcherFowardId, requestDispatchSettings);
 				req.getRequestDispatcher(refResourcePath).forward(req, resp);
 				return;
@@ -129,8 +130,9 @@ public class JWebLiteFilter implements Filter {
 		}
 		if (this.log.isInfoEnabled()) {
 			this.log.info(String
-					.format("RequestInfo [ ClientIP: %s, ReqUrl: %s, ReqParam: %s, ReqClass: %s ]",
-							reqWrapper.getRemoteAddr(), reqWrapper
+					.format("RequestInfo [ ClientIP: %s, OriginalServletPath: %s, ReqUrl: %s, ReqParam: %s, ReqClass: %s ]",
+							reqWrapper.getRemoteAddr(), requestDispatchSettings
+									.getOriginalServletPath(), reqWrapper
 									.getRequestURI(), reqWrapper
 									.getQueryString(),
 							(reqClass != null ? reqClass.getName() : null)));
