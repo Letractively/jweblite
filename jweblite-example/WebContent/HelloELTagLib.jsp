@@ -22,7 +22,7 @@
 		<legend>Hello EL Tag Lib</legend>
 		<div>
 
-			Hello ${RequestELUtils:getParameter(JwlReq, "test", "")}!
+			Hello ${RequestELUtils:getHtmlParameter(JwlReq, "test", "")}!
 
 			<div style="font-size: small; font-weight: bold;">String:
 				HelloELTagLib</div>

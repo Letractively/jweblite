@@ -30,7 +30,7 @@ public class FileUpload implements JWebLitePage {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.test = req.getParameter("test", "File");
+		this.test = req.getHtmlParameter("test", "File");
 		this.file = req.getFileParameter("file");
 		return false;
 	}
