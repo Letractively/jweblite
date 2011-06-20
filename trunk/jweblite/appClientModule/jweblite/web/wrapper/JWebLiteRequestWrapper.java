@@ -69,7 +69,11 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 
 	@Override
 	public String getParameter(String name) {
-		return StringUtils.join(this.getParameterValues(name), ",");
+		String[] result = this.getParameterValues(name);
+		if (result == null) {
+			return null;
+		}
+		return StringUtils.join(result, ",");
 	}
 
 	/**

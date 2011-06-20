@@ -19,6 +19,7 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -142,21 +143,21 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	}
 
 	@Override
-	public String getParameter(String name) {
-		List<String> valueList = (List) this.parametersMap.get(name);
-		if (valueList == null) {
-			return null;
-		}
-		return valueList.get(0);
-	}
-
-	@Override
 	public String[] getParameterValues(String name) {
 		List<String> valueList = (List) this.parametersMap.get(name);
 		if (valueList == null) {
 			return null;
 		}
 		return CollectionUtils.toArray(valueList, String.class);
+	}
+
+	@Override
+	public String getParameter(String name) {
+		List<String> valueList = (List) this.parametersMap.get(name);
+		if (valueList == null) {
+			return null;
+		}
+		return StringUtils.join(valueList, ",");
 	}
 
 	@Override
