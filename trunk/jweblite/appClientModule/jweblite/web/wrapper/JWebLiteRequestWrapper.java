@@ -49,18 +49,6 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	}
 
 	@Override
-	public String getParameter(String name) {
-		String result = super.getParameter(name);
-		if (result != null && this.isGetMethod && this.encoding != null) {
-			try {
-				return new String(result.getBytes("ISO-8859-1"), this.encoding);
-			} catch (Exception e) {
-			}
-		}
-		return result;
-	}
-
-	@Override
 	public String[] getParameterValues(String name) {
 		String[] result = super.getParameterValues(name);
 		if (result != null && this.isGetMethod && this.encoding != null) {
@@ -77,6 +65,11 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public String getParameter(String name) {
+		return StringUtils.join(this.getParameterValues(name), ",");
 	}
 
 	/**
@@ -97,19 +90,6 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 *            String
 	 * @param nullValue
 	 *            String
-	 * @return String
-	 */
-	public String getParameter(String name, String nullValue) {
-		return StringUtils.getStringValue(this.getParameter(name), nullValue);
-	}
-
-	/**
-	 * Get Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param nullValue
-	 *            String
 	 * @param isIgnoreEmpty
 	 *            boolean
 	 * @return String
@@ -121,7 +101,7 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	}
 
 	/**
-	 * Get Html Parameter
+	 * Get Parameter
 	 * 
 	 * @param name
 	 *            String
@@ -129,9 +109,8 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 *            String
 	 * @return String
 	 */
-	public String getHtmlParameter(String name, String nullValue) {
-		return StringUtils.getHtmlStringValue(this.getParameter(name),
-				nullValue);
+	public String getParameter(String name, String nullValue) {
+		return StringUtils.getStringValue(this.getParameter(name), nullValue);
 	}
 
 	/**
@@ -149,6 +128,20 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 			boolean isIgnoreEmpty) {
 		return StringUtils.getHtmlStringValue(this.getParameter(name),
 				nullValue, isIgnoreEmpty);
+	}
+
+	/**
+	 * Get Html Parameter
+	 * 
+	 * @param name
+	 *            String
+	 * @param nullValue
+	 *            String
+	 * @return String
+	 */
+	public String getHtmlParameter(String name, String nullValue) {
+		return StringUtils.getHtmlStringValue(this.getParameter(name),
+				nullValue);
 	}
 
 	/**
