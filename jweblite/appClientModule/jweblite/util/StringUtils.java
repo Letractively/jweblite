@@ -76,17 +76,13 @@ public class StringUtils {
 		}
 		StringBuffer sb = new StringBuffer();
 		int lastIndex = c.size() - 1;
-		int index = 0;
+		int i = 0;
 		for (T child : c) {
-			if (callback == null) {
-				sb.append(child);
-			} else {
-				sb.append(callback.callback(child, index));
-			}
-			if (index < lastIndex) {
+			sb.append(callback == null ? child : callback.callback(child, i));
+			if (i < lastIndex) {
 				sb.append(separator);
 			}
-			index++;
+			i++;
 		}
 		return sb.toString();
 	}
@@ -111,13 +107,39 @@ public class StringUtils {
 	 *            T[]
 	 * @param separator
 	 *            String
+	 * @param callback
+	 *            EachCallback
 	 * @return String
 	 */
-	public static <T> String join(T[] array, String separator) {
+	public static <T> String join(T[] array, String separator,
+			EachCallback<T> callback) {
 		if (array == null) {
 			return "";
 		}
-		return join(Arrays.asList(array), separator);
+		StringBuffer sb = new StringBuffer();
+		int arraySize = array.length;
+		int lastIndex = arraySize - 1;
+		for (int i = 0; i < arraySize; i++) {
+			T child = array[i];
+			sb.append(callback == null ? child : callback.callback(child, i));
+			if (i < lastIndex) {
+				sb.append(separator);
+			}
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Join
+	 * 
+	 * @param array
+	 *            T[]
+	 * @param separator
+	 *            String
+	 * @return String
+	 */
+	public static <T> String join(T[] array, String separator) {
+		return join(array, separator, null);
 	}
 
 	/**
