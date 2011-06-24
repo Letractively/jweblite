@@ -80,7 +80,7 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 			String[] paramValueArray = super.getParameterValues(paramName);
 			if (paramValueArray != null) {
 				List<String> paramValueList = new ArrayList();
-				for (String paramValue : paramValueList) {
+				for (String paramValue : paramValueArray) {
 					if (paramValue == null) {
 						continue;
 					}
