@@ -10,26 +10,27 @@ public class JWebLiteRequestDispatchSettings implements Serializable {
 
 	private final String originalServletPath;
 	private final String originalRequestUri;
-	private String referenceClassName = null;
-	private String referenceResourcePath = null;
-
-	/**
-	 * Default constructor.
-	 */
-	public JWebLiteRequestDispatchSettings(HttpServletRequest req) {
-		super();
-		this.originalServletPath = req.getServletPath();
-		this.originalRequestUri = req.getRequestURI();
-	}
+	private String referenceClassName;
+	private String referenceResourcePath;
 
 	/**
 	 * Default constructor.
 	 */
 	public JWebLiteRequestDispatchSettings(HttpServletRequest req,
 			String referenceClassName, String referenceResourcePath) {
-		this(req);
+		super();
+		this.originalServletPath = req.getServletPath();
+		this.originalRequestUri = req.getRequestURI();
+
 		this.referenceClassName = referenceClassName;
 		this.referenceResourcePath = referenceResourcePath;
+	}
+
+	/**
+	 * Default constructor.
+	 */
+	public JWebLiteRequestDispatchSettings(HttpServletRequest req) {
+		this(req, null, null);
 	}
 
 	/**

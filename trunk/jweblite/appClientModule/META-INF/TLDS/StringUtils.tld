@@ -17,6 +17,13 @@
 		<function-signature><![CDATA[ java.lang.String toTitleCase(java.lang.CharSequence) ]]></function-signature>
 	</function>
 
+	<!-- toNewCharset -->
+	<function>
+		<name>toNewCharset</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String toNewCharset(java.lang.String, java.lang.String, java.lang.String) ]]></function-signature>
+	</function>
+
 	<!-- split -->
 	<function>
 		<name>split</name>

@@ -2,24 +2,18 @@ package jweblite.web.wrapper;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import jweblite.data.MultiValueHashMap;
-import jweblite.util.CollectionUtils;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,7 +24,6 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	private final File repository;
 	private final long maxSize;
 	private final boolean isMultipart;
-	private Map parametersMap = new MultiValueHashMap();
 	private Map<String, FileItem> fileItemsMap = new HashMap();
 
 	/**
@@ -52,15 +45,9 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 		// init
 		this.repository = repository;
 		this.maxSize = maxSize;
-		String contentType = null;
-		if (!this.isGetMethod()
-				&& (contentType = req.getContentType()) != null
-				&& (contentType = contentType.toLowerCase())
-						.startsWith("multipart/")) {
-			this.isMultipart = true;
-		} else {
-			this.isMultipart = false;
-		}
+		String contentType = req.getContentType();
+		this.isMultipart = (!this.isGetMethod() && contentType != null && contentType
+				.toLowerCase().startsWith("multipart/"));
 		this.initialize(req, this.isMultipart);
 	}
 
@@ -76,16 +63,6 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	 */
 	private void initialize(HttpServletRequest req, boolean isMultipart)
 			throws FileUploadException, UnsupportedEncodingException {
-		// copy parameters from parameters map
-		for (Enumeration<String> e = req.getParameterNames(); e
-				.hasMoreElements();) {
-			String paramName = e.nextElement();
-			String[] paramValueArray = super.getParameterValues(paramName);
-			if (paramValueArray != null) {
-				((MultiValueHashMap) this.parametersMap).putAll(paramName,
-						Arrays.asList(paramValueArray));
-			}
-		}
 		if (isMultipart) {
 			// create a new file upload handler
 			ServletFileUpload uploadHandler = this.createFileUploadHandler();
@@ -97,7 +74,7 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 					continue;
 				}
 				if (item.isFormField()) {
-					this.parametersMap.put(fieldName,
+					this.putParameter(fieldName,
 							item.getString(this.getEncoding()));
 				} else {
 					this.fileItemsMap.put(fieldName, item);
@@ -105,7 +82,6 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 			}
 		}
 		// unmodifiable
-		this.parametersMap = Collections.unmodifiableMap(this.parametersMap);
 		this.fileItemsMap = Collections.unmodifiableMap(this.fileItemsMap);
 	}
 
@@ -140,24 +116,6 @@ public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 	@Override
 	public boolean isMultipart() {
 		return isMultipart;
-	}
-
-	@Override
-	public String[] getParameterValues(String name) {
-		List<String> valueList = (List) this.parametersMap.get(name);
-		if (valueList == null) {
-			return null;
-		}
-		return CollectionUtils.toArray(valueList, String.class);
-	}
-
-	@Override
-	public String getParameter(String name) {
-		List<String> valueList = (List) this.parametersMap.get(name);
-		if (valueList == null) {
-			return null;
-		}
-		return StringUtils.join(valueList, ",");
 	}
 
 	@Override

@@ -1,11 +1,18 @@
 package jweblite.web.wrapper;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+import jweblite.data.MultiValueHashMap;
+import jweblite.data.MultiValueMap;
 import jweblite.util.StringUtils;
 
 import org.apache.commons.fileupload.FileItem;
@@ -16,21 +23,11 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
-	private String encoding = null;
+	private String encoding;
 	private final boolean isGetMethod;
 	private final boolean isMultipart;
 
-	/**
-	 * Default constructor.
-	 * 
-	 * @param req
-	 *            HttpServletRequest
-	 */
-	public JWebLiteRequestWrapper(HttpServletRequest req) {
-		super(req);
-		this.isGetMethod = ("GET".equalsIgnoreCase(req.getMethod()));
-		this.isMultipart = this.isMultipart();
-	}
+	private MultiValueMap parameterMap = new MultiValueHashMap();
 
 	/**
 	 * Default constructor.
@@ -43,37 +40,140 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 */
 	public JWebLiteRequestWrapper(HttpServletRequest req, String encoding)
 			throws UnsupportedEncodingException {
-		this(req);
+		super(req);
 		this.encoding = encoding;
-		this.setCharacterEncoding(this.encoding);
+		this.isGetMethod = ("GET".equalsIgnoreCase(req.getMethod()));
+		this.isMultipart = this.isMultipart();
+
+		if (encoding != null) {
+			this.setCharacterEncoding(this.encoding);
+		}
+		// init
+		this.initialize(req);
+	}
+
+	/**
+	 * Default constructor.
+	 * 
+	 * @param req
+	 *            HttpServletRequest
+	 * @throws UnsupportedEncodingException
+	 */
+	public JWebLiteRequestWrapper(HttpServletRequest req)
+			throws UnsupportedEncodingException {
+		this(req, null);
+	}
+
+	/**
+	 * Initialize
+	 * 
+	 * @param req
+	 *            HttpServletRequest
+	 */
+	protected void initialize(HttpServletRequest req) {
+		for (Enumeration<String> e = req.getParameterNames(); e
+				.hasMoreElements();) {
+			String paramName = e.nextElement();
+			if (paramName == null) {
+				continue;
+			}
+			String[] paramValueArray = super.getParameterValues(paramName);
+			if (paramValueArray != null) {
+				List<String> paramValueList = new ArrayList();
+				for (String paramValue : paramValueList) {
+					if (paramValue == null) {
+						continue;
+					}
+					paramValueList.add(StringUtils.toNewCharset(paramValue,
+							"ISO-8859-1", this.encoding));
+				}
+				this.parameterMap.putAll(paramName, paramValueList);
+			}
+		}
 	}
 
 	@Override
 	public String[] getParameterValues(String name) {
-		String[] result = super.getParameterValues(name);
-		if (result != null && this.isGetMethod && this.encoding != null) {
-			for (int i = 0; i < result.length; i++) {
-				String value = result[i];
-				if (value == null) {
-					continue;
-				}
-				try {
-					result[i] = new String(value.getBytes("ISO-8859-1"),
-							this.encoding);
-				} catch (Exception e) {
-				}
-			}
-		}
-		return result;
+		List<String> paramValueList = (List) this.parameterMap.get(name);
+		return (paramValueList != null ? paramValueList
+				.toArray(new String[paramValueList.size()]) : null);
 	}
 
 	@Override
 	public String getParameter(String name) {
-		String[] result = this.getParameterValues(name);
-		if (result == null) {
-			return null;
+		List<String> paramValueList = (List) this.parameterMap.get(name);
+		return (paramValueList != null ? StringUtils.join(paramValueList, ",")
+				: null);
+	}
+
+	@Override
+	public Map getParameterMap() {
+		return parameterMap;
+	}
+
+	@Override
+	public Enumeration getParameterNames() {
+		return Collections.enumeration(this.parameterMap.keySet());
+	}
+
+	/**
+	 * Set Parameter Map
+	 * 
+	 * @param parameterMap
+	 *            MultiValueMap
+	 */
+	public void setParameterMap(MultiValueMap parameterMap) {
+		this.parameterMap = parameterMap;
+	}
+
+	/**
+	 * Set Parameter
+	 * 
+	 * @param name
+	 *            String
+	 * @param value
+	 *            String
+	 */
+	public void setParameter(String name, String value) {
+		if (name == null) {
+			return;
 		}
-		return StringUtils.join(result, ",");
+		this.parameterMap.putAll(name, value);
+	}
+
+	/**
+	 * Put Parameter
+	 * 
+	 * @param name
+	 *            String
+	 * @param value
+	 *            String
+	 */
+	public void putParameter(String name, String value) {
+		if (name == null) {
+			return;
+		}
+		this.parameterMap.put(name, value);
+	}
+
+	/**
+	 * Remove Parameter
+	 * 
+	 * @param name
+	 *            String
+	 */
+	public void removeParameter(String name) {
+		if (name == null) {
+			return;
+		}
+		this.parameterMap.remove(name);
+	}
+
+	/**
+	 * Clear Parameter Map
+	 */
+	public void clearParameterMap() {
+		this.parameterMap.clear();
 	}
 
 	/**

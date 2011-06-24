@@ -83,6 +83,13 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 	}
 
 	@Override
+	public void putAll(Object key, Object value) {
+		List valueList = new ArrayList();
+		super.put(key, valueList);
+		valueList.add(value);
+	}
+
+	@Override
 	public void putAllReversed(Object key, Collection list,
 			boolean isReverseBefore) {
 		List valueList = (List) super.get(key);

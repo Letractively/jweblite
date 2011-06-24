@@ -10,14 +10,7 @@ public class JWebLiteRequestDispatcher implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int urlPathPadding = 0;
-
-	/**
-	 * Default constructor.
-	 */
-	public JWebLiteRequestDispatcher() {
-		super();
-	}
+	private int urlPathPadding;
 
 	/**
 	 * Default constructor.
@@ -25,6 +18,13 @@ public class JWebLiteRequestDispatcher implements Serializable {
 	public JWebLiteRequestDispatcher(int urlPathPadding) {
 		super();
 		this.urlPathPadding = urlPathPadding;
+	}
+
+	/**
+	 * Default constructor.
+	 */
+	public JWebLiteRequestDispatcher() {
+		this(0);
 	}
 
 	/**
