@@ -24,6 +24,16 @@ public interface MultiValueMap extends Map {
 	public void putAll(Object key, Collection c);
 
 	/**
+	 * Put All
+	 * 
+	 * @param key
+	 *            Object
+	 * @param value
+	 *            Object
+	 */
+	public void putAll(Object key, Object value);
+
+	/**
 	 * Put All Reversed
 	 * 
 	 * @param key

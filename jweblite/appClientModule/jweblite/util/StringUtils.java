@@ -43,6 +43,35 @@ public class StringUtils {
 	}
 
 	/**
+	 * To New Charset
+	 * 
+	 * @param str
+	 *            String
+	 * @param oldCharset
+	 *            String
+	 * @param newCharset
+	 *            String
+	 * @return String
+	 */
+	public static String toNewCharset(String str, String oldCharset,
+			String newCharset) {
+		if (str == null) {
+			return "";
+		}
+		try {
+			if (oldCharset != null && newCharset != null) {
+				return new String(str.getBytes(oldCharset), newCharset);
+			} else if (oldCharset != null) {
+				return new String(str.getBytes(oldCharset));
+			} else if (newCharset != null) {
+				return new String(str.getBytes(), newCharset);
+			}
+		} catch (Exception e) {
+		}
+		return str;
+	}
+
+	/**
 	 * Split
 	 * 
 	 * @param str

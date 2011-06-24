@@ -14,8 +14,8 @@ public abstract class DataProvider<T> implements Serializable {
 
 	private int perPage = 20;
 	private int currentIndex = 0;
-	private int viewCountPrefix = 4;
-	private int viewCountSuffix = 5;
+	private int viewCountPrefix;
+	private int viewCountSuffix;
 
 	private List<T> viewList = null;
 	private int totalSize = 0;
@@ -24,11 +24,13 @@ public abstract class DataProvider<T> implements Serializable {
 	/**
 	 * Default constructor.
 	 */
-	public DataProvider(int perPage) {
+	public DataProvider(int perPage, int viewCountPrefix, int viewCountSuffix) {
 		super();
 		if (perPage > 0) {
 			this.perPage = perPage;
 		}
+		this.viewCountPrefix = viewCountPrefix;
+		this.viewCountSuffix = viewCountSuffix;
 		// init
 		this.initialize();
 	}
@@ -36,12 +38,8 @@ public abstract class DataProvider<T> implements Serializable {
 	/**
 	 * Default constructor.
 	 */
-	public DataProvider(int perPage, int viewCountPrefix, int viewCountSuffix) {
-		this(perPage);
-		this.viewCountPrefix = viewCountPrefix;
-		this.viewCountSuffix = viewCountSuffix;
-		// init
-		this.initialize();
+	public DataProvider(int perPage) {
+		this(perPage, 4, 5);
 	}
 
 	/**
