@@ -3,11 +3,15 @@ package jweblite.web.tag.paging;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import jweblite.data.provider.DataProvider;
 
 public class PagingTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
+	private Log log = LogFactory.getLog(this.getClass());
 
 	private DataProvider provider = null;
 
