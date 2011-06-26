@@ -144,12 +144,12 @@ public class JWebLiteFilter implements Filter {
 							(reqClass != null ? reqClass.getName() : null)));
 		}
 		// init class
-		boolean isIgnoreViewer = false;
+		boolean isIgnoreView = false;
 		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
 			try {
 				JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 						.newInstance();
-				isIgnoreViewer = reqClassInstance.doRequest(reqWrapper, resp);
+				isIgnoreView = reqClassInstance.doRequest(reqWrapper, resp);
 				reqWrapper.setAttribute(attrPrefix, reqClassInstance);
 				reqWrapper.setAttribute(attrPrefix.concat("Req"), reqWrapper);
 				// session
@@ -165,7 +165,7 @@ public class JWebLiteFilter implements Filter {
 			applicationListener.doBeforeRender(reqWrapper, resp);
 		}
 		// pass the request along the filter chain
-		if (!isIgnoreViewer) {
+		if (!isIgnoreView) {
 			chain.doFilter(reqWrapper, resp);
 		}
 		// trigger doAfterRequest event
