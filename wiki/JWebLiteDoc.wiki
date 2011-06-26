@@ -68,4 +68,4 @@ public class HelloWorld implements JWebLitePage {
 || AttrPrefix || String || N || "Jwl" || namespace for EL ||
 || Encoding || String || N || "UTF-8" || charset encoding for request and response||
 || UrlPathPadding || Integer || N || 0 || url's path padding ||
-|| InitClassName || String || N || null || class name for initializing at server startup ||
+|| InitClassName || String || N || null || class name for initializing on server startup ||
