@@ -5,3 +5,67 @@
 JWebLite Doc
 
 = Details =
+
+HelloWorld.jsp
+{{{
+Hello World
+}}}
+
+<hr />
+
+*Usage:*
+
+HelloWorld.java
+{{{
+public class HelloWorld implements JWebLitePage {
+
+	@Override
+	public boolean doRequest(JWebLiteRequestWrapper req,
+			HttpServletResponse resp) {
+		return false;
+	}
+
+}
+}}}
+
+  * @return boolean : is ignore view or not
+
+<hr />
+
+*web.xml:*
+{{{
+<filter>
+	<display-name>JWebLiteFilter</display-name>
+	<filter-name>JWebLiteFilter</filter-name>
+	<filter-class>jweblite.web.JWebLiteFilter</filter-class>
+	<init-param>
+		<param-name>AttrPrefix</param-name>
+		<param-value>Jwl</param-value>
+	</init-param>
+	<init-param>
+		<param-name>Encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+	<init-param>
+		<param-name>UrlPathPadding</param-name>
+		<param-value>0</param-value>
+	</init-param>
+	<init-param>
+		<param-name>InitClassName</param-name>
+		<param-value></param-value>
+	</init-param>
+</filter>
+<filter-mapping>
+	<filter-name>JWebLiteFilter</filter-name>
+	<url-pattern>*.jsp</url-pattern>
+	<dispatcher>FORWARD</dispatcher>
+	<dispatcher>INCLUDE</dispatcher>
+	<dispatcher>REQUEST</dispatcher>
+</filter-mapping>
+}}}
+
+|| *Param* || *Type* || *Required* || *Default* || *Comments* ||
+|| AttrPrefix || String || N || "Jwl" || namespace for EL ||
+|| Encoding || String || N || "UTF-8" || charset encoding for request and response||
+|| UrlPathPadding || Integer || N || 0 || url's path padding ||
+|| InitClassName || String || N || null || class name for initializing at server startup ||
