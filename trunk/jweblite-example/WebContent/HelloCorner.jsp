@@ -22,6 +22,12 @@
 				Hello Corner
 			</CornerTag:corner>
 
+			<br /> <br /> <br />
+
+			<CornerTag:corner width="300px">
+				Hello Corner
+			</CornerTag:corner>
+
 		</div>
 	</fieldset>
 
