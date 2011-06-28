@@ -41,7 +41,8 @@ public class CornerTag extends BodyTagSupport {
 			JspWriter jw = this.pageContext.getOut();
 			jw.print("<div");
 			if (this.width != null) {
-				jw.print(String.format(" style=\"float: left;width: %s;\"",
+				jw.print(String.format(
+						" style=\"float: left;clear: both;width: %s;\"",
 						this.width));
 			}
 			jw.println(">");
