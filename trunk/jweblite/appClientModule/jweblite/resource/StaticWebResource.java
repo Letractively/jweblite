@@ -5,13 +5,12 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.util.StringUtils;
 import jweblite.web.JWebLitePage;
 import jweblite.web.JWebLitePageEvent;
 import jweblite.web.SkipException;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -32,7 +31,10 @@ public abstract class StaticWebResource implements JWebLitePage,
 
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
+		if (this.isIgnoreGzip()) {
+			resp.setGZipEnabled(false);
+		}
 		try {
 			// header
 			this.doHeader(req, resp);
@@ -46,8 +48,8 @@ public abstract class StaticWebResource implements JWebLitePage,
 	}
 
 	@Override
-	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp)
-			throws SkipException {
+	public void doHeader(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) throws SkipException {
 		// contentType
 		String contentType = this.getContentType();
 		if (contentType != null) {
@@ -74,7 +76,7 @@ public abstract class StaticWebResource implements JWebLitePage,
 	}
 
 	@Override
-	public void doBody(JWebLiteRequestWrapper req, HttpServletResponse resp)
+	public void doBody(JWebLiteRequestWrapper req, JWebLiteResponseWrapper resp)
 			throws SkipException {
 		// write
 		BufferedInputStream bis = null;
@@ -94,7 +96,8 @@ public abstract class StaticWebResource implements JWebLitePage,
 	}
 
 	@Override
-	public void doFinalize(JWebLiteRequestWrapper req, HttpServletResponse resp) {
+	public void doFinalize(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) {
 		// nothing
 	}
 
@@ -106,6 +109,11 @@ public abstract class StaticWebResource implements JWebLitePage,
 	@Override
 	public boolean isCacheable() {
 		return true;
+	}
+
+	@Override
+	public boolean isIgnoreGzip() {
+		return false;
 	}
 
 	/**
