@@ -15,7 +15,7 @@ import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.application.JWebLiteApplicationListener;
 import jweblite.web.dispatcher.JWebLiteRequestDispatchSettings;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
-import jweblite.web.session.JWebLiteSessionFactory;
+import jweblite.web.session.JWebLiteSessionManager;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 
 import org.apache.commons.logging.Log;
@@ -154,8 +154,8 @@ public class JWebLiteFilter implements Filter {
 				reqWrapper.setAttribute(attrPrefix.concat("Req"), reqWrapper);
 				// session
 				reqWrapper.getSession(true).setAttribute(
-						attrPrefix.concat("SessionFactory"),
-						JWebLiteSessionFactory.get());
+						attrPrefix.concat("SessionManager"),
+						JWebLiteSessionManager.get());
 			} catch (Throwable e) {
 				throw new ServletException(e);
 			}

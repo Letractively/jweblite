@@ -10,13 +10,13 @@ import jweblite.util.callback.HttpSessionCallback;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class JWebLiteSessionFactory implements HttpSessionBindingListener,
+public class JWebLiteSessionManager implements HttpSessionBindingListener,
 		Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(this.getClass());
 
-	private static JWebLiteSessionFactory factory = new JWebLiteSessionFactory();
+	private static JWebLiteSessionManager factory = new JWebLiteSessionManager();
 
 	private int activationCount = 0;
 	private HttpSessionCallback boundEvent = null;
@@ -25,16 +25,16 @@ public class JWebLiteSessionFactory implements HttpSessionBindingListener,
 	/**
 	 * Default constructor.
 	 */
-	private JWebLiteSessionFactory() {
+	private JWebLiteSessionManager() {
 		super();
 	}
 
 	/**
 	 * Get
 	 * 
-	 * @return JWebLiteSessionFactory
+	 * @return JWebLiteSessionManager
 	 */
-	public static JWebLiteSessionFactory get() {
+	public static JWebLiteSessionManager get() {
 		return factory;
 	}
 
