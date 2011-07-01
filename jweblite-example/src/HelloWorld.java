@@ -1,7 +1,6 @@
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 public class HelloWorld implements JWebLitePage {
 
@@ -18,7 +17,7 @@ public class HelloWorld implements JWebLitePage {
 
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
 		this.test = req.getHtmlParameter("test", "World");
 		return false;
 	}

@@ -1,8 +1,7 @@
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.data.provider.CollectionDataProvider;
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 public class PagingNavigation implements JWebLitePage {
 
@@ -24,7 +23,7 @@ public class PagingNavigation implements JWebLitePage {
 
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
 		this.dataProvider.setCurrentIndex(req.getIntParameter("page", 0));
 		return false;
 	}

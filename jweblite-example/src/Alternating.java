@@ -1,8 +1,7 @@
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.util.iterator.LoopIterator;
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 public class Alternating implements JWebLitePage {
 
@@ -20,7 +19,7 @@ public class Alternating implements JWebLitePage {
 
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
 		return false;
 	}
 

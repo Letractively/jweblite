@@ -24,6 +24,10 @@
 			<param-name>InitClassName</param-name>
 			<param-value>application.WebApplication</param-value>
 		</init-param>
+		<init-param>
+			<param-name>GZipEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>JWebLiteFilter</filter-name>

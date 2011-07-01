@@ -1,8 +1,7 @@
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.resource.image.CaptchaImage;
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 public class HelloCaptcha implements JWebLitePage {
 
@@ -19,7 +18,7 @@ public class HelloCaptcha implements JWebLitePage {
 
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
 		this.test = CaptchaImage.createChallenge(req,
 				String.valueOf((int) (Math.random() * 10000)));
 		return false;

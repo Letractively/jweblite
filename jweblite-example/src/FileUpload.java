@@ -1,8 +1,7 @@
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteMultipartRequestWrapper;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 import org.apache.commons.fileupload.FileItem;
 
@@ -22,7 +21,7 @@ public class FileUpload implements JWebLitePage {
 
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
 		// parse the request
 		try {
 			req = new JWebLiteMultipartRequestWrapper(req, null,
