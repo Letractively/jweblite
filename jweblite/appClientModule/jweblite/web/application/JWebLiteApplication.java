@@ -2,12 +2,11 @@ package jweblite.web.application;
 
 import java.io.Serializable;
 
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.web.JWebLiteFilterConfig;
 import jweblite.web.dispatcher.JWebLiteRequestDispatchSettings;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,12 +43,12 @@ public class JWebLiteApplication implements Serializable {
 	 * @param req
 	 *            JWebLiteRequestWrapper
 	 * @param resp
-	 *            HttpServletResponse
+	 *            JWebLiteResponseWrapper
 	 * @param reqDispatchSettings
 	 *            JWebLiteRequestDispatchSettings
 	 */
 	public void doBeforeRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp,
+			JWebLiteResponseWrapper resp,
 			JWebLiteRequestDispatchSettings reqDispatchSettings) {
 	}
 
@@ -59,10 +58,10 @@ public class JWebLiteApplication implements Serializable {
 	 * @param req
 	 *            JWebLiteRequestWrapper
 	 * @param resp
-	 *            HttpServletResponse
+	 *            JWebLiteResponseWrapper
 	 */
 	public void doBeforeRender(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
 	}
 
 	/**
@@ -71,10 +70,10 @@ public class JWebLiteApplication implements Serializable {
 	 * @param req
 	 *            JWebLiteRequestWrapper
 	 * @param resp
-	 *            HttpServletResponse
+	 *            JWebLiteResponseWrapper
 	 */
 	public void doAfterRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
 	}
 
 	/**

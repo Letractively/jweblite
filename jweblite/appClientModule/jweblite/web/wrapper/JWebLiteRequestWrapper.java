@@ -41,13 +41,9 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	public JWebLiteRequestWrapper(HttpServletRequest req, String encoding)
 			throws UnsupportedEncodingException {
 		super(req);
-		this.encoding = encoding;
+		this.setEncoding(encoding);
 		this.isGetMethod = ("GET".equalsIgnoreCase(req.getMethod()));
 		this.isMultipart = this.isMultipart();
-
-		if (encoding != null) {
-			this.setCharacterEncoding(this.encoding);
-		}
 		// init
 		this.initialize(req);
 	}
@@ -356,9 +352,14 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 * 
 	 * @param encoding
 	 *            String
+	 * @throws UnsupportedEncodingException
 	 */
-	public void setEncoding(String encoding) {
+	public void setEncoding(String encoding)
+			throws UnsupportedEncodingException {
 		this.encoding = encoding;
+		if (encoding != null) {
+			this.setCharacterEncoding(encoding);
+		}
 	}
 
 	/**

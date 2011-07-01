@@ -2,9 +2,8 @@ package jweblite.web;
 
 import java.io.Serializable;
 
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 public interface JWebLitePage extends Serializable {
 
@@ -14,10 +13,10 @@ public interface JWebLitePage extends Serializable {
 	 * @param req
 	 *            JWebLiteRequestWrapper
 	 * @param resp
-	 *            HttpServletResponse
+	 *            JWebLiteResponseWrapper
 	 * @return boolean
 	 */
 	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp);
+			JWebLiteResponseWrapper resp);
 
 }

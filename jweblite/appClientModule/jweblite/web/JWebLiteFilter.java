@@ -16,6 +16,7 @@ import jweblite.web.dispatcher.JWebLiteRequestDispatchSettings;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.session.JWebLiteSessionManager;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -107,10 +108,11 @@ public class JWebLiteFilter implements Filter {
 		// starting
 		JWebLiteRequestWrapper reqWrapper = new JWebLiteRequestWrapper(req,
 				filterConfig.getEncoding());
-		resp.setHeader("Implementation-Title", "jweblite");
-		resp.setCharacterEncoding(filterConfig.getEncoding());
+		JWebLiteResponseWrapper respWrapper = new JWebLiteResponseWrapper(req,
+				resp, filterConfig.getEncoding(), filterConfig.isGZipEnabled());
 		// trigger doBeforeRequest event
-		application.doBeforeRequest(reqWrapper, resp, reqDispatchSettings);
+		application.doBeforeRequest(reqWrapper, respWrapper,
+				reqDispatchSettings);
 		// parse
 		Class reqClass = null;
 		String refClassName = null;
@@ -141,7 +143,8 @@ public class JWebLiteFilter implements Filter {
 			try {
 				JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 						.newInstance();
-				isIgnoreView = reqClassInstance.doRequest(reqWrapper, resp);
+				isIgnoreView = reqClassInstance.doRequest(reqWrapper,
+						respWrapper);
 				reqWrapper.setAttribute(attrPrefix, reqClassInstance);
 				reqWrapper.setAttribute(attrPrefix.concat("Req"), reqWrapper);
 				// session manager
@@ -153,13 +156,15 @@ public class JWebLiteFilter implements Filter {
 			}
 		}
 		// trigger doAfterRequest event
-		application.doBeforeRender(reqWrapper, resp);
+		application.doBeforeRender(reqWrapper, respWrapper);
 		// pass the request along the filter chain
 		if (!isIgnoreView) {
-			chain.doFilter(reqWrapper, resp);
+			chain.doFilter(reqWrapper, respWrapper);
 		}
 		// trigger doAfterRequest event
-		application.doAfterRequest(reqWrapper, resp);
+		application.doAfterRequest(reqWrapper, respWrapper);
+		// do finish
+		respWrapper.doFinish();
 	}
 
 }

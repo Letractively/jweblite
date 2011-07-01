@@ -2,9 +2,8 @@ package jweblite.web;
 
 import java.io.Serializable;
 
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 public interface JWebLitePageEvent extends Serializable {
 
@@ -14,11 +13,11 @@ public interface JWebLitePageEvent extends Serializable {
 	 * @param req
 	 *            JWebLiteRequestWrapper
 	 * @param resp
-	 *            HttpServletResponse
+	 *            JWebLiteResponseWrapper
 	 * @throws SkipException
 	 */
-	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp)
-			throws SkipException;
+	public void doHeader(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) throws SkipException;
 
 	/**
 	 * Do Body
@@ -26,10 +25,10 @@ public interface JWebLitePageEvent extends Serializable {
 	 * @param req
 	 *            JWebLiteRequestWrapper
 	 * @param resp
-	 *            HttpServletResponse
+	 *            JWebLiteResponseWrapper
 	 * @throws SkipException
 	 */
-	public void doBody(JWebLiteRequestWrapper req, HttpServletResponse resp)
+	public void doBody(JWebLiteRequestWrapper req, JWebLiteResponseWrapper resp)
 			throws SkipException;
 
 	/**
@@ -38,8 +37,9 @@ public interface JWebLitePageEvent extends Serializable {
 	 * @param req
 	 *            JWebLiteRequestWrapper
 	 * @param resp
-	 *            HttpServletResponse
+	 *            JWebLiteResponseWrapper
 	 */
-	public void doFinalize(JWebLiteRequestWrapper req, HttpServletResponse resp);
+	public void doFinalize(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp);
 
 }

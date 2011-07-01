@@ -14,13 +14,13 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jweblite.resource.DynamicWebResource;
 import jweblite.web.SkipException;
 import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -52,6 +52,11 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	@Override
 	public String getFileName() {
 		return null;
+	}
+
+	@Override
+	public boolean isIgnoreGzip() {
+		return true;
 	}
 
 	@Override
@@ -94,8 +99,8 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	}
 
 	@Override
-	public void doHeader(JWebLiteRequestWrapper req, HttpServletResponse resp)
-			throws SkipException {
+	public void doHeader(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) throws SkipException {
 		// get challenge from session
 		this.challenge = getChallenge(req);
 		if (this.challenge == null) {
