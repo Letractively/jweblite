@@ -17,10 +17,10 @@ public class HelloApplication implements JWebLitePage {
 	 */
 	public HelloApplication() {
 		super();
-		JWebLiteApplication initClass = JWebLiteApplication.get();
+		JWebLiteApplication application = JWebLiteApplication.get();
 
-		this.initClassName = initClass.getClass().getName();
-		this.test = ((WebApplication) initClass).getStartedAt();
+		this.initClassName = application.getClass().getName();
+		this.test = ((WebApplication) application).getStartedAt();
 	}
 
 	@Override
