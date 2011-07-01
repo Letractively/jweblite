@@ -18,7 +18,7 @@
 
 			Hello ${test}!
 
-			<p>Total session: ${JwlSessionFactory.activationCount}</p>
+			<p>Total session: ${JwlSessionManager.activationCount}</p>
 
 		</div>
 	</fieldset>
