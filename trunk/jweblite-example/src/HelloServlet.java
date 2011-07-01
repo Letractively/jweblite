@@ -1,9 +1,8 @@
 import java.io.BufferedWriter;
 
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 import org.apache.commons.io.IOUtils;
 
@@ -20,7 +19,7 @@ public class HelloServlet implements JWebLitePage {
 
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
 		resp.setContentType("text/html; charset=UTF-8");
 		// write
 		BufferedWriter bw = null;

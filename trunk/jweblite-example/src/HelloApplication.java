@@ -1,8 +1,7 @@
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.web.JWebLitePage;
 import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 import application.WebApplication;
 
 public class HelloApplication implements JWebLitePage {
@@ -25,7 +24,7 @@ public class HelloApplication implements JWebLitePage {
 
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
 		return false;
 	}
 

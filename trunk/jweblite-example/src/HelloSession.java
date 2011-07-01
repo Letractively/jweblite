@@ -1,7 +1,6 @@
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 public class HelloSession implements JWebLitePage {
 
@@ -16,7 +15,7 @@ public class HelloSession implements JWebLitePage {
 
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
-			HttpServletResponse resp) {
+			JWebLiteResponseWrapper resp) {
 		req.getSession().setAttribute("test", "Session");
 		return false;
 	}
