@@ -18,9 +18,10 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
-	private String encoding;
-	private boolean isGZipEnabled;
+	private String encoding = null;
+	private boolean isGZipEnabled = false;
 
+	private final boolean isAcceptGZip;
 	private GZipServletOutputStream gos = null;
 	private PrintWriter gpw = null;
 
@@ -40,19 +41,13 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 			HttpServletResponse resp, String encoding, boolean isGZipEnabled) {
 		super(resp);
 		this.setEncoding(encoding);
-		if (req != null) {
-			String acceptContentEncoding = req.getHeader("Accept-Encoding");
-			if (acceptContentEncoding == null
-					|| acceptContentEncoding.indexOf("gzip") < 0) {
-				isGZipEnabled = false;
-			}
-		}
-		this.isGZipEnabled = isGZipEnabled;
+		String acceptContentEncoding = null;
+		this.isAcceptGZip = (req != null
+				&& (acceptContentEncoding = req.getHeader("Accept-Encoding")) != null && acceptContentEncoding
+				.indexOf("gzip") >= 0);
+		this.setGZipEnabled(isGZipEnabled);
 		// init
 		resp.setHeader("Implementation-Title", "jweblite");
-		if (isGZipEnabled) {
-			this.setHeader("Content-Encoding", "gzip");
-		}
 	}
 
 	/**
@@ -149,7 +144,11 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 	 *            boolean
 	 */
 	public void setGZipEnabled(boolean isGZipEnabled) {
+		if (!this.isAcceptGZip) {
+			return;
+		}
 		this.isGZipEnabled = isGZipEnabled;
+		this.setHeader("Content-Encoding", (isGZipEnabled ? "gzip" : null));
 	}
 
 }

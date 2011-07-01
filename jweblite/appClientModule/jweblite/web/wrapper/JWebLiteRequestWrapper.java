@@ -23,7 +23,7 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
-	private String encoding;
+	private String encoding = null;
 	private final boolean isGetMethod;
 	private final boolean isMultipart;
 
