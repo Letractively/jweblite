@@ -17,7 +17,7 @@ public class HelloApplication implements JWebLitePage {
 	 */
 	public HelloApplication() {
 		super();
-		Object initClass = JWebLiteApplication.get().getInitClass();
+		JWebLiteApplication initClass = JWebLiteApplication.get();
 
 		this.initClassName = initClass.getClass().getName();
 		this.test = ((WebApplication) initClass).getStartedAt();

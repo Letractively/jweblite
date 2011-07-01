@@ -3,7 +3,9 @@ package application;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class WebApplication {
+import jweblite.web.application.JWebLiteApplication;
+
+public class WebApplication extends JWebLiteApplication {
 
 	private static final long serialVersionUID = 1L;
 
@@ -13,7 +15,6 @@ public class WebApplication {
 	 * Default constructor.
 	 */
 	public WebApplication() {
-		super();
 		this.startedAt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
 				.format(new Date());
 	}
