@@ -63,8 +63,8 @@ public abstract class StaticWebResource implements JWebLitePage,
 		// fileName
 		String fileName = this.getFileName();
 		if (fileName != null
-				&& (fileName = StringUtils.encodeFileName(req, fileName,
-						encoding)) != null) {
+				&& (fileName = StringUtils.encodeDownloadFileName(req,
+						fileName, encoding)) != null) {
 			resp.setHeader("Content-Disposition", "filename=".concat(fileName));
 		}
 		// cacheable
