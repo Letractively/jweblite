@@ -12,6 +12,7 @@ import javax.servlet.jsp.tagext.DynamicAttributes;
 import jweblite.util.StringUtils;
 import jweblite.util.callback.AdditionalTagAttrCallback;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -70,7 +71,9 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 				attrValue = additionAttrCallback.callback(attrName, attrValue);
 			}
 			if (attrValue != null) {
-				result.add(String.format("%s=\"%s\"", attrName, attrValue));
+				result.add(String
+						.format("%s=\"%s\"", attrName, StringEscapeUtils
+								.escapeHtml(String.valueOf(attrValue))));
 			}
 		}
 		return StringUtils.join(result, " ");
