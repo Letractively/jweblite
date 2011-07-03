@@ -7,11 +7,12 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import jweblite.util.StringUtils;
+import jweblite.web.tag.HtmlTag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class CornerTag extends BodyTagSupport {
+public class CornerTag extends HtmlTag {
 
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(this.getClass());
@@ -19,10 +20,10 @@ public class CornerTag extends BodyTagSupport {
 	private String width = null;
 	private String borderColor = null;
 
-	private String title = null;
-	private String titleColor = null;
-	private String titleBackgroundColor = null;
-	private String titleStyle = null;
+	private String header = null;
+	private String headerColor = null;
+	private String headerBackgroundColor = null;
+	private String headerStyle = null;
 
 	private String bodyColor = null;
 	private String bodyBackgroundColor = null;
@@ -45,9 +46,12 @@ public class CornerTag extends BodyTagSupport {
 						" style=\"float: left;clear: both;width: %s;\"",
 						this.width));
 			}
+			// additional tag attrs
+			jw.print(" ");
+			jw.print(this.makeAdditionalTagAttr());
 			jw.println(">");
 			// header
-			this.paintHeader(jw, this.title);
+			this.paintHeader(jw, this.header);
 			// body
 			this.paintBody(jw, this.getBodyContent().getString());
 			// footer
@@ -64,19 +68,19 @@ public class CornerTag extends BodyTagSupport {
 	 * 
 	 * @param jw
 	 *            JspWriter
-	 * @param title
+	 * @param header
 	 *            String
 	 * @throws IOException
 	 */
-	public void paintHeader(JspWriter jw, String title) throws IOException {
+	public void paintHeader(JspWriter jw, String header) throws IOException {
 		String borderColor = StringUtils.getStringValue(this.borderColor,
 				"#4578D4");
-		String titleColor = StringUtils.getStringValue(this.titleColor, "");
-		String titleBackgroundColor = StringUtils.getStringValue(
-				this.titleBackgroundColor, "#739DEA");
+		String headerColor = StringUtils.getStringValue(this.headerColor, "");
+		String headerBackgroundColor = StringUtils.getStringValue(
+				this.headerBackgroundColor, "#739DEA");
 		String bodyBackgroundColor = StringUtils.getStringValue(
 				this.bodyBackgroundColor, "white");
-		String titleStyle = StringUtils.getStringValue(this.titleStyle, "");
+		String headerStyle = StringUtils.getStringValue(this.headerStyle, "");
 		// corner panel
 		jw.println("<div style=\"height: 6px;border-width: 0;font-size: 0;overflow: hidden;\">");
 		jw.println(String
@@ -90,17 +94,17 @@ public class CornerTag extends BodyTagSupport {
 					.format("<div style=\"height: %dpx;margin: 0 %dpx;border-style: solid;border-width: 0 %dpx;border-color: %s;background-color: %s;overflow: hidden;\"></div>",
 							heightArray[i], marginArray[i],
 							borderWidthArray[i], borderColor,
-							(title != null ? titleBackgroundColor
+							(header != null ? headerBackgroundColor
 									: bodyBackgroundColor)));
 		}
 		jw.println("</div>");
-		// title
-		if (title != null) {
+		// header
+		if (header != null) {
 			jw.println(String
 					.format("<div style=\"background-color: %s;border: 1px solid %s;border-top: 0 none;color: %s;font-size: small;font-weight: bold;\"><div style=\"margin: 0 10px;%s;\">",
-							titleBackgroundColor, borderColor, titleColor,
-							titleStyle));
-			jw.println(StringUtils.getStringValue(title, "&nbsp;", true));
+							headerBackgroundColor, borderColor, headerColor,
+							headerStyle));
+			jw.println(StringUtils.getStringValue(header, "&nbsp;", true));
 			jw.println("</div></div>");
 		}
 	}
@@ -198,79 +202,79 @@ public class CornerTag extends BodyTagSupport {
 	}
 
 	/**
-	 * Get Title
+	 * Get Header
 	 * 
 	 * @return String
 	 */
-	public String getTitle() {
-		return title;
+	public String getHeader() {
+		return header;
 	}
 
 	/**
-	 * Set Title
+	 * Set Header
 	 * 
-	 * @param title
+	 * @param header
 	 *            String
 	 */
-	public void setTitle(String title) {
-		this.title = title;
+	public void setHeader(String header) {
+		this.header = header;
 	}
 
 	/**
-	 * Get Title Color
+	 * Get Header Color
 	 * 
 	 * @return String
 	 */
-	public String getTitleColor() {
-		return titleColor;
+	public String getHeaderColor() {
+		return headerColor;
 	}
 
 	/**
-	 * Set Title Color
+	 * Set Header Color
 	 * 
-	 * @param titleColor
+	 * @param headerColor
 	 *            String
 	 */
-	public void setTitleColor(String titleColor) {
-		this.titleColor = titleColor;
+	public void setHeaderColor(String headerColor) {
+		this.headerColor = headerColor;
 	}
 
 	/**
-	 * Get Title Background Color
+	 * Get Header Background Color
 	 * 
 	 * @return String
 	 */
-	public String getTitleBackgroundColor() {
-		return titleBackgroundColor;
+	public String getHeaderBackgroundColor() {
+		return headerBackgroundColor;
 	}
 
 	/**
-	 * Set Title Background Color
+	 * Set Header Background Color
 	 * 
-	 * @param titleBackgroundColor
+	 * @param headerBackgroundColor
 	 *            String
 	 */
-	public void setTitleBackgroundColor(String titleBackgroundColor) {
-		this.titleBackgroundColor = titleBackgroundColor;
+	public void setHeaderBackgroundColor(String headerBackgroundColor) {
+		this.headerBackgroundColor = headerBackgroundColor;
 	}
 
 	/**
-	 * Get Title Style
+	 * Get Header Style
 	 * 
 	 * @return String
 	 */
-	public String getTitleStyle() {
-		return titleStyle;
+	public String getHeaderStyle() {
+		return headerStyle;
 	}
 
 	/**
-	 * Set Title Style
+	 * Set Header Style
 	 * 
-	 * @param titleStyle
+	 * @param headerStyle
 	 *            String
 	 */
-	public void setTitleStyle(String titleStyle) {
-		this.titleStyle = titleStyle;
+	public void setHeaderStyle(String headerStyle) {
+		this.headerStyle = headerStyle;
 	}
 
 	/**

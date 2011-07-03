@@ -15,6 +15,7 @@
 		<name>corner</name>
 		<tag-class>jweblite.web.tag.corner.CornerTag</tag-class>
 		<body-content>JSP</body-content>
+		<dynamic-attributes>true</dynamic-attributes>
 		<attribute>
 			<name>width</name>
 			<type>java.lang.String</type>
@@ -24,19 +25,19 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<name>title</name>
+			<name>header</name>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<name>titleColor</name>
+			<name>headerColor</name>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<name>titleBackgroundColor</name>
+			<name>headerBackgroundColor</name>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<name>titleStyle</name>
+			<name>headerStyle</name>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
@@ -50,6 +51,10 @@
 		<attribute>
 			<name>bodyStyle</name>
 			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>additionAttrCallback</name>
+			<type>jweblite.util.callback.AdditionalTagAttrCallback</type>
 		</attribute>
 	</tag>
 

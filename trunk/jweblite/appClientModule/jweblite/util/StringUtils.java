@@ -199,7 +199,7 @@ public class StringUtils {
 	}
 
 	/**
-	 * Encode File Name
+	 * Encode Download File Name
 	 * 
 	 * @param req
 	 *            HttpServletRequest
@@ -209,7 +209,7 @@ public class StringUtils {
 	 *            String
 	 * @return String
 	 */
-	public static String encodeFileName(HttpServletRequest req,
+	public static String encodeDownloadFileName(HttpServletRequest req,
 			String fileName, String encoding) {
 		if (req == null || fileName == null || encoding == null) {
 			return "";
