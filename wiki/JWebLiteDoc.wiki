@@ -18,7 +18,7 @@ HelloWorld.jsp
 <title>Hello World</title>
 </head>
 <body>
-	Hello ${World}
+	Hello World
 </body>
 </html>
 }}}
@@ -37,9 +37,6 @@ public class HelloWorld implements JWebLitePage {
 		return false;
 	}
 
-	public String getWorld() {
-		return "World";
-	}
 }
 }}}
 
