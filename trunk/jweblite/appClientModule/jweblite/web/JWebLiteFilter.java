@@ -46,11 +46,11 @@ public class JWebLiteFilter implements Filter {
 		if (initClassName != null) {
 			try {
 				Class initClass = Class.forName(initClassName);
-				if (initClass != null
-						&& JWebLiteApplication.class
-								.isAssignableFrom(initClass)) {
-					JWebLiteApplication.application = (JWebLiteApplication) initClass
-							.newInstance();
+				if (initClass != null) {
+					Object initClassInstance = initClass.newInstance();
+					if (JWebLiteApplication.class.isAssignableFrom(initClass)) {
+						JWebLiteApplication.application = (JWebLiteApplication) initClassInstance;
+					}
 				}
 			} catch (Exception e) {
 				log.warn("Init class failed!", e);
