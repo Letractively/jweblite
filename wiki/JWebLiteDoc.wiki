@@ -66,6 +66,10 @@ public class HelloWorld implements JWebLitePage {
 		<param-name>InitClassName</param-name>
 		<param-value></param-value>
 	</init-param>
+	<init-param>
+		<param-name>GZipEnabled</param-name>
+		<param-value>true</param-value>
+	</init-param>
 </filter>
 <filter-mapping>
 	<filter-name>JWebLiteFilter</filter-name>
@@ -81,3 +85,4 @@ public class HelloWorld implements JWebLitePage {
 || Encoding || String || N || "UTF-8" || charset encoding for request and response||
 || UrlPathPadding || Integer || N || 0 || url's path padding ||
 || InitClassName || String || N || null || load class on server startup ||
+|| GZipEnabled || boolean || N || true || Is GZip enabled or not ||
