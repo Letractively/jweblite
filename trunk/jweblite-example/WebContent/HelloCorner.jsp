@@ -18,7 +18,7 @@
 		<legend>Hello Corner</legend>
 		<div>
 
-			<CornerTag:corner title="Hello Corner" width="300px">
+			<CornerTag:corner header="Hello Corner" width="300px" test="123">
 				Hello Corner
 			</CornerTag:corner>
 
