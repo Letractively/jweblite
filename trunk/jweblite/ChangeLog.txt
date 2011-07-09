@@ -1,5 +1,15 @@
 ﻿JWebLite
 
+Version 0.4.0
+====================
+．Add CornerTag
+．Add ChainedComboBoxTag
+．Add GZipEnabled
+．Add ErrorPage
+．Add JsonUtils
+．Add IOUtils
+．Minor changes
+
 Version 0.3.2
 ====================
 ．Improved performance

@@ -3,54 +3,33 @@
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd ">
 	<tlib-version>1.0</tlib-version>
-	<short-name>CornerTag</short-name>
-	<uri>https://code.google.com/p/jweblite/CornerTag</uri>
+	<short-name>ComboBoxTag</short-name>
+	<uri>https://code.google.com/p/jweblite/ComboBoxTag</uri>
 
 	<!-- ============================================================================================================== -->
-	<!-- jweblite.web.tag.corner -->
+	<!-- jweblite.web.tag.combobox -->
 	<!-- ============================================================================================================== -->
 
-	<!-- corner -->
+	<!-- chained -->
 	<tag>
-		<name>corner</name>
-		<tag-class>jweblite.web.tag.corner.CornerTag</tag-class>
+		<name>chained</name>
+		<tag-class>jweblite.web.tag.combobox.ChainedComboBoxTag</tag-class>
 		<body-content>JSP</body-content>
 		<dynamic-attributes>true</dynamic-attributes>
 		<attribute>
-			<name>width</name>
+			<name>eid</name>
+			<required>true</required>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<name>borderColor</name>
+			<name>toEid</name>
+			<required>true</required>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<name>header</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>headerColor</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>headerBackgroundColor</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>headerStyle</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>bodyColor</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>bodyBackgroundColor</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>bodyStyle</name>
-			<type>java.lang.String</type>
+			<name>map</name>
+			<type>jweblite.data.MultiValueMap</type>
+			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<name>additionAttrCallback</name>

@@ -53,7 +53,9 @@ public class CornerTag extends HtmlTag {
 			// header
 			this.paintHeader(jw, this.header);
 			// body
-			this.paintBody(jw, this.getBodyContent().getString());
+			String content = (this.bodyContent != null ? this.bodyContent
+					.getString() : null);
+			this.paintBody(jw, content);
 			// footer
 			this.paintFooter(jw);
 			jw.println("</div>");
@@ -129,7 +131,9 @@ public class CornerTag extends HtmlTag {
 		jw.println(String
 				.format("<div style=\"background-color: %s;border-left: 1px solid %2s;border-right: 1px solid %2$s;color: %s;text-align: center;%s;\">",
 						bodyBackgroundColor, borderColor, bodyColor, bodyStyle));
-		jw.println(content);
+		if (content != null) {
+			jw.println(content);
+		}
 		jw.println("</div>");
 	}
 

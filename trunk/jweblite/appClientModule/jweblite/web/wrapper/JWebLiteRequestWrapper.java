@@ -134,7 +134,9 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 		if (name == null) {
 			return;
 		}
-		this.parameterMap.putAll(name, value);
+		List tempList = new ArrayList();
+		tempList.add(value);
+		this.parameterMap.replaceAll(name, tempList);
 	}
 
 	/**
