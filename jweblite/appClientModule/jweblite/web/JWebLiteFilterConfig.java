@@ -20,8 +20,9 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 	private final String attrPrefix;
 	private final String encoding;
 	private final int urlPathPadding;
-	private final String initClassName;
 	private final boolean isGZipEnabled;
+	private final String initClassName;
+	private final String errorPage;
 
 	public JWebLiteFilterConfig(FilterConfig filterConfig) {
 		super();
@@ -36,20 +37,29 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 		this.urlPathPadding = StringUtils.getIntValue(
 				(filterConfig != null ? filterConfig
 						.getInitParameter("UrlPathPadding") : null), 0);
-		this.initClassName = StringUtils.getStringValue(
-				(filterConfig != null ? filterConfig
-						.getInitParameter("InitClassName") : null), null, true);
 		this.isGZipEnabled = "true".equalsIgnoreCase(StringUtils
 				.getStringValue(
 						(filterConfig != null ? filterConfig
 								.getInitParameter("GZipEnabled") : null),
 						"true", true));
+		this.initClassName = StringUtils.getStringValue(
+				(filterConfig != null ? filterConfig
+						.getInitParameter("InitClassName") : null), null, true);
+		this.errorPage = StringUtils.getStringValue(
+				(filterConfig != null ? filterConfig
+						.getInitParameter("ErrorPage") : null), null, true);
 		if (this.log.isInfoEnabled()) {
-			this.log.info(String
-					.format("JWebLiteFilterConfig [ AttrPrefix: %s, Encoding: %s, UrlPathPadding: %s, GZipEnabled: %s ]",
-							this.attrPrefix, this.encoding,
-							this.urlPathPadding, this.isGZipEnabled));
+			this.log.info(this.toString());
 		}
+	}
+
+	@Override
+	public String toString() {
+		return String
+				.format("%s [ AttrPrefix: %s, Encoding: %s, UrlPathPadding: %s, GZipEnabled: %s, InitClassName: %s, ErrorPage: %s ]",
+						this.getClass().getSimpleName(), this.attrPrefix,
+						this.encoding, this.urlPathPadding, this.isGZipEnabled,
+						this.initClassName, this.errorPage);
 	}
 
 	@Override
@@ -112,6 +122,15 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 	}
 
 	/**
+	 * Is GZip Enabled
+	 * 
+	 * @return boolean
+	 */
+	public boolean isGZipEnabled() {
+		return isGZipEnabled;
+	}
+
+	/**
 	 * Get Init Class Name
 	 * 
 	 * @return String
@@ -121,12 +140,12 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 	}
 
 	/**
-	 * Is GZip Enabled
+	 * Get Error Page
 	 * 
-	 * @return boolean
+	 * @return String
 	 */
-	public boolean isGZipEnabled() {
-		return isGZipEnabled;
+	public String getErrorPage() {
+		return errorPage;
 	}
 
 }

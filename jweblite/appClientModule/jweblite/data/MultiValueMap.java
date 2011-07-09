@@ -42,10 +42,8 @@ public interface MultiValueMap extends Map {
 	 *            Collection
 	 * @param isReverseBefore
 	 *            boolean
-	 * @return Object
 	 */
-	public void putAllReversed(Object key, Collection list,
-			boolean isReverseBefore);
+	public void putAllReversed(Object key, Collection c, boolean isReverseBefore);
 
 	/**
 	 * Values Original

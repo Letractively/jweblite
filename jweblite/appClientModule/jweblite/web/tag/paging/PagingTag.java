@@ -130,7 +130,7 @@ public class PagingTag extends TagSupport {
 	/**
 	 * Set Total
 	 * 
-	 * @param var
+	 * @param total
 	 *            String
 	 */
 	public void setTotal(String total) {
