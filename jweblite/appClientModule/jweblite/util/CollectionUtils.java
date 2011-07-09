@@ -23,8 +23,7 @@ public class CollectionUtils {
 		if (c == null) {
 			return null;
 		}
-		T[] array = (T[]) Array.newInstance(clazz, c.size());
-		return c.toArray(array);
+		return c.toArray((T[]) Array.newInstance(clazz, c.size()));
 	}
 
 }
