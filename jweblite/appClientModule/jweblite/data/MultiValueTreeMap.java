@@ -76,10 +76,15 @@ public class MultiValueTreeMap extends TreeMap implements MultiValueMap {
 	}
 
 	@Override
-	public void putAll(Object key, Object value) {
-		List valueList = new ArrayList();
-		super.put(key, valueList);
-		valueList.add(value);
+	public void putAll(Map m) {
+		if (m == null) {
+			return;
+		}
+		Iterator mapIt = m.keySet().iterator();
+		while (mapIt.hasNext()) {
+			Object key = mapIt.next();
+			this.put(key, m.get(key));
+		}
 	}
 
 	@Override
@@ -102,12 +107,17 @@ public class MultiValueTreeMap extends TreeMap implements MultiValueMap {
 	}
 
 	@Override
+	public void replaceAll(Object key, Collection c) {
+		super.put(key, c);
+	}
+
+	@Override
 	public Collection values() {
 		List allValueList = new ArrayList();
 
-		Iterator valueIterator = super.values().iterator();
-		while (valueIterator.hasNext()) {
-			List valueList = (List) valueIterator.next();
+		Iterator valueIt = super.values().iterator();
+		while (valueIt.hasNext()) {
+			List valueList = (List) valueIt.next();
 			allValueList.addAll(valueList);
 		}
 		return allValueList;
@@ -122,9 +132,9 @@ public class MultiValueTreeMap extends TreeMap implements MultiValueMap {
 	public Collection valuesReversed(boolean isDeeply) {
 		List allValueList = new ArrayList();
 
-		Iterator valueIterator = super.values().iterator();
-		while (valueIterator.hasNext()) {
-			List valueItem = (List) valueIterator.next();
+		Iterator valueIt = super.values().iterator();
+		while (valueIt.hasNext()) {
+			List valueItem = (List) valueIt.next();
 			if (isDeeply) {
 				Collections.reverse(valueItem);
 			}

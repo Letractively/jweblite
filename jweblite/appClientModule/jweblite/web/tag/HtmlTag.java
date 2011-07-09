@@ -23,7 +23,7 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 
 	private AdditionalTagAttrValueCallback additionAttrValueCallback = null;
 
-	private final Map<String, Object> additionalAttrMap = new HashMap();
+	private final Map<String, Object> originalAdditionalAttrMap = new HashMap();
 	private final AdditionalTagAttrValueCallback defaultAdditionAttrValueCallback = new AdditionalTagAttrValueCallback() {
 		private static final long serialVersionUID = 1L;
 
@@ -50,26 +50,32 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 		if (localName == null) {
 			return;
 		}
-		this.additionalAttrMap.put(localName.toLowerCase(), value);
+		this.originalAdditionalAttrMap.put(localName.toLowerCase(), value);
 	}
 
 	/**
 	 * Make Additional Tag Attr
 	 * 
+	 * @param m
+	 *            Map
 	 * @return String
 	 */
-	public String makeAdditionalTagAttr() {
-		if (this.additionalAttrMap == null) {
-			return "";
-		}
+	public String makeAdditionalTagAttr(Map<String, Object> m) {
 		AdditionalTagAttrValueCallback additionAttrValueCallback = this
 				.getAdditionAttrValueCallback();
 		if (additionAttrValueCallback == null) {
 			additionAttrValueCallback = this.defaultAdditionAttrValueCallback;
 		}
 		List<String> result = new ArrayList();
-		for (String attrName : this.additionalAttrMap.keySet()) {
-			Object attrValue = this.additionalAttrMap.get(attrName);
+		// prepare additionalAttrMap
+		Map<String, Object> additionalAttrMap = new HashMap();
+		additionalAttrMap.putAll(this.originalAdditionalAttrMap);
+		if (m != null) {
+			additionalAttrMap.putAll(m);
+		}
+		// to string
+		for (String attrName : additionalAttrMap.keySet()) {
+			Object attrValue = additionalAttrMap.get(attrName);
 			if (additionAttrValueCallback != null) {
 				attrValue = additionAttrValueCallback.callback(attrName,
 						attrValue);
@@ -81,6 +87,15 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 			}
 		}
 		return StringUtils.join(result, " ");
+	}
+
+	/**
+	 * Make Additional Tag Attr
+	 * 
+	 * @return String
+	 */
+	public String makeAdditionalTagAttr() {
+		return this.makeAdditionalTagAttr(null);
 	}
 
 	/**
@@ -104,12 +119,12 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	}
 
 	/**
-	 * Get Additional Attr Map
+	 * Get Original Additional Attr Map
 	 * 
 	 * @return Map
 	 */
-	public Map<String, Object> getAdditionalAttrMap() {
-		return additionalAttrMap;
+	public Map<String, Object> getOriginalAdditionalAttrMap() {
+		return originalAdditionalAttrMap;
 	}
 
 }

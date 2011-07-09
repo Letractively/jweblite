@@ -144,7 +144,7 @@ public class JsonUtils {
 	 */
 	public static String toJsonArray(Collection c, boolean htmlSafe) {
 		if (c == null) {
-			return "";
+			return "null";
 		}
 		StringWriter sw = new StringWriter();
 		toJsonArray(sw, c, htmlSafe);
@@ -213,7 +213,7 @@ public class JsonUtils {
 	 */
 	public static String toJsonObject(Map<String, ?> map, boolean htmlSafe) {
 		if (map == null) {
-			return "";
+			return "null";
 		}
 		StringWriter sw = new StringWriter();
 		toJsonObject(sw, map, htmlSafe);
