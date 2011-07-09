@@ -2,7 +2,7 @@ package jweblite.util;
 
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -19,13 +19,13 @@ public class JsonUtils {
 	 * 
 	 * @param out
 	 *            Writer
-	 * @param list
-	 *            List
+	 * @param c
+	 *            Collection
 	 * @param htmlSafe
 	 *            boolean
 	 */
-	public static void toJsonArray(Writer out, List list, boolean htmlSafe) {
-		if (out == null || list == null) {
+	public static void toJsonArray(Writer out, Collection c, boolean htmlSafe) {
+		if (out == null || c == null) {
 			return;
 		}
 		JsonWriter jw = null;
@@ -34,7 +34,7 @@ public class JsonUtils {
 			jw.setHtmlSafe(htmlSafe);
 			jw.beginArray();
 			// body
-			for (Object value : list) {
+			for (Object value : c) {
 				if (value == null) {
 					jw.nullValue();
 				} else if (value instanceof Boolean) {
@@ -56,18 +56,18 @@ public class JsonUtils {
 	/**
 	 * To Json Array
 	 * 
-	 * @param list
-	 *            List
+	 * @param c
+	 *            Collection
 	 * @param htmlSafe
 	 *            boolean
 	 * @return String
 	 */
-	public static String toJsonArray(List list, boolean htmlSafe) {
-		if (list == null) {
+	public static String toJsonArray(Collection c, boolean htmlSafe) {
+		if (c == null) {
 			return "";
 		}
 		StringWriter sw = new StringWriter();
-		toJsonArray(sw, list, htmlSafe);
+		toJsonArray(sw, c, htmlSafe);
 		return sw.toString();
 	}
 
