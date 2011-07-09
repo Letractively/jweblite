@@ -53,11 +53,11 @@ public class DateELUtils {
 	/**
 	 * Format Date
 	 * 
-	 * @param date
-	 *            Date
+	 * @param str
+	 *            String
 	 * @param pattern
 	 *            String
-	 * @return String
+	 * @return Date
 	 */
 	public static Date parseDate(String str, String pattern) {
 		try {

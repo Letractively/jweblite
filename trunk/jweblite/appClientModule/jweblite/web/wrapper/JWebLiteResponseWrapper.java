@@ -90,6 +90,18 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 		return this.gpw;
 	}
 
+	@Override
+	public void sendError(int sc, String msg) throws IOException {
+		this.reset();
+		super.sendError(sc, msg);
+	}
+
+	@Override
+	public void sendError(int sc) throws IOException {
+		this.reset();
+		super.sendError(sc);
+	}
+
 	/**
 	 * Do Finish
 	 * 

@@ -83,88 +83,119 @@ public class JWebLiteFilter implements Filter {
 		JWebLiteApplication application = JWebLiteApplication.get();
 		JWebLiteFilterConfig filterConfig = application.getFilterConfig();
 		String attrPrefix = filterConfig.getAttrPrefix();
-		// redirect by request dispatcher
-		String servletPath = req.getServletPath();
-		String reqDispatcherFowardId = attrPrefix.concat("ReqDispatcherFoward");
-		// reqDispatchSettings could be null
-		JWebLiteRequestDispatchSettings reqDispatchSettings = (JWebLiteRequestDispatchSettings) req
-				.getAttribute(reqDispatcherFowardId);
-		if (reqDispatchSettings == null) {
-			JWebLiteRequestDispatcher reqDispatcher = application
-					.getRequestDispatcher();
-			String refResourcePath = null;
-			if (reqDispatcher != null
-					&& (reqDispatchSettings = reqDispatcher.doDispatch(req)) != null
-					&& (refResourcePath = reqDispatchSettings
-							.getReferenceResourcePath()) != null
-					&& !refResourcePath.equalsIgnoreCase(servletPath)) {
-				req.setAttribute(reqDispatcherFowardId, reqDispatchSettings);
-				req.getRequestDispatcher(refResourcePath).forward(req, resp);
-				return;
+		try {
+			// redirect by request dispatcher
+			String servletPath = req.getServletPath();
+			String reqDispatcherFowardId = attrPrefix
+					.concat("ReqDispatcherFoward");
+			// reqDispatchSettings could be null
+			JWebLiteRequestDispatchSettings reqDispatchSettings = (JWebLiteRequestDispatchSettings) req
+					.getAttribute(reqDispatcherFowardId);
+			if (reqDispatchSettings == null) {
+				JWebLiteRequestDispatcher reqDispatcher = application
+						.getRequestDispatcher();
+				String refResourcePath = null;
+				if (reqDispatcher != null
+						&& (reqDispatchSettings = reqDispatcher.doDispatch(req)) != null
+						&& (refResourcePath = reqDispatchSettings
+								.getReferenceResourcePath()) != null
+						&& !refResourcePath.equalsIgnoreCase(servletPath)) {
+					req.setAttribute(reqDispatcherFowardId, reqDispatchSettings);
+					req.getRequestDispatcher(refResourcePath)
+							.forward(req, resp);
+					return;
+				}
+			} else {
+				req.removeAttribute(reqDispatcherFowardId);
 			}
-		} else {
-			req.removeAttribute(reqDispatcherFowardId);
-		}
-		// starting
-		JWebLiteRequestWrapper reqWrapper = new JWebLiteRequestWrapper(req,
-				filterConfig.getEncoding());
-		JWebLiteResponseWrapper respWrapper = new JWebLiteResponseWrapper(req,
-				resp, filterConfig.getEncoding(), filterConfig.isGZipEnabled());
-		// trigger doBeforeRequest event
-		application.doBeforeRequest(reqWrapper, respWrapper,
-				reqDispatchSettings);
-		// parse
-		Class reqClass = null;
-		String refClassName = null;
-		if (reqDispatchSettings != null
-				&& (refClassName = reqDispatchSettings.getReferenceClassName()) != null) {
-			try {
-				reqClass = Class.forName(refClassName);
-			} catch (Exception e) {
+			// starting
+			String encoding = filterConfig.getEncoding();
+			JWebLiteRequestWrapper reqWrapper = new JWebLiteRequestWrapper(req,
+					encoding);
+			JWebLiteResponseWrapper respWrapper = new JWebLiteResponseWrapper(
+					req, resp, encoding, filterConfig.isGZipEnabled());
+			// trigger doBeforeRequest event
+			application.doBeforeRequest(reqWrapper, respWrapper,
+					reqDispatchSettings);
+			// parse
+			Class reqClass = null;
+			String refClassName = null;
+			if (reqDispatchSettings != null
+					&& (refClassName = reqDispatchSettings
+							.getReferenceClassName()) != null) {
+				try {
+					reqClass = Class.forName(refClassName);
+				} catch (Exception e) {
+				}
 			}
-		}
-		if (this.log.isInfoEnabled()) {
-			this.log.info(String
-					.format("RequestInfo [ ClientIP: %s, OriReqUri: %s, OriServletPath: %s, ReqServletPath: %s, ReqParam: %s, ReqClass: %s ]",
-							reqWrapper.getRemoteAddr(),
-							(reqDispatchSettings != null ? reqDispatchSettings
-									.getOriginalRequestUri() : reqWrapper
-									.getRequestURI()),
-							(reqDispatchSettings != null ? reqDispatchSettings
-									.getOriginalServletPath() : reqWrapper
-									.getServletPath()), reqWrapper
-									.getServletPath(), reqWrapper
-									.getQueryString(),
-							(reqClass != null ? reqClass.getName() : null)));
-		}
-		// init class
-		boolean isIgnoreView = false;
-		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
-			try {
-				JWebLitePage reqClassInstance = (JWebLitePage) reqClass
-						.newInstance();
-				isIgnoreView = reqClassInstance.doRequest(reqWrapper,
-						respWrapper);
-				reqWrapper.setAttribute(attrPrefix, reqClassInstance);
-				reqWrapper.setAttribute(attrPrefix.concat("Req"), reqWrapper);
-				// session manager
-				reqWrapper.getSession(true).setAttribute(
-						attrPrefix.concat("SessionManager"),
-						JWebLiteSessionManager.get());
-			} catch (Throwable e) {
+			if (this.log.isInfoEnabled()) {
+				this.log.info(String
+						.format("RequestInfo [ ClientIP: %s, OriReqUri: %s, OriServletPath: %s, ReqServletPath: %s, ReqParam: %s, ReqClass: %s ]",
+								reqWrapper.getRemoteAddr(),
+								(reqDispatchSettings != null ? reqDispatchSettings
+										.getOriginalRequestUri() : reqWrapper
+										.getRequestURI()),
+								(reqDispatchSettings != null ? reqDispatchSettings
+										.getOriginalServletPath() : reqWrapper
+										.getServletPath()), reqWrapper
+										.getServletPath(), reqWrapper
+										.getQueryString(),
+								(reqClass != null ? reqClass.getName() : null)));
+			}
+			// init class
+			boolean isIgnoreView = false;
+			if (reqClass != null
+					&& JWebLitePage.class.isAssignableFrom(reqClass)) {
+				try {
+					JWebLitePage reqClassInstance = (JWebLitePage) reqClass
+							.newInstance();
+					isIgnoreView = reqClassInstance.doRequest(reqWrapper,
+							respWrapper);
+					reqWrapper.setAttribute(attrPrefix, reqClassInstance);
+					reqWrapper.setAttribute(attrPrefix.concat("Req"),
+							reqWrapper);
+					// session manager
+					reqWrapper.getSession(true).setAttribute(
+							attrPrefix.concat("SessionManager"),
+							JWebLiteSessionManager.get());
+				} catch (Throwable e) {
+					throw new ServletException(e);
+				}
+			}
+			// trigger doAfterRequest event
+			application.doBeforeRender(reqWrapper, respWrapper);
+			// pass the request along the filter chain
+			if (!isIgnoreView) {
+				chain.doFilter(reqWrapper, respWrapper);
+			}
+			// trigger doAfterRequest event
+			application.doAfterRequest(reqWrapper, respWrapper);
+			// do finish
+			respWrapper.doFinish();
+		} catch (Throwable e) {
+			log.warn("Do filter failed!", e);
+			String errorPage = filterConfig.getErrorPage();
+			if (errorPage != null) {
+				if (errorPage.equalsIgnoreCase("null")) {
+					resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				} else {
+					String errorDispatcherFowardId = attrPrefix
+							.concat("ExceptionDispatcherFoward");
+					try {
+						if (req.getAttribute(errorDispatcherFowardId) != null) {
+							throw new Exception();
+						}
+						req.setAttribute(errorDispatcherFowardId, true);
+						req.setAttribute(attrPrefix.concat("Exception"), e);
+						req.getRequestDispatcher(errorPage).forward(req, resp);
+					} catch (Throwable e2) {
+						log.warn("Forward error page failed!");
+					}
+				}
+			} else {
 				throw new ServletException(e);
 			}
 		}
-		// trigger doAfterRequest event
-		application.doBeforeRender(reqWrapper, respWrapper);
-		// pass the request along the filter chain
-		if (!isIgnoreView) {
-			chain.doFilter(reqWrapper, respWrapper);
-		}
-		// trigger doAfterRequest event
-		application.doAfterRequest(reqWrapper, respWrapper);
-		// do finish
-		respWrapper.doFinish();
 	}
 
 }
