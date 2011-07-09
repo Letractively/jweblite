@@ -10,6 +10,13 @@
 	<!-- jweblite.util.JsonUtils -->
 	<!-- ============================================================================================================== -->
 
+	<!-- toJsonValue -->
+	<function>
+		<name>toJsonValue</name>
+		<function-class>jweblite.util.JsonUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String toJsonValue(java.lang.Object, boolean) ]]></function-signature>
+	</function>
+
 	<!-- toJsonArray -->
 	<function>
 		<name>toJsonArray</name>

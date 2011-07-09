@@ -1,5 +1,6 @@
 package jweblite.util;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collection;
@@ -13,6 +14,96 @@ import com.google.gson.stream.JsonWriter;
 public class JsonUtils {
 
 	private Log log = LogFactory.getLog(this.getClass());
+
+	/**
+	 * To Json Value
+	 * 
+	 * @param jw
+	 *            JsonWriter
+	 * @param o
+	 *            Object
+	 * @throws IOException
+	 */
+	public static void toJsonValue(JsonWriter jw, Object o) throws IOException {
+		if (jw == null) {
+			return;
+		}
+		// body
+		if (o == null) {
+			jw.nullValue();
+		} else if (o instanceof Boolean) {
+			jw.value((Boolean) o);
+		} else if (o instanceof Number) {
+			jw.value((Number) o);
+		} else if (o instanceof Collection) {
+			toJsonArray(jw, (Collection) o);
+		} else {
+			jw.value(String.valueOf(o));
+		}
+	}
+
+	/**
+	 * To Json Value
+	 * 
+	 * @param out
+	 *            Writer
+	 * @param o
+	 *            Object
+	 * @param htmlSafe
+	 *            boolean
+	 */
+	public static void toJsonValue(Writer out, Object o, boolean htmlSafe) {
+		if (out == null) {
+			return;
+		}
+		JsonWriter jw = null;
+		try {
+			jw = new JsonWriter(out);
+			jw.setHtmlSafe(htmlSafe);
+			toJsonValue(jw, o);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			IOUtils.closeQuietly(jw);
+		}
+	}
+
+	/**
+	 * To Json Value
+	 * 
+	 * @param o
+	 *            Object
+	 * @param htmlSafe
+	 *            boolean
+	 * @return String
+	 */
+	public static String toJsonValue(Object o, boolean htmlSafe) {
+		StringWriter sw = new StringWriter();
+		toJsonValue(sw, o, htmlSafe);
+		return sw.toString();
+	}
+
+	/**
+	 * To Json Array
+	 * 
+	 * @param jw
+	 *            JsonWriter
+	 * @param c
+	 *            Collection
+	 * @throws IOException
+	 */
+	public static void toJsonArray(JsonWriter jw, Collection c)
+			throws IOException {
+		if (jw == null || c == null) {
+			return;
+		}
+		jw.beginArray();
+		// body
+		for (Object value : c) {
+			toJsonValue(jw, value);
+		}
+		jw.endArray();
+	}
 
 	/**
 	 * To Json Array
@@ -32,20 +123,7 @@ public class JsonUtils {
 		try {
 			jw = new JsonWriter(out);
 			jw.setHtmlSafe(htmlSafe);
-			jw.beginArray();
-			// body
-			for (Object value : c) {
-				if (value == null) {
-					jw.nullValue();
-				} else if (value instanceof Boolean) {
-					jw.value((Boolean) value);
-				} else if (value instanceof Number) {
-					jw.value((Number) value);
-				} else {
-					jw.value((String) value);
-				}
-			}
-			jw.endArray();
+			toJsonArray(jw, c);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -74,6 +152,29 @@ public class JsonUtils {
 	/**
 	 * To Json Object
 	 * 
+	 * @param jw
+	 *            JsonWriter
+	 * @param map
+	 *            Map
+	 * @throws IOException
+	 */
+	public static void toJsonObject(JsonWriter jw, Map<String, ?> map)
+			throws IOException {
+		if (jw == null || map == null) {
+			return;
+		}
+		jw.beginObject();
+		// body
+		for (String key : map.keySet()) {
+			Object value = map.get(key);
+			toJsonValue(jw, value);
+		}
+		jw.endObject();
+	}
+
+	/**
+	 * To Json Object
+	 * 
 	 * @param out
 	 *            Writer
 	 * @param map
@@ -90,22 +191,7 @@ public class JsonUtils {
 		try {
 			jw = new JsonWriter(out);
 			jw.setHtmlSafe(htmlSafe);
-			jw.beginObject();
-			// body
-			for (String key : map.keySet()) {
-				Object value = map.get(key);
-				jw.name(key);
-				if (value == null) {
-					jw.nullValue();
-				} else if (value instanceof Boolean) {
-					jw.value((Boolean) value);
-				} else if (value instanceof Number) {
-					jw.value((Number) value);
-				} else {
-					jw.value((String) value);
-				}
-			}
-			jw.endObject();
+			toJsonObject(jw, map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
