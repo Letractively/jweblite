@@ -37,6 +37,8 @@ public class JsonUtils {
 			jw.value((Number) o);
 		} else if (o instanceof Collection) {
 			toJsonArray(jw, (Collection) o);
+		} else if (o instanceof Map) {
+			toJsonObject(jw, (Map) o);
 		} else {
 			jw.value(String.valueOf(o));
 		}
@@ -167,6 +169,7 @@ public class JsonUtils {
 		// body
 		for (String key : map.keySet()) {
 			Object value = map.get(key);
+			jw.name(key);
 			toJsonValue(jw, value);
 		}
 		jw.endObject();
