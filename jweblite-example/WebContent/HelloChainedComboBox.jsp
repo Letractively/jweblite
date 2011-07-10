@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="style/stylesheet.css" rel="stylesheet" type="text/css" />
-<title>Hello ChainedComboBox</title>
+<title>Hello Chained ComboBox</title>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
 		<a href="index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Hello ChainedComboBox</legend>
+		<legend>Hello Chained ComboBox</legend>
 		<div>
 
 			<ComboBoxTag:chained eid="box1" toEid="box2" map="${Jwl.map1}" />
