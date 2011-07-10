@@ -35,12 +35,35 @@ public class ChainedComboBoxTag extends HtmlTag {
 	public int doEndTag() throws JspException {
 		try {
 			JspWriter jw = this.pageContext.getOut();
+			// element
+			jw.print(String.format("<select id='%s'", this.eid));
+			// additional tag attrs
+			Map<String, Object> additionalAttrMap = new HashMap();
+			additionalAttrMap.put("onchange", String.format(
+					"%s;%sFunc(typeof(%sFunc)=='function'?%sFunc:null);",
+					StringUtils.getStringValue((String) this
+							.getOriginalAdditionalAttrMap().get("onchange"),
+							"", true), this.eid, this.toEid, this.toEid));
+			jw.print(" ");
+			jw.print(this.makeAdditionalTagAttr(additionalAttrMap));
+			jw.println(">");
+			String content = StringUtils.getStringValue(
+					(this.bodyContent != null ? this.bodyContent.getString()
+							: null), null, true);
+			if (content == null && this.map != null) {
+				for (Object key : this.map.keySet()) {
+					jw.print("<option>");
+					jw.print(key);
+					jw.println("</option>");
+				}
+			}
+			jw.println("</select>");
 			// js mapping
 			jw.println("<script type=\"text/javascript\">");
 			jw.println("//<![CDATA[");
 			jw.println(String.format("var %sMap=%s;", this.eid,
 					JsonUtils.toJsonObject(this.map, false)));
-			jw.print(String.format("var %sFunc=function(){", this.eid)); // function-start
+			jw.print(String.format("var %sFunc=function(callback){", this.eid)); // function-start
 			jw.print(String
 					.format("var obj=document.getElementById('%s');var toEle=document.getElementById('%s');",
 							this.eid, this.toEid));
@@ -63,34 +86,14 @@ public class ChainedComboBoxTag extends HtmlTag {
 			jw.print("toEle.appendChild(toEleOpt);");
 			jw.print("}"); // end for-3
 			jw.print("}"); // end if-2
-			jw.print(String.format("if(typeof(%sFunc)=='function'){%sFunc();}",
-					this.toEid, this.toEid));
+			jw.print("if(callback){callback();}");
 			jw.print("}"); // end if-1
-			jw.println("};"); // end function
+			jw.print("};"); // end function
+			jw.println(String
+					.format("if(typeof(%sParentFunc)=='function'){%sParentFunc();};var %sParentFunc=%sFunc;",
+							this.eid, this.eid, this.toEid, this.eid));
 			jw.println("//]]>");
 			jw.println("</script>");
-			// element
-			jw.print(String.format("<select id='%s'", this.eid));
-			// additional tag attrs
-			Map<String, Object> additionalAttrMap = new HashMap();
-			additionalAttrMap.put("onchange", String.format("%s;%sFunc();",
-					StringUtils.getStringValue((String) this
-							.getOriginalAdditionalAttrMap().get("onchange"),
-							"", true), this.eid));
-			jw.print(" ");
-			jw.print(this.makeAdditionalTagAttr(additionalAttrMap));
-			jw.println(">");
-			String content = StringUtils.getStringValue(
-					(this.bodyContent != null ? this.bodyContent.getString()
-							: null), null, true);
-			if (content == null && this.map != null) {
-				for (Object key : this.map.keySet()) {
-					jw.print("<option>");
-					jw.print(key);
-					jw.println("</option>");
-				}
-			}
-			jw.println("</select>");
 		} catch (Exception e) {
 			log.warn("Do end tag failed!", e);
 		}
