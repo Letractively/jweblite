@@ -90,3 +90,15 @@ public class HelloWorld implements JWebLitePage {
 || GZipEnabled || boolean || N || true || Is GZip enabled or not ||
 || InitClassName || String || N || || load class on server startup ||
 || ErrorPage || String || N || || error page, "null": catch all exception ||
+
+<hr />
+
+*Depends:*
+  * commons-codec-1.5.jar
+  * commons-fileupload-1.2.2.jar
+  * commons-io-1.4.jar
+  * commons-lang-2.6.jar
+  * commons-logging-1.1.1.jar
+  * google-gson-stream-1.7.1.jar
+  * jstl.jar
+  * standard.jar
