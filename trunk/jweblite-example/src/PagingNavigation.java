@@ -7,12 +7,11 @@ public class PagingNavigation implements JWebLitePage {
 
 	private static final long serialVersionUID = 1L;
 
-	private String[] userNameArray = { "Anthony Bautista", "Lisa Drennan",
-			"Adam Boggess", "Nora Velarde", "Michael Stites",
-			"Jeannette Waits", "Jeff Rapp", "Nora Melvin", "Agnes Minnich",
-			"Johnny Casarez" };
 	private CollectionDataProvider<String> dataProvider = new CollectionDataProvider(
-			userNameArray, 3);
+			new String[] { "Anthony Bautista", "Lisa Drennan", "Adam Boggess",
+					"Nora Velarde", "Michael Stites", "Jeannette Waits",
+					"Jeff Rapp", "Nora Melvin", "Agnes Minnich",
+					"Johnny Casarez" }, 3);
 
 	/**
 	 * Default constructor.
