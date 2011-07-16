@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="PagingTag"
-	uri="https://code.google.com/p/jweblite/PagingTag"%>
+<%@taglib prefix="JwlPageUtils"
+	uri="https://code.google.com/p/jweblite/JwlPageUtils"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -30,21 +30,21 @@
 			<br />
 
 			<!-- Paging Navigation -->
-			<PagingTag:paging index="index" provider="${dataProvider}">
-				<PagingTag:prev>
+			<JwlPageUtils:paging index="index" provider="${dataProvider}">
+				<JwlPageUtils:pagingPrev>
 					<a href="?page=${index}">&#60;&#60;</a>
-				</PagingTag:prev>
-				<PagingTag:pages selected="selected">
+				</JwlPageUtils:pagingPrev>
+				<JwlPageUtils:pagingPages selected="selected">
 					<c:set var="viewIndex" value="${index + 1}" />
 					<c:if test="${selected == true}">${viewIndex}</c:if>
 					<c:if test="${selected == false}">
 						<a href="?page=${index}">${viewIndex}</a>
 					</c:if>
-				</PagingTag:pages>
-				<PagingTag:next>
+				</JwlPageUtils:pagingPages>
+				<JwlPageUtils:pagingNext>
 					<a href="?page=${index}">&#62;&#62;</a>
-				</PagingTag:next>
-			</PagingTag:paging>
+				</JwlPageUtils:pagingNext>
+			</JwlPageUtils:paging>
 
 		</div>
 	</fieldset>
