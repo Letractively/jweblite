@@ -3,8 +3,8 @@
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd ">
 	<tlib-version>1.0</tlib-version>
-	<short-name>RequestELUtils</short-name>
-	<uri>https://code.google.com/p/jweblite/RequestELUtils</uri>
+	<short-name>RequestUtils</short-name>
+	<uri>https://code.google.com/p/jweblite/RequestUtils</uri>
 
 	<!-- ============================================================================================================== -->
 	<!-- jweblite.web.wrapper.JWebLiteRequestWrapper -->
