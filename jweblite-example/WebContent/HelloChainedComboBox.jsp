@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="ComboBoxTag"
-	uri="https://code.google.com/p/jweblite/ComboBoxTag"%>
+<%@ taglib prefix="JwlPageUtils"
+	uri="https://code.google.com/p/jweblite/JwlPageUtils"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -18,8 +18,10 @@
 		<legend>Hello Chained ComboBox</legend>
 		<div>
 
-			<ComboBoxTag:chained eid="box1" toEid="box2" map="${Jwl.map1}" />
-			<ComboBoxTag:chained eid="box2" toEid="box3" map="${Jwl.map2}" />
+			<JwlPageUtils:chainedComboBox eid="box1" toEid="box2"
+				map="${Jwl.map1}" />
+			<JwlPageUtils:chainedComboBox eid="box2" toEid="box3"
+				map="${Jwl.map2}" />
 			<select id="box3"></select>
 
 		</div>
