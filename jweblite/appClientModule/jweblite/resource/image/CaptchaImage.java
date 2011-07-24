@@ -91,7 +91,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 			ImageIO.write(bi, "JPEG", baos);
 			baos.flush();
 		} catch (Exception e) {
-			log.warn("Write data failed!", e);
+			this.log.warn("Write data failed!", e);
 		} finally {
 			IOUtils.closeQuietly(baos);
 		}

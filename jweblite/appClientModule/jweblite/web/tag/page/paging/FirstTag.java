@@ -1,4 +1,4 @@
-package jweblite.web.tag.paging;
+package jweblite.web.tag.page.paging;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -10,7 +10,7 @@ import org.apache.commons.logging.LogFactory;
 
 import jweblite.data.provider.DataProvider;
 
-public class PrevTag extends TagSupport {
+public class FirstTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
 	private Log log = LogFactory.getLog(this.getClass());
@@ -20,7 +20,7 @@ public class PrevTag extends TagSupport {
 	/**
 	 * Default constructor.
 	 */
-	public PrevTag() {
+	public FirstTag() {
 		super();
 	}
 
@@ -32,11 +32,10 @@ public class PrevTag extends TagSupport {
 		}
 		PagingTag parent = (PagingTag) tag;
 		DataProvider provider = parent.getProvider();
-		int previousIndex = (provider != null ? provider.getCurrentIndex() - 1
-				: 0);
+		int firstIndex = 0;
 		// test
 		if (this.test == null) {
-			if (provider == null || !provider.isHasPrevious()) {
+			if (provider == null || provider.getCurrentIndex() - 2 < firstIndex) {
 				return TagSupport.SKIP_BODY;
 			}
 		} else if (!this.test.booleanValue()) {
@@ -44,7 +43,7 @@ public class PrevTag extends TagSupport {
 		}
 		// index
 		if (parent.getIndex() != null) {
-			this.pageContext.setAttribute(parent.getIndex(), previousIndex);
+			this.pageContext.setAttribute(parent.getIndex(), firstIndex);
 		}
 		return TagSupport.EVAL_BODY_INCLUDE;
 	}

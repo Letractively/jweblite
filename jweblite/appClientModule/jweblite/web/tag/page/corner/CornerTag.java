@@ -1,4 +1,4 @@
-package jweblite.web.tag.corner;
+package jweblite.web.tag.page.corner;
 
 import java.io.IOException;
 
@@ -60,7 +60,7 @@ public class CornerTag extends HtmlTag {
 			this.paintFooter(jw);
 			jw.println("</div>");
 		} catch (Exception e) {
-			log.warn("Do end tag failed!", e);
+			this.log.warn("Do end tag failed!", e);
 		}
 		return BodyTagSupport.EVAL_PAGE;
 	}

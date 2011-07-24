@@ -2,13 +2,15 @@ package jweblite.web.dispatcher;
 
 import java.io.Serializable;
 
-import javax.servlet.http.HttpServletRequest;
-
 import jweblite.util.StringUtils;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class JWebLiteRequestDispatcher implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private Log log = LogFactory.getLog(this.getClass());
 
 	private int urlPathPadding;
 
@@ -28,14 +30,16 @@ public class JWebLiteRequestDispatcher implements Serializable {
 	}
 
 	/**
-	 * Do Dispatch
+	 * Get Dispatch Settings
 	 * 
-	 * @param req
-	 *            HttpServletRequest
-	 * @return ServletRequestDispatchSettings
+	 * @param servletPath
+	 *            String
+	 * @param isInclude
+	 *            boolean
+	 * @return JWebLiteRequestDispatchSettings
 	 */
-	public JWebLiteRequestDispatchSettings doDispatch(HttpServletRequest req) {
-		String servletPath = req.getServletPath();
+	public JWebLiteRequestDispatchSettings getDispatchSettings(
+			String servletPath) {
 		String currentUrl = servletPath.substring(StringUtils.indexOf(
 				servletPath, "/", this.urlPathPadding) + 1);
 		int urlLength = -1;
@@ -64,8 +68,10 @@ public class JWebLiteRequestDispatcher implements Serializable {
 						.substring(resultClassNamePackageIndex));
 			}
 		} catch (Exception e) {
+			this.log.warn("Get dispatch settings failed!", e);
 		}
-		return new JWebLiteRequestDispatchSettings(req, result.toString(), null);
+		return new JWebLiteRequestDispatchSettings(servletPath,
+				result.toString(), currentUrl);
 	}
 
 }

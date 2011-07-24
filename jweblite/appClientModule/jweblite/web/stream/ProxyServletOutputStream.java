@@ -2,20 +2,19 @@ package jweblite.web.stream;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.ServletOutputStream;
 
-public class GZipServletOutputStream extends ServletOutputStream {
+public class ProxyServletOutputStream extends ServletOutputStream {
 
-	private final GZIPOutputStream outputStream;
+	private final OutputStream outputStream;
 
 	/**
 	 * Default constructor.
 	 */
-	public GZipServletOutputStream(OutputStream outputStream)
+	public ProxyServletOutputStream(OutputStream outputStream)
 			throws IOException {
-		this.outputStream = new GZIPOutputStream(outputStream);
+		this.outputStream = outputStream;
 	}
 
 	@Override

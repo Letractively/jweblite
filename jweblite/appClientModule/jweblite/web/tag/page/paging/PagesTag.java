@@ -1,4 +1,4 @@
-package jweblite.web.tag.paging;
+package jweblite.web.tag.page.paging;
 
 import java.util.Iterator;
 import java.util.List;

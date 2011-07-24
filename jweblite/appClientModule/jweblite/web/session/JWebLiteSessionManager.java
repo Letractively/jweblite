@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 
-import jweblite.util.callback.HttpSessionCallback;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
