@@ -53,7 +53,7 @@ public class JWebLiteFilter implements Filter {
 					}
 				}
 			} catch (Exception e) {
-				log.warn("Init class failed!", e);
+				this.log.warn("Init class failed!", e);
 			}
 		}
 		// setter
@@ -86,9 +86,9 @@ public class JWebLiteFilter implements Filter {
 		try {
 			// redirect by request dispatcher
 			String servletPath = req.getServletPath();
+			// dispatcher
 			String reqDispatcherFowardId = attrPrefix
 					.concat("ReqDispatcherFoward");
-			// reqDispatchSettings could be null
 			JWebLiteRequestDispatchSettings reqDispatchSettings = (JWebLiteRequestDispatchSettings) req
 					.getAttribute(reqDispatcherFowardId);
 			if (reqDispatchSettings == null) {
@@ -96,10 +96,10 @@ public class JWebLiteFilter implements Filter {
 						.getRequestDispatcher();
 				String refResourcePath = null;
 				if (reqDispatcher != null
-						&& (reqDispatchSettings = reqDispatcher.doDispatch(req)) != null
+						&& (reqDispatchSettings = reqDispatcher
+								.getDispatchSettings(servletPath)) != null
 						&& (refResourcePath = reqDispatchSettings
-								.getReferenceResourcePath()) != null
-						&& !refResourcePath.equalsIgnoreCase(servletPath)) {
+								.getReferenceResourcePath()) != null) {
 					req.setAttribute(reqDispatcherFowardId, reqDispatchSettings);
 					req.getRequestDispatcher(refResourcePath)
 							.forward(req, resp);
@@ -108,12 +108,24 @@ public class JWebLiteFilter implements Filter {
 			} else {
 				req.removeAttribute(reqDispatcherFowardId);
 			}
+			if (this.log.isInfoEnabled()) {
+				this.log.info(reqDispatchSettings.toString());
+			}
 			// starting
 			String encoding = filterConfig.getEncoding();
-			JWebLiteRequestWrapper reqWrapper = new JWebLiteRequestWrapper(req,
-					encoding);
-			JWebLiteResponseWrapper respWrapper = new JWebLiteResponseWrapper(
-					req, resp, encoding, filterConfig.isGZipEnabled());
+			JWebLiteRequestWrapper reqWrapper = null;
+			if (req instanceof JWebLiteRequestWrapper) {
+				reqWrapper = (JWebLiteRequestWrapper) req;
+			} else {
+				reqWrapper = new JWebLiteRequestWrapper(req, encoding);
+			}
+			JWebLiteResponseWrapper respWrapper = null;
+			if (resp instanceof JWebLiteResponseWrapper) {
+				respWrapper = (JWebLiteResponseWrapper) resp;
+			} else {
+				respWrapper = new JWebLiteResponseWrapper(req, resp, encoding,
+						filterConfig.isGZipEnabled());
+			}
 			// trigger doBeforeRequest event
 			application.doBeforeRequest(reqWrapper, respWrapper,
 					reqDispatchSettings);
@@ -130,17 +142,10 @@ public class JWebLiteFilter implements Filter {
 			}
 			if (this.log.isInfoEnabled()) {
 				this.log.info(String
-						.format("RequestInfo [ ClientIP: %s, OriReqUri: %s, OriServletPath: %s, ReqServletPath: %s, ReqParam: %s, ReqClass: %s ]",
+						.format("RequestInfo [ ClientIP: %s, ReqUri: %s, ReqParam: %s ]",
 								reqWrapper.getRemoteAddr(),
-								(reqDispatchSettings != null ? reqDispatchSettings
-										.getOriginalRequestUri() : reqWrapper
-										.getRequestURI()),
-								(reqDispatchSettings != null ? reqDispatchSettings
-										.getOriginalServletPath() : reqWrapper
-										.getServletPath()), reqWrapper
-										.getServletPath(), reqWrapper
-										.getQueryString(),
-								(reqClass != null ? reqClass.getName() : null)));
+								reqWrapper.getRequestURI(),
+								reqWrapper.getQueryString()));
 			}
 			// init class
 			boolean isIgnoreView = false;
@@ -173,7 +178,7 @@ public class JWebLiteFilter implements Filter {
 			// do finish
 			respWrapper.doFinish();
 		} catch (Throwable e) {
-			log.warn("Do filter failed!", e);
+			this.log.warn("Do filter failed!", e);
 			String errorPage = filterConfig.getErrorPage();
 			if (errorPage != null) {
 				if (errorPage.equalsIgnoreCase("null")) {
@@ -189,7 +194,7 @@ public class JWebLiteFilter implements Filter {
 						req.setAttribute(attrPrefix.concat("Exception"), e);
 						req.getRequestDispatcher(errorPage).forward(req, resp);
 					} catch (Throwable e2) {
-						log.warn("Forward error page failed!");
+						this.log.warn("Forward error page failed!");
 					}
 				}
 			} else {

@@ -10,7 +10,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.DynamicAttributes;
 
 import jweblite.util.StringUtils;
-import jweblite.util.callback.AdditionalTagAttrValueCallback;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;

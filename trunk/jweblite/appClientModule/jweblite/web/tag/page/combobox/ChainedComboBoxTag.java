@@ -1,4 +1,4 @@
-package jweblite.web.tag.combobox;
+package jweblite.web.tag.page.combobox;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -95,7 +95,7 @@ public class ChainedComboBoxTag extends HtmlTag {
 			jw.println("//]]>");
 			jw.println("</script>");
 		} catch (Exception e) {
-			log.warn("Do end tag failed!", e);
+			this.log.warn("Do end tag failed!", e);
 		}
 		return BodyTagSupport.EVAL_PAGE;
 	}

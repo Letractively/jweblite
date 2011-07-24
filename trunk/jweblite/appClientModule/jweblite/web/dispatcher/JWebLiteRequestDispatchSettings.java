@@ -2,26 +2,21 @@ package jweblite.web.dispatcher;
 
 import java.io.Serializable;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class JWebLiteRequestDispatchSettings implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private final String originalServletPath;
-	private final String originalRequestUri;
 	private String referenceClassName;
 	private String referenceResourcePath;
 
 	/**
 	 * Default constructor.
 	 */
-	public JWebLiteRequestDispatchSettings(HttpServletRequest req,
+	public JWebLiteRequestDispatchSettings(String originalServletPath,
 			String referenceClassName, String referenceResourcePath) {
 		super();
-		this.originalServletPath = req.getServletPath();
-		this.originalRequestUri = req.getRequestURI();
-
+		this.originalServletPath = originalServletPath;
 		this.referenceClassName = referenceClassName;
 		this.referenceResourcePath = referenceResourcePath;
 	}
@@ -29,8 +24,16 @@ public class JWebLiteRequestDispatchSettings implements Serializable {
 	/**
 	 * Default constructor.
 	 */
-	public JWebLiteRequestDispatchSettings(HttpServletRequest req) {
-		this(req, null, null);
+	public JWebLiteRequestDispatchSettings(String originalServletPath) {
+		this(originalServletPath, null, null);
+	}
+
+	@Override
+	public String toString() {
+		return String
+				.format("JWebLiteRequestDispatchSettings [ OriServletPath: %s RefResourcePath: %s, RefClassName: %s ]",
+						this.originalServletPath, this.referenceResourcePath,
+						this.referenceClassName);
 	}
 
 	/**
@@ -40,15 +43,6 @@ public class JWebLiteRequestDispatchSettings implements Serializable {
 	 */
 	public String getOriginalServletPath() {
 		return originalServletPath;
-	}
-
-	/**
-	 * Get Original Request Uri
-	 * 
-	 * @return String
-	 */
-	public String getOriginalRequestUri() {
-		return originalRequestUri;
 	}
 
 	/**

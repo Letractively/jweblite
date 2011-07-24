@@ -32,17 +32,19 @@ public abstract class StaticWebResource implements JWebLitePage,
 	@Override
 	public boolean doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) {
-		if (this.isIgnoreGzip()) {
-			resp.setGZipEnabled(false);
-		}
 		try {
+			if (this.isIgnoreGzip()) {
+				resp.setGZipEnabled(false);
+			}
 			// header
 			this.doHeader(req, resp);
 			// body
 			this.doBody(req, resp);
 			// finalize
 			this.doFinalize(req, resp);
-		} catch (SkipException e) {
+		} catch (SkipException se) {
+		} catch (Exception e) {
+			this.log.warn("Write data failed!", e);
 		}
 		return true;
 	}
@@ -88,7 +90,7 @@ public abstract class StaticWebResource implements JWebLitePage,
 			IOUtils.copy(bis, bos);
 			bos.flush();
 		} catch (Exception e) {
-			log.warn("Write data failed!", e);
+			this.log.warn("Write data failed!", e);
 		} finally {
 			IOUtils.closeQuietly(bis);
 			IOUtils.closeQuietly(bos);

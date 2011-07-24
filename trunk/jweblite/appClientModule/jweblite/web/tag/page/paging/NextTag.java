@@ -1,4 +1,4 @@
-package jweblite.web.tag.paging;
+package jweblite.web.tag.page.paging;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
