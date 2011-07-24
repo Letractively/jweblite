@@ -47,7 +47,7 @@
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
-		<javac srcdir="appClientModule" destdir="deploy/classes" fork="true" source="1.5" target="1.5" debug="on" includeantruntime="false">
+		<javac srcdir="appClientModule" destdir="deploy/classes" encoding="UTF-8" fork="true" source="1.5" target="1.5" debug="on" includeantruntime="false">
 			<classpath>
 				<fileset dir="dependencies" />
 				<fileset dir="${serverLibPath}" />
@@ -67,7 +67,7 @@
           target: apidocs              
          ================================= -->
 	<target name="apidocs" depends="compile" description="apidocs">
-		<javadoc sourcepath="appClientModule" destdir="apidocs" windowtitle="${ant.project.name}-${version}" author="true" version="true" use="true">
+		<javadoc sourcepath="appClientModule" destdir="apidocs" windowtitle="${ant.project.name}-${version}" author="true" version="true" use="true" encoding="UTF-8" docencoding="UTF-8" charset="UTF-8">
 			<doctitle>${ant.project.name}-${version}</doctitle>
 		</javadoc>
 	</target>
