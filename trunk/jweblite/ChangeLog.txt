@@ -1,5 +1,12 @@
 ﻿JWebLite
 
+Version 0.4.1
+====================
+．Add IncludeTag
+．Add AlternatingTag
+．Minor changes
+．Minor bug fixes
+
 Version 0.4.0
 ====================
 ．Add CornerTag
