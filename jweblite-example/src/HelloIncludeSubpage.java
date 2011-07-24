@@ -1,19 +1,17 @@
-import jweblite.util.iterator.LoopIterator;
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
-public class Alternating implements JWebLitePage {
+public class HelloIncludeSubpage implements JWebLitePage {
 
 	private static final long serialVersionUID = 1L;
 
-	private LoopIterator<String> colorIterator = new LoopIterator(new String[] {
-			"red", "green", "blue" });
+	private String test = "Subpage";
 
 	/**
 	 * Default constructor.
 	 */
-	public Alternating() {
+	public HelloIncludeSubpage() {
 		super();
 	}
 
@@ -23,8 +21,8 @@ public class Alternating implements JWebLitePage {
 		return false;
 	}
 
-	public LoopIterator<String> getColorIterator() {
-		return colorIterator;
+	public String getTest() {
+		return test;
 	}
 
 }
