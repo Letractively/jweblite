@@ -1,14 +1,11 @@
 package jweblite.web.tag;
 
-import java.io.ByteArrayOutputStream;
-
-import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import jweblite.web.application.JWebLiteApplication;
+import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
-import jweblite.web.wrapper.stream.JWebLiteProxyResponseWrapperStream;
-import jweblite.web.wrapper.stream.JWebLiteResponseWrapperStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,24 +27,14 @@ public class IncludeTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		try {
-			ServletRequest request = this.pageContext.getRequest();
-			JWebLiteResponseWrapper respWrapper = (JWebLiteResponseWrapper) this.pageContext
+			JWebLiteRequestWrapper req = (JWebLiteRequestWrapper) this.pageContext
+					.getRequest();
+			JWebLiteResponseWrapper resp = (JWebLiteResponseWrapper) this.pageContext
 					.getResponse();
-
-			// original wrapper stream
-			JWebLiteResponseWrapperStream oriWrapperStream = respWrapper
-					.getWrapperStream();
-			// proxy
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			respWrapper
-					.setWrapperStream(new JWebLiteProxyResponseWrapperStream(
-							baos));
-			request.getRequestDispatcher(this.page).forward(request,
-					respWrapper);
-			// revert
-			respWrapper.setWrapperStream(oriWrapperStream);
-			// insert output
-			this.pageContext.getOut().write(baos.toString());
+			String pageData = JWebLiteApplication.get().getRequestDispatcher()
+					.writePageAsString(req, resp, this.page);
+			// output
+			this.pageContext.getOut().write(pageData);
 		} catch (Exception e) {
 			this.log.warn("Do end tag failed!", e);
 		}

@@ -58,10 +58,13 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 	 * 
 	 * @param resp
 	 *            HttpServletResponse
+	 * @param encoding
+	 *            String
 	 * @throws IOException
 	 */
-	public JWebLiteResponseWrapper(HttpServletResponse resp) throws IOException {
-		this(null, resp, null, true);
+	public JWebLiteResponseWrapper(HttpServletResponse resp, String encoding)
+			throws IOException {
+		this(null, resp, encoding, false);
 	}
 
 	@Override
