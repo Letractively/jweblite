@@ -1,8 +1,16 @@
 package jweblite.web.dispatcher;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 
+import javax.servlet.ServletException;
+
 import jweblite.util.StringUtils;
+import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.JWebLiteResponseWrapper;
+import jweblite.web.wrapper.stream.JWebLiteProxyResponseWrapperStream;
+import jweblite.web.wrapper.stream.JWebLiteResponseWrapperStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,12 +42,13 @@ public class JWebLiteRequestDispatcher implements Serializable {
 	 * 
 	 * @param servletPath
 	 *            String
-	 * @param isInclude
-	 *            boolean
 	 * @return JWebLiteRequestDispatchSettings
 	 */
 	public JWebLiteRequestDispatchSettings getDispatchSettings(
 			String servletPath) {
+		if (servletPath == null) {
+			return null;
+		}
 		String currentUrl = servletPath.substring(StringUtils.indexOf(
 				servletPath, "/", this.urlPathPadding) + 1);
 		int urlLength = -1;
@@ -72,6 +81,37 @@ public class JWebLiteRequestDispatcher implements Serializable {
 		}
 		return new JWebLiteRequestDispatchSettings(servletPath,
 				result.toString(), currentUrl);
+	}
+
+	/**
+	 * Write Page As String
+	 * 
+	 * @param req
+	 *            JWebLiteRequestWrapper
+	 * @param resp
+	 *            JWebLiteResponseWrapper
+	 * @param servletPath
+	 *            String
+	 * @return String
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public String writePageAsString(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp, String servletPath)
+			throws ServletException, IOException {
+		if (servletPath == null) {
+			return "";
+		}
+		// original wrapper stream
+		JWebLiteResponseWrapperStream oriWrapperStream = resp
+				.getWrapperStream();
+		// proxy
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		resp.setWrapperStream(new JWebLiteProxyResponseWrapperStream(baos));
+		req.getRequestDispatcher(servletPath).forward(req, resp);
+		// revert
+		resp.setWrapperStream(oriWrapperStream);
+		return baos.toString();
 	}
 
 }
