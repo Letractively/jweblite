@@ -1,5 +1,13 @@
 ﻿JWebLite
 
+Version 0.4.2
+====================
+．Minor changes
+
+1. 當使用tablib自動載入jquery.js
+2. interface JWebLite change to class (as a Map ?)
+3. checkbox 全選(table, all)
+
 Version 0.4.1
 ====================
 ．Add IncludeTag
