@@ -1,6 +1,6 @@
 ﻿JWebLite Feature Request
 
 ====================
-1. 當使用tablib自動載入jquery.js
+1. 當使用taglib自動載入jquery.js
 2. interface JWebLite change to class (as a Map ?)
 3. checkbox 全選(table, all)
