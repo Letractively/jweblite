@@ -13,7 +13,7 @@ import org.apache.commons.logging.LogFactory;
 public class IncludeTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(IncludeTag.class);
 
 	private String page = null;
 
@@ -36,7 +36,7 @@ public class IncludeTag extends TagSupport {
 			// output
 			this.pageContext.getOut().write(pageData);
 		} catch (Exception e) {
-			this.log.warn("Do end tag failed!", e);
+			_cat.warn("Do end tag failed!", e);
 		}
 		return TagSupport.EVAL_PAGE;
 	}

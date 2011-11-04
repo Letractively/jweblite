@@ -10,7 +10,7 @@ import org.apache.commons.logging.LogFactory;
 public abstract class DataProvider<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(DataProvider.class);
 
 	private int perPage = 20;
 	private int currentIndex = 0;

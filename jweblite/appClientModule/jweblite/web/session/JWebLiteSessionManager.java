@@ -12,7 +12,8 @@ public class JWebLiteSessionManager implements HttpSessionBindingListener,
 		Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory
+			.getLog(JWebLiteSessionManager.class);
 
 	private static JWebLiteSessionManager factory = new JWebLiteSessionManager();
 

@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 public class AlternatingTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(AlternatingTag.class);
 
 	private String var = null;
 	private String data = null;

@@ -10,11 +10,15 @@ import javax.servlet.ServletOutputStream;
 import jweblite.web.stream.ProxyServletOutputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class JWebLiteProxyResponseWrapperStream implements
 		JWebLiteResponseWrapperStream {
 
 	private static final long serialVersionUID = 1L;
+	private static final Log _cat = LogFactory
+			.getLog(JWebLiteProxyResponseWrapperStream.class);
 
 	private OutputStream outputStream = null;
 

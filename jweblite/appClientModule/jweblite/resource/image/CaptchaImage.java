@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
 public abstract class CaptchaImage extends DynamicWebResource {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(CaptchaImage.class);
 
 	private String challenge = null;
 	private Font font = new Font("SansSerif", Font.PLAIN, 36);
@@ -91,7 +91,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 			ImageIO.write(bi, "JPEG", baos);
 			baos.flush();
 		} catch (Exception e) {
-			this.log.warn("Write data failed!", e);
+			_cat.warn("Write data failed!", e);
 		} finally {
 			IOUtils.closeQuietly(baos);
 		}

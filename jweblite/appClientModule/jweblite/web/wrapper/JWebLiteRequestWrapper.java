@@ -21,7 +21,8 @@ import org.apache.commons.logging.LogFactory;
 
 public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory
+			.getLog(JWebLiteRequestWrapper.class);
 
 	private String encoding = null;
 	private final boolean isGetMethod;

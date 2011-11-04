@@ -18,7 +18,7 @@ import org.apache.commons.logging.LogFactory;
 public class ChainedComboBoxTag extends HtmlTag {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(ChainedComboBoxTag.class);
 
 	private String eid = null;
 	private String toEid = null;
@@ -95,7 +95,7 @@ public class ChainedComboBoxTag extends HtmlTag {
 			jw.println("//]]>");
 			jw.println("</script>");
 		} catch (Exception e) {
-			this.log.warn("Do end tag failed!", e);
+			_cat.warn("Do end tag failed!", e);
 		}
 		return BodyTagSupport.EVAL_PAGE;
 	}

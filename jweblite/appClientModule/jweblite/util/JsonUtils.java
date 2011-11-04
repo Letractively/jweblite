@@ -14,7 +14,7 @@ import com.google.gson.stream.JsonWriter;
 
 public class JsonUtils {
 
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(JsonUtils.class);
 
 	/**
 	 * To Json Value

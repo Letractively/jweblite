@@ -9,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class PropertiesUtils {
 
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(PropertiesUtils.class);
 
 	/**
 	 * Load Properties

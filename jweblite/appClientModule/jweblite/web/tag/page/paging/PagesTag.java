@@ -16,7 +16,7 @@ import jweblite.data.provider.DataProvider;
 public class PagesTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(PagesTag.class);
 
 	private Boolean test = null;
 

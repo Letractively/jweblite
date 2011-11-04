@@ -14,7 +14,8 @@ import org.apache.commons.logging.LogFactory;
 public class JWebLiteApplication implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory
+			.getLog(JWebLiteApplication.class);
 
 	public static JWebLiteApplication application = new JWebLiteApplication();
 

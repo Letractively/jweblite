@@ -13,7 +13,7 @@ import jweblite.data.provider.DataProvider;
 public class LastTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(LastTag.class);
 
 	private Boolean test = null;
 

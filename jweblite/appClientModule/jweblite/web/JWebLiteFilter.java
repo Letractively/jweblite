@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class JWebLiteFilter implements Filter {
 
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(JWebLiteFilter.class);
 
 	/**
 	 * Default constructor.
@@ -53,7 +53,7 @@ public class JWebLiteFilter implements Filter {
 					}
 				}
 			} catch (Exception e) {
-				this.log.warn("Init class failed!", e);
+				_cat.warn("Init class failed!", e);
 			}
 		}
 		// setter
@@ -108,8 +108,8 @@ public class JWebLiteFilter implements Filter {
 			} else {
 				req.removeAttribute(reqDispatcherFowardId);
 			}
-			if (this.log.isInfoEnabled()) {
-				this.log.info(reqDispatchSettings.toString());
+			if (_cat.isInfoEnabled()) {
+				_cat.info(reqDispatchSettings.toString());
 			}
 			// starting
 			String encoding = filterConfig.getEncoding();
@@ -140,8 +140,8 @@ public class JWebLiteFilter implements Filter {
 				} catch (Exception e) {
 				}
 			}
-			if (this.log.isInfoEnabled()) {
-				this.log.info(String
+			if (_cat.isInfoEnabled()) {
+				_cat.info(String
 						.format("RequestInfo [ ClientIP: %s, ReqUri: %s, ReqParam: %s ]",
 								reqWrapper.getRemoteAddr(),
 								reqWrapper.getRequestURI(),
@@ -178,7 +178,7 @@ public class JWebLiteFilter implements Filter {
 			// do finish
 			respWrapper.doFinish();
 		} catch (Throwable e) {
-			this.log.warn("Do filter failed!", e);
+			_cat.warn("Do filter failed!", e);
 			String errorPage = filterConfig.getErrorPage();
 			if (errorPage != null) {
 				if (errorPage.equalsIgnoreCase("null")) {
@@ -194,7 +194,7 @@ public class JWebLiteFilter implements Filter {
 						req.setAttribute(attrPrefix.concat("Exception"), e);
 						req.getRequestDispatcher(errorPage).forward(req, resp);
 					} catch (Throwable e2) {
-						this.log.warn("Forward error page failed!");
+						_cat.warn("Forward error page failed!");
 					}
 				}
 			} else {

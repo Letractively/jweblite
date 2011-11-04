@@ -9,11 +9,15 @@ import javax.servlet.ServletOutputStream;
 import jweblite.web.stream.GZipServletOutputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class JWebLiteServletResponseWrapperStream implements
 		JWebLiteResponseWrapperStream {
 
 	private static final long serialVersionUID = 1L;
+	private static final Log _cat = LogFactory
+			.getLog(JWebLiteServletResponseWrapperStream.class);
 
 	private ServletOutputStream outputStream = null;
 

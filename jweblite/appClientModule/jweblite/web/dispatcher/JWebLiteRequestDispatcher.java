@@ -18,7 +18,8 @@ import org.apache.commons.logging.LogFactory;
 public class JWebLiteRequestDispatcher implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory
+			.getLog(JWebLiteRequestDispatcher.class);
 
 	private int urlPathPadding;
 
@@ -77,7 +78,7 @@ public class JWebLiteRequestDispatcher implements Serializable {
 						.substring(resultClassNamePackageIndex));
 			}
 		} catch (Exception e) {
-			this.log.warn("Get dispatch settings failed!", e);
+			_cat.warn("Get dispatch settings failed!", e);
 		}
 		return new JWebLiteRequestDispatchSettings(servletPath,
 				result.toString(), currentUrl);

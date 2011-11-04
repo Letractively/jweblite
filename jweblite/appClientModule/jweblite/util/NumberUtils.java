@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class NumberUtils {
 
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(NumberUtils.class);
 
 	/**
 	 * To Fixed Float
