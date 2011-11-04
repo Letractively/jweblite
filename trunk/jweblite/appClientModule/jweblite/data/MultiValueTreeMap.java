@@ -16,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
 public class MultiValueTreeMap extends TreeMap implements MultiValueMap {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(MultiValueTreeMap.class);
 
 	/**
 	 * Default constructor.

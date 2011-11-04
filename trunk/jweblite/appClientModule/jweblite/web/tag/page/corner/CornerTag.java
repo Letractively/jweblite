@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
 public class CornerTag extends HtmlTag {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(CornerTag.class);
 
 	private String width = null;
 	private String borderColor = null;
@@ -60,7 +60,7 @@ public class CornerTag extends HtmlTag {
 			this.paintFooter(jw);
 			jw.println("</div>");
 		} catch (Exception e) {
-			this.log.warn("Do end tag failed!", e);
+			_cat.warn("Do end tag failed!", e);
 		}
 		return BodyTagSupport.EVAL_PAGE;
 	}

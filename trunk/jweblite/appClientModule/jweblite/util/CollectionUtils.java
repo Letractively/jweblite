@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class CollectionUtils {
 
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(CollectionUtils.class);
 
 	/**
 	 * To Array

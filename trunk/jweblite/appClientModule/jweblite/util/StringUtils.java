@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class StringUtils {
 
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(StringUtils.class);
 
 	/**
 	 * To Title Case

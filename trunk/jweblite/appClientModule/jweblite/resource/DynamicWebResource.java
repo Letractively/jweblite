@@ -17,7 +17,7 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		JWebLitePageEvent, WebResource {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(DynamicWebResource.class);
 
 	/**
 	 * Default constructor.
@@ -41,7 +41,7 @@ public abstract class DynamicWebResource implements JWebLitePage,
 			this.doFinalize(req, resp);
 		} catch (SkipException se) {
 		} catch (Exception e) {
-			this.log.warn("Write data failed!", e);
+			_cat.warn("Write data failed!", e);
 		}
 		return true;
 	}
@@ -84,7 +84,7 @@ public abstract class DynamicWebResource implements JWebLitePage,
 			IOUtils.write(this.loadData(req), bos);
 			bos.flush();
 		} catch (Exception e) {
-			this.log.warn("Write data failed!", e);
+			_cat.warn("Write data failed!", e);
 		} finally {
 			IOUtils.closeQuietly(bos);
 		}

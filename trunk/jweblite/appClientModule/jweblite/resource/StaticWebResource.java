@@ -20,7 +20,7 @@ public abstract class StaticWebResource implements JWebLitePage,
 		JWebLitePageEvent, WebResource {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory.getLog(StaticWebResource.class);
 
 	/**
 	 * Default constructor.
@@ -44,7 +44,7 @@ public abstract class StaticWebResource implements JWebLitePage,
 			this.doFinalize(req, resp);
 		} catch (SkipException se) {
 		} catch (Exception e) {
-			this.log.warn("Write data failed!", e);
+			_cat.warn("Write data failed!", e);
 		}
 		return true;
 	}
@@ -90,7 +90,7 @@ public abstract class StaticWebResource implements JWebLitePage,
 			IOUtils.copy(bis, bos);
 			bos.flush();
 		} catch (Exception e) {
-			this.log.warn("Write data failed!", e);
+			_cat.warn("Write data failed!", e);
 		} finally {
 			IOUtils.closeQuietly(bis);
 			IOUtils.closeQuietly(bos);

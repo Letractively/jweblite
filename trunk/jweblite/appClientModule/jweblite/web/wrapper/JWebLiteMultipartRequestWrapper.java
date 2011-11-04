@@ -19,7 +19,8 @@ import org.apache.commons.logging.LogFactory;
 
 public class JWebLiteMultipartRequestWrapper extends JWebLiteRequestWrapper {
 
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory
+			.getLog(JWebLiteMultipartRequestWrapper.class);
 
 	private final File repository;
 	private final long maxSize;

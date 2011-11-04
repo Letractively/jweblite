@@ -15,7 +15,8 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 		MultiValueMap {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory
+			.getLog(MultiValueLinkedHashMap.class);
 
 	/**
 	 * Default constructor.

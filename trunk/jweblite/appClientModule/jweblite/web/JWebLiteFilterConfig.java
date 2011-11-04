@@ -14,7 +14,8 @@ import org.apache.commons.logging.LogFactory;
 public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory
+			.getLog(JWebLiteFilterConfig.class);
 
 	private final FilterConfig filterConfig;
 	private final String attrPrefix;
@@ -48,8 +49,8 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 		this.errorPage = StringUtils.getStringValue(
 				(filterConfig != null ? filterConfig
 						.getInitParameter("ErrorPage") : null), null, true);
-		if (this.log.isInfoEnabled()) {
-			this.log.info(this.toString());
+		if (_cat.isInfoEnabled()) {
+			_cat.info(this.toString());
 		}
 	}
 

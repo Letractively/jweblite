@@ -16,7 +16,8 @@ import org.apache.commons.logging.LogFactory;
 
 public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory
+			.getLog(JWebLiteResponseWrapper.class);
 
 	private String encoding = null;
 	private boolean isGZipEnabled = false;

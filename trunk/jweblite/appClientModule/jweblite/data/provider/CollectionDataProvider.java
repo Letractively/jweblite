@@ -11,7 +11,8 @@ import org.apache.commons.logging.LogFactory;
 public class CollectionDataProvider<T> extends DataProvider<T> {
 
 	private static final long serialVersionUID = 1L;
-	private Log log = LogFactory.getLog(this.getClass());
+	private static final Log _cat = LogFactory
+			.getLog(CollectionDataProvider.class);
 
 	private Collection<T> list = null;
 
