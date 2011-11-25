@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="jweblite-example" default="test" basedir=".">
+<project name="jweblite-example" default="compile" basedir=".">
 
 	<property name="version" value="0.4.1" />
-	<property name="serverLibPath" location="../../jakarta-tomcat-5.0.30/common/lib" />
+	<property name="corePath" location="../jweblite" />
+	<property name="extensionPath" location="../jweblite-extension" />
+	<property name="serverLibPath" location="../../apache-tomcat-5.5.34/common/lib" />
 	<tstamp>
 		<format property="today" pattern="yyyy/MM/dd" />
 	</tstamp>
@@ -22,10 +24,13 @@
 	<target name="dependencies" depends="clean" description="dependencies">
 		<mkdir dir="dependencies" />
 		<copy todir="dependencies" overwrite="true" flatten="true">
-			<fileset dir="../jweblite">
+			<fileset dir="${corePath}">
 				<include name="jweblite-${version}.jar" />
+				<include name="dependencies/*.jar" />
 			</fileset>
-			<fileset dir="../jweblite/dependencies" />
+			<fileset dir="${extensionPath}">
+				<include name="jweblite-extension-${version}.jar" />
+			</fileset>
 		</copy>
 	</target>
 
@@ -57,14 +62,6 @@
 				<attribute name="Implementation-Version" value="${version}" />
 			</manifest>
 		</war>
-	</target>
-
-	<!-- ================================= 
-          target: test              
-         ================================= -->
-	<target name="test" description="test">
-		<ant dir="../jweblite" antfile="build.xml" target="compile" />
-		<antcall target="compile" />
 	</target>
 
 </project>

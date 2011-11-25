@@ -1,6 +1,6 @@
 package captcha;
 
-import jweblite.resource.image.CaptchaImage;
+import jweblite.extension.resource.image.CaptchaImage;
 
 public class CreateCaptcha extends CaptchaImage {
 
