@@ -1,4 +1,4 @@
-import jweblite.resource.image.CaptchaImage;
+import jweblite.extension.resource.image.CaptchaImage;
 import jweblite.web.JWebLitePage;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
