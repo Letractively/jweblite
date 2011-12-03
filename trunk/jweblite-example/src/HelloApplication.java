@@ -1,4 +1,5 @@
 import jweblite.web.JWebLitePage;
+import jweblite.web.SkipException;
 import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
@@ -23,9 +24,8 @@ public class HelloApplication implements JWebLitePage {
 	}
 
 	@Override
-	public boolean doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) {
-		return false;
+	public void doRequest(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) throws SkipException {
 	}
 
 	public String getInitClassName() {

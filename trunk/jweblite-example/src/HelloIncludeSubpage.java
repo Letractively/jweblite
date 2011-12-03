@@ -1,4 +1,5 @@
 import jweblite.web.JWebLitePage;
+import jweblite.web.SkipException;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
@@ -16,9 +17,8 @@ public class HelloIncludeSubpage implements JWebLitePage {
 	}
 
 	@Override
-	public boolean doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) {
-		return false;
+	public void doRequest(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) throws SkipException {
 	}
 
 	public String getTest() {
