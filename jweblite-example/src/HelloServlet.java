@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 
 import jweblite.web.JWebLitePage;
+import jweblite.web.SkipException;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
@@ -18,8 +19,8 @@ public class HelloServlet implements JWebLitePage {
 	}
 
 	@Override
-	public boolean doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) {
+	public void doRequest(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) throws SkipException {
 		resp.setContentType("text/html; charset=UTF-8");
 		// write
 		BufferedWriter bw = null;
@@ -32,7 +33,7 @@ public class HelloServlet implements JWebLitePage {
 		} finally {
 			IOUtils.closeQuietly(bw);
 		}
-		return true;
+		throw new SkipException();
 	}
 
 }

@@ -1,4 +1,5 @@
 import jweblite.web.JWebLitePage;
+import jweblite.web.SkipException;
 import jweblite.web.wrapper.JWebLiteMultipartRequestWrapper;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
@@ -20,8 +21,8 @@ public class FileUpload implements JWebLitePage {
 	}
 
 	@Override
-	public boolean doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) {
+	public void doRequest(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) throws SkipException {
 		// parse the request
 		try {
 			req = new JWebLiteMultipartRequestWrapper(req, null,
@@ -31,7 +32,6 @@ public class FileUpload implements JWebLitePage {
 		}
 		this.test = req.getHtmlParameter("test", "File");
 		this.file = req.getFileParameter("file");
-		return false;
 	}
 
 	public String getTest() {

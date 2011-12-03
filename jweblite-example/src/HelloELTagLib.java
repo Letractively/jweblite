@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import jweblite.web.JWebLitePage;
+import jweblite.web.SkipException;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
@@ -20,9 +21,8 @@ public class HelloELTagLib implements JWebLitePage {
 	}
 
 	@Override
-	public boolean doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) {
-		return false;
+	public void doRequest(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) throws SkipException {
 	}
 
 	public List<Integer> getNumberList() {
