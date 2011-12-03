@@ -148,7 +148,7 @@ public class JWebLiteFilter implements Filter {
 								reqWrapper.getQueryString()));
 			}
 			// init class
-			boolean isShowView = false;
+			boolean isIgnoreView = false;
 			if (reqClass != null
 					&& JWebLitePage.class.isAssignableFrom(reqClass)) {
 				try {
@@ -163,7 +163,7 @@ public class JWebLiteFilter implements Filter {
 							JWebLiteSessionManager.get());
 					reqClassInstance.doRequest(reqWrapper, respWrapper);
 				} catch (SkipException se) {
-					isShowView = false;
+					isIgnoreView = true;
 				} catch (Throwable e) {
 					throw new ServletException(e);
 				}
@@ -171,7 +171,7 @@ public class JWebLiteFilter implements Filter {
 			// trigger doAfterRequest event
 			application.doBeforeRender(reqWrapper, respWrapper);
 			// pass the request along the filter chain
-			if (isShowView) {
+			if (!isIgnoreView) {
 				chain.doFilter(reqWrapper, respWrapper);
 			}
 			// trigger doAfterRequest event
