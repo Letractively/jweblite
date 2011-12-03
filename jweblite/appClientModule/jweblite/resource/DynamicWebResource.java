@@ -37,8 +37,8 @@ public abstract class DynamicWebResource implements JWebLitePage,
 			this.doHeader(req, resp);
 			// body
 			this.doBody(req, resp);
-			// finalize
-			this.doFinalize(req, resp);
+			// finish
+			this.doFinish(req, resp);
 		} catch (SkipException se) {
 			throw se;
 		} catch (Exception e) {
@@ -92,7 +92,7 @@ public abstract class DynamicWebResource implements JWebLitePage,
 	}
 
 	@Override
-	public void doFinalize(JWebLiteRequestWrapper req,
+	public void doFinish(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) {
 		// nothing
 	}
