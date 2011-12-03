@@ -32,14 +32,14 @@ public interface JWebLitePageEvent extends Serializable {
 			throws SkipException;
 
 	/**
-	 * Do Finalize
+	 * Do Finish
 	 * 
 	 * @param req
 	 *            JWebLiteRequestWrapper
 	 * @param resp
 	 *            JWebLiteResponseWrapper
 	 */
-	public void doFinalize(JWebLiteRequestWrapper req,
+	public void doFinish(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp);
 
 }
