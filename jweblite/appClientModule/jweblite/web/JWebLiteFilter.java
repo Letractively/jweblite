@@ -154,8 +154,6 @@ public class JWebLiteFilter implements Filter {
 				try {
 					JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 							.newInstance();
-					isShowView = reqClassInstance.doRequest(reqWrapper,
-							respWrapper);
 					reqWrapper.setAttribute(attrPrefix, reqClassInstance);
 					reqWrapper.setAttribute(attrPrefix.concat("Req"),
 							reqWrapper);
@@ -163,6 +161,9 @@ public class JWebLiteFilter implements Filter {
 					reqWrapper.getSession(true).setAttribute(
 							attrPrefix.concat("SessionManager"),
 							JWebLiteSessionManager.get());
+					reqClassInstance.doRequest(reqWrapper, respWrapper);
+				} catch (SkipException se) {
+					isShowView = false;
 				} catch (Throwable e) {
 					throw new ServletException(e);
 				}
@@ -188,7 +189,7 @@ public class JWebLiteFilter implements Filter {
 							.concat("ExceptionDispatcherFoward");
 					try {
 						if (req.getAttribute(errorDispatcherFowardId) != null) {
-							throw new Exception();
+							throw new ServletException();
 						}
 						req.setAttribute(errorDispatcherFowardId, true);
 						req.setAttribute(attrPrefix.concat("Exception"), e);

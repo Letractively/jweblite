@@ -14,9 +14,9 @@ public interface JWebLitePage extends Serializable {
 	 *            JWebLiteRequestWrapper
 	 * @param resp
 	 *            JWebLiteResponseWrapper
-	 * @return boolean
+	 * @throws SkipException
 	 */
-	public boolean doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp);
+	public void doRequest(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) throws SkipException;
 
 }

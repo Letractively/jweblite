@@ -30,8 +30,8 @@ public abstract class StaticWebResource implements JWebLitePage,
 	}
 
 	@Override
-	public boolean doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) {
+	public void doRequest(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp) throws SkipException {
 		try {
 			if (this.isIgnoreGzip()) {
 				resp.setGZipEnabled(false);
@@ -43,10 +43,11 @@ public abstract class StaticWebResource implements JWebLitePage,
 			// finalize
 			this.doFinalize(req, resp);
 		} catch (SkipException se) {
+			throw se;
 		} catch (Exception e) {
 			_cat.warn("Write data failed!", e);
 		}
-		return true;
+		throw new SkipException();
 	}
 
 	@Override
