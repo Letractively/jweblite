@@ -3,7 +3,7 @@
 
 	<property name="version" value="0.4.1" />
 	<property name="corePath" location="../jweblite" />
-	<property name="serverLibPath" location="../../apache-tomcat-5.5.34/common/lib" />
+	<property name="serverLibPath" location="../../apache-tomcat-5.5.35/common/lib" />
 	<tstamp>
 		<format property="today" pattern="yyyy/MM/dd" />
 	</tstamp>
@@ -20,7 +20,8 @@
 	<!-- ================================= 
           target: dependencies              
          ================================= -->
-	<target name="dependencies" depends="clean" description="dependencies">
+	<target name="dependencies" description="dependencies">
+		<delete dir="dependencies" />
 		<mkdir dir="dependencies" />
 		<copy todir="dependencies" overwrite="true" flatten="true">
 			<fileset dir="${corePath}">
@@ -33,7 +34,9 @@
 	<!-- ================================= 
           target: compile              
          ================================= -->
-	<target name="compile" depends="dependencies" description="compile">
+	<target name="compile" description="compile">
+		<antcall target="clean" />
+		<antcall target="dependencies" />
 		<mkdir dir="deploy/classes" />
 		<copy todir="deploy/classes" overwrite="true">
 			<fileset dir="appClientModule">
