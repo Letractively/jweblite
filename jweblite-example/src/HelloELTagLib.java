@@ -20,7 +20,6 @@ public class HelloELTagLib implements JWebLitePage {
 		super();
 	}
 
-	@Override
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 	}

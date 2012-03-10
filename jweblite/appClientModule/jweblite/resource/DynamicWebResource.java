@@ -26,7 +26,6 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		super();
 	}
 
-	@Override
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 		try {
@@ -47,7 +46,6 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		throw new SkipException();
 	}
 
-	@Override
 	public void doHeader(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 		// contentType
@@ -75,7 +73,6 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		}
 	}
 
-	@Override
 	public void doBody(JWebLiteRequestWrapper req, JWebLiteResponseWrapper resp)
 			throws SkipException {
 		// write
@@ -91,23 +88,19 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		}
 	}
 
-	@Override
 	public void doFinish(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) {
 		// nothing
 	}
 
-	@Override
 	public String getEncoding() {
 		return null;
 	}
 
-	@Override
 	public boolean isCacheable() {
 		return false;
 	}
 
-	@Override
 	public boolean isIgnoreGzip() {
 		return false;
 	}

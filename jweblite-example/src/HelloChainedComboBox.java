@@ -40,7 +40,6 @@ public class HelloChainedComboBox implements JWebLitePage {
 		}
 	}
 
-	@Override
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 	}

@@ -14,7 +14,6 @@ public class HelloSession implements JWebLitePage {
 		super();
 	}
 
-	@Override
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 		req.getSession().setAttribute("test", "Session");

@@ -44,12 +44,10 @@ public abstract class CaptchaImage extends DynamicWebResource {
 		super();
 	}
 
-	@Override
 	public String getContentType() {
 		return "image/jpeg";
 	}
 
-	@Override
 	public String getFileName() {
 		return null;
 	}
