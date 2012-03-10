@@ -60,11 +60,11 @@ JWebLite Doc
 
 *Depends:*
   * JDK 1.5+
-  * commons-codec-1.5.jar
-  * commons-fileupload-1.2.2.jar
-  * commons-io-1.4.jar
-  * commons-lang-2.6.jar
+  * jstl.jar (JSTL 1.1+)
+  * standard.jar (JSTL 1.1+)
   * commons-logging-1.1.1.jar
+  * commons-lang-2.6.jar
+  * commons-fileupload-1.2.2.jar
+  * commons-io-2.1.jar
+  * commons-codec-1.5.jar
   * google-gson-stream-1.7.1.jar
-  * jstl.jar
-  * standard.jar
