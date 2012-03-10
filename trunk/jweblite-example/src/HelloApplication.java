@@ -23,7 +23,6 @@ public class HelloApplication implements JWebLitePage {
 		this.test = ((WebApplication) application).getStartedAt();
 	}
 
-	@Override
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 	}

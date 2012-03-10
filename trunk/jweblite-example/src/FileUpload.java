@@ -20,7 +20,6 @@ public class FileUpload implements JWebLitePage {
 		super();
 	}
 
-	@Override
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 		// parse the request

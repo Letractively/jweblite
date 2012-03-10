@@ -17,7 +17,6 @@ public class HelloCaptcha implements JWebLitePage {
 		super();
 	}
 
-	@Override
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 		this.test = CaptchaImage.createChallenge(req,

@@ -16,7 +16,6 @@ public class HelloWorld implements JWebLitePage {
 		super();
 	}
 
-	@Override
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 		this.test = req.getHtmlParameter("test", "World");

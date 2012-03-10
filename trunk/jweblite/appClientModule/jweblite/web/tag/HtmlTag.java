@@ -26,7 +26,6 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	private final AdditionalTagAttrValueCallback defaultAdditionAttrValueCallback = new AdditionalTagAttrValueCallback() {
 		private static final long serialVersionUID = 1L;
 
-		@Override
 		public Object callback(String localName, Object value) {
 			if (localName == null || value == null
 					|| !(value instanceof Comparable)) {
@@ -43,7 +42,6 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 		super();
 	}
 
-	@Override
 	public void setDynamicAttribute(String uri, String localName, Object value)
 			throws JspException {
 		if (localName == null) {

@@ -35,7 +35,6 @@ public class JWebLiteServletResponseWrapperStream implements
 		this.outputStream = outputStream;
 	}
 
-	@Override
 	public ServletOutputStream getOutputStream(boolean isGZipEnabled)
 			throws IOException {
 		if (!isGZipEnabled) {
@@ -50,7 +49,6 @@ public class JWebLiteServletResponseWrapperStream implements
 		return this.sos;
 	}
 
-	@Override
 	public PrintWriter getWriter(boolean isGZipEnabled, String encoding)
 			throws IOException {
 		if (!isGZipEnabled) {
@@ -67,7 +65,6 @@ public class JWebLiteServletResponseWrapperStream implements
 		return this.pw;
 	}
 
-	@Override
 	public void doFinish(boolean isGZipEnabled) {
 		if (isGZipEnabled) {
 			if (this.sos != null) {

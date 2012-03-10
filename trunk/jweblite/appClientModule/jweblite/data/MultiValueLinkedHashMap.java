@@ -54,7 +54,6 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 		super(m);
 	}
 
-	@Override
 	public void put(Object key) {
 		List valueList = (List) super.get(key);
 		if (valueList == null) {
@@ -73,7 +72,6 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 		return valueList.add(value) ? value : null;
 	}
 
-	@Override
 	public void putAll(Object key, Collection c) {
 		List valueList = (List) super.get(key);
 		if (valueList == null) {
@@ -95,7 +93,6 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 		}
 	}
 
-	@Override
 	public void putAllReversed(Object key, Collection list,
 			boolean isReverseBefore) {
 		List valueList = (List) super.get(key);
@@ -114,7 +111,6 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 		}
 	}
 
-	@Override
 	public void replaceAll(Object key, Collection c) {
 		super.put(key, c);
 	}
@@ -131,12 +127,10 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 		return allValueList;
 	}
 
-	@Override
 	public Collection valuesOriginal() {
 		return super.values();
 	}
 
-	@Override
 	public Collection valuesReversed(boolean isDeeply) {
 		List allValueList = new ArrayList();
 

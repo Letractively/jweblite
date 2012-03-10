@@ -37,7 +37,6 @@ public class JWebLiteSessionManager implements HttpSessionBindingListener,
 		return factory;
 	}
 
-	@Override
 	public void valueBound(HttpSessionBindingEvent event) {
 		this.activationCount++;
 		if (this.boundEvent != null) {
@@ -45,7 +44,6 @@ public class JWebLiteSessionManager implements HttpSessionBindingListener,
 		}
 	}
 
-	@Override
 	public void valueUnbound(HttpSessionBindingEvent event) {
 		this.activationCount--;
 		if (this.unboundEvent != null) {

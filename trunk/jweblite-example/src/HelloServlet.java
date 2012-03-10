@@ -18,7 +18,6 @@ public class HelloServlet implements JWebLitePage {
 		super();
 	}
 
-	@Override
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 		resp.setContentType("text/html; charset=UTF-8");

@@ -63,7 +63,6 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 						this.initClassName, this.errorPage);
 	}
 
-	@Override
 	public String getFilterName() {
 		if (this.filterConfig == null) {
 			return null;
@@ -71,7 +70,6 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 		return this.filterConfig.getFilterName();
 	}
 
-	@Override
 	public String getInitParameter(String name) {
 		if (this.filterConfig == null) {
 			return null;
@@ -79,7 +77,6 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 		return this.filterConfig.getInitParameter(name);
 	}
 
-	@Override
 	public Enumeration getInitParameterNames() {
 		if (this.filterConfig == null) {
 			return null;
@@ -87,7 +84,6 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 		return this.filterConfig.getInitParameterNames();
 	}
 
-	@Override
 	public ServletContext getServletContext() {
 		if (this.filterConfig == null) {
 			return null;

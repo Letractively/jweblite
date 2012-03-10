@@ -21,7 +21,6 @@ public class PagingNavigation implements JWebLitePage {
 		super();
 	}
 
-	@Override
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
 		this.dataProvider.setCurrentIndex(req.getIntParameter("page", 0));
