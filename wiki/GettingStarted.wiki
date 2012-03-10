@@ -1,0 +1,70 @@
+#summary Getting Started
+#labels Featured
+
+= Introduction =
+
+Getting Started
+
+= Details =
+
+*web.xml:*
+{{{
+<filter>
+	<display-name>JWebLiteFilter</display-name>
+	<filter-name>JWebLiteFilter</filter-name>
+	<filter-class>jweblite.web.JWebLiteFilter</filter-class>
+	<init-param>
+		<param-name>AttrPrefix</param-name>
+		<param-value>Jwl</param-value>
+	</init-param>
+	<init-param>
+		<param-name>Encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+	<init-param>
+		<param-name>UrlPathPadding</param-name>
+		<param-value>0</param-value>
+	</init-param>
+	<init-param>
+		<param-name>GZipEnabled</param-name>
+		<param-value>true</param-value>
+	</init-param>
+	<init-param>
+		<param-name>InitClassName</param-name>
+		<param-value></param-value>
+	</init-param>
+	<init-param>
+		<param-name>ErrorPage</param-name>
+		<param-value></param-value>
+	</init-param>
+</filter>
+<filter-mapping>
+	<filter-name>JWebLiteFilter</filter-name>
+	<url-pattern>*.jsp</url-pattern>
+	<dispatcher>FORWARD</dispatcher>
+	<dispatcher>INCLUDE</dispatcher>
+	<dispatcher>REQUEST</dispatcher>
+	<dispatcher>ERROR</dispatcher>
+</filter-mapping>
+}}}
+
+|| *Param* || *Type* || *Required* || *Default* || *Comments* ||
+|| AttrPrefix || String || N || Jwl || namespace for EL ||
+|| Encoding || String || N || UTF-8 || charset encoding for request and response||
+|| UrlPathPadding || Integer || N || 0 || url's path padding ||
+|| GZipEnabled || boolean || N || true || Is GZip enabled or not ||
+|| InitClassName || String || N || || load class on server startup ||
+|| ErrorPage || String || N || || error page, "null": catch all exception ||
+
+<hr />
+
+*Depends:*
+  * JDK 1.5+
+  * jstl.jar (JSTL 1.1+)
+  * standard.jar (JSTL 1.1+)
+  * commons-logging-1.1.1.jar
+  * commons-lang-2.6.jar
+  * commons-fileupload-1.2.2.jar
+  * commons-io-2.1.jar
+  * commons-codec-1.5.jar
+  * google-gson-stream-1.7.1.jar
