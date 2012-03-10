@@ -2,6 +2,7 @@
 
 Version 0.4.2
 ====================
+．JDK1.5
 ．Minor changes
 
 Version 0.4.1
