@@ -60,6 +60,7 @@ Getting Started
 
 *Depends:*
   * JDK 1.5+
+  * Tomcat 5+
   * jstl.jar (JSTL 1.1+)
   * standard.jar (JSTL 1.1+)
   * commons-logging-1.1.1.jar
