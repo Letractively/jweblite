@@ -7,6 +7,20 @@ Getting Started
 
 = Details =
 
+*Depends:*
+  * JDK 1.5+
+  * Tomcat 5+
+  * jstl.jar (JSTL 1.1+)
+  * standard.jar (JSTL 1.1+)
+  * commons-logging-1.1.1.jar
+  * commons-lang-2.6.jar
+  * commons-fileupload-1.2.2.jar
+  * commons-io-2.1.jar
+  * commons-codec-1.5.jar
+  * google-gson-stream-1.7.1.jar
+
+<hr />
+
 *web.xml:*
 {{{
 <filter>
@@ -55,17 +69,3 @@ Getting Started
 || GZipEnabled || boolean || N || true || Is GZip enabled or not ||
 || InitClassName || String || N || || load class on server startup ||
 || ErrorPage || String || N || || error page, "null": catch all exception ||
-
-<hr />
-
-*Depends:*
-  * JDK 1.5+
-  * Tomcat 5+
-  * jstl.jar (JSTL 1.1+)
-  * standard.jar (JSTL 1.1+)
-  * commons-logging-1.1.1.jar
-  * commons-lang-2.6.jar
-  * commons-fileupload-1.2.2.jar
-  * commons-io-2.1.jar
-  * commons-codec-1.5.jar
-  * google-gson-stream-1.7.1.jar
