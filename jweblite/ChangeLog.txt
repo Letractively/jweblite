@@ -1,4 +1,4 @@
-﻿JWebLite Change Log
+JWebLite Change Log
 
 Version 0.4.2
 ====================
