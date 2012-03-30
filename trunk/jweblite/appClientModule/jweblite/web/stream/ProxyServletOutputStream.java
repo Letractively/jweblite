@@ -18,8 +18,7 @@ public class ProxyServletOutputStream extends ServletOutputStream {
 	/**
 	 * Default constructor.
 	 */
-	public ProxyServletOutputStream(OutputStream outputStream)
-			throws IOException {
+	public ProxyServletOutputStream(OutputStream outputStream) {
 		this.outputStream = outputStream;
 	}
 
