@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="${ContextPath}/style/stylesheet.css" rel="stylesheet"
 	type="text/css" />
-<title>Hello Session</title>
+<title>Hello Redirect</title>
 </head>
 <body>
 
@@ -14,12 +14,15 @@
 		<a href="${ContextPath}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Hello Session</legend>
+		<legend>Hello World</legend>
 		<div>
 
-			Hello ${test}!
+			Hello ${Jwl.test}!
 
-			<p>Total session: ${JwlSessionManager.activationCount}</p>
+			<form action="${ContextPath}/redirect/RedirectTarget.jsp"
+				method="get">
+				<input type="submit" />
+			</form>
 
 		</div>
 	</fieldset>
