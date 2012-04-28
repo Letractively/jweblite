@@ -147,6 +147,8 @@ public class JWebLiteFilter implements Filter {
 								reqWrapper.getRequestURI(),
 								reqWrapper.getQueryString()));
 			}
+			// prepare default variables
+			reqWrapper.setAttribute("ContextPath", reqWrapper.getContextPath());
 			// init class
 			boolean isIgnoreView = false;
 			if (reqClass != null
