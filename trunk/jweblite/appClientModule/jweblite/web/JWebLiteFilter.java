@@ -168,10 +168,10 @@ public class JWebLiteFilter implements Filter {
 					throw new ServletException(e);
 				}
 			}
-			// trigger doAfterRequest event
-			application.doBeforeRender(reqWrapper, respWrapper);
 			// pass the request along the filter chain
 			if (!isIgnoreView) {
+				// trigger doBeforeRender event
+				application.doBeforeRender(reqWrapper, respWrapper);
 				chain.doFilter(reqWrapper, respWrapper);
 			}
 			// trigger doAfterRequest event
