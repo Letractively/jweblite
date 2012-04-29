@@ -1,4 +1,4 @@
-package jweblite.web.tag;
+package jweblite.web.tag.page;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;

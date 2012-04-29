@@ -45,20 +45,4 @@
 		<function-signature><![CDATA[ java.util.Date getDateParameter(jweblite.web.wrapper.JWebLiteRequestWrapper, java.lang.String, java.lang.String, java.util.Date) ]]></function-signature>
 	</function>
 
-	<!-- ============================================================================================================== -->
-	<!-- jweblite.web.tag -->
-	<!-- ============================================================================================================== -->
-
-	<!-- include -->
-	<tag>
-		<name>include</name>
-		<tag-class>jweblite.web.tag.IncludeTag</tag-class>
-		<attribute>
-			<name>page</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
-
 </taglib>

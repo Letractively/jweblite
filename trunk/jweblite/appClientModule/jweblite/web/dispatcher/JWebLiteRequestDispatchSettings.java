@@ -31,7 +31,7 @@ public class JWebLiteRequestDispatchSettings implements Serializable {
 	@Override
 	public String toString() {
 		return String
-				.format("JWebLiteRequestDispatchSettings [ OriServletPath: %s RefResourcePath: %s, RefClassName: %s ]",
+				.format("{ OriServletPath: %s, RefResourcePath: %s, RefClassName: %s }",
 						this.originalServletPath, this.referenceResourcePath,
 						this.referenceClassName);
 	}
