@@ -21,14 +21,16 @@ public class JWebLiteRequestDispatcher implements Serializable {
 	private static final Log _cat = LogFactory
 			.getLog(JWebLiteRequestDispatcher.class);
 
-	private int urlPathPadding;
+	private int urlPathPadding = 0;
 
 	/**
 	 * Default constructor.
 	 */
 	public JWebLiteRequestDispatcher(int urlPathPadding) {
 		super();
-		this.urlPathPadding = urlPathPadding;
+		if (urlPathPadding > 0) {
+			this.urlPathPadding = urlPathPadding;
+		}
 	}
 
 	/**
@@ -47,41 +49,31 @@ public class JWebLiteRequestDispatcher implements Serializable {
 	 */
 	public JWebLiteRequestDispatchSettings getDispatchSettings(
 			String servletPath) {
-		if (servletPath == null) {
+		if (servletPath == null || !servletPath.startsWith("/")
+				|| servletPath.endsWith(".")) {
 			return null;
 		}
-		String currentUrl = servletPath.substring(StringUtils.indexOf(
-				servletPath, "/", this.urlPathPadding) + 1);
+		// padding
+		int startIndex = StringUtils.indexOf(servletPath, "/",
+				this.urlPathPadding);
+		if (startIndex < 0) {
+			return null;
+		}
+		String currentUrl = servletPath.substring(startIndex);
+		// path pattern check
 		int urlLength = -1;
 		int lastUrlCommaIndex = -1;
-		if ((urlLength = currentUrl.length()) == 0
-				|| (lastUrlCommaIndex = currentUrl.lastIndexOf(".")) != currentUrl
-						.indexOf(".")) {
+		if ((urlLength = currentUrl.length()) <= 1
+				|| (lastUrlCommaIndex = currentUrl.lastIndexOf('.')) != currentUrl
+						.indexOf('.')) {
 			return null;
 		}
-		StringBuffer result = new StringBuffer();
-		try {
-			// replace all '/' to '.'
-			String resultClassName = currentUrl.substring(0,
-					(lastUrlCommaIndex >= 0 ? lastUrlCommaIndex : urlLength))
-					.replace("/", ".");
-			if (resultClassName.length() > 0) {
-				// package name
-				int resultClassNamePackageIndex = resultClassName
-						.lastIndexOf(".") + 1;
-				if (resultClassNamePackageIndex > 0) {
-					result.append(resultClassName.substring(0,
-							resultClassNamePackageIndex));
-				}
-				// class name
-				result.append(resultClassName
-						.substring(resultClassNamePackageIndex));
-			}
-		} catch (Exception e) {
-			_cat.warn("Get dispatch settings failed!", e);
-		}
-		return new JWebLiteRequestDispatchSettings(servletPath,
-				result.toString(), currentUrl);
+		// replace all '/' to '.'
+		String refClassName = currentUrl.substring(1,
+				(lastUrlCommaIndex >= 0 ? lastUrlCommaIndex : urlLength))
+				.replace("/", ".");
+		return new JWebLiteRequestDispatchSettings(servletPath, refClassName,
+				currentUrl);
 	}
 
 	/**
