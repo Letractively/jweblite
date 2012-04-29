@@ -21,7 +21,7 @@
 
 			<form action="${ContextPath}/redirect/RedirectTarget.jsp"
 				method="get">
-				<input type="submit" />
+				<input type="submit" value="Submit" />
 			</form>
 
 		</div>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="jweblite-extension" default="compile" basedir=".">
 
-	<property name="version" value="0.4.2" />
+	<property name="version" value="0.4.3" />
 	<property name="corePath" location="../jweblite" />
 	<property name="serverLibPath" location="../../apache-tomcat-5.5.35/common/lib" />
 	<tstamp>
