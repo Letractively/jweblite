@@ -50,17 +50,16 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 				(filterConfig != null ? filterConfig
 						.getInitParameter("ErrorPage") : null), null, true);
 		if (_cat.isInfoEnabled()) {
-			_cat.info(this.toString());
+			_cat.info("JWebLiteFilterConfig: ".concat(this.toString()));
 		}
 	}
 
 	@Override
 	public String toString() {
 		return String
-				.format("%s [ AttrPrefix: %s, Encoding: %s, UrlPathPadding: %s, GZipEnabled: %s, InitClassName: %s, ErrorPage: %s ]",
-						this.getClass().getSimpleName(), this.attrPrefix,
-						this.encoding, this.urlPathPadding, this.isGZipEnabled,
-						this.initClassName, this.errorPage);
+				.format("{ AttrPrefix: %s, Encoding: %s, UrlPathPadding: %s, GZipEnabled: %s, InitClassName: %s, ErrorPage: %s }",
+						this.attrPrefix, this.encoding, this.urlPathPadding,
+						this.isGZipEnabled, this.initClassName, this.errorPage);
 	}
 
 	public String getFilterName() {

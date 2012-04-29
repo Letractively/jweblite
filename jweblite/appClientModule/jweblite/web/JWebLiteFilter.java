@@ -109,7 +109,12 @@ public class JWebLiteFilter implements Filter {
 				req.removeAttribute(reqDispatcherFowardId);
 			}
 			if (_cat.isInfoEnabled()) {
-				_cat.info(reqDispatchSettings.toString());
+				_cat.info(String
+						.format("RequestInfo: { ClientIP: %s, ReqUri: %s, ReqParam: %s }",
+								req.getRemoteAddr(), req.getRequestURI(),
+								req.getQueryString()));
+				_cat.info("JWebLiteRequestDispatchSettings: "
+						.concat(reqDispatchSettings.toString()));
 			}
 			// starting
 			String encoding = filterConfig.getEncoding();
@@ -139,13 +144,6 @@ public class JWebLiteFilter implements Filter {
 					reqClass = Class.forName(refClassName);
 				} catch (Exception e) {
 				}
-			}
-			if (_cat.isInfoEnabled()) {
-				_cat.info(String
-						.format("RequestInfo [ ClientIP: %s, ReqUri: %s, ReqParam: %s ]",
-								reqWrapper.getRemoteAddr(),
-								reqWrapper.getRequestURI(),
-								reqWrapper.getQueryString()));
 			}
 			// prepare default variables
 			reqWrapper.setAttribute("ContextPath", reqWrapper.getContextPath());
@@ -205,5 +203,4 @@ public class JWebLiteFilter implements Filter {
 			}
 		}
 	}
-
 }

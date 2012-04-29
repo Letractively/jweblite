@@ -2,7 +2,7 @@ JWebLite Feature Request
 
 ====================
 
-0. <RequestUtils:include page="/template/title.jsp" /> 會變成/template/template/title.jsp
+0. <RequestUtils:include page="/template/title.jsp" /> IncludeTag forward 後會變成/template/template/title.jsp
 0. jsp:include 出錯
 
 1. 當使用taglib自動載入jquery.js
