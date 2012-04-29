@@ -6,34 +6,34 @@ public class JWebLiteRequestDispatchSettings implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private final String originalServletPath;
-	private String referenceClassName;
-	private String referenceResourcePath;
+	private final String oriServletPath;
+	private String refClassName;
+	private String refResourcePath;
 
 	/**
 	 * Default constructor.
 	 */
-	public JWebLiteRequestDispatchSettings(String originalServletPath,
-			String referenceClassName, String referenceResourcePath) {
+	public JWebLiteRequestDispatchSettings(String oriServletPath,
+			String refClassName, String refResourcePath) {
 		super();
-		this.originalServletPath = originalServletPath;
-		this.referenceClassName = referenceClassName;
-		this.referenceResourcePath = referenceResourcePath;
+		this.oriServletPath = oriServletPath;
+		this.refClassName = refClassName;
+		this.refResourcePath = refResourcePath;
 	}
 
 	/**
 	 * Default constructor.
 	 */
-	public JWebLiteRequestDispatchSettings(String originalServletPath) {
-		this(originalServletPath, null, null);
+	public JWebLiteRequestDispatchSettings(String oriServletPath) {
+		this(oriServletPath, null, null);
 	}
 
 	@Override
 	public String toString() {
 		return String
 				.format("{ OriServletPath: %s, RefResourcePath: %s, RefClassName: %s }",
-						this.originalServletPath, this.referenceResourcePath,
-						this.referenceClassName);
+						this.oriServletPath, this.refResourcePath,
+						this.refClassName);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class JWebLiteRequestDispatchSettings implements Serializable {
 	 * @return String
 	 */
 	public String getOriginalServletPath() {
-		return originalServletPath;
+		return oriServletPath;
 	}
 
 	/**
@@ -51,17 +51,17 @@ public class JWebLiteRequestDispatchSettings implements Serializable {
 	 * @return String
 	 */
 	public String getReferenceClassName() {
-		return referenceClassName;
+		return refClassName;
 	}
 
 	/**
 	 * Set Reference Class Name
 	 * 
-	 * @param referenceClassName
+	 * @param refClassName
 	 *            String
 	 */
-	public void setReferenceClassName(String referenceClassName) {
-		this.referenceClassName = referenceClassName;
+	public void setReferenceClassName(String refClassName) {
+		this.refClassName = refClassName;
 	}
 
 	/**
@@ -70,17 +70,17 @@ public class JWebLiteRequestDispatchSettings implements Serializable {
 	 * @return String
 	 */
 	public String getReferenceResourcePath() {
-		return referenceResourcePath;
+		return refResourcePath;
 	}
 
 	/**
 	 * Set Reference Resource Path
 	 * 
-	 * @param referenceResourcePath
+	 * @param refResourcePath
 	 *            String
 	 */
-	public void setReferenceResourcePath(String referenceResourcePath) {
-		this.referenceResourcePath = referenceResourcePath;
+	public void setReferenceResourcePath(String refResourcePath) {
+		this.refResourcePath = refResourcePath;
 	}
 
 }

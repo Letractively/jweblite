@@ -105,7 +105,12 @@ public class JWebLiteFilter implements Filter {
 							.forward(req, resp);
 					return;
 				}
+				// allow servlet path like '/'
 			} else {
+				if (_cat.isInfoEnabled()) {
+					_cat.info("JWebLiteRequestDispatchSettings: "
+							.concat(reqDispatchSettings.toString()));
+				}
 				req.removeAttribute(reqDispatcherFowardId);
 			}
 			if (_cat.isInfoEnabled()) {
@@ -113,8 +118,6 @@ public class JWebLiteFilter implements Filter {
 						.format("RequestInfo: { ClientIP: %s, ReqUri: %s, ReqParam: %s }",
 								req.getRemoteAddr(), req.getRequestURI(),
 								req.getQueryString()));
-				_cat.info("JWebLiteRequestDispatchSettings: "
-						.concat(reqDispatchSettings.toString()));
 			}
 			// starting
 			String encoding = filterConfig.getEncoding();

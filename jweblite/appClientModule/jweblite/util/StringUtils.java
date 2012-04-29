@@ -195,6 +195,9 @@ public class StringUtils {
 			result = offset;
 			currentRepeat--;
 		}
+		if (currentRepeat >= 0) {
+			return -1;
+		}
 		return result;
 	}
 
