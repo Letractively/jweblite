@@ -1,5 +1,11 @@
 JWebLite Change Log
 
+Version 0.4.3
+====================
+．Move IncludeTag into JwlPageUtils.tld
+．Fix bug for parsing servlet path
+．Minor changes
+
 Version 0.4.2
 ====================
 ．JDK1.5
