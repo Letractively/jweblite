@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -406,6 +408,53 @@ public class StringUtils {
 	 */
 	public static Date getDateValue(String str, String pattern, Date errorValue) {
 		return getDateValue(str, pattern, errorValue, errorValue);
+	}
+
+	/**
+	 * Format
+	 * 
+	 * @param str
+	 *            String
+	 * @param prefix
+	 *            String
+	 * @param objs
+	 *            Object...
+	 * @return String
+	 */
+	public static String format(String str, String prefix, Object... args) {
+		if (str == null) {
+			return null;
+		}
+		int argsSize = 0;
+		if (prefix == null || args == null || str.length() <= 0
+				|| prefix.length() <= 0 || (argsSize = args.length) <= 0) {
+			return str;
+		}
+		// find
+		Pattern pattern = Pattern.compile("\\Q".concat(prefix).concat(
+				"\\E(\\d+)"));
+		Matcher matcher = pattern.matcher(str);
+		List<Integer[]> replaceArrayList = new ArrayList();
+		while (matcher.find()) {
+			// the index is a number always
+			int argIndex = Integer.parseInt(matcher.group(1));
+			if (argIndex > 0 && argIndex <= argsSize) {
+				replaceArrayList.add(new Integer[] { matcher.start(),
+						matcher.end(), argIndex - 1 });
+			}
+		}
+		// replace
+		int replaceArraySize = replaceArrayList.size();
+		if (replaceArraySize <= 0) {
+			return str;
+		}
+		StringBuffer result = new StringBuffer(str);
+		for (int i = replaceArraySize - 1; i >= 0; i--) {
+			Integer[] replaceArray = replaceArrayList.get(i);
+			result.replace(replaceArray[0], replaceArray[1],
+					String.valueOf(args[replaceArray[2]]));
+		}
+		return result.toString();
 	}
 
 }
