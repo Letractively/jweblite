@@ -38,7 +38,7 @@ public class ChainedComboBoxTag extends HtmlTag {
 		try {
 			JspWriter jw = this.pageContext.getOut();
 			// element
-			jw.print(String.format("<select id='%s'", this.eid));
+			jw.print(StringUtils.format("<select id='$1' ", "$", this.eid));
 			// additional tag attrs
 			Map<String, Object> additionalAttrMap = new HashMap();
 			additionalAttrMap.put("onchange", StringUtils.format(
@@ -46,7 +46,6 @@ public class ChainedComboBoxTag extends HtmlTag {
 					StringUtils.getStringValue((String) this
 							.getOriginalAdditionalAttrMap().get("onchange"),
 							"", true), this.eid, this.toEid));
-			jw.print(" ");
 			jw.print(this.makeAdditionalTagAttr(additionalAttrMap));
 			jw.println(">");
 			String content = StringUtils.getStringValue(
@@ -61,21 +60,23 @@ public class ChainedComboBoxTag extends HtmlTag {
 			}
 			jw.println("</select>");
 			// js mapping
-			jw.println("<script type=\"text/javascript\">//<![CDATA[");
+			jw.println("<script type=\"text/javascript\">");
+			jw.println("//<![CDATA[");
 			InputStream is = null;
 			try {
 				Class thisClass = this.getClass();
 				is = thisClass.getResourceAsStream(thisClass.getSimpleName()
 						.concat(".js"));
 				String source = IOUtils.toString(is, "UTF-8");
-				jw.println(StringUtils.format(source, "$", this.eid,
-						this.toEid, JsonUtils.toJsonObject(this.map, false)));
+				jw.print(StringUtils.format(source, "$", this.eid, this.toEid,
+						JsonUtils.toJsonObject(this.map, false)));
 			} catch (Exception e) {
 				throw e;
 			} finally {
 				IOUtils.closeQuietly(is);
 			}
-			jw.println("//]]></script>");
+			jw.println("//]]>");
+			jw.println("</script>");
 		} catch (Exception e) {
 			_cat.warn("Do end tag failed!", e);
 		}
