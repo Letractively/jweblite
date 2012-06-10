@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -411,13 +409,13 @@ public class StringUtils {
 	}
 
 	/**
-	 * Format
+	 * Format String
 	 * 
 	 * @param str
 	 *            String
 	 * @param prefix
 	 *            String
-	 * @param objs
+	 * @param args
 	 *            Object...
 	 * @return String
 	 */
@@ -430,31 +428,14 @@ public class StringUtils {
 				|| prefix.length() <= 0 || (argsSize = args.length) <= 0) {
 			return str;
 		}
-		// find
-		Pattern pattern = Pattern.compile("\\Q".concat(prefix).concat(
-				"\\E(\\d+)"));
-		Matcher matcher = pattern.matcher(str);
-		List<Integer[]> replaceArrayList = new ArrayList();
-		while (matcher.find()) {
-			// the index is a number always
-			int argIndex = Integer.parseInt(matcher.group(1));
-			if (argIndex > 0 && argIndex <= argsSize) {
-				replaceArrayList.add(new Integer[] { matcher.start(),
-						matcher.end(), argIndex - 1 });
-			}
+		String[] searchArray = new String[argsSize];
+		String[] replacementArray = new String[argsSize];
+		for (int i = 0; i < argsSize; i++) {
+			searchArray[i] = prefix.concat(String.valueOf(i + 1));
+			replacementArray[i] = String.valueOf(args[i]);
 		}
-		// replace
-		int replaceArraySize = replaceArrayList.size();
-		if (replaceArraySize <= 0) {
-			return str;
-		}
-		StringBuffer result = new StringBuffer(str);
-		for (int i = replaceArraySize - 1; i >= 0; i--) {
-			Integer[] replaceArray = replaceArrayList.get(i);
-			result.replace(replaceArray[0], replaceArray[1],
-					String.valueOf(args[replaceArray[2]]));
-		}
-		return result.toString();
+		return org.apache.commons.lang.StringUtils.replaceEach(str,
+				searchArray, replacementArray);
 	}
 
 }
