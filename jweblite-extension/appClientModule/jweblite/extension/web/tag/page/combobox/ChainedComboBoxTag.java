@@ -1,5 +1,6 @@
 package jweblite.extension.web.tag.page.combobox;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import jweblite.util.JsonUtils;
 import jweblite.util.StringUtils;
 import jweblite.web.tag.HtmlTag;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -39,11 +41,11 @@ public class ChainedComboBoxTag extends HtmlTag {
 			jw.print(String.format("<select id='%s'", this.eid));
 			// additional tag attrs
 			Map<String, Object> additionalAttrMap = new HashMap();
-			additionalAttrMap.put("onchange", String.format(
-					"%s;%sFunc(typeof(%sFunc)=='function'?%sFunc:null);",
+			additionalAttrMap.put("onchange", StringUtils.format(
+					"$1;$2Func(typeof($3Func)=='function'?$3Func:null);", "$",
 					StringUtils.getStringValue((String) this
 							.getOriginalAdditionalAttrMap().get("onchange"),
-							"", true), this.eid, this.toEid, this.toEid));
+							"", true), this.eid, this.toEid));
 			jw.print(" ");
 			jw.print(this.makeAdditionalTagAttr(additionalAttrMap));
 			jw.println(">");
@@ -59,41 +61,21 @@ public class ChainedComboBoxTag extends HtmlTag {
 			}
 			jw.println("</select>");
 			// js mapping
-			jw.println("<script type=\"text/javascript\">");
-			jw.println("//<![CDATA[");
-			jw.println(String.format("var %sMap=%s;", this.eid,
-					JsonUtils.toJsonObject(this.map, false)));
-			jw.print(String.format("var %sFunc=function(callback){", this.eid)); // function-start
-			jw.print(String
-					.format("var obj=document.getElementById('%s');var toEle=document.getElementById('%s');",
-							this.eid, this.toEid));
-			jw.print("if(obj!=null&&obj.options!=null&&toEle!=null&&toEle.options!=null){"); // if-1
-			jw.print("toEle.options.length=0;");
-			jw.print("var toEleArray=null;");
-			jw.print(String
-					.format("if(%sMap!=null&&obj.options.length>0&&(toEleArray=%sMap[obj.options[obj.selectedIndex].value])!=null){",
-							this.eid, this.eid)); // if-2
-			jw.print("for(var i in toEleArray){"); // for-3
-			jw.print("var toEleValue=toEleArray[i];");
-			jw.print("if(toEleValue==null){continue;}");
-			jw.print("var toEleOpt=document.createElement('option');");
-			jw.print("if(typeof(toEleValue)=='object'){"); // if-4
-			jw.print("toEleOpt.innerHTML=toEleValue.name;");
-			jw.print("toEleOpt.value=toEleValue.value;");
-			jw.print("}else{");
-			jw.print("toEleOpt.innerHTML=toEleValue;");
-			jw.print("}"); // end if-4
-			jw.print("toEle.appendChild(toEleOpt);");
-			jw.print("}"); // end for-3
-			jw.print("}"); // end if-2
-			jw.print("if(callback){callback();}");
-			jw.print("}"); // end if-1
-			jw.print("};"); // end function
-			jw.println(String
-					.format("if(typeof(%sParentFunc)=='function'){%sParentFunc();};var %sParentFunc=%sFunc;",
-							this.eid, this.eid, this.toEid, this.eid));
-			jw.println("//]]>");
-			jw.println("</script>");
+			jw.println("<script type=\"text/javascript\">//<![CDATA[");
+			InputStream is = null;
+			try {
+				Class thisClass = this.getClass();
+				is = thisClass.getResourceAsStream(thisClass.getSimpleName()
+						.concat(".js"));
+				String source = IOUtils.toString(is, "UTF-8");
+				jw.println(StringUtils.format(source, "$", this.eid,
+						this.toEid, JsonUtils.toJsonObject(this.map, false)));
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				IOUtils.closeQuietly(is);
+			}
+			jw.println("//]]></script>");
 		} catch (Exception e) {
 			_cat.warn("Do end tag failed!", e);
 		}

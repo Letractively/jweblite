@@ -4,6 +4,8 @@
 	<property name="version" value="0.4.3" />
 	<property name="corePath" location="../jweblite" />
 	<property name="serverLibPath" location="../../apache-tomcat-5.5.35/common/lib" />
+	<!-- Google Closure Compiler r1918 (http://code.google.com/p/closure-compiler/downloads/list) -->
+	<property name="compressorPath" location="../../ex_js/compiler-20120430/compiler.jar" />
 	<tstamp>
 		<format property="today" pattern="yyyy/MM/dd" />
 	</tstamp>
@@ -32,6 +34,24 @@
 	</target>
 
 	<!-- ================================= 
+          target: compress              
+         ================================= -->
+	<target name="compress" description="compress">
+		<apply executable="java" parallel="false">
+			<fileset dir="appClientModule" includes="**/*.js" />
+			<arg line="-jar" />
+			<arg path="${compressorPath}" />
+			<arg value="--compilation_level" />
+			<!-- remove white space only -->
+			<arg value="WHITESPACE_ONLY" />
+			<arg value="--js_output_file" />
+			<targetfile />
+			<arg value="--js" />
+			<mapper type="glob" from="*.js" to="deploy/classes/*.js" />
+		</apply>
+	</target>
+
+	<!-- ================================= 
           target: compile              
          ================================= -->
 	<target name="compile" description="compile">
@@ -42,6 +62,7 @@
 			<fileset dir="appClientModule">
 				<exclude name="**/*.launch" />
 				<exclude name="**/*.java" />
+				<exclude name="**/*.js" />
 			</fileset>
 		</copy>
 		<javac srcdir="appClientModule" destdir="deploy/classes" encoding="UTF-8" fork="true" source="1.5" target="1.5" debug="on" includeantruntime="false">
@@ -50,6 +71,7 @@
 				<fileset dir="${serverLibPath}" />
 			</classpath>
 		</javac>
+		<antcall target="compress" />
 		<jar destfile="${ant.project.name}-${version}.jar" basedir="deploy/classes">
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
