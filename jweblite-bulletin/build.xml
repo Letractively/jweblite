@@ -17,6 +17,7 @@
 		<delete file="${ant.project.name}.war" />
 		<delete dir="dependencies" />
 		<delete dir="deploy" />
+		<delete dir="WebContent/jquery" />
 	</target>
 
 	<!-- ================================= 
@@ -35,12 +36,8 @@
 			</fileset>
 		</copy>
 		<!-- external js -->
-		<copy todir="dependencies/jquery" overwrite="true">
-			<fileset dir="${externalJsPath}/jquery-1.7.2" includes="jquery.min.js" />
-		</copy>
-		<copy todir="dependencies/jquery/jquery-ui" overwrite="true">
-			<fileset dir="${externalJsPath}/jquery-ui-1.8.21" includes="**/*" />
-		</copy>
+		<copyfile dest="dependencies/jquery/jquery.min.js" src="${externalJsPath}/jquery-1.7.2/jquery.min.js" forceoverwrite="true" />
+		<copydir dest="dependencies/jquery/jquery-ui" src="${externalJsPath}/jquery-ui-1.8.21" forceoverwrite="true" />
 	</target>
 
 	<!-- ================================= 
@@ -49,6 +46,7 @@
 	<target name="compile" description="compile">
 		<antcall target="clean" />
 		<antcall target="dependencies" />
+		<delete dir="deploy/classes" />
 		<mkdir dir="deploy/classes" />
 		<copy todir="deploy/classes" overwrite="true">
 			<fileset dir="src">
@@ -56,6 +54,8 @@
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
+		<delete dir="WebContent/jquery" />
+		<copydir dest="WebContent/jquery" src="dependencies/jquery" forceoverwrite="true" />
 		<javac srcdir="src" destdir="deploy/classes" encoding="UTF-8" fork="true" source="1.5" target="1.5" debug="on" includeantruntime="false">
 			<classpath>
 				<fileset dir="dependencies/library" />
@@ -64,7 +64,6 @@
 		</javac>
 		<war destfile="${ant.project.name}.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="WebContent" />
-			<fileset dir="dependencies" includes="jquery/**/*" />
 			<classes dir="deploy/classes" />
 			<lib dir="dependencies/library" />
 			<manifest>
