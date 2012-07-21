@@ -6,15 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="${ContextPath}/style/stylesheet.css" rel="stylesheet"
 	type="text/css" />
-<title>Install</title>
+<title>JWebLite Bulletin</title>
 </head>
 <body>
 
 	<h3>
-		<a href="${ContextPath}/install">[ JWebLite Bulletin Install ]</a>
+		<a href="${ContextPath}">[ JWebLite Bulletin ]</a>
 	</h3>
 	<fieldset>
-		<legend>Install</legend>
+		<legend>JWebLite Bulletin</legend>
 		<div>
 
 			
