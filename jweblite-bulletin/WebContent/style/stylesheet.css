@@ -1,0 +1,40 @@
+body {
+	margin: 20px 30px 500px 30px;
+	padding: 0;
+}
+
+form,p,hr {
+	margin: 0;
+	padding: 0;
+}
+
+a:link,a:visited,a:hover,a:active {
+	color: #0000FF;
+	text-decoration: none;
+}
+
+img {
+	border: 0px;
+}
+
+ul {
+	padding: 0px;
+	margin: 0px;
+	list-style-position: inside;
+}
+
+fieldset {
+	padding: 0 15px 15px 15px;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+legend {
+	padding: 10px 5px;
+	color: #4578D4;
+	font-size: small;
+	font-weight: bold;
+	text-decoration: underline;
+}

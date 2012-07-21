@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jweblite-bulletin" default="compile" basedir=".">
+
+	<property name="version" value="0.4.3" />
+	<property name="corePath" location="../jweblite" />
+	<property name="extensionPath" location="../jweblite-extension" />
+	<property name="serverLibPath" location="../../apache-tomcat-5.5.35/common/lib" />
+	<tstamp>
+		<format property="today" pattern="yyyy/MM/dd" />
+	</tstamp>
+
+	<!-- ================================= 
+          target: clean              
+         ================================= -->
+	<target name="clean" description="clean">
+		<delete file="${ant.project.name}.war" />
+		<delete dir="dependencies" />
+		<delete dir="deploy" />
+	</target>
+
+	<!-- ================================= 
+          target: dependencies              
+         ================================= -->
+	<target name="dependencies" description="dependencies">
+		<delete dir="dependencies" />
+		<mkdir dir="dependencies" />
+		<copy todir="dependencies" overwrite="true" flatten="true">
+			<fileset dir="${corePath}">
+				<include name="jweblite-${version}.jar" />
+				<include name="dependencies/*.jar" />
+			</fileset>
+			<fileset dir="${extensionPath}">
+				<include name="jweblite-extension-${version}.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+	<target name="compile" description="compile">
+		<antcall target="clean" />
+		<antcall target="dependencies" />
+		<mkdir dir="deploy/classes" />
+		<copy todir="deploy/classes" overwrite="true">
+			<fileset dir="src">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<javac srcdir="src" destdir="deploy/classes" encoding="UTF-8" fork="true" source="1.5" target="1.5" debug="on" includeantruntime="false">
+			<classpath>
+				<fileset dir="dependencies" />
+				<fileset dir="${serverLibPath}" />
+			</classpath>
+		</javac>
+		<war destfile="${ant.project.name}.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent" />
+			<classes dir="deploy/classes" />
+			<lib dir="dependencies" />
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${today}" />
+				<attribute name="Implementation-Title" value="${ant.project.name}" />
+				<attribute name="Implementation-Version" value="${version}" />
+			</manifest>
+		</war>
+	</target>
+
+</project>
