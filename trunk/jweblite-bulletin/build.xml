@@ -36,8 +36,22 @@
 			</fileset>
 		</copy>
 		<!-- external js -->
-		<copyfile dest="dependencies/jquery/jquery.min.js" src="${externalJsPath}/jquery-1.7.2/jquery.min.js" forceoverwrite="true" />
-		<copydir dest="dependencies/jquery/jquery-ui" src="${externalJsPath}/jquery-ui-1.8.21" forceoverwrite="true" />
+		<property name="jquery-version" value="1.8.1" />
+		<property name="jquery-ui-version" value="1.8.23" />
+		<copy file="${externalJsPath}/jquery-${jquery-version}/jquery-${jquery-version}.min.js" tofile="dependencies/jquery/jquery.min.js" overwrite="true" />
+		<copy todir="dependencies/jquery/jquery-ui" overwrite="true">
+			<fileset dir="${externalJsPath}/jquery-ui-${jquery-ui-version}.custom">
+				<include name="css/**/*" />
+				<include name="development-bundle/*-LICENSE.txt" />
+				<include name="js/jquery-ui-${jquery-ui-version}.custom.min.js" />
+			</fileset>
+			<chainedmapper>
+				<cutdirsmapper dirs="1" />
+				<filtermapper>
+					<replacestring from="-${jquery-ui-version}.custom" to="" />
+				</filtermapper>
+			</chainedmapper>
+		</copy>
 	</target>
 
 	<!-- ================================= 
