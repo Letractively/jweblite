@@ -107,10 +107,6 @@ public class JWebLiteFilter implements Filter {
 				}
 				// allow servlet path like '/'
 			} else {
-				if (_cat.isInfoEnabled()) {
-					_cat.info("JWebLiteRequestDispatchSettings: "
-							.concat(reqDispatchSettings.toString()));
-				}
 				req.removeAttribute(reqDispatcherFowardId);
 			}
 			if (_cat.isInfoEnabled()) {
@@ -183,27 +179,49 @@ public class JWebLiteFilter implements Filter {
 			respWrapper.doFinish();
 		} catch (Throwable e) {
 			_cat.warn("Do filter failed!", e);
-			String errorPage = filterConfig.getErrorPage();
-			if (errorPage != null) {
-				if (errorPage.equalsIgnoreCase("null")) {
-					resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				} else {
-					String errorDispatcherFowardId = attrPrefix
-							.concat("ExceptionDispatcherFoward");
-					try {
-						if (req.getAttribute(errorDispatcherFowardId) != null) {
-							throw new ServletException();
-						}
-						req.setAttribute(errorDispatcherFowardId, true);
-						req.setAttribute(attrPrefix.concat("Exception"), e);
-						req.getRequestDispatcher(errorPage).forward(req, resp);
-					} catch (Throwable e2) {
-						_cat.warn("Forward error page failed!");
-					}
-				}
-			} else {
-				throw new ServletException(e);
-			}
+			this.doErrorPage(filterConfig, req, resp, e);
 		}
 	}
+
+	/**
+	 * Do Error Page
+	 * 
+	 * @param filterConfig
+	 *            JWebLiteFilterConfig
+	 * @param req
+	 *            HttpServletRequest
+	 * @param resp
+	 *            HttpServletResponse
+	 * @param e
+	 *            Throwable
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public void doErrorPage(JWebLiteFilterConfig filterConfig,
+			HttpServletRequest req, HttpServletResponse resp, Throwable e)
+			throws IOException, ServletException {
+		String errorPage = filterConfig.getErrorPage();
+		String attrPrefix = filterConfig.getAttrPrefix();
+		if (errorPage != null && errorPage.length() > 0) {
+			if (errorPage.equalsIgnoreCase("null")) {
+				resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			} else {
+				String errorDispatcherFowardId = attrPrefix
+						.concat("ExceptionDispatcherFoward");
+				try {
+					if (req.getAttribute(errorDispatcherFowardId) != null) {
+						throw new ServletException();
+					}
+					req.setAttribute(errorDispatcherFowardId, true);
+					req.setAttribute(attrPrefix.concat("Exception"), e);
+					req.getRequestDispatcher(errorPage).forward(req, resp);
+				} catch (Throwable e2) {
+					_cat.warn("Forward error page failed!");
+				}
+			}
+		} else {
+			throw new ServletException(e);
+		}
+	}
+
 }
