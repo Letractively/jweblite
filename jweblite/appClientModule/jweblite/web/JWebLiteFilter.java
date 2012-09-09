@@ -49,11 +49,13 @@ public class JWebLiteFilter implements Filter {
 				if (initClass != null) {
 					Object initClassInstance = initClass.newInstance();
 					if (JWebLiteApplication.class.isAssignableFrom(initClass)) {
-						JWebLiteApplication.application = (JWebLiteApplication) initClassInstance;
+						JWebLiteApplication
+								.set((JWebLiteApplication) initClassInstance);
 					}
 				}
 			} catch (Exception e) {
 				_cat.warn("Init class failed!", e);
+				throw new ServletException(e);
 			}
 		}
 		// setter
@@ -202,25 +204,24 @@ public class JWebLiteFilter implements Filter {
 			throws IOException, ServletException {
 		String errorPage = filterConfig.getErrorPage();
 		String attrPrefix = filterConfig.getAttrPrefix();
-		if (errorPage != null && errorPage.length() > 0) {
-			if (errorPage.equalsIgnoreCase("null")) {
-				resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			} else {
-				String errorDispatcherFowardId = attrPrefix
-						.concat("ExceptionDispatcherFoward");
-				try {
-					if (req.getAttribute(errorDispatcherFowardId) != null) {
-						throw new ServletException();
-					}
-					req.setAttribute(errorDispatcherFowardId, true);
-					req.setAttribute(attrPrefix.concat("Exception"), e);
-					req.getRequestDispatcher(errorPage).forward(req, resp);
-				} catch (Throwable e2) {
-					_cat.warn("Forward error page failed!");
-				}
-			}
-		} else {
+		if (errorPage == null || errorPage.length() <= 0) {
 			throw new ServletException(e);
+		}
+		if (errorPage.equalsIgnoreCase("null")) {
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return;
+		}
+		String errorDispatcherFowardId = attrPrefix
+				.concat("ExceptionDispatcherFoward");
+		try {
+			if (req.getAttribute(errorDispatcherFowardId) != null) {
+				throw new ServletException();
+			}
+			req.setAttribute(errorDispatcherFowardId, true);
+			req.setAttribute(attrPrefix.concat("Exception"), e);
+			req.getRequestDispatcher(errorPage).forward(req, resp);
+		} catch (Throwable e2) {
+			_cat.warn("Forward error page failed!");
 		}
 	}
 

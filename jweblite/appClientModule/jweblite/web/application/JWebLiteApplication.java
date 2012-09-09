@@ -17,7 +17,7 @@ public class JWebLiteApplication implements Serializable {
 	private static final Log _cat = LogFactory
 			.getLog(JWebLiteApplication.class);
 
-	public static JWebLiteApplication application = new JWebLiteApplication();
+	private static JWebLiteApplication application = new JWebLiteApplication();
 
 	private JWebLiteFilterConfig filterConfig = null;
 	private JWebLiteRequestDispatcher requestDispatcher = null;
@@ -27,6 +27,15 @@ public class JWebLiteApplication implements Serializable {
 	 */
 	public JWebLiteApplication() {
 		super();
+	}
+
+	/**
+	 * Set
+	 * 
+	 * @return JWebLiteApplication
+	 */
+	public static void set(JWebLiteApplication application) {
+		JWebLiteApplication.application = application;
 	}
 
 	/**
