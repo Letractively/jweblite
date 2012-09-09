@@ -21,46 +21,59 @@ public class JWebLiteRequestDispatcherTest {
 	}
 
 	@Test
-	public void testRequestDispatcher1() {
+	public void testHomePath() {
+		Assert.assertNull(this.dispatcher.getDispatchSettings("/"));
+	}
+
+	// ------------------------- illegal ------------------------------
+
+	@Test
+	public void testIllegal1() {
 		Assert.assertNull(this.dispatcher.getDispatchSettings(null));
 	}
 
 	@Test
-	public void testRequestDispatcher2() {
+	public void testIllegal2() {
 		Assert.assertNull(this.dispatcher.getDispatchSettings(""));
 	}
 
 	@Test
-	public void testRequestDispatcher3() {
-		Assert.assertNull(this.dispatcher.getDispatchSettings("/"));
-	}
-
-	@Test
-	public void testRequestDispatcher4() {
+	public void testIllegal3() {
 		Assert.assertNull(this.dispatcher.getDispatchSettings("."));
 	}
 
 	@Test
-	public void testRequestDispatcher5() {
-		JWebLiteRequestDispatchSettings reqDispatchSettings = this.dispatcher
-				.getDispatchSettings("/Test.jsp");
-		Assert.assertEquals("/Test.jsp",
-				reqDispatchSettings.getReferenceResourcePath());
-		Assert.assertEquals("Test", reqDispatchSettings.getReferenceClassName());
-	}
-
-	@Test
-	public void testRequestDispatcher6() {
+	public void testIllegal4() {
 		Assert.assertNull(this.dispatcher.getDispatchSettings("/Test."));
 	}
 
 	@Test
-	public void testRequestDispatcher7() {
+	public void testIllegal5() {
 		Assert.assertNull(this.dispatcher.getDispatchSettings("/Te.st."));
 	}
 
+	// ------------------------- legal ------------------------------
+
 	@Test
-	public void testRequestDispatcher8() {
+	public void testLegal1() {
+		JWebLiteRequestDispatchSettings reqDispatchSettings = this.dispatcher
+				.getDispatchSettings("/test.jsp");
+		Assert.assertEquals("/test.jsp",
+				reqDispatchSettings.getReferenceResourcePath());
+		Assert.assertEquals("test", reqDispatchSettings.getReferenceClassName());
+	}
+
+	@Test
+	public void testLegal2() {
+		JWebLiteRequestDispatchSettings reqDispatchSettings = this.dispatcher
+				.getDispatchSettings("/tEsT.jsp");
+		Assert.assertEquals("/tEsT.jsp",
+				reqDispatchSettings.getReferenceResourcePath());
+		Assert.assertEquals("tEsT", reqDispatchSettings.getReferenceClassName());
+	}
+
+	@Test
+	public void testLegal3() {
 		JWebLiteRequestDispatchSettings reqDispatchSettings = this.dispatcher
 				.getDispatchSettings("//Test.jsp");
 		Assert.assertEquals("//Test.jsp",
@@ -70,7 +83,7 @@ public class JWebLiteRequestDispatcherTest {
 	}
 
 	@Test
-	public void testRequestDispatcher9() {
+	public void testLegal4() {
 		JWebLiteRequestDispatchSettings reqDispatchSettings = this.dispatcher
 				.getDispatchSettings("/test/Test.jsp");
 		Assert.assertEquals("/test/Test.jsp",
@@ -79,8 +92,10 @@ public class JWebLiteRequestDispatcherTest {
 				reqDispatchSettings.getReferenceClassName());
 	}
 
+	// ------------------------- padding ------------------------------
+
 	@Test
-	public void testRequestDispatcher10() {
+	public void testPadding1() {
 		JWebLiteRequestDispatchSettings reqDispatchSettings = this.paddingDispatcher
 				.getDispatchSettings("/test/test/Test.jsp");
 		Assert.assertEquals("/Test.jsp",
@@ -89,13 +104,13 @@ public class JWebLiteRequestDispatcherTest {
 	}
 
 	@Test
-	public void testRequestDispatcher11() {
+	public void testPadding2() {
 		Assert.assertNull(this.paddingDispatcher
 				.getDispatchSettings("/Test.jsp"));
 	}
 
 	@Test
-	public void testRequestDispatcher12() {
+	public void testPadding3() {
 		JWebLiteRequestDispatchSettings reqDispatchSettings = this.paddingDispatcher
 				.getDispatchSettings("/test/test/test/Test.jsp");
 		Assert.assertEquals("/test/Test.jsp",
