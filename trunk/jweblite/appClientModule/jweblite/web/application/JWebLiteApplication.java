@@ -3,7 +3,6 @@ package jweblite.web.application;
 import java.io.Serializable;
 
 import jweblite.web.JWebLiteFilterConfig;
-import jweblite.web.dispatcher.JWebLiteRequestDispatchSettings;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
@@ -54,12 +53,9 @@ public class JWebLiteApplication implements Serializable {
 	 *            JWebLiteRequestWrapper
 	 * @param resp
 	 *            JWebLiteResponseWrapper
-	 * @param reqDispatchSettings
-	 *            JWebLiteRequestDispatchSettings
 	 */
 	public void doBeforeRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp,
-			JWebLiteRequestDispatchSettings reqDispatchSettings) {
+			JWebLiteResponseWrapper resp) {
 	}
 
 	/**

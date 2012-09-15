@@ -21,10 +21,6 @@
 			<param-value>UTF-8</param-value>
 		</init-param>
 		<init-param>
-			<param-name>UrlPathPadding</param-name>
-			<param-value>0</param-value>
-		</init-param>
-		<init-param>
 			<param-name>GZipEnabled</param-name>
 			<param-value>true</param-value>
 		</init-param>

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.web.application.JWebLiteApplication;
-import jweblite.web.dispatcher.JWebLiteRequestDispatchSettings;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.session.JWebLiteSessionManager;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
@@ -62,8 +61,7 @@ public class JWebLiteFilter implements Filter {
 		JWebLiteApplication application = JWebLiteApplication.get();
 		application.setFilterConfig(filterConfig);
 		// init request dispatcher
-		application.setRequestDispatcher(new JWebLiteRequestDispatcher(
-				filterConfig.getUrlPathPadding()));
+		application.setRequestDispatcher(new JWebLiteRequestDispatcher());
 	}
 
 	/**
@@ -84,39 +82,13 @@ public class JWebLiteFilter implements Filter {
 		// filter config
 		JWebLiteApplication application = JWebLiteApplication.get();
 		JWebLiteFilterConfig filterConfig = application.getFilterConfig();
-		String attrPrefix = filterConfig.getAttrPrefix();
+		if (_cat.isInfoEnabled()) {
+			_cat.info(String.format(
+					"RequestInfo: { ClientIP: %s, ReqUri: %s, ReqParam: %s }",
+					req.getRemoteAddr(), req.getRequestURI(),
+					req.getQueryString()));
+		}
 		try {
-			// redirect by request dispatcher
-			String servletPath = req.getServletPath();
-			// dispatcher
-			String reqDispatcherFowardId = attrPrefix
-					.concat("ReqDispatcherFoward");
-			JWebLiteRequestDispatchSettings reqDispatchSettings = (JWebLiteRequestDispatchSettings) req
-					.getAttribute(reqDispatcherFowardId);
-			if (reqDispatchSettings == null) {
-				JWebLiteRequestDispatcher reqDispatcher = application
-						.getRequestDispatcher();
-				String refResourcePath = null;
-				if (reqDispatcher != null
-						&& (reqDispatchSettings = reqDispatcher
-								.getDispatchSettings(servletPath)) != null
-						&& (refResourcePath = reqDispatchSettings
-								.getReferenceResourcePath()) != null) {
-					req.setAttribute(reqDispatcherFowardId, reqDispatchSettings);
-					req.getRequestDispatcher(refResourcePath)
-							.forward(req, resp);
-					return;
-				}
-				// allow servlet path like '/'
-			} else {
-				req.removeAttribute(reqDispatcherFowardId);
-			}
-			if (_cat.isInfoEnabled()) {
-				_cat.info(String
-						.format("RequestInfo: { ClientIP: %s, ReqUri: %s, ReqParam: %s }",
-								req.getRemoteAddr(), req.getRequestURI(),
-								req.getQueryString()));
-			}
 			// starting
 			String encoding = filterConfig.getEncoding();
 			JWebLiteRequestWrapper reqWrapper = null;
@@ -133,17 +105,19 @@ public class JWebLiteFilter implements Filter {
 						filterConfig.isGZipEnabled());
 			}
 			// trigger doBeforeRequest event
-			application.doBeforeRequest(reqWrapper, respWrapper,
-					reqDispatchSettings);
-			// parse
+			application.doBeforeRequest(reqWrapper, respWrapper);
+			// dispatcher
+			JWebLiteRequestDispatcher reqDispatcher = application
+					.getRequestDispatcher();
 			Class reqClass = null;
 			String refClassName = null;
-			if (reqDispatchSettings != null
-					&& (refClassName = reqDispatchSettings
-							.getReferenceClassName()) != null) {
+			if (reqDispatcher != null
+					&& (refClassName = reqDispatcher.dispatch(req
+							.getServletPath())) != null) {
 				try {
 					reqClass = Class.forName(refClassName);
 				} catch (Exception e) {
+					_cat.warn("Dispatch failed!", e);
 				}
 			}
 			// prepare default variables
@@ -155,6 +129,7 @@ public class JWebLiteFilter implements Filter {
 				try {
 					JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 							.newInstance();
+					String attrPrefix = filterConfig.getAttrPrefix();
 					reqWrapper.setAttribute(attrPrefix, reqClassInstance);
 					reqWrapper.setAttribute(attrPrefix.concat("Req"),
 							reqWrapper);
