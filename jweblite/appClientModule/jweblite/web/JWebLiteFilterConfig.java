@@ -20,7 +20,6 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 	private final FilterConfig filterConfig;
 	private final String attrPrefix;
 	private final String encoding;
-	private final int urlPathPadding;
 	private final boolean isGZipEnabled;
 	private final String initClassName;
 	private final String errorPage;
@@ -35,9 +34,6 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 		this.encoding = StringUtils.getStringValue(
 				(filterConfig != null ? filterConfig
 						.getInitParameter("Encoding") : null), "UTF-8", true);
-		this.urlPathPadding = StringUtils.getIntValue(
-				(filterConfig != null ? filterConfig
-						.getInitParameter("UrlPathPadding") : null), 0);
 		this.isGZipEnabled = "true".equalsIgnoreCase(StringUtils
 				.getStringValue(
 						(filterConfig != null ? filterConfig
@@ -57,9 +53,9 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 	@Override
 	public String toString() {
 		return String
-				.format("JWebLiteFilterConfig: { AttrPrefix: %s, Encoding: %s, UrlPathPadding: %s, GZipEnabled: %s, InitClassName: %s, ErrorPage: %s }",
-						this.attrPrefix, this.encoding, this.urlPathPadding,
-						this.isGZipEnabled, this.initClassName, this.errorPage);
+				.format("JWebLiteFilterConfig: { AttrPrefix: %s, Encoding: %s, GZipEnabled: %s, InitClassName: %s, ErrorPage: %s }",
+						this.attrPrefix, this.encoding, this.isGZipEnabled,
+						this.initClassName, this.errorPage);
 	}
 
 	public String getFilterName() {
@@ -106,15 +102,6 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 	 */
 	public String getEncoding() {
 		return encoding;
-	}
-
-	/**
-	 * Get Url Path Padding
-	 * 
-	 * @return int
-	 */
-	public int getUrlPathPadding() {
-		return urlPathPadding;
 	}
 
 	/**

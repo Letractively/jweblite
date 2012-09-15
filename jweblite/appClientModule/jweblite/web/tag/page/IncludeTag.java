@@ -3,7 +3,7 @@ package jweblite.web.tag.page;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import jweblite.web.application.JWebLiteApplication;
+import jweblite.util.WebUtils;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
@@ -31,8 +31,7 @@ public class IncludeTag extends TagSupport {
 					.getRequest();
 			JWebLiteResponseWrapper resp = (JWebLiteResponseWrapper) this.pageContext
 					.getResponse();
-			String pageData = JWebLiteApplication.get().getRequestDispatcher()
-					.writePageAsString(req, resp, this.page);
+			String pageData = WebUtils.writePageAsString(req, resp, this.page);
 			// output
 			this.pageContext.getOut().write(pageData);
 		} catch (Exception e) {
