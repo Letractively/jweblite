@@ -117,7 +117,6 @@ public class JWebLiteFilter implements Filter {
 				try {
 					reqClass = Class.forName(refClassName);
 				} catch (Exception e) {
-					_cat.warn("Dispatch failed!", e);
 				}
 			}
 			// prepare default variables
@@ -126,6 +125,12 @@ public class JWebLiteFilter implements Filter {
 			boolean isIgnoreView = false;
 			if (reqClass != null
 					&& JWebLitePage.class.isAssignableFrom(reqClass)) {
+				if (_cat.isInfoEnabled()) {
+					_cat.info(String
+							.format("DispatchInfo: { ClientIP: %s, ReqUri: %s, refClassName: %s }",
+									req.getRemoteAddr(), req.getRequestURI(),
+									refClassName));
+				}
 				try {
 					JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 							.newInstance();
