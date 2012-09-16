@@ -15,7 +15,7 @@ Getting Started
   * commons-logging-1.1.1.jar
   * commons-lang-2.6.jar
   * commons-fileupload-1.2.2.jar
-  * commons-io-2.1.jar
+  * commons-io-2.2.jar
   * commons-codec-1.5.jar
   * google-gson-stream-1.7.1.jar
 
@@ -34,10 +34,6 @@ Getting Started
 	<init-param>
 		<param-name>Encoding</param-name>
 		<param-value>UTF-8</param-value>
-	</init-param>
-	<init-param>
-		<param-name>UrlPathPadding</param-name>
-		<param-value>0</param-value>
 	</init-param>
 	<init-param>
 		<param-name>GZipEnabled</param-name>
@@ -65,7 +61,6 @@ Getting Started
 || *Param* || *Type* || *Required* || *Default* || *Comments* ||
 || AttrPrefix || String || N || Jwl || namespace for EL ||
 || Encoding || String || N || UTF-8 || charset encoding for request and response||
-|| UrlPathPadding || Integer || N || 0 || url's path padding ||
 || GZipEnabled || boolean || N || true || Is GZip enabled or not ||
 || InitClassName || String || N || || load class on server startup ||
 || ErrorPage || String || N || || error page, "null": catch all exception ||
