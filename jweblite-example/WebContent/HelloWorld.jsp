@@ -17,7 +17,7 @@
 		<legend>Hello World</legend>
 		<div>
 
-			Hello ${Jwl.testaaa}!
+			Hello ${Jwl.test}!
 
 			<form action="" method="get">
 				<input type="text" name="test" value="${Jwl.test}" /><input

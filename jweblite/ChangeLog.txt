@@ -3,6 +3,11 @@ JWebLite Change Log
 Version 0.5.0
 ====================
 ．Remove parameter: UrlPathPadding
+．Change parameter: ErrorPage
+．Improved performance
+．Add WebUtils
+．Add getLongValue
+．Minor changes
 
 Version 0.4.3
 ====================

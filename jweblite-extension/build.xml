@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="jweblite-extension" default="compile" basedir=".">
 
-	<property name="version" value="0.4.3" />
+	<property name="version" value="0.5.0" />
 	<property name="corePath" location="../jweblite" />
 	<property name="serverLibPath" location="../../apache-tomcat-5.5.35/common/lib" />
-	<!-- Google Closure Compiler r1918 (http://code.google.com/p/closure-compiler/downloads/list) -->
-	<property name="compressorPath" location="../../ex_js/compiler-20120430/compiler.jar" />
+	<!-- Google Closure Compiler r2079 (http://code.google.com/p/closure-compiler/downloads/list) -->
+	<property name="compressorPath" location="../../ex_js/compiler-20120710/compiler.jar" />
 	<tstamp>
 		<format property="today" pattern="yyyy/MM/dd" />
 	</tstamp>
