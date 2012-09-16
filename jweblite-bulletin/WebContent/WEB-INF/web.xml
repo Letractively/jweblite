@@ -30,7 +30,7 @@
 		</init-param>
 		<init-param>
 			<param-name>ErrorPage</param-name>
-			<param-value></param-value>
+			<param-value>debug</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
