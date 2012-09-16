@@ -185,11 +185,11 @@ public class JWebLiteFilter implements Filter {
 		String errorPage = filterConfig.getErrorPage();
 		String attrPrefix = filterConfig.getAttrPrefix();
 		if (errorPage == null || errorPage.length() <= 0) {
-			throw new ServletException(e);
-		}
-		if (errorPage.equalsIgnoreCase("null")) {
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return;
+		}
+		if (errorPage.equalsIgnoreCase("debug")) {
+			throw new ServletException(e);
 		}
 		String errorDispatcherFowardId = attrPrefix
 				.concat("ExceptionDispatcherFoward");
