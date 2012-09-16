@@ -66,6 +66,13 @@
 		<function-signature><![CDATA[ int getIntValue(java.lang.String, int, int) ]]></function-signature>
 	</function>
 
+	<!-- getLongValue -->
+	<function>
+		<name>getLongValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ long getLongValue(java.lang.String, long, long) ]]></function-signature>
+	</function>
+
 	<!-- getDoubleValue -->
 	<function>
 		<name>getDoubleValue</name>
