@@ -333,6 +333,41 @@ public class StringUtils {
 	}
 
 	/**
+	 * Get Long Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param errorValue
+	 *            long
+	 * @param nullValue
+	 *            long
+	 * @return long
+	 */
+	public static long getLongValue(String str, long errorValue, long nullValue) {
+		if (str == null) {
+			return nullValue;
+		}
+		try {
+			return Long.parseLong(str);
+		} catch (Exception e) {
+		}
+		return errorValue;
+	}
+
+	/**
+	 * Get Long Value
+	 * 
+	 * @param str
+	 *            String
+	 * @param errorValue
+	 *            long
+	 * @return long
+	 */
+	public static long getLongValue(String str, long errorValue) {
+		return getLongValue(str, errorValue, errorValue);
+	}
+
+	/**
 	 * Get Double Value
 	 * 
 	 * @param str

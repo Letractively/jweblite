@@ -290,6 +290,35 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	}
 
 	/**
+	 * Get Long Parameter
+	 * 
+	 * @param name
+	 *            String
+	 * @param errorValue
+	 *            long
+	 * @param nullValue
+	 *            long
+	 * @return long
+	 */
+	public long getLongParameter(String name, long errorValue, long nullValue) {
+		return StringUtils.getLongValue(this.getParameter(name), errorValue,
+				nullValue);
+	}
+
+	/**
+	 * Get Long Parameter
+	 * 
+	 * @param name
+	 *            String
+	 * @param errorValue
+	 *            long
+	 * @return long
+	 */
+	public long getLongParameter(String name, long errorValue) {
+		return StringUtils.getLongValue(this.getParameter(name), errorValue);
+	}
+
+	/**
 	 * Get Double Parameter
 	 * 
 	 * @param name
