@@ -174,15 +174,15 @@ public class JWebLiteFilter implements Filter {
 	 * @param req
 	 *            JWebLiteRequestWrapper
 	 * @param resp
-	 *            HttpServletResponse
+	 *            JWebLiteResponseWrapper
 	 * @param e
 	 *            Throwable
 	 * @throws IOException
 	 * @throws ServletException
 	 */
 	public void doErrorPage(JWebLiteFilterConfig filterConfig,
-			JWebLiteRequestWrapper req, HttpServletResponse resp, Throwable e)
-			throws IOException, ServletException {
+			JWebLiteRequestWrapper req, JWebLiteResponseWrapper resp,
+			Throwable e) throws IOException, ServletException {
 		String errorPage = filterConfig.getErrorPage();
 		if (e == null || errorPage == null || errorPage.length() <= 0) {
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
