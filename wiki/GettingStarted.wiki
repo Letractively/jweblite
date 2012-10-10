@@ -63,4 +63,4 @@ Getting Started
 || Encoding || String || N || UTF-8 || charset encoding for request and response||
 || GZipEnabled || boolean || N || true || Is GZip enabled or not ||
 || InitClassName || String || N || || load class on server startup ||
-|| ErrorPage || String || N || || error page, "debug" is the debug mode and the other is the customized error page ||
+|| ErrorPage || String || N || || error page name, "debug": debug mode, "": nothing ||
