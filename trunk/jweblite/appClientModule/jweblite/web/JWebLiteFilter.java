@@ -145,8 +145,6 @@ public class JWebLiteFilter implements Filter {
 					reqClassInstance.doRequest(reqWrapper, respWrapper);
 				} catch (SkipException se) {
 					isIgnoreView = true;
-				} catch (Throwable e) {
-					throw new ServletException(e);
 				}
 			}
 			// pass the request along the filter chain
