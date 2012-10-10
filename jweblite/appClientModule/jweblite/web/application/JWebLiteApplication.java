@@ -2,6 +2,9 @@ package jweblite.web.application;
 
 import java.io.Serializable;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import jweblite.web.JWebLiteFilterConfig;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.wrapper.JWebLiteRequestWrapper;
@@ -80,6 +83,20 @@ public class JWebLiteApplication implements Serializable {
 	 */
 	public void doAfterRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) {
+	}
+
+	/**
+	 * Do Error
+	 * 
+	 * @param req
+	 *            JWebLiteRequestWrapper
+	 * @param resp
+	 *            JWebLiteResponseWrapper
+	 * @param e
+	 *            Throwable
+	 */
+	public void doError(JWebLiteRequestWrapper req,
+			JWebLiteResponseWrapper resp, Throwable e) {
 	}
 
 	/**

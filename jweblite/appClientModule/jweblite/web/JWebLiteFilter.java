@@ -88,22 +88,22 @@ public class JWebLiteFilter implements Filter {
 					req.getRemoteAddr(), req.getRequestURI(),
 					req.getQueryString()));
 		}
+		// starting
+		String encoding = filterConfig.getEncoding();
+		JWebLiteRequestWrapper reqWrapper = null;
+		if (req instanceof JWebLiteRequestWrapper) {
+			reqWrapper = (JWebLiteRequestWrapper) req;
+		} else {
+			reqWrapper = new JWebLiteRequestWrapper(req, encoding);
+		}
+		JWebLiteResponseWrapper respWrapper = null;
+		if (resp instanceof JWebLiteResponseWrapper) {
+			respWrapper = (JWebLiteResponseWrapper) resp;
+		} else {
+			respWrapper = new JWebLiteResponseWrapper(req, resp, encoding,
+					filterConfig.isGZipEnabled());
+		}
 		try {
-			// starting
-			String encoding = filterConfig.getEncoding();
-			JWebLiteRequestWrapper reqWrapper = null;
-			if (req instanceof JWebLiteRequestWrapper) {
-				reqWrapper = (JWebLiteRequestWrapper) req;
-			} else {
-				reqWrapper = new JWebLiteRequestWrapper(req, encoding);
-			}
-			JWebLiteResponseWrapper respWrapper = null;
-			if (resp instanceof JWebLiteResponseWrapper) {
-				respWrapper = (JWebLiteResponseWrapper) resp;
-			} else {
-				respWrapper = new JWebLiteResponseWrapper(req, resp, encoding,
-						filterConfig.isGZipEnabled());
-			}
 			// trigger doBeforeRequest event
 			application.doBeforeRequest(reqWrapper, respWrapper);
 			// dispatcher
@@ -161,7 +161,8 @@ public class JWebLiteFilter implements Filter {
 			respWrapper.doFinish();
 		} catch (Throwable e) {
 			_cat.warn("Do filter failed!", e);
-			this.doErrorPage(filterConfig, req, resp, e);
+			application.doError(reqWrapper, respWrapper, e);
+			this.doErrorPage(filterConfig, reqWrapper, respWrapper, e);
 		}
 	}
 
@@ -171,7 +172,7 @@ public class JWebLiteFilter implements Filter {
 	 * @param filterConfig
 	 *            JWebLiteFilterConfig
 	 * @param req
-	 *            HttpServletRequest
+	 *            JWebLiteRequestWrapper
 	 * @param resp
 	 *            HttpServletResponse
 	 * @param e
@@ -180,7 +181,7 @@ public class JWebLiteFilter implements Filter {
 	 * @throws ServletException
 	 */
 	public void doErrorPage(JWebLiteFilterConfig filterConfig,
-			HttpServletRequest req, HttpServletResponse resp, Throwable e)
+			JWebLiteRequestWrapper req, HttpServletResponse resp, Throwable e)
 			throws IOException, ServletException {
 		String errorPage = filterConfig.getErrorPage();
 		if (e == null || errorPage == null || errorPage.length() <= 0) {
