@@ -183,22 +183,20 @@ public class JWebLiteFilter implements Filter {
 			HttpServletRequest req, HttpServletResponse resp, Throwable e)
 			throws IOException, ServletException {
 		String errorPage = filterConfig.getErrorPage();
-		String attrPrefix = filterConfig.getAttrPrefix();
-		if (errorPage == null || errorPage.length() <= 0) {
+		if (e == null || errorPage == null || errorPage.length() <= 0) {
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return;
 		}
 		if (errorPage.equalsIgnoreCase("debug")) {
 			throw new ServletException(e);
 		}
-		String errorDispatcherFowardId = attrPrefix
-				.concat("ExceptionDispatcherFoward");
+		String attrPrefix = filterConfig.getAttrPrefix();
+		String exceptionAttrName = attrPrefix.concat("Exception");
 		try {
-			if (req.getAttribute(errorDispatcherFowardId) != null) {
+			if (req.getAttribute(exceptionAttrName) != null) {
 				throw new ServletException();
 			}
-			req.setAttribute(errorDispatcherFowardId, true);
-			req.setAttribute(attrPrefix.concat("Exception"), e);
+			req.setAttribute(exceptionAttrName, e);
 			req.getRequestDispatcher(errorPage).forward(req, resp);
 		} catch (Throwable e2) {
 			_cat.warn("Forward error page failed!");
