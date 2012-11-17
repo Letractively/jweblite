@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="jweblite-bulletin" default="compile" basedir=".">
+<project name="jweblite-bulletin" default="deploy" basedir=".">
 
 	<property name="version" value="0.5.0" />
 	<property name="corePath" location="../jweblite" />
@@ -14,7 +14,7 @@
           target: clean              
          ================================= -->
 	<target name="clean" description="clean">
-		<delete file="${ant.project.name}.war" />
+		<delete file="${ant.project.name}.zip" />
 		<delete dir="dependencies" />
 		<delete dir="deploy" />
 		<delete dir="WebContent/jquery" />
@@ -58,9 +58,7 @@
           target: compile              
          ================================= -->
 	<target name="compile" description="compile">
-		<antcall target="clean" />
-		<antcall target="dependencies" />
-		<delete dir="deploy/classes" />
+		<delete dir="deploy" />
 		<mkdir dir="deploy/classes" />
 		<copy todir="deploy/classes" overwrite="true">
 			<fileset dir="src">
@@ -76,6 +74,15 @@
 				<fileset dir="${serverLibPath}" />
 			</classpath>
 		</javac>
+	</target>
+
+	<!-- ================================= 
+          target: deploy              
+         ================================= -->
+	<target name="deploy" description="deploy">
+		<antcall target="clean" />
+		<antcall target="dependencies" />
+		<antcall target="compile" />
 		<war destfile="${ant.project.name}.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="WebContent" />
 			<classes dir="deploy/classes" />
@@ -87,6 +94,10 @@
 				<attribute name="Implementation-Version" value="${version}" />
 			</manifest>
 		</war>
+		<zip destfile="${ant.project.name}.zip">
+			<zipfileset prefix="${ant.project.name}" src="${ant.project.name}.war" />
+		</zip>
+		<delete file="${ant.project.name}.war" />
 	</target>
 
 </project>
