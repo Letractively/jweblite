@@ -41,7 +41,7 @@
 	<!-- ================================= 
           target: compile              
          ================================= -->
-	<target name="compile" depends="dependencies" description="compile">
+	<target name="compile" description="compile">
 		<delete dir="deploy" />
 		<mkdir dir="deploy/classes" />
 		<copy todir="deploy/classes" overwrite="true">
@@ -81,6 +81,7 @@
          ================================= -->
 	<target name="deploy" description="deploy">
 		<antcall target="clean" />
+		<antcall target="dependencies" />
 		<antcall target="compile" />
 		<antcall target="apidocs" />
 		<zip destfile="${ant.project.name}-${version}.zip">
