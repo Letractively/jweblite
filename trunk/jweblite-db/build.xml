@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jweblite-db" default="deploy" basedir=".">
+
+	<property name="version" value="0.5.0" />
+	<tstamp>
+		<format property="today" pattern="yyyy/MM/dd" />
+	</tstamp>
+
+	<!-- ================================= 
+          target: clean              
+         ================================= -->
+	<target name="clean" description="clean">
+		<delete file="${ant.project.name}-${version}.jar" />
+		<delete dir="dependencies" />
+		<delete dir="deploy" />
+	</target>
+
+	<!-- ================================= 
+          target: dependencies              
+         ================================= -->
+	<target name="dependencies" description="dependencies">
+		<delete dir="dependencies" />
+		<mkdir dir="dependencies" />
+	</target>
+
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+	<target name="compile" description="compile">
+		<delete dir="deploy" />
+		<mkdir dir="deploy/classes" />
+		<copy todir="deploy/classes" overwrite="true">
+			<fileset dir="appClientModule">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+				<exclude name="**/*.js" />
+			</fileset>
+		</copy>
+		<javac srcdir="appClientModule" destdir="deploy/classes" encoding="UTF-8" fork="true" source="1.5" target="1.5" debug="on" includeantruntime="false">
+			<classpath>
+				<fileset dir="dependencies" />
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- ================================= 
+          target: deploy              
+         ================================= -->
+	<target name="deploy" description="deploy">
+		<antcall target="clean" />
+		<antcall target="dependencies" />
+		<antcall target="compile" />
+		<jar destfile="${ant.project.name}-${version}.jar" basedir="deploy/classes">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${today}" />
+				<attribute name="Implementation-Title" value="${ant.project.name}" />
+				<attribute name="Implementation-Version" value="${version}" />
+			</manifest>
+		</jar>
+	</target>
+
+</project>
