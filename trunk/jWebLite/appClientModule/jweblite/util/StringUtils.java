@@ -466,8 +466,9 @@ public class StringUtils {
 		String[] searchArray = new String[argsSize];
 		String[] replacementArray = new String[argsSize];
 		for (int i = 0; i < argsSize; i++) {
-			searchArray[i] = prefix.concat(String.valueOf(i + 1));
-			replacementArray[i] = String.valueOf(args[i]);
+			int reverseIndex = argsSize - 1 - i;
+			searchArray[i] = prefix.concat(String.valueOf(reverseIndex + 1));
+			replacementArray[i] = String.valueOf(args[reverseIndex]);
 		}
 		return org.apache.commons.lang.StringUtils.replaceEach(str,
 				searchArray, replacementArray);
