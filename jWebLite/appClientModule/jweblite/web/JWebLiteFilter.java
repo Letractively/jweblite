@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jweblite.util.LogUtils;
 import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.session.JWebLiteSessionManager;
@@ -83,10 +84,9 @@ public class JWebLiteFilter implements Filter {
 		JWebLiteApplication application = JWebLiteApplication.get();
 		JWebLiteFilterConfig filterConfig = application.getFilterConfig();
 		if (_cat.isInfoEnabled()) {
-			_cat.info(String.format(
-					"RequestInfo: { ClientIP: %s, ReqUri: %s, ReqParam: %s }",
-					req.getRemoteAddr(), req.getRequestURI(),
-					req.getQueryString()));
+			_cat.info(LogUtils.formatDebugLog("RequestInfo",
+					"ClientIP=%s, ReqUri=%s, ReqParam=%s", req.getRemoteAddr(),
+					req.getRequestURI(), req.getQueryString()));
 		}
 		// starting
 		String encoding = filterConfig.getEncoding();
@@ -126,10 +126,10 @@ public class JWebLiteFilter implements Filter {
 			if (reqClass != null
 					&& JWebLitePage.class.isAssignableFrom(reqClass)) {
 				if (_cat.isInfoEnabled()) {
-					_cat.info(String
-							.format("DispatchInfo: { ClientIP: %s, ReqUri: %s, refClassName: %s }",
-									req.getRemoteAddr(), req.getRequestURI(),
-									refClassName));
+					_cat.info(LogUtils.formatDebugLog("DispatchInfo",
+							"ClientIP=%s, ReqUri=%s, refClassName=%s",
+							req.getRemoteAddr(), req.getRequestURI(),
+							refClassName));
 				}
 				try {
 					JWebLitePage reqClassInstance = (JWebLitePage) reqClass

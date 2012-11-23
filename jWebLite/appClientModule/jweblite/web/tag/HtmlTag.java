@@ -78,9 +78,10 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 						attrValue);
 			}
 			if (attrValue != null) {
-				result.add(String
+				String attr = String
 						.format("%s=\"%s\"", attrName, StringEscapeUtils
-								.escapeHtml(String.valueOf(attrValue))));
+								.escapeHtml(String.valueOf(attrValue)));
+				result.add(attr);
 			}
 		}
 		return StringUtils.join(result, " ");
