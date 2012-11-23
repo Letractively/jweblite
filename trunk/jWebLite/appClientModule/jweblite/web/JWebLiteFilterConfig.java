@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 
+import jweblite.util.LogUtils;
 import jweblite.util.StringUtils;
 
 import org.apache.commons.logging.Log;
@@ -52,10 +53,10 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 
 	@Override
 	public String toString() {
-		return String
-				.format("JWebLiteFilterConfig: { AttrPrefix: %s, Encoding: %s, GZipEnabled: %s, InitClassName: %s, ErrorPage: %s }",
-						this.attrPrefix, this.encoding, this.isGZipEnabled,
-						this.initClassName, this.errorPage);
+		String infoFormat = "AttrPrefix=%s, Encoding=%s, GZipEnabled=%s, InitClassName=%s, ErrorPage=%s";
+		return LogUtils.formatDebugLog("JWebLiteFilterConfig", infoFormat,
+				this.attrPrefix, this.encoding, this.isGZipEnabled,
+				this.initClassName, this.errorPage);
 	}
 
 	public String getFilterName() {
