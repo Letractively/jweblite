@@ -67,7 +67,7 @@ Getting Started
 
 <hr />
 
-*Implicit Variable:*
+*Implicit Variable:(JSP and Servlet)*
 || *Variable* || *Type* || *Comments* ||
 || ContextPath || String || context path ||
 || Jwl || JWebLitePage || page instance ||
