@@ -4,6 +4,7 @@
 	<property name="version" value="0.5.0" />
 	<property name="corePath" location="../jweblite" />
 	<property name="extensionPath" location="../jweblite-extension" />
+	<property name="ormLibPath" location="../jDBMapLite" />
 	<property name="externalJsPath" location="../../ex_js" />
 	<property name="serverLibPath" location="../../apache-tomcat-5.5.35/common/lib" />
 	<tstamp>
@@ -33,6 +34,10 @@
 			</fileset>
 			<fileset dir="${extensionPath}">
 				<include name="jweblite-extension-${version}.jar" />
+			</fileset>
+			<fileset dir="${ormLibPath}">
+				<include name="jdbmaplite-*.jar" />
+				<include name="dependencies/*.jar" />
 			</fileset>
 		</copy>
 		<!-- external js -->
