@@ -64,3 +64,12 @@ Getting Started
 || GZipEnabled || boolean || N || true || Is GZip enabled or not ||
 || InitClassName || String || N || || load class on server startup ||
 || ErrorPage || String || N || || error page name, "debug": debug mode, "": nothing ||
+
+<hr />
+
+*Implicit Variable:*
+|| *Variable* || *Type* || *Comments* ||
+|| ContextPath || String || context path ||
+|| Jwl || JWebLitePage || page instance ||
+|| JwlReq || JWebLiteRequestWrapper || request wrapper ||
+|| JwlSessionManager || JWebLiteSessionManager || session manager ||
