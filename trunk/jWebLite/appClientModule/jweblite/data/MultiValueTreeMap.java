@@ -10,13 +10,8 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class MultiValueTreeMap extends TreeMap implements MultiValueMap {
-
 	private static final long serialVersionUID = 1L;
-	private static final Log _cat = LogFactory.getLog(MultiValueTreeMap.class);
 
 	/**
 	 * Default constructor.
