@@ -35,7 +35,7 @@ public class HelloWorld implements JWebLitePage {
 
 	public void doRequest(JWebLiteRequestWrapper req,
 			JWebLiteResponseWrapper resp) throws SkipException {
-		this.test = req.getHtmlParameter("test", "World");
+		this.test = req.getParameter("test", "World");
 	}
 
 	public String getTest() {
