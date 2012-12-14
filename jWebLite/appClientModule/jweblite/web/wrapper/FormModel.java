@@ -116,11 +116,8 @@ public class FormModel implements Serializable {
 			if (fieldName == null) {
 				continue;
 			}
-			if (item.isFormField()) {
-				this.parameterMap.put(fieldName, item.getString(encoding));
-			} else {
-				this.parameterMap.put(fieldName, item);
-			}
+			this.parameterMap.put(fieldName,
+					(item.isFormField() ? item.getString(encoding) : item));
 		}
 	}
 
