@@ -2,9 +2,8 @@ package jweblite.web.wrapper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 
 import jweblite.data.MultiValueHashMap;
@@ -30,34 +29,42 @@ public class FormModel implements Serializable {
 	 * 
 	 * @param name
 	 *            String
-	 * @return String[]
+	 * @return List{T}
 	 */
-	public String[] getParameterValues(String name) {
-		List<String> paramValueList = (List) parameterMap.get(name);
-		return (paramValueList != null ? paramValueList
-				.toArray(new String[paramValueList.size()]) : null);
+	public <T> List<T> getParameterValues(String name) {
+		if (name == null) {
+			return null;
+		}
+		return (List<T>) parameterMap.get(name);
 	}
 
 	/**
-	 * Get Parameter
+	 * Set Parameter Values
 	 * 
 	 * @param name
 	 *            String
-	 * @return String
+	 * @param values
+	 *            Collection{T}
 	 */
-	public String getParameter(String name) {
-		List<String> paramValueList = (List) parameterMap.get(name);
-		return (paramValueList != null ? StringUtils.join(paramValueList, ",")
-				: null);
+	public <T> void setParameterValues(String name, Collection<T> values) {
+		if (name == null) {
+			return;
+		}
+		if (values == null) {
+			values = new ArrayList<T>();
+		} else {
+			values = new ArrayList<T>(values);
+		}
+		parameterMap.replaceAll(name, values);
 	}
 
 	/**
 	 * Get Parameter Names
 	 * 
-	 * @return Enumeration
+	 * @return List{String}
 	 */
-	public Enumeration getParameterNames() {
-		return Collections.enumeration(parameterMap.keySet());
+	public List<String> getParameterNames() {
+		return new ArrayList<String>(parameterMap.keySet());
 	}
 
 	/**
@@ -66,15 +73,17 @@ public class FormModel implements Serializable {
 	 * @param name
 	 *            String
 	 * @param value
-	 *            String
+	 *            T
 	 */
-	public void setParameter(String name, String value) {
+	public <T> void setParameter(String name, T value) {
 		if (name == null) {
 			return;
 		}
-		List tempList = new ArrayList();
-		tempList.add(value);
-		parameterMap.replaceAll(name, tempList);
+		List<T> paramValueList = new ArrayList<T>();
+		if (value != null) {
+			paramValueList.add(value);
+		}
+		parameterMap.replaceAll(name, paramValueList);
 	}
 
 	/**
@@ -83,9 +92,9 @@ public class FormModel implements Serializable {
 	 * @param name
 	 *            String
 	 * @param value
-	 *            String
+	 *            T
 	 */
-	public void putParameter(String name, String value) {
+	public <T> void putParameter(String name, T value) {
 		if (name == null) {
 			return;
 		}
@@ -106,217 +115,213 @@ public class FormModel implements Serializable {
 	}
 
 	/**
+	 * Contains Parameter
+	 * 
+	 * @param name
+	 *            String
+	 */
+	public boolean containsParameter(String name) {
+		if (name == null) {
+			return false;
+		}
+		return parameterMap.containsKey(name);
+	}
+
+	/**
 	 * Clear Parameter Map
 	 */
-	public void clearParameterMap() {
+	public void clearaAllParameters() {
 		parameterMap.clear();
 	}
 
 	/**
-	 * Get File Parameter
+	 * Get String
+	 * 
+	 * @param name
+	 *            String
+	 * @param nullValue
+	 *            String
+	 * @return String
+	 */
+	public String getString(String name, String nullValue) {
+		List<String> paramValueList = getParameterValues(name);
+		String value = (paramValueList != null ? StringUtils.join(
+				paramValueList, ",") : null);
+		return StringUtils.getStringValue(value, nullValue, false);
+	}
+
+	/**
+	 * Get String
+	 * 
+	 * @param name
+	 *            String
+	 * @return String
+	 */
+	public String getString(String name) {
+		return getString(name, "");
+	}
+
+	/**
+	 * Get Escaped String
+	 * 
+	 * @param name
+	 *            String
+	 * @param nullValue
+	 *            String
+	 * @return String
+	 */
+	public String getEscapedString(String name, String nullValue) {
+		List<String> paramValueList = getParameterValues(name);
+		String value = (paramValueList != null ? StringUtils.join(
+				paramValueList, ",") : null);
+		return StringUtils.getHtmlStringValue(value, nullValue, false);
+	}
+
+	/**
+	 * Get Escaped String
+	 * 
+	 * @param name
+	 *            String
+	 * @return String
+	 */
+	public String getEscapedString(String name) {
+		return getEscapedString(name, "");
+	}
+
+	/**
+	 * Get Int
+	 * 
+	 * @param name
+	 *            String
+	 * @param errorValue
+	 *            int
+	 * @param nullValue
+	 *            int
+	 * @return int
+	 */
+	public int getInt(String name, int errorValue, int nullValue) {
+		return StringUtils.getIntValue(getString(name, null), errorValue,
+				nullValue);
+	}
+
+	/**
+	 * Get Int
+	 * 
+	 * @param name
+	 *            String
+	 * @param errorValue
+	 *            int
+	 * @return int
+	 */
+	public int getInt(String name, int errorValue) {
+		return getInt(name, errorValue, errorValue);
+	}
+
+	/**
+	 * Get Long
+	 * 
+	 * @param name
+	 *            String
+	 * @param errorValue
+	 *            long
+	 * @param nullValue
+	 *            long
+	 * @return long
+	 */
+	public long getLong(String name, long errorValue, long nullValue) {
+		return StringUtils.getLongValue(getString(name, null), errorValue,
+				nullValue);
+	}
+
+	/**
+	 * Get Long
+	 * 
+	 * @param name
+	 *            String
+	 * @param errorValue
+	 *            long
+	 * @return long
+	 */
+	public long getLong(String name, long errorValue) {
+		return getLong(name, errorValue, errorValue);
+	}
+
+	/**
+	 * Get Double
+	 * 
+	 * @param name
+	 *            String
+	 * @param errorValue
+	 *            double
+	 * @param nullValue
+	 *            double
+	 * @return double
+	 */
+	public double getDouble(String name, double errorValue, double nullValue) {
+		return StringUtils.getDoubleValue(getString(name, null), errorValue,
+				nullValue);
+	}
+
+	/**
+	 * Get Double
+	 * 
+	 * @param name
+	 *            String
+	 * @param errorValue
+	 *            double
+	 * @return double
+	 */
+	public double getDouble(String name, double errorValue) {
+		return getDouble(name, errorValue, errorValue);
+	}
+
+	/**
+	 * Get Date
+	 * 
+	 * @param name
+	 *            String
+	 * @param pattern
+	 *            String
+	 * @param errorValue
+	 *            Date
+	 * @param nullValue
+	 *            Date
+	 * @return Date
+	 */
+	public Date getDate(String name, String pattern, Date errorValue,
+			Date nullValue) {
+		return StringUtils.getDateValue(getString(name, null), pattern,
+				errorValue, nullValue);
+	}
+
+	/**
+	 * Get Date
+	 * 
+	 * @param name
+	 *            String
+	 * @param pattern
+	 *            String
+	 * @param errorValue
+	 *            Date
+	 * @return Date
+	 */
+	public Date getDate(String name, String pattern, Date errorValue) {
+		return getDate(name, pattern, errorValue, errorValue);
+	}
+
+	/**
+	 * Get File
 	 * 
 	 * @param name
 	 *            String
 	 * @return FileItem
 	 */
-	public FileItem getFileParameter(String name) {
-		return null;
-	}
-
-	/**
-	 * Get Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param nullValue
-	 *            String
-	 * @param isIgnoreEmpty
-	 *            boolean
-	 * @return String
-	 */
-	public String getParameter(String name, String nullValue,
-			boolean isIgnoreEmpty) {
-		return StringUtils.getStringValue(getParameter(name), nullValue,
-				isIgnoreEmpty);
-	}
-
-	/**
-	 * Get Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param nullValue
-	 *            String
-	 * @return String
-	 */
-	public String getParameter(String name, String nullValue) {
-		return StringUtils.getStringValue(getParameter(name), nullValue);
-	}
-
-	/**
-	 * Get Html Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param nullValue
-	 *            String
-	 * @param isIgnoreEmpty
-	 *            boolean
-	 * @return String
-	 */
-	public String getHtmlParameter(String name, String nullValue,
-			boolean isIgnoreEmpty) {
-		return StringUtils.getHtmlStringValue(getParameter(name), nullValue,
-				isIgnoreEmpty);
-	}
-
-	/**
-	 * Get Html Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param nullValue
-	 *            String
-	 * @return String
-	 */
-	public String getHtmlParameter(String name, String nullValue) {
-		return StringUtils.getHtmlStringValue(getParameter(name), nullValue);
-	}
-
-	/**
-	 * Get Html Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param nullValue
-	 *            String
-	 * @return String
-	 */
-	public String getHtmlParameter(String name) {
-		return StringUtils.getHtmlStringValue(getParameter(name), null);
-	}
-
-	/**
-	 * Get Int Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param errorValue
-	 *            int
-	 * @param nullValue
-	 *            int
-	 * @return int
-	 */
-	public int getIntParameter(String name, int errorValue, int nullValue) {
-		return StringUtils.getIntValue(getParameter(name), errorValue,
-				nullValue);
-	}
-
-	/**
-	 * Get Int Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param errorValue
-	 *            int
-	 * @return int
-	 */
-	public int getIntParameter(String name, int errorValue) {
-		return StringUtils.getIntValue(getParameter(name), errorValue);
-	}
-
-	/**
-	 * Get Long Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param errorValue
-	 *            long
-	 * @param nullValue
-	 *            long
-	 * @return long
-	 */
-	public long getLongParameter(String name, long errorValue, long nullValue) {
-		return StringUtils.getLongValue(getParameter(name), errorValue,
-				nullValue);
-	}
-
-	/**
-	 * Get Long Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param errorValue
-	 *            long
-	 * @return long
-	 */
-	public long getLongParameter(String name, long errorValue) {
-		return StringUtils.getLongValue(getParameter(name), errorValue);
-	}
-
-	/**
-	 * Get Double Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param errorValue
-	 *            double
-	 * @param nullValue
-	 *            double
-	 * @return double
-	 */
-	public double getDoubleParameter(String name, double errorValue,
-			double nullValue) {
-		return StringUtils.getDoubleValue(getParameter(name), errorValue,
-				nullValue);
-	}
-
-	/**
-	 * Get Double Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param errorValue
-	 *            double
-	 * @return double
-	 */
-	public double getDoubleParameter(String name, double errorValue) {
-		return StringUtils.getDoubleValue(getParameter(name), errorValue);
-	}
-
-	/**
-	 * Get Date Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param pattern
-	 *            String
-	 * @param errorValue
-	 *            Date
-	 * @param nullValue
-	 *            Date
-	 * @return Date
-	 */
-	public Date getDateParameter(String name, String pattern, Date errorValue,
-			Date nullValue) {
-		return StringUtils.getDateValue(getParameter(name), pattern,
-				errorValue, nullValue);
-	}
-
-	/**
-	 * Get Date Parameter
-	 * 
-	 * @param name
-	 *            String
-	 * @param pattern
-	 *            String
-	 * @param errorValue
-	 *            Date
-	 * @return Date
-	 */
-	public Date getDateParameter(String name, String pattern, Date errorValue) {
-		return StringUtils
-				.getDateValue(getParameter(name), pattern, errorValue);
+	public FileItem getFile(String name) {
+		List<FileItem> paramValueList = getParameterValues(name);
+		int paramValueSize = (paramValueList != null ? paramValueList.size()
+				: 0);
+		return (paramValueSize > 0 ? paramValueList.get(paramValueSize - 1)
+				: null);
 	}
 
 	/**
