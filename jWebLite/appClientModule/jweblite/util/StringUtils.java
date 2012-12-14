@@ -100,11 +100,12 @@ public class StringUtils {
 	 */
 	public static <T> String join(Collection<T> c, String separator,
 			EachCallback<T> callback) {
-		if (c == null) {
+		int size = (c != null ? c.size() : 0);
+		if (size <= 0) {
 			return "";
 		}
 		StringBuffer sb = new StringBuffer();
-		int lastIndex = c.size() - 1;
+		int lastIndex = size - 1;
 		int i = 0;
 		for (T child : c) {
 			sb.append(callback == null ? child : callback.callback(child, i));

@@ -24,6 +24,7 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 	private final boolean isGZipEnabled;
 	private final String initClassName;
 	private final String errorPage;
+	private final long fileUploadSizeMax;
 
 	public JWebLiteFilterConfig(FilterConfig filterConfig) {
 		super();
@@ -46,6 +47,10 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 		this.errorPage = StringUtils.getStringValue(
 				(filterConfig != null ? filterConfig
 						.getInitParameter("ErrorPage") : null), null, true);
+		this.fileUploadSizeMax = StringUtils.getLongValue(
+				(filterConfig != null ? filterConfig
+						.getInitParameter("FileUploadSizeMax") : null),
+				10 * 1024 * 1024);
 		if (_cat.isInfoEnabled()) {
 			_cat.info(this.toString());
 		}
@@ -130,6 +135,15 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 	 */
 	public String getErrorPage() {
 		return errorPage;
+	}
+
+	/**
+	 * Get File Upload Size Max
+	 * 
+	 * @return long
+	 */
+	public long getFileUploadSizeMax() {
+		return fileUploadSizeMax;
 	}
 
 }
