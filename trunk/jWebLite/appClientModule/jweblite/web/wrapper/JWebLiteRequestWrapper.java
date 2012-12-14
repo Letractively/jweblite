@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
@@ -65,9 +66,9 @@ public class JWebLiteRequestWrapper extends HttpServletRequestWrapper {
 	 * Initialize
 	 * 
 	 * @param req
-	 *            HttpServletRequest
+	 *            ServletRequest
 	 */
-	protected void initialize(HttpServletRequest req) {
+	protected void initialize(ServletRequest req) {
 		for (Enumeration<String> e = req.getParameterNames(); e
 				.hasMoreElements();) {
 			String paramName = e.nextElement();

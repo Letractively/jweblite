@@ -32,6 +32,10 @@
 			<param-name>ErrorPage</param-name>
 			<param-value>debug</param-value>
 		</init-param>
+		<init-param>
+			<param-name>FileUploadSizeMax</param-name>
+			<param-value>10485760</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>JWebLiteFilter</filter-name>

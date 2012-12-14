@@ -1,16 +1,24 @@
 package jweblite.web.wrapper;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import jweblite.data.MultiValueHashMap;
 import jweblite.data.MultiValueMap;
 import jweblite.util.StringUtils;
+import jweblite.web.application.JWebLiteApplication;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 public class FormModel implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,6 +30,98 @@ public class FormModel implements Serializable {
 	 */
 	public FormModel() {
 		super();
+	}
+
+	/**
+	 * Default constructor.
+	 * 
+	 * @throws UnsupportedEncodingException
+	 * @throws FileUploadException
+	 */
+	public FormModel(HttpServletRequest req, String encoding)
+			throws UnsupportedEncodingException, FileUploadException {
+		super();
+		String contentType = req.getContentType();
+		req.setCharacterEncoding(encoding);
+		boolean isGetMethod = ("GET".equalsIgnoreCase(req.getMethod()));
+		boolean isMultipart = (!isGetMethod && contentType != null && contentType
+				.toLowerCase().startsWith("multipart/"));
+		if (isMultipart) {
+			JWebLiteApplication application = JWebLiteApplication.get();
+			long maxFileSize = application.getFilterConfig()
+					.getFileUploadSizeMax();
+			initMultipartRequest(req, encoding, maxFileSize);
+		} else {
+			initHTTPRequest(req, encoding);
+		}
+	}
+
+	/**
+	 * Init Http Request
+	 * 
+	 * @param req
+	 *            HttpServletRequest
+	 * @param encoding
+	 *            String
+	 * @throws FileUploadException
+	 * @throws UnsupportedEncodingException
+	 */
+	public void initHTTPRequest(HttpServletRequest req, String encoding) {
+		for (Enumeration<String> e = req.getParameterNames(); e
+				.hasMoreElements();) {
+			String paramName = e.nextElement();
+			if (paramName == null) {
+				continue;
+			}
+			String[] paramValueArray = req.getParameterValues(paramName);
+			List<String> paramValueList = new ArrayList();
+			if (paramValueArray != null) {
+				for (String paramValue : paramValueArray) {
+					if (paramValue == null) {
+						continue;
+					}
+					paramValueList.add(StringUtils.toNewCharset(paramValue,
+							"ISO-8859-1", encoding));
+				}
+			}
+			this.parameterMap.replaceAll(paramName, paramValueList);
+		}
+	}
+
+	/**
+	 * Init Multipart Request
+	 * 
+	 * @param req
+	 *            HttpServletRequest
+	 * @param encoding
+	 *            String
+	 * @param maxFileSize
+	 *            long
+	 * @throws FileUploadException
+	 * @throws UnsupportedEncodingException
+	 */
+	public void initMultipartRequest(HttpServletRequest req, String encoding,
+			long maxFileSize) throws FileUploadException,
+			UnsupportedEncodingException {
+		// create a new file upload handler
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		factory.setSizeThreshold(4096);
+		ServletFileUpload uploadHandler = new ServletFileUpload(factory);
+		uploadHandler.setSizeMax(maxFileSize);
+		uploadHandler.setHeaderEncoding(encoding);
+		// parse the request
+		List<FileItem> items = uploadHandler.parseRequest(req);
+		for (FileItem item : items) {
+			String fieldName = item.getFieldName();
+			if (fieldName == null) {
+				continue;
+			}
+			if (item.isFormField()) {
+				this.parameterMap.put(fieldName, item.getString(encoding));
+			} else {
+				this.parameterMap.put(fieldName, item);
+			}
+		}
 	}
 
 	/**
