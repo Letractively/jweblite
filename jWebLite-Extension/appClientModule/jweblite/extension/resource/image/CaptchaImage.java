@@ -14,13 +14,14 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jweblite.resource.DynamicWebResource;
 import jweblite.web.SkipException;
 import jweblite.web.application.JWebLiteApplication;
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
-import jweblite.web.wrapper.JWebLiteResponseWrapper;
+import jweblite.web.wrapper.FormModel;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -53,12 +54,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	}
 
 	@Override
-	public boolean isIgnoreGzip() {
-		return true;
-	}
-
-	@Override
-	public byte[] loadData(JWebLiteRequestWrapper req) {
+	public byte[] loadData(HttpServletRequest req, FormModel formModel) {
 		if (this.font == null) {
 			return null;
 		}
@@ -97,14 +93,14 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	}
 
 	@Override
-	public void doHeader(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) throws SkipException {
+	public void doHeader(HttpServletRequest req, HttpServletResponse resp,
+			FormModel formModel) throws SkipException {
 		// get challenge from session
 		this.challenge = getChallenge(req);
 		if (this.challenge == null) {
 			throw new SkipException();
 		}
-		super.doHeader(req, resp);
+		super.doHeader(req, resp, formModel);
 	}
 
 	/**
@@ -112,7 +108,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	 * 
 	 * @return String
 	 */
-	public static String createChallenge(JWebLiteRequestWrapper req,
+	public static String createChallenge(HttpServletRequest req,
 			String challenge) {
 		// set challenge to the session
 		HttpSession session = req.getSession(true);
@@ -132,7 +128,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	 * 
 	 * @return String
 	 */
-	public static String getChallenge(JWebLiteRequestWrapper req) {
+	public static String getChallenge(HttpServletRequest req) {
 		// set challenge to the session
 		HttpSession session = req.getSession(true);
 		String attrPrefix = JWebLiteApplication.get().getFilterConfig()

@@ -1,9 +1,11 @@
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import jweblite.data.MultiValueLinkedHashMap;
 import jweblite.data.MultiValueMap;
 import jweblite.web.JWebLitePage;
 import jweblite.web.SkipException;
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
-import jweblite.web.wrapper.JWebLiteResponseWrapper;
+import jweblite.web.wrapper.FormModel;
 
 public class HelloChainedComboBox implements JWebLitePage {
 
@@ -40,8 +42,8 @@ public class HelloChainedComboBox implements JWebLitePage {
 		}
 	}
 
-	public void doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) throws SkipException {
+	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
+			FormModel formModel) throws SkipException {
 	}
 
 	public MultiValueMap getMap1() {

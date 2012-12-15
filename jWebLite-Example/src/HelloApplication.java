@@ -1,8 +1,10 @@
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import jweblite.web.JWebLitePage;
 import jweblite.web.SkipException;
 import jweblite.web.application.JWebLiteApplication;
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
-import jweblite.web.wrapper.JWebLiteResponseWrapper;
+import jweblite.web.wrapper.FormModel;
 import application.WebApplication;
 
 public class HelloApplication implements JWebLitePage {
@@ -23,8 +25,8 @@ public class HelloApplication implements JWebLitePage {
 		this.test = ((WebApplication) application).getStartedAt();
 	}
 
-	public void doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) throws SkipException {
+	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
+			FormModel formModel) throws SkipException {
 	}
 
 	public String getInitClassName() {
