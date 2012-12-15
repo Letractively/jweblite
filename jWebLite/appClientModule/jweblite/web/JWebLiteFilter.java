@@ -15,7 +15,7 @@ import jweblite.util.LogUtils;
 import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.session.JWebLiteSessionManager;
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
+import jweblite.web.wrapper.FormModel;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 import org.apache.commons.logging.Log;
@@ -90,12 +90,6 @@ public class JWebLiteFilter implements Filter {
 		}
 		// starting
 		String encoding = filterConfig.getEncoding();
-		JWebLiteRequestWrapper reqWrapper = null;
-		if (req instanceof JWebLiteRequestWrapper) {
-			reqWrapper = (JWebLiteRequestWrapper) req;
-		} else {
-			reqWrapper = new JWebLiteRequestWrapper(req, encoding);
-		}
 		JWebLiteResponseWrapper respWrapper = null;
 		if (resp instanceof JWebLiteResponseWrapper) {
 			respWrapper = (JWebLiteResponseWrapper) resp;
@@ -104,8 +98,10 @@ public class JWebLiteFilter implements Filter {
 					filterConfig.isGZipEnabled());
 		}
 		try {
+			// parse form model
+			FormModel formModel = new FormModel(req, encoding);
 			// trigger doBeforeRequest event
-			application.doBeforeRequest(reqWrapper, respWrapper);
+			application.doBeforeRequest(req, respWrapper, formModel);
 			// dispatcher
 			JWebLiteRequestDispatcher reqDispatcher = application
 					.getRequestDispatcher();
@@ -120,7 +116,7 @@ public class JWebLiteFilter implements Filter {
 				}
 			}
 			// prepare default variables
-			reqWrapper.setAttribute("ContextPath", reqWrapper.getContextPath());
+			req.setAttribute("ContextPath", req.getContextPath());
 			// init class
 			boolean isIgnoreView = false;
 			if (reqClass != null
@@ -135,14 +131,12 @@ public class JWebLiteFilter implements Filter {
 					JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 							.newInstance();
 					String attrPrefix = filterConfig.getAttrPrefix();
-					reqWrapper.setAttribute(attrPrefix, reqClassInstance);
-					reqWrapper.setAttribute(attrPrefix.concat("Req"),
-							reqWrapper);
+					req.setAttribute(attrPrefix, reqClassInstance);
 					// session manager
-					reqWrapper.getSession(true).setAttribute(
+					req.getSession(true).setAttribute(
 							attrPrefix.concat("SessionManager"),
 							JWebLiteSessionManager.get());
-					reqClassInstance.doRequest(reqWrapper, respWrapper);
+					reqClassInstance.doRequest(req, respWrapper, formModel);
 				} catch (SkipException se) {
 					isIgnoreView = true;
 				}
@@ -150,17 +144,17 @@ public class JWebLiteFilter implements Filter {
 			// pass the request along the filter chain
 			if (!isIgnoreView) {
 				// trigger doBeforeRender event
-				application.doBeforeRender(reqWrapper, respWrapper);
-				chain.doFilter(reqWrapper, respWrapper);
+				application.doBeforeRender(req, respWrapper, formModel);
+				chain.doFilter(req, respWrapper);
 			}
 			// trigger doAfterRequest event
-			application.doAfterRequest(reqWrapper, respWrapper);
+			application.doAfterRequest(req, respWrapper, formModel);
 			// do finish
 			respWrapper.doFinish();
 		} catch (Throwable e) {
 			_cat.warn("Do filter failed!", e);
-			application.doError(reqWrapper, respWrapper, e);
-			this.doErrorPage(filterConfig, reqWrapper, respWrapper, e);
+			application.doError(req, respWrapper, e);
+			this.doErrorPage(filterConfig, req, respWrapper, e);
 		}
 	}
 
@@ -170,17 +164,17 @@ public class JWebLiteFilter implements Filter {
 	 * @param filterConfig
 	 *            JWebLiteFilterConfig
 	 * @param req
-	 *            JWebLiteRequestWrapper
+	 *            HttpServletRequest
 	 * @param resp
-	 *            JWebLiteResponseWrapper
+	 *            HttpServletResponse
 	 * @param e
 	 *            Throwable
 	 * @throws IOException
 	 * @throws ServletException
 	 */
 	public void doErrorPage(JWebLiteFilterConfig filterConfig,
-			JWebLiteRequestWrapper req, JWebLiteResponseWrapper resp,
-			Throwable e) throws IOException, ServletException {
+			HttpServletRequest req, HttpServletResponse resp, Throwable e)
+			throws IOException, ServletException {
 		String errorPage = filterConfig.getErrorPage();
 		if (e == null || errorPage == null || errorPage.length() <= 0) {
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

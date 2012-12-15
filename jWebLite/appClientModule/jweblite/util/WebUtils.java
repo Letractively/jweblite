@@ -4,8 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
 import jweblite.web.wrapper.stream.JWebLiteProxyResponseWrapperStream;
 import jweblite.web.wrapper.stream.JWebLiteResponseWrapperStream;
@@ -30,21 +31,23 @@ public class WebUtils {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public static String writePageAsString(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp, String servletPath)
-			throws ServletException, IOException {
+	public static String writePageAsString(ServletRequest req,
+			ServletResponse resp, String servletPath) throws ServletException,
+			IOException {
 		if (servletPath == null) {
 			return "";
 		}
 		// original wrapper stream
-		JWebLiteResponseWrapperStream oriWrapperStream = resp
+		JWebLiteResponseWrapper respWrapper = (JWebLiteResponseWrapper) resp;
+		JWebLiteResponseWrapperStream oriWrapperStream = respWrapper
 				.getWrapperStream();
 		// proxy
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		resp.setWrapperStream(new JWebLiteProxyResponseWrapperStream(baos));
+		respWrapper.setWrapperStream(new JWebLiteProxyResponseWrapperStream(
+				baos));
 		req.getRequestDispatcher(servletPath).forward(req, resp);
 		// revert
-		resp.setWrapperStream(oriWrapperStream);
+		respWrapper.setWrapperStream(oriWrapperStream);
 		return baos.toString();
 	}
 
