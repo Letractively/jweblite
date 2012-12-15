@@ -88,8 +88,9 @@ public class JWebLiteFilter implements Filter {
 					"ClientIP=%s, ReqUri=%s, ReqParam=%s", req.getRemoteAddr(),
 					req.getRequestURI(), req.getQueryString()));
 		}
-		// starting
 		String encoding = filterConfig.getEncoding();
+		String attrPrefix = filterConfig.getAttrPrefix();
+		// starting
 		JWebLiteResponseWrapper respWrapper = null;
 		if (resp instanceof JWebLiteResponseWrapper) {
 			respWrapper = (JWebLiteResponseWrapper) resp;
@@ -99,7 +100,12 @@ public class JWebLiteFilter implements Filter {
 		}
 		try {
 			// parse form model
-			FormModel formModel = new FormModel(req, encoding);
+			String formModelAttrName = attrPrefix.concat("FormModel");
+			FormModel formModel = (FormModel) req
+					.getAttribute(formModelAttrName);
+			if (formModel == null) {
+				formModel = new FormModel(req, encoding);
+			}
 			// trigger doBeforeRequest event
 			application.doBeforeRequest(req, respWrapper, formModel);
 			// dispatcher
@@ -130,9 +136,8 @@ public class JWebLiteFilter implements Filter {
 				try {
 					JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 							.newInstance();
-					String attrPrefix = filterConfig.getAttrPrefix();
 					req.setAttribute(attrPrefix, reqClassInstance);
-					req.setAttribute(attrPrefix.concat("FormModel"), formModel);
+					req.setAttribute(formModelAttrName, formModel);
 					// session manager
 					req.getSession(true).setAttribute(
 							attrPrefix.concat("SessionManager"),
