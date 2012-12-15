@@ -1,11 +1,11 @@
 package jweblite.web.tag.page;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import jweblite.util.WebUtils;
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
-import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,10 +27,8 @@ public class IncludeTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		try {
-			JWebLiteRequestWrapper req = (JWebLiteRequestWrapper) this.pageContext
-					.getRequest();
-			JWebLiteResponseWrapper resp = (JWebLiteResponseWrapper) this.pageContext
-					.getResponse();
+			ServletRequest req = this.pageContext.getRequest();
+			ServletResponse resp = this.pageContext.getResponse();
 			String pageData = WebUtils.writePageAsString(req, resp, this.page);
 			// output
 			this.pageContext.getOut().write(pageData);

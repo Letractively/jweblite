@@ -2,12 +2,15 @@ package jweblite.resource;
 
 import java.io.BufferedOutputStream;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import jweblite.util.StringUtils;
 import jweblite.web.JWebLitePage;
 import jweblite.web.JWebLitePageEvent;
 import jweblite.web.SkipException;
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
-import jweblite.web.wrapper.JWebLiteResponseWrapper;
+import jweblite.web.application.JWebLiteApplication;
+import jweblite.web.wrapper.FormModel;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -26,18 +29,15 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		super();
 	}
 
-	public void doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) throws SkipException {
+	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
+			FormModel formModel) throws SkipException {
 		try {
-			if (this.isIgnoreGzip()) {
-				resp.setGZipEnabled(false);
-			}
 			// header
-			this.doHeader(req, resp);
+			this.doHeader(req, resp, formModel);
 			// body
-			this.doBody(req, resp);
+			this.doBody(req, resp, formModel);
 			// finish
-			this.doFinish(req, resp);
+			this.doFinish(req, resp, formModel);
 		} catch (SkipException se) {
 			throw se;
 		} catch (Exception e) {
@@ -46,8 +46,8 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		throw new SkipException();
 	}
 
-	public void doHeader(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) throws SkipException {
+	public void doHeader(HttpServletRequest req, HttpServletResponse resp,
+			FormModel formModel) throws SkipException {
 		// contentType
 		String contentType = this.getContentType();
 		if (contentType != null) {
@@ -56,7 +56,8 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		// encoding
 		String encoding = this.getEncoding();
 		if (encoding == null) {
-			encoding = req.getEncoding();
+			encoding = JWebLiteApplication.get().getFilterConfig()
+					.getEncoding();
 		}
 		// fileName
 		String fileName = this.getFileName();
@@ -73,13 +74,13 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		}
 	}
 
-	public void doBody(JWebLiteRequestWrapper req, JWebLiteResponseWrapper resp)
-			throws SkipException {
+	public void doBody(HttpServletRequest req, HttpServletResponse resp,
+			FormModel formModel) throws SkipException {
 		// write
 		BufferedOutputStream bos = null;
 		try {
 			bos = new BufferedOutputStream(resp.getOutputStream());
-			IOUtils.write(this.loadData(req), bos);
+			IOUtils.write(this.loadData(req, formModel), bos);
 			bos.flush();
 		} catch (Exception e) {
 			_cat.warn("Write data failed!", e);
@@ -88,8 +89,8 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		}
 	}
 
-	public void doFinish(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) {
+	public void doFinish(HttpServletRequest req, HttpServletResponse resp,
+			FormModel formModel) {
 		// nothing
 	}
 
@@ -101,10 +102,6 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		return false;
 	}
 
-	public boolean isIgnoreGzip() {
-		return false;
-	}
-
 	/**
 	 * load Data
 	 * 
@@ -112,6 +109,6 @@ public abstract class DynamicWebResource implements JWebLitePage,
 	 *            JWebLiteRequestWrapper
 	 * @return byte[]
 	 */
-	public abstract byte[] loadData(JWebLiteRequestWrapper req);
+	public abstract byte[] loadData(HttpServletRequest req, FormModel formModel);
 
 }

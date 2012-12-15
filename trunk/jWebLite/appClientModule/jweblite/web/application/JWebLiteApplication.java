@@ -2,10 +2,12 @@ package jweblite.web.application;
 
 import java.io.Serializable;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import jweblite.web.JWebLiteFilterConfig;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
-import jweblite.web.wrapper.JWebLiteResponseWrapper;
+import jweblite.web.wrapper.FormModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,50 +52,56 @@ public class JWebLiteApplication implements Serializable {
 	 * Do Before Request
 	 * 
 	 * @param req
-	 *            JWebLiteRequestWrapper
+	 *            HttpServletRequest
 	 * @param resp
-	 *            JWebLiteResponseWrapper
+	 *            HttpServletResponse
+	 * @param formModel
+	 *            FormModel
 	 */
-	public void doBeforeRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) {
+	public void doBeforeRequest(HttpServletRequest req,
+			HttpServletResponse resp, FormModel formModel) {
 	}
 
 	/**
 	 * Do Before Render
 	 * 
 	 * @param req
-	 *            JWebLiteRequestWrapper
+	 *            HttpServletRequest
 	 * @param resp
-	 *            JWebLiteResponseWrapper
+	 *            HttpServletResponse
+	 * @param formModel
+	 *            FormModel
 	 */
-	public void doBeforeRender(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) {
+	public void doBeforeRender(HttpServletRequest req,
+			HttpServletResponse resp, FormModel formModel) {
 	}
 
 	/**
 	 * Do After Request
 	 * 
 	 * @param req
-	 *            JWebLiteRequestWrapper
+	 *            HttpServletRequest
 	 * @param resp
-	 *            JWebLiteResponseWrapper
+	 *            HttpServletResponse
+	 * @param formModel
+	 *            FormModel
 	 */
-	public void doAfterRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) {
+	public void doAfterRequest(HttpServletRequest req,
+			HttpServletResponse resp, FormModel formModel) {
 	}
 
 	/**
 	 * Do Error
 	 * 
 	 * @param req
-	 *            JWebLiteRequestWrapper
+	 *            HttpServletRequest
 	 * @param resp
-	 *            JWebLiteResponseWrapper
+	 *            HttpServletResponse
 	 * @param e
 	 *            Throwable
 	 */
-	public void doError(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp, Throwable e) {
+	public void doError(HttpServletRequest req, HttpServletResponse resp,
+			Throwable e) {
 	}
 
 	/**

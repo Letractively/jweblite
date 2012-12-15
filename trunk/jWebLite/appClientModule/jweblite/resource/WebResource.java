@@ -32,11 +32,4 @@ public interface WebResource extends Serializable {
 	 */
 	public boolean isCacheable();
 
-	/**
-	 * Is Ignore Gzip
-	 * 
-	 * @return boolean
-	 */
-	public boolean isIgnoreGzip();
-
 }
