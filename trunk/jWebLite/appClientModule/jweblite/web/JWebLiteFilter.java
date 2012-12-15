@@ -132,6 +132,7 @@ public class JWebLiteFilter implements Filter {
 							.newInstance();
 					String attrPrefix = filterConfig.getAttrPrefix();
 					req.setAttribute(attrPrefix, reqClassInstance);
+					req.setAttribute(attrPrefix.concat("FormModel"), formModel);
 					// session manager
 					req.getSession(true).setAttribute(
 							attrPrefix.concat("SessionManager"),
