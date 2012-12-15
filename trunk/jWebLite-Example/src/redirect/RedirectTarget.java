@@ -1,9 +1,11 @@
 package redirect;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import jweblite.web.JWebLitePage;
 import jweblite.web.SkipException;
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
-import jweblite.web.wrapper.JWebLiteResponseWrapper;
+import jweblite.web.wrapper.FormModel;
 
 public class RedirectTarget implements JWebLitePage {
 
@@ -16,9 +18,9 @@ public class RedirectTarget implements JWebLitePage {
 		super();
 	}
 
-	public void doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) throws SkipException {
-		req.putParameter("test", "Redirect");
+	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
+			FormModel formModel) throws SkipException {
+		formModel.putParameter("test", "Redirect");
 		try {
 			req.getRequestDispatcher("/HelloRedirect.jsp").forward(req, resp);
 		} catch (Exception e) {

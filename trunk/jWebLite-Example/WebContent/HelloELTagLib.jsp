@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="RequestUtils"
-	uri="https://code.google.com/p/jweblite/RequestUtils"%>
 <%@ taglib prefix="StringUtils"
 	uri="https://code.google.com/p/jweblite/StringUtils"%>
 <%@ taglib prefix="StringELUtils"
@@ -23,7 +21,7 @@
 		<legend>Hello EL Tag Lib</legend>
 		<div>
 
-			Hello ${RequestUtils:getHtmlParameter(JwlReq, "test", "")}!
+			Hello ${JwlFormModel.EscapedString("test", "")}!
 
 			<div style="font-size: small; font-weight: bold;">String:
 				HelloELTagLib</div>

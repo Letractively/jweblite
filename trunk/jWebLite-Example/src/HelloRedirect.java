@@ -1,7 +1,9 @@
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import jweblite.web.JWebLitePage;
 import jweblite.web.SkipException;
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
-import jweblite.web.wrapper.JWebLiteResponseWrapper;
+import jweblite.web.wrapper.FormModel;
 
 public class HelloRedirect implements JWebLitePage {
 
@@ -16,9 +18,9 @@ public class HelloRedirect implements JWebLitePage {
 		super();
 	}
 
-	public void doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) throws SkipException {
-		this.test = req.getHtmlParameter("test");
+	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
+			FormModel formModel) throws SkipException {
+		this.test = formModel.getEscapedString("test");
 	}
 
 	public String getTest() {

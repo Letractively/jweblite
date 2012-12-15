@@ -1,8 +1,10 @@
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import jweblite.data.provider.CollectionDataProvider;
 import jweblite.web.JWebLitePage;
 import jweblite.web.SkipException;
-import jweblite.web.wrapper.JWebLiteRequestWrapper;
-import jweblite.web.wrapper.JWebLiteResponseWrapper;
+import jweblite.web.wrapper.FormModel;
 
 public class PagingNavigation implements JWebLitePage {
 
@@ -21,9 +23,9 @@ public class PagingNavigation implements JWebLitePage {
 		super();
 	}
 
-	public void doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) throws SkipException {
-		this.dataProvider.setCurrentIndex(req.getIntParameter("page", 0));
+	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
+			FormModel formModel) throws SkipException {
+		this.dataProvider.setCurrentIndex(formModel.getInt("page", 0));
 	}
 
 	public CollectionDataProvider<String> getDataProvider() {
