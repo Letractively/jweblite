@@ -207,6 +207,87 @@
 	</function>
 
 	<!-- ============================================================================================================== -->
+	<!-- jweblite.util.StringUtils -->
+	<!-- ============================================================================================================== -->
+
+	<!-- toTitleCase -->
+	<function>
+		<name>toTitleCase</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String toTitleCase(java.lang.CharSequence) ]]></function-signature>
+	</function>
+
+	<!-- toNewCharset -->
+	<function>
+		<name>toNewCharset</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String toNewCharset(java.lang.String, java.lang.String, java.lang.String) ]]></function-signature>
+	</function>
+
+	<!-- split -->
+	<function>
+		<name>split</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.util.List split(java.lang.String, java.lang.String) ]]></function-signature>
+	</function>
+
+	<!-- join -->
+	<function>
+		<name>join</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String join(java.util.Collection, java.lang.String) ]]></function-signature>
+	</function>
+
+	<!-- indexOf -->
+	<function>
+		<name>indexOf</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ int indexOf(java.lang.String, java.lang.String, int) ]]></function-signature>
+	</function>
+
+	<!-- getStringValue -->
+	<function>
+		<name>getStringValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String getStringValue(java.lang.String, java.lang.String, boolean) ]]></function-signature>
+	</function>
+
+	<!-- getHtmlStringValue -->
+	<function>
+		<name>getHtmlStringValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.lang.String getHtmlStringValue(java.lang.String, java.lang.String, boolean) ]]></function-signature>
+	</function>
+
+	<!-- getIntValue -->
+	<function>
+		<name>getIntValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ int getIntValue(java.lang.String, int, int) ]]></function-signature>
+	</function>
+
+	<!-- getLongValue -->
+	<function>
+		<name>getLongValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ long getLongValue(java.lang.String, long, long) ]]></function-signature>
+	</function>
+
+	<!-- getDoubleValue -->
+	<function>
+		<name>getDoubleValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ double getDoubleValue(java.lang.String, double, double) ]]></function-signature>
+	</function>
+
+	<!-- getDateValue -->
+	<function>
+		<name>getDateValue</name>
+		<function-class>jweblite.util.StringUtils</function-class>
+		<function-signature><![CDATA[ java.util.Date getDateValue(java.lang.String, java.lang.String, java.util.Date, java.util.Date) ]]></function-signature>
+	</function>
+
+	<!-- ============================================================================================================== -->
 	<!-- org.apache.commons.lang.StringEscapeUtils -->
 	<!-- ============================================================================================================== -->
 
