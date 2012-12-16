@@ -45,6 +45,7 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 	 * Default constructor.
 	 */
 	public MultiValueLinkedHashMap(Map m) {
+		super();
 		this.putAll(m);
 	}
 

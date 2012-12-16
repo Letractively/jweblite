@@ -31,6 +31,7 @@ public class MultiValueTreeMap extends TreeMap implements MultiValueMap {
 	 * Default constructor.
 	 */
 	public MultiValueTreeMap(Map m) {
+		super();
 		this.putAll(m);
 	}
 
@@ -38,6 +39,7 @@ public class MultiValueTreeMap extends TreeMap implements MultiValueMap {
 	 * Default constructor.
 	 */
 	public MultiValueTreeMap(SortedMap m) {
+		super();
 		this.putAll(m);
 	}
 

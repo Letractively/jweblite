@@ -36,6 +36,7 @@ public class MultiValueHashMap extends HashMap implements MultiValueMap {
 	 * Default constructor.
 	 */
 	public MultiValueHashMap(Map m) {
+		super();
 		this.putAll(m);
 	}
 
