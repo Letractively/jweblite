@@ -41,6 +41,21 @@ public class FormModel implements Serializable {
 	public FormModel(HttpServletRequest req, String encoding)
 			throws UnsupportedEncodingException, FileUploadException {
 		super();
+		init(req, encoding);
+	}
+
+	/**
+	 * Init
+	 * 
+	 * @param req
+	 *            HttpServletRequest
+	 * @param encoding
+	 *            String
+	 * @throws FileUploadException
+	 * @throws UnsupportedEncodingException
+	 */
+	public void init(HttpServletRequest req, String encoding)
+			throws UnsupportedEncodingException, FileUploadException {
 		String contentType = req.getContentType();
 		req.setCharacterEncoding(encoding);
 		boolean isGetMethod = ("GET".equalsIgnoreCase(req.getMethod()));
@@ -227,7 +242,7 @@ public class FormModel implements Serializable {
 	/**
 	 * Clear Parameter Map
 	 */
-	public void clearaAllParameters() {
+	public void clearAllParameters() {
 		parameterMap.clear();
 	}
 
