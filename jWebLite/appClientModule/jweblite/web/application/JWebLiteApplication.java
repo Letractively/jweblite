@@ -9,14 +9,8 @@ import jweblite.web.JWebLiteFilterConfig;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.wrapper.FormModel;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class JWebLiteApplication implements Serializable {
-
 	private static final long serialVersionUID = 1L;
-	private static final Log _cat = LogFactory
-			.getLog(JWebLiteApplication.class);
 
 	private static JWebLiteApplication application = new JWebLiteApplication();
 

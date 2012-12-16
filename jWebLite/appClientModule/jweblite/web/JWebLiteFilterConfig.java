@@ -13,7 +13,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class JWebLiteFilterConfig implements FilterConfig, Serializable {
-
 	private static final long serialVersionUID = 1L;
 	private static final Log _cat = LogFactory
 			.getLog(JWebLiteFilterConfig.class);

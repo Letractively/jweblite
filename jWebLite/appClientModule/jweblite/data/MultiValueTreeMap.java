@@ -31,14 +31,14 @@ public class MultiValueTreeMap extends TreeMap implements MultiValueMap {
 	 * Default constructor.
 	 */
 	public MultiValueTreeMap(Map m) {
-		super(m);
+		this.putAll(m);
 	}
 
 	/**
 	 * Default constructor.
 	 */
 	public MultiValueTreeMap(SortedMap m) {
-		super(m);
+		this.putAll(m);
 	}
 
 	public void put(Object key) {

@@ -11,7 +11,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class IncludeTag extends TagSupport {
-
 	private static final long serialVersionUID = 1L;
 	private static final Log _cat = LogFactory.getLog(IncludeTag.class);
 

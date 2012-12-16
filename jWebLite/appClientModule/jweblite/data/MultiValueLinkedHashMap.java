@@ -45,7 +45,7 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 	 * Default constructor.
 	 */
 	public MultiValueLinkedHashMap(Map m) {
-		super(m);
+		this.putAll(m);
 	}
 
 	public void put(Object key) {
@@ -63,7 +63,7 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 			valueList = new ArrayList();
 			super.put(key, valueList);
 		}
-		return valueList.add(value) ? value : null;
+		return (valueList.add(value) ? value : null);
 	}
 
 	public void putAll(Object key, Collection c) {

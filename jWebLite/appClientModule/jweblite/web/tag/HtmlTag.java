@@ -12,13 +12,9 @@ import javax.servlet.jsp.tagext.DynamicAttributes;
 import jweblite.util.StringUtils;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
-
 	private static final long serialVersionUID = 1L;
-	private static final Log _cat = LogFactory.getLog(HtmlTag.class);
 
 	private AdditionalTagAttrValueCallback additionAttrValueCallback = null;
 

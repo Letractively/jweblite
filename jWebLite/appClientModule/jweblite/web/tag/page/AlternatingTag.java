@@ -6,13 +6,8 @@ import javax.servlet.jsp.tagext.TagSupport;
 import jweblite.util.StringUtils;
 import jweblite.util.iterator.LoopIterator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class AlternatingTag extends TagSupport {
-
 	private static final long serialVersionUID = 1L;
-	private static final Log _cat = LogFactory.getLog(AlternatingTag.class);
 
 	private String var = null;
 	private String data = null;

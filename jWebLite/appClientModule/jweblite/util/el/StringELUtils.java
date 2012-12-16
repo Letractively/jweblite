@@ -1,12 +1,8 @@
 package jweblite.util.el;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class StringELUtils {
-
-	private static final Log _cat = LogFactory.getLog(StringELUtils.class);
 
 	/**
 	 * ========================================================================

@@ -1,11 +1,6 @@
 package jweblite.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class LogUtils {
-
-	private static final Log _cat = LogFactory.getLog(LogUtils.class);
 
 	/**
 	 * Format Debug Log

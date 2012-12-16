@@ -5,14 +5,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class CollectionDataProvider<T> extends DataProvider<T> {
-
 	private static final long serialVersionUID = 1L;
-	private static final Log _cat = LogFactory
-			.getLog(CollectionDataProvider.class);
 
 	private Collection<T> list = null;
 

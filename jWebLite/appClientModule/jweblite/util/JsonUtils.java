@@ -7,14 +7,10 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.google.gson.stream.JsonWriter;
 
 public class JsonUtils {
-
-	private static final Log _cat = LogFactory.getLog(JsonUtils.class);
 
 	/**
 	 * To Json Value

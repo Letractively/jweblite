@@ -2,14 +2,8 @@ package jweblite.web.dispatcher;
 
 import java.io.Serializable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class JWebLiteRequestDispatcher implements Serializable {
-
 	private static final long serialVersionUID = 1L;
-	private static final Log _cat = LogFactory
-			.getLog(JWebLiteRequestDispatcher.class);
 
 	/**
 	 * Default constructor.

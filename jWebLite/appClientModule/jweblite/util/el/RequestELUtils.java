@@ -6,12 +6,8 @@ import jweblite.data.MultiValueMap;
 import jweblite.web.wrapper.FormModel;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class RequestELUtils {
-
-	private static final Log _cat = LogFactory.getLog(RequestELUtils.class);
 
 	/**
 	 * ========================================================================

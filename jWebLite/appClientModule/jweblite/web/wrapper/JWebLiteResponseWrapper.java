@@ -11,13 +11,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import jweblite.web.wrapper.stream.JWebLiteResponseWrapperStream;
 import jweblite.web.wrapper.stream.JWebLiteServletResponseWrapperStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
-
-	private static final Log _cat = LogFactory
-			.getLog(JWebLiteResponseWrapper.class);
 
 	private String encoding = null;
 	private boolean isGZipEnabled = false;

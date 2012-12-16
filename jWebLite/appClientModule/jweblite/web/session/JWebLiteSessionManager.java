@@ -5,15 +5,9 @@ import java.io.Serializable;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class JWebLiteSessionManager implements HttpSessionBindingListener,
 		Serializable {
-
 	private static final long serialVersionUID = 1L;
-	private static final Log _cat = LogFactory
-			.getLog(JWebLiteSessionManager.class);
 
 	private static JWebLiteSessionManager factory = new JWebLiteSessionManager();
 

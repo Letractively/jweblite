@@ -14,12 +14,8 @@ import jweblite.util.callback.EachCallback;
 
 import org.apache.commons.codec.net.BCodec;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class StringUtils {
-
-	private static final Log _cat = LogFactory.getLog(StringUtils.class);
 
 	/**
 	 * To Title Case

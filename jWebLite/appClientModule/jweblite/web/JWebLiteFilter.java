@@ -25,7 +25,6 @@ import org.apache.commons.logging.LogFactory;
  * Servlet Filter implementation class JWebLiteFilter
  */
 public class JWebLiteFilter implements Filter {
-
 	private static final Log _cat = LogFactory.getLog(JWebLiteFilter.class);
 
 	/**

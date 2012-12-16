@@ -4,13 +4,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class LoopIterator<T> implements Serializable {
-
 	private static final long serialVersionUID = 1L;
-	private static final Log _cat = LogFactory.getLog(LoopIterator.class);
 
 	private int index = -1;
 
