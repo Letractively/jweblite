@@ -85,6 +85,29 @@ public class NumberUtils {
 	}
 
 	/**
+	 * Count Long Add
+	 * 
+	 * @param values
+	 *            Long...
+	 * @return Long
+	 */
+	public static Long countLongAdd(Long... values) {
+		if (values == null) {
+			return null;
+		}
+		boolean isNull = true;
+		long result = 0;
+		for (Long value : values) {
+			if (value == null) {
+				continue;
+			}
+			isNull = false;
+			result += value.longValue();
+		}
+		return (!isNull ? result : null);
+	}
+
+	/**
 	 * Count Double Subtract
 	 * 
 	 * @param mainValue
@@ -136,6 +159,34 @@ public class NumberUtils {
 				}
 				isNull = false;
 				result -= value.intValue();
+			}
+		}
+		return (!isNull ? result : null);
+	}
+
+	/**
+	 * Count Long Subtract
+	 * 
+	 * @param mainValue
+	 *            Long
+	 * @param values
+	 *            Long...
+	 * @return Long
+	 */
+	public static Long countLongSubtract(Long mainValue, Long... values) {
+		boolean isNull = true;
+		long result = 0;
+		if (mainValue != null) {
+			isNull = false;
+			result = mainValue.longValue();
+		}
+		if (values != null) {
+			for (Long value : values) {
+				if (value == null) {
+					continue;
+				}
+				isNull = false;
+				result -= value.longValue();
 			}
 		}
 		return (!isNull ? result : null);
