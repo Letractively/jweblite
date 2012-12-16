@@ -58,8 +58,7 @@
           target: compress              
          ================================= -->
 	<target name="compress" description="compress">
-		<apply executable="java" parallel="false">
-			<fileset dir="appClientModule" includes="**/*.js" />
+		<apply executable="java" dest="deploy/classes" parallel="false">
 			<arg line="-jar" />
 			<arg path="${compressorPath}" />
 			<arg value="--compilation_level" />
@@ -68,7 +67,8 @@
 			<arg value="--js_output_file" />
 			<targetfile />
 			<arg value="--js" />
-			<mapper type="glob" from="*.js" to="deploy/classes/*.js" />
+			<fileset dir="appClientModule" includes="**/*.js" />
+			<mapper type="glob" from="*.js" to="*.js" />
 		</apply>
 	</target>
 
