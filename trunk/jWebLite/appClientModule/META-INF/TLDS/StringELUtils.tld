@@ -238,11 +238,11 @@
 		<function-signature><![CDATA[ java.lang.String getStringValue(java.lang.String, java.lang.String, boolean) ]]></function-signature>
 	</function>
 
-	<!-- getHtmlStringValue -->
+	<!-- getEscapedStringValue -->
 	<function>
-		<name>getHtmlStringValue</name>
+		<name>getEscapedStringValue</name>
 		<function-class>jweblite.util.StringUtils</function-class>
-		<function-signature><![CDATA[ java.lang.String getHtmlStringValue(java.lang.String, java.lang.String, boolean) ]]></function-signature>
+		<function-signature><![CDATA[ java.lang.String getEscapedStringValue(java.lang.String, java.lang.String, boolean) ]]></function-signature>
 	</function>
 
 	<!-- getIntValue -->

@@ -259,7 +259,7 @@ public class StringUtils {
 	}
 
 	/**
-	 * Get Html String Value
+	 * Get Escaped String Value
 	 * 
 	 * @param str
 	 *            String
@@ -269,7 +269,7 @@ public class StringUtils {
 	 *            boolean
 	 * @return String
 	 */
-	public static String getHtmlStringValue(String str, String nullValue,
+	public static String getEscapedStringValue(String str, String nullValue,
 			boolean isIgnoreEmpty) {
 		String result = str;
 		if (str == null || (isIgnoreEmpty && str.length() <= 0)) {
@@ -290,8 +290,8 @@ public class StringUtils {
 	 *            String
 	 * @return String
 	 */
-	public static String getHtmlStringValue(String str, String nullValue) {
-		return getHtmlStringValue(str, nullValue, false);
+	public static String getEscapedStringValue(String str, String nullValue) {
+		return getEscapedStringValue(str, nullValue, false);
 	}
 
 	/**

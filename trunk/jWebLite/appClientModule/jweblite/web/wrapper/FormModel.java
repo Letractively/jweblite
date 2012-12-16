@@ -271,7 +271,7 @@ public class FormModel implements Serializable {
 		List<String> paramValueList = getParameterValues(name);
 		String value = (paramValueList != null ? StringUtils.join(
 				paramValueList, ",") : null);
-		return StringUtils.getHtmlStringValue(value, nullValue, false);
+		return StringUtils.getEscapedStringValue(value, nullValue, false);
 	}
 
 	/**
