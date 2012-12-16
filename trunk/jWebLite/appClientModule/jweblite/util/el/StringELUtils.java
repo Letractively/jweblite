@@ -234,9 +234,10 @@ public class StringELUtils {
 			return null;
 		}
 		if (target instanceof Character) {
-			str.replace((Character) target, (Character) replacement);
+			return str.replace((Character) target, (Character) replacement);
 		} else if (target instanceof CharSequence) {
-			str.replace((CharSequence) target, (CharSequence) replacement);
+			return str.replace((CharSequence) target,
+					(CharSequence) replacement);
 		}
 		return str;
 	}
