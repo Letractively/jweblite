@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="StringUtils"
-	uri="https://code.google.com/p/jweblite/StringUtils"%>
+<%@ taglib prefix="RequestELUtils"
+	uri="https://code.google.com/p/jweblite/RequestELUtils"%>
 <%@ taglib prefix="StringELUtils"
 	uri="https://code.google.com/p/jweblite/StringELUtils"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -21,7 +21,7 @@
 		<legend>Hello EL Tag Lib</legend>
 		<div>
 
-			Hello ${JwlFormModel.EscapedString("test", "")}!
+			Hello ${RequestELUtils:getEscapedString(JwlFormModel, "test", "")}!
 
 			<div style="font-size: small; font-weight: bold;">String:
 				HelloELTagLib</div>
@@ -32,10 +32,10 @@
 			<ul>
 				<li>String substring:
 					${StringELUtils:substring("HelloELTagLib", 7, -1)}</li>
-				<li>Array join: ${StringUtils:join(Jwl.numberList, ", ")}</li>
+				<li>Array join: ${StringELUtils:join(Jwl.numberList, ", ")}</li>
 				<li>String concat:
 					${StringELUtils:concat(StringELUtils:substring("HelloELTagLib", 7,
-					-1), StringUtils:join(Jwl.numberList, ", "))}</li>
+					-1), StringELUtils:join(Jwl.numberList, ", "))}</li>
 			</ul>
 
 		</div>
