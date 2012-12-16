@@ -4,12 +4,8 @@ import java.io.BufferedInputStream;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class PropertiesUtils {
-
-	private static final Log _cat = LogFactory.getLog(PropertiesUtils.class);
 
 	/**
 	 * Load Properties

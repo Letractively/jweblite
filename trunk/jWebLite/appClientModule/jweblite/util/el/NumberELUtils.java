@@ -1,11 +1,6 @@
 package jweblite.util.el;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class NumberELUtils {
-
-	private static final Log _cat = LogFactory.getLog(NumberELUtils.class);
 
 	/**
 	 * ========================================================================

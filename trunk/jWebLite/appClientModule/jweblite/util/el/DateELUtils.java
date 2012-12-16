@@ -3,12 +3,7 @@ package jweblite.util.el;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class DateELUtils {
-
-	private static final Log _cat = LogFactory.getLog(DateELUtils.class);
 
 	/**
 	 * ========================================================================

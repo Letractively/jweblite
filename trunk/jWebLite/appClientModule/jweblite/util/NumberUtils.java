@@ -3,12 +3,7 @@ package jweblite.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class NumberUtils {
-
-	private static final Log _cat = LogFactory.getLog(NumberUtils.class);
 
 	/**
 	 * To Fixed Float

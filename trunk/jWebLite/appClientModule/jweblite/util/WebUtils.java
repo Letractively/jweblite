@@ -11,12 +11,7 @@ import jweblite.web.wrapper.JWebLiteResponseWrapper;
 import jweblite.web.wrapper.stream.JWebLiteProxyResponseWrapperStream;
 import jweblite.web.wrapper.stream.JWebLiteResponseWrapperStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class WebUtils {
-
-	private static final Log _cat = LogFactory.getLog(WebUtils.class);
 
 	/**
 	 * Write Page As String

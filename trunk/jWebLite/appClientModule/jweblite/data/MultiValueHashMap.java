@@ -36,7 +36,7 @@ public class MultiValueHashMap extends HashMap implements MultiValueMap {
 	 * Default constructor.
 	 */
 	public MultiValueHashMap(Map m) {
-		super(m);
+		this.putAll(m);
 	}
 
 	public void put(Object key) {
@@ -54,7 +54,7 @@ public class MultiValueHashMap extends HashMap implements MultiValueMap {
 			valueList = new ArrayList();
 			super.put(key, valueList);
 		}
-		return valueList.add(value) ? value : null;
+		return (valueList.add(value) ? value : null);
 	}
 
 	public void putAll(Object key, Collection c) {

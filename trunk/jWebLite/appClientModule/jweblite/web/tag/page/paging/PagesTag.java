@@ -8,18 +8,12 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import jweblite.data.provider.DataProvider;
 
 public class PagesTag extends TagSupport {
-
 	private static final long serialVersionUID = 1L;
-	private static final Log _cat = LogFactory.getLog(PagesTag.class);
 
 	private Boolean test = null;
-
 	private String selected = null;
 
 	// private

@@ -5,13 +5,7 @@ import java.io.OutputStream;
 
 import javax.servlet.ServletOutputStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class ProxyServletOutputStream extends ServletOutputStream {
-
-	private static final Log _cat = LogFactory
-			.getLog(ProxyServletOutputStream.class);
 
 	private final OutputStream outputStream;
 

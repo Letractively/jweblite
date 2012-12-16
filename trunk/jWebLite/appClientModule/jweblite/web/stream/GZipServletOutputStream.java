@@ -6,13 +6,7 @@ import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.ServletOutputStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class GZipServletOutputStream extends ServletOutputStream {
-
-	private static final Log _cat = LogFactory
-			.getLog(GZipServletOutputStream.class);
 
 	private final GZIPOutputStream outputStream;
 

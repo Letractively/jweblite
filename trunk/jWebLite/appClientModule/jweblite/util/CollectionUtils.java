@@ -3,12 +3,7 @@ package jweblite.util;
 import java.lang.reflect.Array;
 import java.util.Collection;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class CollectionUtils {
-
-	private static final Log _cat = LogFactory.getLog(CollectionUtils.class);
 
 	/**
 	 * To Array

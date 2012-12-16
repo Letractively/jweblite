@@ -5,13 +5,8 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import jweblite.data.provider.DataProvider;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class PagingTag extends TagSupport {
-
 	private static final long serialVersionUID = 1L;
-	private static final Log _cat = LogFactory.getLog(PagingTag.class);
 
 	private DataProvider provider = null;
 

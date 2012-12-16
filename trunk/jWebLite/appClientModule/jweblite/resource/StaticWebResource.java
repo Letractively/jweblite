@@ -21,7 +21,6 @@ import org.apache.commons.logging.LogFactory;
 
 public abstract class StaticWebResource implements JWebLitePage,
 		JWebLitePageEvent, WebResource {
-
 	private static final long serialVersionUID = 1L;
 	private static final Log _cat = LogFactory.getLog(StaticWebResource.class);
 
