@@ -1,8 +1,6 @@
-package jweblite.web.tag;
+package jweblite.util.callback;
 
-import jweblite.util.callback.Callback;
-
-public interface AdditionalTagAttrValueCallback extends Callback {
+public interface AdditionalTagAttrValueCallback {
 
 	/**
 	 * Callback

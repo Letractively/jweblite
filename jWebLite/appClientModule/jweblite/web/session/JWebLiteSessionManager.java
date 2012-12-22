@@ -2,8 +2,11 @@ package jweblite.web.session;
 
 import java.io.Serializable;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
+
+import jweblite.util.callback.Callback;
 
 public class JWebLiteSessionManager implements HttpSessionBindingListener,
 		Serializable {
@@ -12,8 +15,8 @@ public class JWebLiteSessionManager implements HttpSessionBindingListener,
 	private static JWebLiteSessionManager factory = new JWebLiteSessionManager();
 
 	private int activationCount = 0;
-	private HttpSessionCallback boundEvent = null;
-	private HttpSessionCallback unboundEvent = null;
+	private Callback<HttpSession> boundEvent = null;
+	private Callback<HttpSession> unboundEvent = null;
 
 	/**
 	 * Default constructor.
@@ -48,9 +51,9 @@ public class JWebLiteSessionManager implements HttpSessionBindingListener,
 	/**
 	 * Get Bound Event
 	 * 
-	 * @return HttpSessionCallback
+	 * @return Callback{HttpSession}
 	 */
-	public HttpSessionCallback getBoundEvent() {
+	public Callback<HttpSession> getBoundEvent() {
 		return boundEvent;
 	}
 
@@ -58,18 +61,18 @@ public class JWebLiteSessionManager implements HttpSessionBindingListener,
 	 * Set Bound Event
 	 * 
 	 * @param boundEvent
-	 *            HttpSessionCallback
+	 *            Callback{HttpSession}
 	 */
-	public void setBoundEvent(HttpSessionCallback boundEvent) {
+	public void setBoundEvent(Callback<HttpSession> boundEvent) {
 		this.boundEvent = boundEvent;
 	}
 
 	/**
 	 * Get Unbound Event
 	 * 
-	 * @return HttpSessionCallback
+	 * @return Callback{HttpSession}
 	 */
-	public HttpSessionCallback getUnboundEvent() {
+	public Callback<HttpSession> getUnboundEvent() {
 		return unboundEvent;
 	}
 
@@ -77,9 +80,9 @@ public class JWebLiteSessionManager implements HttpSessionBindingListener,
 	 * Set Unbound Event
 	 * 
 	 * @param unboundEvent
-	 *            HttpSessionCallback
+	 *            Callback{HttpSession}
 	 */
-	public void setUnboundEvent(HttpSessionCallback unboundEvent) {
+	public void setUnboundEvent(Callback<HttpSession> unboundEvent) {
 		this.unboundEvent = unboundEvent;
 	}
 
