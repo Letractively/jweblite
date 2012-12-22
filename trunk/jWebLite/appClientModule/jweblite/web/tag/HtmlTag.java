@@ -10,6 +10,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.DynamicAttributes;
 
 import jweblite.util.StringUtils;
+import jweblite.util.callback.AdditionalTagAttrValueCallback;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -20,8 +21,6 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 
 	private final Map<String, Object> originalAdditionalAttrMap = new HashMap();
 	private final AdditionalTagAttrValueCallback defaultAdditionAttrValueCallback = new AdditionalTagAttrValueCallback() {
-		private static final long serialVersionUID = 1L;
-
 		public Object callback(String localName, Object value) {
 			if (localName == null || value == null
 					|| !(value instanceof Comparable)) {
