@@ -10,17 +10,17 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.DynamicAttributes;
 
 import jweblite.util.StringUtils;
-import jweblite.util.callback.AdditionalTagAttrValueCallback;
+import jweblite.util.callback.AttributeCallback;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
 public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	private static final long serialVersionUID = 1L;
 
-	private AdditionalTagAttrValueCallback additionAttrValueCallback = null;
+	private AttributeCallback additionAttrValueCallback = null;
 
 	private final Map<String, Object> originalAdditionalAttrMap = new HashMap();
-	private final AdditionalTagAttrValueCallback defaultAdditionAttrValueCallback = new AdditionalTagAttrValueCallback() {
+	private final AttributeCallback defaultAdditionAttrValueCallback = new AttributeCallback() {
 		public Object callback(String localName, Object value) {
 			if (localName == null || value == null
 					|| !(value instanceof Comparable)) {
@@ -53,7 +53,7 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	 * @return String
 	 */
 	public String makeAdditionalTagAttr(Map<String, Object> m) {
-		AdditionalTagAttrValueCallback additionAttrValueCallback = this
+		AttributeCallback additionAttrValueCallback = this
 				.getAdditionAttrValueCallback();
 		if (additionAttrValueCallback == null) {
 			additionAttrValueCallback = this.defaultAdditionAttrValueCallback;
@@ -94,9 +94,9 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	/**
 	 * Get Addition Attr Value Callback
 	 * 
-	 * @return AdditionalTagAttrValueCallback
+	 * @return AttributeCallback
 	 */
-	public AdditionalTagAttrValueCallback getAdditionAttrValueCallback() {
+	public AttributeCallback getAdditionAttrValueCallback() {
 		return additionAttrValueCallback;
 	}
 
@@ -104,10 +104,10 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	 * Set Addition Attr Value Callback
 	 * 
 	 * @param additionAttrValueCallback
-	 *            AdditionalTagAttrValueCallback
+	 *            AttributeCallback
 	 */
 	public void setAdditionAttrCallback(
-			AdditionalTagAttrValueCallback additionAttrValueCallback) {
+			AttributeCallback additionAttrValueCallback) {
 		this.additionAttrValueCallback = additionAttrValueCallback;
 	}
 
