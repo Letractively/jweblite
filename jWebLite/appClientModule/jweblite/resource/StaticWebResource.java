@@ -69,7 +69,7 @@ public abstract class StaticWebResource implements JWebLitePage,
 			resp.setHeader("Content-Disposition", "filename=".concat(fileName));
 		}
 		// cacheable
-		if (this.isCacheable()) {
+		if (!this.isCacheable()) {
 			resp.setHeader("Pragma", "no-cache");
 			resp.setHeader("Cache-Control", "no-cache");
 			resp.setDateHeader("Expires", 0);
