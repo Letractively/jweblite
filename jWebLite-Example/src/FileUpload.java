@@ -22,9 +22,9 @@ public class FileUpload implements JWebLitePage {
 	}
 
 	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
-		this.test = formModel.getEscapedString("test", "File");
-		this.file = formModel.getFile("file");
+			FormModel fm) throws SkipException {
+		this.test = fm.getEscapedString("test", "File");
+		this.file = fm.getFile("file");
 	}
 
 	public String getTest() {

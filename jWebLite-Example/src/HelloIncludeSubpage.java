@@ -19,7 +19,7 @@ public class HelloIncludeSubpage implements JWebLitePage {
 	}
 
 	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+			FormModel fm) throws SkipException {
 	}
 
 	public String getTest() {

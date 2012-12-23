@@ -21,7 +21,7 @@ public class HelloServlet implements JWebLitePage {
 	}
 
 	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+			FormModel fm) throws SkipException {
 		resp.setContentType("text/html; charset=UTF-8");
 		// write
 		BufferedWriter bw = null;

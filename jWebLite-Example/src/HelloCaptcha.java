@@ -20,7 +20,7 @@ public class HelloCaptcha implements JWebLitePage {
 	}
 
 	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+			FormModel fm) throws SkipException {
 		this.test = CaptchaImage.createChallenge(req,
 				String.valueOf((int) (Math.random() * 10000)));
 	}
