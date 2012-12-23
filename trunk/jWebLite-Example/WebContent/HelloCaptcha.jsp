@@ -4,14 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="${ContextPath}/style/stylesheet.css" rel="stylesheet"
+<link href="${JwlCP}/style/stylesheet.css" rel="stylesheet"
 	type="text/css" />
 <title>Hello Captcha</title>
 </head>
 <body>
 
 	<h3>
-		<a href="${ContextPath}/index.html">[ JWebLite Example ]</a>
+		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
 		<legend>Hello Captcha</legend>
@@ -20,7 +20,7 @@
 			Hello Captcha!
 
 			<p>Challenge: ${Jwl.test}</p>
-			<img src="${ContextPath}/captcha/CreateCaptcha.jsp" alt="Captcha" />
+			<img src="${JwlCP}/captcha/CreateCaptcha.jsp" alt="Captcha" />
 
 		</div>
 	</fieldset>
