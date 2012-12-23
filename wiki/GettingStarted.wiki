@@ -73,7 +73,7 @@ Getting Started
 
 *Implicit variables (JSP):*
 || *Variable* || *Type* || *Comments* ||
-|| ContextPath || String || context path ||
+|| JwlCP || String || context path ||
 || Jwl || JWebLitePage || page instance ||
-|| JwlFormModel || FormModel || request form model ||
+|| JwlFM || FormModel || request form model ||
 || JwlSessionManager || JWebLiteSessionManager || session manager ||
