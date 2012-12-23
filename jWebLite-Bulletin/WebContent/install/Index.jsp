@@ -4,14 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="${ContextPath}/style/stylesheet.css" rel="stylesheet"
+<link href="${JwlCP}/style/stylesheet.css" rel="stylesheet"
 	type="text/css" />
 <title>Install</title>
 </head>
 <body>
 
 	<h3>
-		<a href="${ContextPath}/install">[ JWebLite Bulletin Install ]</a>
+		<a href="${JwlCP}/install">[ JWebLite Bulletin Install ]</a>
 	</h3>
 	<fieldset>
 		<legend>Install</legend>

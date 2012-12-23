@@ -8,20 +8,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="${ContextPath}/style/stylesheet.css" rel="stylesheet"
+<link href="${JwlCP}/style/stylesheet.css" rel="stylesheet"
 	type="text/css" />
 <title>Hello EL Tag Lib</title>
 </head>
 <body>
 
 	<h3>
-		<a href="${ContextPath}/index.html">[ JWebLite Example ]</a>
+		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
 		<legend>Hello EL Tag Lib</legend>
 		<div>
 
-			Hello ${RequestELUtils:getEscapedString(JwlFormModel, "test", "")}!
+			Hello ${RequestELUtils:getEscapedString(JwlFM, "test", "")}!
 
 			<div style="font-size: small; font-weight: bold;">String:
 				HelloELTagLib</div>
