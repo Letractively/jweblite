@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="jweblite-bulletin" default="deploy" basedir=".">
 
-	<property name="version" value="0.5.0" />
+	<property name="version" value="0.5.1" />
 	<property name="corePath" location="../jweblite" />
 	<property name="extensionPath" location="../jweblite-extension" />
 	<property name="ormLibPath" location="../jDBMapLite" />
