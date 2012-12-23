@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="jweblite-extension" default="deploy" basedir=".">
 
-	<property name="version" value="0.5.0" />
+	<property name="version" value="0.5.1" />
 	<property name="corePath" location="../jweblite" />
 	<property name="serverLibPath" location="../../apache-tomcat-5.5.35/common/lib" />
 	<!-- Google Closure Compiler r2180 (http://code.google.com/p/closure-compiler/downloads/list) -->
