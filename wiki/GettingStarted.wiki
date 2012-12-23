@@ -47,6 +47,10 @@ Getting Started
 		<param-name>ErrorPage</param-name>
 		<param-value></param-value>
 	</init-param>
+	<init-param>
+	<param-name>FileUploadSizeMax</param-name>
+		<param-value>10485760</param-value>
+	</init-param>
 </filter>
 <filter-mapping>
 	<filter-name>JWebLiteFilter</filter-name>
@@ -71,5 +75,5 @@ Getting Started
 || *Variable* || *Type* || *Comments* ||
 || ContextPath || String || context path ||
 || Jwl || JWebLitePage || page instance ||
-|| JwlReq || JWebLiteRequestWrapper || request wrapper ||
+|| JwlFormModel || FormModel || request form model ||
 || JwlSessionManager || JWebLiteSessionManager || session manager ||
