@@ -99,7 +99,7 @@ public class JWebLiteFilter implements Filter {
 		}
 		try {
 			// parse form model
-			String formModelAttrName = attrPrefix.concat("FormModel");
+			String formModelAttrName = attrPrefix.concat("FM");
 			FormModel formModel = (FormModel) req
 					.getAttribute(formModelAttrName);
 			if (formModel == null) {
@@ -121,7 +121,7 @@ public class JWebLiteFilter implements Filter {
 				}
 			}
 			// prepare default variables
-			req.setAttribute("ContextPath", req.getContextPath());
+			req.setAttribute(attrPrefix.concat("CP"), req.getContextPath());
 			// init class
 			boolean isIgnoreView = false;
 			if (reqClass != null
