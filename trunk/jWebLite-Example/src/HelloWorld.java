@@ -20,7 +20,7 @@ public class HelloWorld implements JWebLitePage {
 
 	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
 			FormModel fm) throws SkipException {
-		this.test = fm.getString("test", "World");
+		this.test = fm.getEscapedString("test", "World");
 	}
 
 	public String getTest() {
