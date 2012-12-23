@@ -54,7 +54,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	}
 
 	@Override
-	public byte[] loadData(HttpServletRequest req, FormModel formModel) {
+	public byte[] loadData(HttpServletRequest req, FormModel fm) {
 		if (this.font == null) {
 			return null;
 		}
@@ -94,13 +94,13 @@ public abstract class CaptchaImage extends DynamicWebResource {
 
 	@Override
 	public void doHeader(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+			FormModel fm) throws SkipException {
 		// get challenge from session
 		this.challenge = getChallenge(req);
 		if (this.challenge == null) {
 			throw new SkipException();
 		}
-		super.doHeader(req, resp, formModel);
+		super.doHeader(req, resp, fm);
 	}
 
 	/**
