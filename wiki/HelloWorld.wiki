@@ -33,9 +33,9 @@ public class HelloWorld implements JWebLitePage {
 
 	private String test = null;
 
-	public void doRequest(JWebLiteRequestWrapper req,
-			JWebLiteResponseWrapper resp) throws SkipException {
-		this.test = req.getParameter("test", "World");
+	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
+			FormModel fm) throws SkipException {
+		this.test = fm.getString("test", "World");
 	}
 
 	public String getTest() {
