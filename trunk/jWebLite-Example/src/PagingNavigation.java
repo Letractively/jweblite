@@ -24,8 +24,8 @@ public class PagingNavigation implements JWebLitePage {
 	}
 
 	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
-		this.dataProvider.setCurrentIndex(formModel.getInt("page", 0));
+			FormModel fm) throws SkipException {
+		this.dataProvider.setCurrentIndex(fm.getInt("page", 0));
 	}
 
 	public CollectionDataProvider<String> getDataProvider() {

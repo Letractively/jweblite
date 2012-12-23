@@ -19,8 +19,8 @@ public class RedirectTarget implements JWebLitePage {
 	}
 
 	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
-		formModel.putParameter("test", "Redirect");
+			FormModel fm) throws SkipException {
+		fm.setParameter("test", "Redirect");
 		try {
 			req.getRequestDispatcher("/HelloRedirect.jsp").forward(req, resp);
 		} catch (Exception e) {

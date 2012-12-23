@@ -17,7 +17,7 @@ public class HelloSession implements JWebLitePage {
 	}
 
 	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+			FormModel fm) throws SkipException {
 		req.getSession().setAttribute("test", "Session");
 	}
 

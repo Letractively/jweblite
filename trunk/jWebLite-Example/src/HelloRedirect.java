@@ -19,8 +19,8 @@ public class HelloRedirect implements JWebLitePage {
 	}
 
 	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
-		this.test = formModel.getEscapedString("test");
+			FormModel fm) throws SkipException {
+		this.test = fm.getEscapedString("test");
 	}
 
 	public String getTest() {
