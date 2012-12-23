@@ -1,10 +1,10 @@
 JWebLite Change Log
 
-Version 0.6.0
+Version 0.5.1
 ====================
 ．Add doError for Application
 ．Add FormModel
-．Remove StringUtils.tld
+．Merge StringUtils.tld into StringELUtils.tld
 ．Minor bug fixes
 
 Version 0.5.0
