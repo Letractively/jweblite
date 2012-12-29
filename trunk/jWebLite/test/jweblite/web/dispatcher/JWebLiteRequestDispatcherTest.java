@@ -19,55 +19,24 @@ public class JWebLiteRequestDispatcherTest extends TestCase {
 	public void tearDown() throws Exception {
 	}
 
-	public void testHomePath() {
+	public void testIllegal() {
 		Assert.assertNull(this.dispatcher.dispatch("/"));
-	}
-
-	// ------------------------- illegal ------------------------------
-
-	public void testIllegal1() {
 		Assert.assertNull(this.dispatcher.dispatch(null));
-	}
-
-	public void testIllegal2() {
 		Assert.assertNull(this.dispatcher.dispatch(""));
-	}
-
-	public void testIllegal3() {
+		Assert.assertNull(this.dispatcher.dispatch(" "));
 		Assert.assertNull(this.dispatcher.dispatch("."));
-	}
-
-	public void testIllegal4() {
 		Assert.assertNull(this.dispatcher.dispatch("/Test."));
-	}
-
-	public void testIllegal5() {
 		Assert.assertNull(this.dispatcher.dispatch("/Te.st."));
-	}
-
-	public void testIllegal6() {
 		Assert.assertNull(this.dispatcher.dispatch("/Te..st"));
-	}
-
-	public void testIllegal7() {
 		Assert.assertNull(this.dispatcher.dispatch("/./Test"));
+		Assert.assertNull(this.dispatcher.dispatch("/ /Test"));
+		Assert.assertNull(this.dispatcher.dispatch("/^/Test"));
 	}
 
-	// ------------------------- legal ------------------------------
-
-	public void testLegal1() {
+	public void testLegalPath() {
 		Assert.assertEquals("test", this.dispatcher.dispatch("/test.jsp"));
-	}
-
-	public void testLegal2() {
 		Assert.assertEquals("tEsT", this.dispatcher.dispatch("/tEsT.jsp"));
-	}
-
-	public void testLegal3() {
 		Assert.assertEquals(".Test", this.dispatcher.dispatch("//Test.jsp"));
-	}
-
-	public void testLegal4() {
 		Assert.assertEquals("test.Test",
 				this.dispatcher.dispatch("/test/Test.jsp"));
 	}

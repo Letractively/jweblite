@@ -45,7 +45,11 @@ public class JWebLiteRequestDispatcher implements Serializable {
 				|| (urlLength = servletPath.length()) <= 1) {
 			return false;
 		}
-		// path pattern check (/)
+		// path pattern check
+		if (!servletPath.matches("[\\/\\w\\$\\.]+")) {
+			return false;
+		}
+		// empty path pattern check
 		int lastUrlSlashIndex = servletPath.lastIndexOf('/');
 		if (lastUrlSlashIndex == urlLength - 1) {
 			return false;
