@@ -1,5 +1,9 @@
 JWebLite Change Log
 
+Version 0.5.2
+====================
+．Minor bug fixes
+
 Version 0.5.1
 ====================
 ．Add doError for Application
