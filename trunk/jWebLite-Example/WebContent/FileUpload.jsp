@@ -18,7 +18,7 @@
 		<div>
 
 			<p>Hello ${Jwl.test}!</p>
-			<p>File Uploaded: ${Jwl.file.name}</p>
+			<p>File Uploaded: ${Jwl.file.name} (${Jwl.file.size}B)</p>
 			<br />
 			<form action="" method="post" enctype="multipart/form-data">
 				<input type="text" name="test" value="${Jwl.test}" /><br /> <input
