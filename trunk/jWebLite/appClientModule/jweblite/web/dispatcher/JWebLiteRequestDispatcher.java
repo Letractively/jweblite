@@ -20,7 +20,7 @@ public class JWebLiteRequestDispatcher implements Serializable {
 	 * @return String
 	 */
 	public String dispatch(String servletPath) {
-		if (!this.isValidPath(servletPath)) {
+		if (!this.isValidClassPath(servletPath)) {
 			return null;
 		}
 		int lastUrlCommaIndex = servletPath.lastIndexOf('.');
@@ -33,13 +33,13 @@ public class JWebLiteRequestDispatcher implements Serializable {
 	}
 
 	/**
-	 * Is Valid Path
+	 * Is Valid Class Path
 	 * 
 	 * @param servletPath
 	 *            String
 	 * @return boolean
 	 */
-	public boolean isValidPath(String servletPath) {
+	public boolean isValidClassPath(String servletPath) {
 		int urlLength = -1;
 		if (servletPath == null || !servletPath.startsWith("/")
 				|| (urlLength = servletPath.length()) <= 1) {
