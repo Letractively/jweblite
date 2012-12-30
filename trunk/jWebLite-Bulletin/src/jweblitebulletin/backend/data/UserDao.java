@@ -1,4 +1,4 @@
-package client;
+package jweblitebulletin.backend.data;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,14 +23,14 @@ public class UserDao extends JDBMapLiteDao {
 	 * Get User
 	 */
 	public User getUser(String condition) throws SQLException {
-		return (User) this.executeQuery("getUser", condition);
+		return (User) executeQuery("getUser", condition);
 	}
 
 	/**
 	 * Get Users
 	 */
 	public List<User> getUsers() throws SQLException {
-		return (List<User>) this.executeBulkQuery("getUsers");
+		return (List<User>) executeBulkQuery("getUsers");
 	}
 
 	/**
@@ -38,14 +38,14 @@ public class UserDao extends JDBMapLiteDao {
 	 */
 	public void updateUser(String condition, String updateData)
 			throws SQLException {
-		this.executeUpdate("updateUser", condition, updateData);
+		executeUpdate("updateUser", condition, updateData);
 	}
 
 	/**
 	 * Create User
 	 */
 	public void createUser(User user) throws SQLException {
-		this.executeObjectUpdate("createUser", user);
+		executeObjectUpdate("createUser", user);
 	}
 
 }
