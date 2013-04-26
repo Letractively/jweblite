@@ -1,6 +1,5 @@
 package jweblite.util;
 
-import java.lang.reflect.Array;
 import java.util.Collection;
 
 public class CollectionUtils {
@@ -10,15 +9,13 @@ public class CollectionUtils {
 	 * 
 	 * @param c
 	 *            Collection
-	 * @param clazz
-	 *            Class
 	 * @return T[]
 	 */
-	public static <T> T[] toArray(Collection<T> c, Class<?> clazz) {
+	public static <T> T[] toArray(Collection<T> c) {
 		if (c == null) {
 			return null;
 		}
-		return c.toArray((T[]) Array.newInstance(clazz, c.size()));
+		return (T[]) c.toArray(new Object[c.size()]);
 	}
 
 }
