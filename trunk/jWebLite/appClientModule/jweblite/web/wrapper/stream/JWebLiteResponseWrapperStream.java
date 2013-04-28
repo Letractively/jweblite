@@ -20,12 +20,12 @@ public interface JWebLiteResponseWrapperStream extends Serializable {
 	public ServletOutputStream getServletOutputStream() throws IOException;
 
 	/**
-	 * Get Writer
+	 * Get Servlet Writer
 	 * 
 	 * @return PrintWriter
 	 * @throws IOException
 	 */
-	public PrintWriter getWriter() throws IOException;
+	public PrintWriter getServletWriter() throws IOException;
 
 	/**
 	 * Do Finish
