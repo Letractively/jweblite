@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 
-public class LineOutputStreamWriter extends OutputStreamWriter {
+public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 
 	private int lineIndex = 0;
 	private StringBuilder lineBuffer = null;
@@ -20,7 +20,7 @@ public class LineOutputStreamWriter extends OutputStreamWriter {
 	 * @param cs
 	 *            Charset
 	 */
-	public LineOutputStreamWriter(OutputStream out, Charset cs) {
+	public LineFilteredOutputStreamWriter(OutputStream out, Charset cs) {
 		super(out, cs);
 	}
 
@@ -32,7 +32,7 @@ public class LineOutputStreamWriter extends OutputStreamWriter {
 	 * @param enc
 	 *            CharsetEncoder
 	 */
-	public LineOutputStreamWriter(OutputStream out, CharsetEncoder enc) {
+	public LineFilteredOutputStreamWriter(OutputStream out, CharsetEncoder enc) {
 		super(out, enc);
 	}
 
@@ -45,7 +45,7 @@ public class LineOutputStreamWriter extends OutputStreamWriter {
 	 *            String
 	 * @throws UnsupportedEncodingException
 	 */
-	public LineOutputStreamWriter(OutputStream out, String charsetName)
+	public LineFilteredOutputStreamWriter(OutputStream out, String charsetName)
 			throws UnsupportedEncodingException {
 		super(out, charsetName);
 	}
@@ -56,7 +56,7 @@ public class LineOutputStreamWriter extends OutputStreamWriter {
 	 * @param out
 	 *            OutputStream
 	 */
-	public LineOutputStreamWriter(OutputStream out) {
+	public LineFilteredOutputStreamWriter(OutputStream out) {
 		super(out);
 	}
 
@@ -76,7 +76,7 @@ public class LineOutputStreamWriter extends OutputStreamWriter {
 			lineBuffer = new StringBuilder();
 			// trigger first line event
 			if (lineIndex == 0) {
-				beforeRenderFirstLine();
+				doInit();
 			}
 		}
 		lineBuffer.append((char) c);
@@ -95,7 +95,7 @@ public class LineOutputStreamWriter extends OutputStreamWriter {
 
 	@Override
 	public void close() throws IOException {
-		afterRenderLatestLine();
+		doFinish();
 		// flush
 		if (lineBuffer != null) {
 			writeNewLineBuffer();
@@ -105,42 +105,57 @@ public class LineOutputStreamWriter extends OutputStreamWriter {
 	}
 
 	/**
-	 * Write Line Buffer
+	 * Do Init
+	 * 
+	 * @throws IOException
+	 */
+	public void doInit() throws IOException {
+	}
+
+	/**
+	 * Do Before Render Line
+	 * 
+	 * @param line
+	 * @throws IOException
+	 */
+	public void doBeforeRenderLine(String line) throws IOException {
+	}
+
+	/**
+	 * Do After Render Line
+	 * 
+	 * @param line
+	 * @throws IOException
+	 */
+	public void doAfterRenderLine(String line) throws IOException {
+	}
+
+	/**
+	 * Do Finish
+	 * 
+	 * @throws IOException
+	 */
+	public void doFinish() throws IOException {
+	}
+
+	/**
+	 * Write Newline Buffer
 	 * 
 	 * @throws IOException
 	 */
 	private void writeNewLineBuffer() throws IOException {
-		lineIndex++;
+		// keep the current line data
 		String line = lineBuffer.toString();
 		lineBuffer = null;
+		doBeforeRenderLine(line);
+		if (lineBuffer != null) {
+			lineBuffer.append(line);
+			line = lineBuffer.toString();
+			lineBuffer = null;
+		}
+		lineIndex++;
 		super.write(line, 0, line.length());
-		onRenderLine(line);
-	}
-
-	/**
-	 * Before Render First Line
-	 * 
-	 * @throws IOException
-	 */
-	public void beforeRenderFirstLine() throws IOException {
-	}
-
-	/**
-	 * On Render Line
-	 * 
-	 * @param line
-	 *            String
-	 * @throws IOException
-	 */
-	public void onRenderLine(String line) throws IOException {
-	}
-
-	/**
-	 * After Render Latest Line
-	 * 
-	 * @throws IOException
-	 */
-	public void afterRenderLatestLine() throws IOException {
+		doAfterRenderLine(line);
 	}
 
 	/**
