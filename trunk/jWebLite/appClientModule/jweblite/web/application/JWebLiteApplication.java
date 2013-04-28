@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.web.JWebLiteFilterConfig;
+import jweblite.web.SkipException;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.wrapper.FormModel;
 
@@ -51,9 +52,10 @@ public class JWebLiteApplication implements Serializable {
 	 *            HttpServletResponse
 	 * @param formModel
 	 *            FormModel
+	 * @throws SkipException
 	 */
 	public void doBeforeRequest(HttpServletRequest req,
-			HttpServletResponse resp, FormModel formModel) {
+			HttpServletResponse resp, FormModel formModel) throws SkipException {
 	}
 
 	/**
