@@ -2,7 +2,7 @@ JWebLite Feature Request
 
 ====================
 
-1. jsp:include 出錯
-2. 當使用taglib自動載入jquery.js
+1. 自動載入jquery.js
+2. jsp:include 出錯
 3. checkbox 全選(table, all)
 4. feedback panel
