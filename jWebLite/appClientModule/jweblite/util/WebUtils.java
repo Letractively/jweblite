@@ -34,6 +34,7 @@ public class WebUtils {
 		if (servletPath == null) {
 			return "";
 		}
+		// FIXME return the wrong result
 		// original wrapper stream
 		JWebLiteResponseWrapper respWrapper = (JWebLiteResponseWrapper) resp;
 		JWebLiteResponseWrapperStream respWrapperStream = respWrapper
