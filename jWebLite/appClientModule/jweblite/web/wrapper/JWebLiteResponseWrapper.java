@@ -75,7 +75,7 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 		if (this.wrapperStream == null) {
 			throw new IllegalStateException();
 		}
-		return this.wrapperStream.getWriter();
+		return this.wrapperStream.getServletWriter();
 	}
 
 	@Override

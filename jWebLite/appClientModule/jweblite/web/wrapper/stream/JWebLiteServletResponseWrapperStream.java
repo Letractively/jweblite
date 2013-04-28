@@ -65,7 +65,7 @@ public class JWebLiteServletResponseWrapperStream implements
 		return this.sos;
 	}
 
-	public PrintWriter getWriter() throws IOException {
+	public PrintWriter getServletWriter() throws IOException {
 		if (this.sos != null) {
 			throw new IllegalStateException();
 		}
