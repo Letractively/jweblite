@@ -16,10 +16,7 @@ public class JWebLiteRequestDispatcherTest extends TestCase {
 		this.dispatcher = new JWebLiteRequestDispatcher();
 	}
 
-	public void tearDown() throws Exception {
-	}
-
-	public void testIllegal() {
+	public void testIllegalPath() throws Exception {
 		Assert.assertNull(this.dispatcher.dispatch("/"));
 		Assert.assertNull(this.dispatcher.dispatch(null));
 		Assert.assertNull(this.dispatcher.dispatch(""));
@@ -33,7 +30,7 @@ public class JWebLiteRequestDispatcherTest extends TestCase {
 		Assert.assertNull(this.dispatcher.dispatch("/^/Test"));
 	}
 
-	public void testLegalPath() {
+	public void testLegalPath() throws Exception {
 		Assert.assertEquals("test", this.dispatcher.dispatch("/test.jsp"));
 		Assert.assertEquals("tEsT", this.dispatcher.dispatch("/tEsT.jsp"));
 		Assert.assertEquals(".Test", this.dispatcher.dispatch("//Test.jsp"));

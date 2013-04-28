@@ -45,7 +45,7 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 		// init
 		resp.setHeader("Implementation-Title", "jweblite");
 		this.wrapperStream = new JWebLiteServletResponseWrapperStream(
-				super.getOutputStream());
+				super.getOutputStream(), this.encoding, this.isGZipEnabled);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 		if (this.wrapperStream == null) {
 			throw new IllegalStateException();
 		}
-		return this.wrapperStream.getOutputStream(this.isGZipEnabled);
+		return this.wrapperStream.getServletOutputStream();
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 		if (this.wrapperStream == null) {
 			throw new IllegalStateException();
 		}
-		return this.wrapperStream.getWriter(this.isGZipEnabled, this.encoding);
+		return this.wrapperStream.getWriter();
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 		if (this.wrapperStream == null) {
 			throw new IllegalStateException();
 		}
-		this.wrapperStream.doFinish(this.isGZipEnabled);
+		this.wrapperStream.doFinish();
 	}
 
 	/**

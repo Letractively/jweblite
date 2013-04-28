@@ -2,14 +2,16 @@ package jweblite.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
-import jweblite.web.wrapper.stream.JWebLiteProxyResponseWrapperStream;
 import jweblite.web.wrapper.stream.JWebLiteResponseWrapperStream;
+
+import org.apache.commons.io.output.ProxyOutputStream;
 
 public class WebUtils {
 
@@ -34,15 +36,16 @@ public class WebUtils {
 		}
 		// original wrapper stream
 		JWebLiteResponseWrapper respWrapper = (JWebLiteResponseWrapper) resp;
-		JWebLiteResponseWrapperStream oriWrapperStream = respWrapper
+		JWebLiteResponseWrapperStream respWrapperStream = respWrapper
 				.getWrapperStream();
+		OutputStream originalOutputStream = respWrapperStream
+				.getOriginalOutputStream();
 		// proxy
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		respWrapper.setWrapperStream(new JWebLiteProxyResponseWrapperStream(
-				baos));
+		respWrapperStream.resetOutputStream(new ProxyOutputStream(baos));
 		req.getRequestDispatcher(servletPath).forward(req, resp);
 		// revert
-		respWrapper.setWrapperStream(oriWrapperStream);
+		respWrapperStream.resetOutputStream(originalOutputStream);
 		return baos.toString();
 	}
 
