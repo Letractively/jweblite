@@ -32,42 +32,40 @@ public class JWebLiteServletResponseWrapperStream implements
 
 	public ServletOutputStream getOutputStream(boolean isGZipEnabled)
 			throws IOException {
-		if (!isGZipEnabled) {
-			return this.outputStream;
-		}
 		if (this.pw != null) {
 			throw new IllegalStateException();
 		}
 		if (this.sos == null) {
-			this.sos = new GZipServletOutputStream(this.outputStream);
+			if (isGZipEnabled) {
+				this.sos = new GZipServletOutputStream(this.outputStream);
+			} else {
+				this.sos = this.outputStream;
+			}
 		}
 		return this.sos;
 	}
 
 	public PrintWriter getWriter(boolean isGZipEnabled, String encoding)
 			throws IOException {
-		if (!isGZipEnabled) {
-			return new PrintWriter(new OutputStreamWriter(this.outputStream,
-					encoding));
-		}
 		if (this.sos != null) {
 			throw new IllegalStateException();
 		}
 		if (this.pw == null) {
-			this.pw = new PrintWriter(new OutputStreamWriter(
-					new GZipServletOutputStream(this.outputStream), encoding));
+			ServletOutputStream sos = this.outputStream;
+			if (isGZipEnabled) {
+				sos = new GZipServletOutputStream(this.outputStream);
+			}
+			this.pw = new PrintWriter(new OutputStreamWriter(sos, encoding));
 		}
 		return this.pw;
 	}
 
 	public void doFinish(boolean isGZipEnabled) {
-		if (isGZipEnabled) {
-			if (this.sos != null) {
-				IOUtils.closeQuietly(this.sos);
-			}
-			if (this.pw != null) {
-				IOUtils.closeQuietly(this.pw);
-			}
+		if (this.sos != null) {
+			IOUtils.closeQuietly(this.sos);
+		}
+		if (this.pw != null) {
+			IOUtils.closeQuietly(this.pw);
 		}
 	}
 
