@@ -43,9 +43,11 @@ public class WebUtils {
 				.getOriginalOutputStream();
 		// proxy
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		respWrapperStream.setGZipEnabled(false);
 		respWrapperStream.resetOutputStream(new ProxyOutputStream(baos));
 		req.getRequestDispatcher(servletPath).forward(req, resp);
 		// revert
+		respWrapperStream.setGZipEnabled(respWrapper.isGZipEnabled());
 		respWrapperStream.resetOutputStream(originalOutputStream);
 		return baos.toString();
 	}

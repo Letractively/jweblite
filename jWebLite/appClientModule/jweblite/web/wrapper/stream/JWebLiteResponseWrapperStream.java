@@ -56,4 +56,19 @@ public interface JWebLiteResponseWrapperStream extends Serializable {
 	public void setLineFilteredOutputStreamEvent(
 			LineFilteredOutputStreamEvent lineFilteredOutputStreamEvent);
 
+	/**
+	 * Is GZip Enabled
+	 * 
+	 * @return boolean
+	 */
+	public boolean isGZipEnabled();
+
+	/**
+	 * Set GZip Enabled
+	 * 
+	 * @param isGZipEnabled
+	 *            boolean
+	 */
+	public void setGZipEnabled(boolean isGZipEnabled);
+
 }
