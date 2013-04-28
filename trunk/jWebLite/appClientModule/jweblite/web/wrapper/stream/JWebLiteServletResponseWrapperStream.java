@@ -140,4 +140,12 @@ public class JWebLiteServletResponseWrapperStream implements
 		resetOutputStream(this.os);
 	}
 
+	public boolean isGZipEnabled() {
+		return isGZipEnabled;
+	}
+
+	public void setGZipEnabled(boolean isGZipEnabled) {
+		this.isGZipEnabled = isGZipEnabled;
+	}
+
 }
