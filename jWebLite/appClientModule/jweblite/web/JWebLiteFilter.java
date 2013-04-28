@@ -89,7 +89,7 @@ public class JWebLiteFilter implements Filter {
 		}
 		String encoding = filterConfig.getEncoding();
 		String attrPrefix = filterConfig.getAttrPrefix();
-		// starting
+		// wrap response
 		JWebLiteResponseWrapper respWrapper = null;
 		if (resp instanceof JWebLiteResponseWrapper) {
 			respWrapper = (JWebLiteResponseWrapper) resp;
@@ -97,6 +97,11 @@ public class JWebLiteFilter implements Filter {
 			respWrapper = new JWebLiteResponseWrapper(req, resp, encoding,
 					filterConfig.isGZipEnabled());
 		}
+		// prepare default variables
+		req.setAttribute(attrPrefix.concat("CP"), req.getContextPath());
+		// session manager
+		req.getSession(true).setAttribute(attrPrefix.concat("SessionManager"),
+				JWebLiteSessionManager.get());
 		try {
 			// parse form model
 			String formModelAttrName = attrPrefix.concat("FM");
@@ -105,46 +110,16 @@ public class JWebLiteFilter implements Filter {
 			if (formModel == null) {
 				formModel = new FormModel(req, encoding);
 			}
-			// trigger doBeforeRequest event
-			application.doBeforeRequest(req, respWrapper, formModel);
-			// dispatcher
-			JWebLiteRequestDispatcher reqDispatcher = application
-					.getRequestDispatcher();
-			Class reqClass = null;
-			String refClassName = null;
-			if (reqDispatcher != null
-					&& (refClassName = reqDispatcher.dispatch(req
-							.getServletPath())) != null) {
-				try {
-					reqClass = Class.forName(refClassName);
-				} catch (Exception e) {
-				}
-			}
-			// prepare default variables
-			req.setAttribute(attrPrefix.concat("CP"), req.getContextPath());
-			// init class
+			req.setAttribute(formModelAttrName, formModel);
+			// starting
 			boolean isIgnoreView = false;
-			if (reqClass != null
-					&& JWebLitePage.class.isAssignableFrom(reqClass)) {
-				if (_cat.isInfoEnabled()) {
-					_cat.info(LogUtils.formatDebugLog("DispatchInfo",
-							"ClientIP=%s, ReqUri=%s, refClassName=%s",
-							req.getRemoteAddr(), req.getRequestURI(),
-							refClassName));
-				}
-				try {
-					JWebLitePage reqClassInstance = (JWebLitePage) reqClass
-							.newInstance();
-					req.setAttribute(attrPrefix, reqClassInstance);
-					req.setAttribute(formModelAttrName, formModel);
-					// session manager
-					req.getSession(true).setAttribute(
-							attrPrefix.concat("SessionManager"),
-							JWebLiteSessionManager.get());
-					reqClassInstance.doRequest(req, respWrapper, formModel);
-				} catch (SkipException se) {
-					isIgnoreView = true;
-				}
+			try {
+				// trigger doBeforeRequest event
+				application.doBeforeRequest(req, respWrapper, formModel);
+				// init class
+				doRequest(req, respWrapper, formModel);
+			} catch (SkipException se) {
+				isIgnoreView = true;
 			}
 			// pass the request along the filter chain
 			if (!isIgnoreView) {
@@ -160,6 +135,50 @@ public class JWebLiteFilter implements Filter {
 			_cat.warn("Do filter failed!", e);
 			application.doError(req, respWrapper, e);
 			this.doErrorPage(filterConfig, req, respWrapper, e);
+		}
+	}
+
+	/**
+	 * Do Request
+	 * 
+	 * @param req
+	 *            HttpServletRequest
+	 * @param respWrapper
+	 *            JWebLiteResponseWrapper
+	 * @param formModel
+	 *            FormModel
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws SkipException
+	 */
+	public void doRequest(HttpServletRequest req,
+			JWebLiteResponseWrapper respWrapper, FormModel formModel)
+			throws InstantiationException, IllegalAccessException,
+			SkipException {
+		JWebLiteApplication application = JWebLiteApplication.get();
+		JWebLiteFilterConfig filterConfig = application.getFilterConfig();
+		String attrPrefix = filterConfig.getAttrPrefix();
+		JWebLiteRequestDispatcher reqDispatcher = application
+				.getRequestDispatcher();
+		Class reqClass = null;
+		String refClassName = null;
+		if (reqDispatcher != null
+				&& (refClassName = reqDispatcher.dispatch(req.getServletPath())) != null) {
+			try {
+				reqClass = Class.forName(refClassName);
+			} catch (Exception e) {
+			}
+		}
+		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
+			if (_cat.isInfoEnabled()) {
+				_cat.info(LogUtils.formatDebugLog("DispatchInfo",
+						"ClientIP=%s, ReqUri=%s, refClassName=%s",
+						req.getRemoteAddr(), req.getRequestURI(), refClassName));
+			}
+			JWebLitePage reqClassInstance = (JWebLitePage) reqClass
+					.newInstance();
+			req.setAttribute(attrPrefix, reqClassInstance);
+			reqClassInstance.doRequest(req, respWrapper, formModel);
 		}
 	}
 
