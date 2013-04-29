@@ -1,11 +1,8 @@
 JWebLite Change Log
 
-Version 0.5.3
-====================
-．Add LineFilteredOutputStreamWriter
-
 Version 0.5.2
 ====================
+．Add LineFilteredOutputStreamWriter
 ．Minor bug fixes
 
 Version 0.5.1
