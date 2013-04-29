@@ -11,8 +11,6 @@ import javax.servlet.ServletResponse;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
 import jweblite.web.wrapper.stream.JWebLiteResponseWrapperStream;
 
-import org.apache.commons.io.output.ProxyOutputStream;
-
 public class WebUtils {
 
 	/**
@@ -34,7 +32,6 @@ public class WebUtils {
 		if (servletPath == null) {
 			return "";
 		}
-		// FIXME return the wrong result
 		// original wrapper stream
 		JWebLiteResponseWrapper respWrapper = (JWebLiteResponseWrapper) resp;
 		JWebLiteResponseWrapperStream respWrapperStream = respWrapper
@@ -44,7 +41,7 @@ public class WebUtils {
 		// proxy
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		respWrapperStream.setGZipEnabled(false);
-		respWrapperStream.resetOutputStream(new ProxyOutputStream(baos));
+		respWrapperStream.resetOutputStream(baos);
 		req.getRequestDispatcher(servletPath).forward(req, resp);
 		// revert
 		respWrapperStream.setGZipEnabled(respWrapper.isGZipEnabled());
