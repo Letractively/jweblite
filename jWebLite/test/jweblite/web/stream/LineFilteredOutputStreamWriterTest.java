@@ -55,11 +55,13 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 		PrintWriter pw = new PrintWriter(new LineFilteredOutputStreamWriter(
 				baos, "UTF-8") {
 			@Override
-			public void doBeforeRenderLine(String line) throws IOException {
-				super.doBeforeRenderLine(line);
+			public String doBeforeRenderLine(String line) throws IOException {
+				line = super.doBeforeRenderLine(line);
 				if (line.contains("Content2")) {
 					write("before1\nbefore2");
+					return "Content222\n";
 				}
+				return line;
 			}
 
 			@Override
@@ -73,7 +75,7 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 		pw.print("Content1\nContent2\nContent3");
 		pw.close();
 		Assert.assertEquals(
-				"Content1\nbefore1\nbefore2Content2\nafter1\nafter2Content3",
+				"Content1\nbefore1\nbefore2Content222\nafter1\nafter2Content3",
 				new String(baos.toByteArray()));
 	}
 

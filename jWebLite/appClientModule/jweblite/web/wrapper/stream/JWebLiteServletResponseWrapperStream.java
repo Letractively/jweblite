@@ -82,11 +82,11 @@ public class JWebLiteServletResponseWrapperStream implements
 					}
 
 					@Override
-					public void doBeforeRenderLine(String line)
+					public String doBeforeRenderLine(String line)
 							throws IOException {
-						super.doBeforeRenderLine(line);
-						lineFilteredOutputStreamEvent.doBeforeRenderLine(this,
-								line);
+						line = super.doBeforeRenderLine(line);
+						return lineFilteredOutputStreamEvent
+								.doBeforeRenderLine(this, line);
 					}
 
 					@Override
