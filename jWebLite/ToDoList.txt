@@ -2,7 +2,8 @@ JWebLite Feature Request
 
 ====================
 
-1. 自動載入jquery.js
-2. jsp:include 出錯
-3. checkbox 全選(table, all)
-4. feedback panel
+1. rename LineFilteredOutputStreamEvent as an interface at package jweblite.web
+2. 自動載入jquery.js
+3. jsp:include 出錯
+4. checkbox 全選(table, all)
+5. feedback panel
