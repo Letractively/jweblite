@@ -10,6 +10,7 @@ import javax.servlet.ServletOutputStream;
 import jweblite.web.stream.GZipServletOutputStream;
 import jweblite.web.stream.LineFilteredOutputStreamEvent;
 import jweblite.web.stream.LineFilteredOutputStreamWriter;
+import jweblite.web.stream.ProxyServletOutputStream;
 
 import org.apache.commons.io.IOUtils;
 
@@ -54,12 +55,7 @@ public class JWebLiteServletResponseWrapperStream implements
 			} else if (this.os instanceof ServletOutputStream) {
 				this.sos = (ServletOutputStream) this.os;
 			} else {
-				this.sos = new ServletOutputStream() {
-					@Override
-					public void write(int b) throws IOException {
-						os.write(b);
-					}
-				};
+				this.sos = new ProxyServletOutputStream(this.os);
 			}
 		}
 		return this.sos;
