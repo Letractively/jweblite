@@ -116,9 +116,11 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 	 * Do Before Render Line
 	 * 
 	 * @param line
+	 * @return String
 	 * @throws IOException
 	 */
-	public void doBeforeRenderLine(String line) throws IOException {
+	public String doBeforeRenderLine(String line) throws IOException {
+		return line;
 	}
 
 	/**
@@ -147,7 +149,7 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 		// keep the current line data
 		String line = lineBuffer.toString();
 		lineBuffer = null;
-		doBeforeRenderLine(line);
+		line = doBeforeRenderLine(line);
 		if (lineBuffer != null) {
 			lineBuffer.append(line);
 			line = lineBuffer.toString();

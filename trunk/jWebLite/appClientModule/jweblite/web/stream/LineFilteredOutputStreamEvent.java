@@ -21,9 +21,10 @@ public interface LineFilteredOutputStreamEvent {
 	 *            OutputStreamWriter
 	 * @param line
 	 *            String
+	 * @return String
 	 * @throws IOException
 	 */
-	public void doBeforeRenderLine(OutputStreamWriter osw, String line)
+	public String doBeforeRenderLine(OutputStreamWriter osw, String line)
 			throws IOException;
 
 	/**
