@@ -10,6 +10,7 @@ import jweblite.web.JWebLiteApplication;
 import jweblite.web.page.FormModel;
 import jweblite.web.page.JWebLitePage;
 import jweblite.web.page.SkipException;
+import jweblite.web.page.WebContext;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -26,13 +27,13 @@ public abstract class DynamicWebResource implements JWebLitePage, WebResource {
 		super();
 	}
 
-	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+	public void doRequest(WebContext context, FormModel formModel)
+			throws SkipException {
 		try {
 			// header
-			this.doHeader(req, resp, formModel);
+			this.doHeader(context, formModel);
 			// body
-			this.doBody(req, resp, formModel);
+			this.doBody(context, formModel);
 		} catch (SkipException se) {
 			throw se;
 		} catch (Exception e) {
@@ -41,8 +42,10 @@ public abstract class DynamicWebResource implements JWebLitePage, WebResource {
 		throw new SkipException();
 	}
 
-	public void doHeader(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+	public void doHeader(WebContext context, FormModel formModel)
+			throws SkipException {
+		HttpServletRequest req = context.getRequest();
+		HttpServletResponse resp = context.getResponse();
 		// contentType
 		String contentType = this.getContentType();
 		if (contentType != null) {
@@ -69,13 +72,14 @@ public abstract class DynamicWebResource implements JWebLitePage, WebResource {
 		}
 	}
 
-	public void doBody(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+	public void doBody(WebContext context, FormModel formModel)
+			throws SkipException {
 		// write
 		BufferedOutputStream bos = null;
 		try {
-			bos = new BufferedOutputStream(resp.getOutputStream());
-			IOUtils.write(this.loadData(req, formModel), bos);
+			bos = new BufferedOutputStream(context.getResponse()
+					.getOutputStream());
+			IOUtils.write(this.loadData(context, formModel), bos);
 			bos.flush();
 		} catch (Exception e) {
 			_cat.warn("Write data failed!", e);
@@ -93,12 +97,14 @@ public abstract class DynamicWebResource implements JWebLitePage, WebResource {
 	}
 
 	/**
-	 * load Data
+	 * Load Data
 	 * 
-	 * @param req
-	 *            JWebLiteRequestWrapper
+	 * @param context
+	 *            WebContext
+	 * @param formModel
+	 *            FormModel
 	 * @return byte[]
 	 */
-	public abstract byte[] loadData(HttpServletRequest req, FormModel formModel);
+	public abstract byte[] loadData(WebContext context, FormModel formModel);
 
 }

@@ -2,12 +2,10 @@ package jweblite.web;
 
 import java.io.Serializable;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.page.FormModel;
 import jweblite.web.page.SkipException;
+import jweblite.web.page.WebContext;
 
 public class JWebLiteApplication implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -45,58 +43,47 @@ public class JWebLiteApplication implements Serializable {
 	/**
 	 * Do Before Request
 	 * 
-	 * @param req
-	 *            HttpServletRequest
-	 * @param resp
-	 *            HttpServletResponse
+	 * @param context
+	 *            WebContext
 	 * @param formModel
 	 *            FormModel
 	 * @throws SkipException
 	 */
-	public void doBeforeRequest(HttpServletRequest req,
-			HttpServletResponse resp, FormModel formModel) throws SkipException {
+	public void doBeforeRequest(WebContext context, FormModel formModel)
+			throws SkipException {
 	}
 
 	/**
 	 * Do Before Render
 	 * 
-	 * @param req
-	 *            HttpServletRequest
-	 * @param resp
-	 *            HttpServletResponse
+	 * @param context
+	 *            WebContext
 	 * @param formModel
 	 *            FormModel
 	 */
-	public void doBeforeRender(HttpServletRequest req,
-			HttpServletResponse resp, FormModel formModel) {
+	public void doBeforeRender(WebContext context, FormModel formModel) {
 	}
 
 	/**
 	 * Do After Request
 	 * 
-	 * @param req
-	 *            HttpServletRequest
-	 * @param resp
-	 *            HttpServletResponse
+	 * @param context
+	 *            WebContext
 	 * @param formModel
 	 *            FormModel
 	 */
-	public void doAfterRequest(HttpServletRequest req,
-			HttpServletResponse resp, FormModel formModel) {
+	public void doAfterRequest(WebContext context, FormModel formModel) {
 	}
 
 	/**
 	 * Do Error
 	 * 
-	 * @param req
-	 *            HttpServletRequest
-	 * @param resp
-	 *            HttpServletResponse
+	 * @param context
+	 *            WebContext
 	 * @param e
 	 *            Throwable
 	 */
-	public void doError(HttpServletRequest req, HttpServletResponse resp,
-			Throwable e) {
+	public void doError(WebContext context, Throwable e) {
 	}
 
 	/**

@@ -99,6 +99,7 @@ public class JWebLiteFilter implements Filter {
 			respWrapper = new JWebLiteResponseWrapper(req, resp, encoding,
 					filterConfig.isGZipEnabled());
 		}
+		WebContext context = new WebContext(req, respWrapper);
 		// prepare default variables
 		req.setAttribute(attrPrefix.concat("CP"), req.getContextPath());
 		// session manager
@@ -117,25 +118,25 @@ public class JWebLiteFilter implements Filter {
 			boolean isIgnoreView = false;
 			try {
 				// trigger doBeforeRequest event
-				application.doBeforeRequest(req, respWrapper, formModel);
+				application.doBeforeRequest(context, formModel);
 				// init class
-				doRequest(req, respWrapper, formModel);
+				doRequest(context, formModel);
 			} catch (SkipException se) {
 				isIgnoreView = true;
 			}
 			// pass the request along the filter chain
 			if (!isIgnoreView) {
 				// trigger doBeforeRender event
-				application.doBeforeRender(req, respWrapper, formModel);
+				application.doBeforeRender(context, formModel);
 				chain.doFilter(req, respWrapper);
 			}
 			// trigger doAfterRequest event
-			application.doAfterRequest(req, respWrapper, formModel);
+			application.doAfterRequest(context, formModel);
 			// do finish
 			respWrapper.doFinish();
 		} catch (Throwable e) {
 			_cat.warn("Do filter failed!", e);
-			application.doError(req, respWrapper, e);
+			application.doError(context, e);
 			this.doErrorPage(filterConfig, req, respWrapper, e);
 		}
 	}
@@ -143,20 +144,18 @@ public class JWebLiteFilter implements Filter {
 	/**
 	 * Do Request
 	 * 
-	 * @param req
-	 *            HttpServletRequest
-	 * @param respWrapper
-	 *            JWebLiteResponseWrapper
+	 * @param context
+	 *            WebContext
 	 * @param formModel
 	 *            FormModel
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws SkipException
 	 */
-	public void doRequest(HttpServletRequest req,
-			JWebLiteResponseWrapper respWrapper, FormModel formModel)
+	public void doRequest(WebContext context, FormModel formModel)
 			throws InstantiationException, IllegalAccessException,
 			SkipException {
+		HttpServletRequest req = context.getRequest();
 		JWebLiteApplication application = JWebLiteApplication.get();
 		JWebLiteFilterConfig filterConfig = application.getFilterConfig();
 		String attrPrefix = filterConfig.getAttrPrefix();
@@ -180,8 +179,7 @@ public class JWebLiteFilter implements Filter {
 			JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 					.newInstance();
 			req.setAttribute(attrPrefix, reqClassInstance);
-			reqClassInstance.doRequest(new WebContext(req, respWrapper),
-					formModel);
+			reqClassInstance.doRequest(context, formModel);
 		}
 	}
 
