@@ -2,6 +2,7 @@ package jweblite.web.page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import jweblite.web.stream.LineWriterListener;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
@@ -45,6 +46,20 @@ public class WebContext {
 		JWebLiteResponseWrapper respWrapper = (JWebLiteResponseWrapper) response;
 		respWrapper.getWrapperStream().bindLineWriterListener(
 				lineWriterListener);
+	}
+
+	/**
+	 * Get Session
+	 * 
+	 * @param create
+	 *            boolean
+	 * @return HttpSession
+	 */
+	public HttpSession getSession(boolean create) {
+		if (request == null) {
+			throw new IllegalStateException();
+		}
+		return request.getSession(create);
 	}
 
 	/**

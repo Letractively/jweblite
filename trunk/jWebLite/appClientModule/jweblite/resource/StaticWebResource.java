@@ -13,6 +13,7 @@ import jweblite.web.JWebLiteApplication;
 import jweblite.web.page.FormModel;
 import jweblite.web.page.JWebLitePage;
 import jweblite.web.page.SkipException;
+import jweblite.web.page.WebContext;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -29,13 +30,13 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 		super();
 	}
 
-	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+	public void doRequest(WebContext context, FormModel formModel)
+			throws SkipException {
 		try {
 			// header
-			this.doHeader(req, resp, formModel);
+			this.doHeader(context, formModel);
 			// body
-			this.doBody(req, resp, formModel);
+			this.doBody(context, formModel);
 		} catch (SkipException se) {
 			throw se;
 		} catch (Exception e) {
@@ -44,8 +45,10 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 		throw new SkipException();
 	}
 
-	public void doHeader(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+	public void doHeader(WebContext context, FormModel formModel)
+			throws SkipException {
+		HttpServletRequest req = context.getRequest();
+		HttpServletResponse resp = context.getResponse();
 		// contentType
 		String contentType = this.getContentType();
 		if (contentType != null) {
@@ -72,15 +75,16 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 		}
 	}
 
-	public void doBody(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) throws SkipException {
+	public void doBody(WebContext context, FormModel formModel)
+			throws SkipException {
 		// write
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
 		try {
 			bis = new BufferedInputStream(new FileInputStream(this.loadData(
-					req, formModel)));
-			bos = new BufferedOutputStream(resp.getOutputStream());
+					context, formModel)));
+			bos = new BufferedOutputStream(context.getResponse()
+					.getOutputStream());
 			IOUtils.copy(bis, bos);
 			bos.flush();
 		} catch (Exception e) {
@@ -100,12 +104,14 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 	}
 
 	/**
-	 * load Data
+	 * Load Data
 	 * 
-	 * @param req
-	 *            JWebLiteRequestWrapper
+	 * @param context
+	 *            WebContext
+	 * @param formModel
+	 *            FormModel
 	 * @return File
 	 */
-	public abstract File loadData(HttpServletRequest req, FormModel formModel);
+	public abstract File loadData(WebContext context, FormModel formModel);
 
 }
