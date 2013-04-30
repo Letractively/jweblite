@@ -7,70 +7,70 @@
 	<uri>https://code.google.com/p/jweblite/RequestELUtils</uri>
 
 	<!-- ============================================================================================================== -->
-	<!-- jweblite.web.wrapper.FormModel -->
+	<!-- jweblite.web.page.FormModel -->
 	<!-- ============================================================================================================== -->
 
 	<!-- containsParameter -->
 	<function>
 		<name>containsParameter</name>
 		<function-class>jweblite.util.el.RequestELUtils</function-class>
-		<function-signature><![CDATA[ boolean containsParameter(jweblite.web.wrapper.FormModel, java.lang.String, java.lang.String) ]]></function-signature>
+		<function-signature><![CDATA[ boolean containsParameter(jweblite.web.page.FormModel, java.lang.String, java.lang.String) ]]></function-signature>
 	</function>
 
 	<!-- getParameterMap -->
 	<function>
 		<name>getParameterMap</name>
 		<function-class>jweblite.util.el.RequestELUtils</function-class>
-		<function-signature><![CDATA[ jweblite.data.MultiValueMap getParameterMap(jweblite.web.wrapper.FormModel) ]]></function-signature>
+		<function-signature><![CDATA[ jweblite.data.MultiValueMap getParameterMap(jweblite.web.page.FormModel) ]]></function-signature>
 	</function>
 
 	<!-- getString -->
 	<function>
 		<name>getString</name>
 		<function-class>jweblite.util.el.RequestELUtils</function-class>
-		<function-signature><![CDATA[ java.lang.String getString(jweblite.web.wrapper.FormModel, java.lang.String, java.lang.String) ]]></function-signature>
+		<function-signature><![CDATA[ java.lang.String getString(jweblite.web.page.FormModel, java.lang.String, java.lang.String) ]]></function-signature>
 	</function>
 
 	<!-- getEscapedString -->
 	<function>
 		<name>getEscapedString</name>
 		<function-class>jweblite.util.el.RequestELUtils</function-class>
-		<function-signature><![CDATA[ java.lang.String getEscapedString(jweblite.web.wrapper.FormModel, java.lang.String, java.lang.String) ]]></function-signature>
+		<function-signature><![CDATA[ java.lang.String getEscapedString(jweblite.web.page.FormModel, java.lang.String, java.lang.String) ]]></function-signature>
 	</function>
 
 	<!-- getInt -->
 	<function>
 		<name>getInt</name>
 		<function-class>jweblite.util.el.RequestELUtils</function-class>
-		<function-signature><![CDATA[ int getInt(jweblite.web.wrapper.FormModel, java.lang.String, int) ]]></function-signature>
+		<function-signature><![CDATA[ int getInt(jweblite.web.page.FormModel, java.lang.String, int) ]]></function-signature>
 	</function>
 
 	<!-- getLong -->
 	<function>
 		<name>getLong</name>
 		<function-class>jweblite.util.el.RequestELUtils</function-class>
-		<function-signature><![CDATA[ long getLong(jweblite.web.wrapper.FormModel, java.lang.String, long) ]]></function-signature>
+		<function-signature><![CDATA[ long getLong(jweblite.web.page.FormModel, java.lang.String, long) ]]></function-signature>
 	</function>
 
 	<!-- getDouble -->
 	<function>
 		<name>getDouble</name>
 		<function-class>jweblite.util.el.RequestELUtils</function-class>
-		<function-signature><![CDATA[ double getDouble(jweblite.web.wrapper.FormModel, java.lang.String, double) ]]></function-signature>
+		<function-signature><![CDATA[ double getDouble(jweblite.web.page.FormModel, java.lang.String, double) ]]></function-signature>
 	</function>
 
 	<!-- getDate -->
 	<function>
 		<name>getDate</name>
 		<function-class>jweblite.util.el.RequestELUtils</function-class>
-		<function-signature><![CDATA[ java.util.Date getDate(jweblite.web.wrapper.FormModel, java.lang.String, java.lang.String, java.util.Date) ]]></function-signature>
+		<function-signature><![CDATA[ java.util.Date getDate(jweblite.web.page.FormModel, java.lang.String, java.lang.String, java.util.Date) ]]></function-signature>
 	</function>
 
 	<!-- getFile -->
 	<function>
 		<name>getFile</name>
 		<function-class>jweblite.util.el.RequestELUtils</function-class>
-		<function-signature><![CDATA[ org.apache.commons.fileupload.FileItem getFile(jweblite.web.wrapper.FormModel, java.lang.String) ]]></function-signature>
+		<function-signature><![CDATA[ org.apache.commons.fileupload.FileItem getFile(jweblite.web.page.FormModel, java.lang.String) ]]></function-signature>
 	</function>
 
 </taglib>
