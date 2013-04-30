@@ -3,7 +3,7 @@ package jweblite.util.el;
 import java.util.Date;
 
 import jweblite.data.MultiValueMap;
-import jweblite.web.wrapper.FormModel;
+import jweblite.web.page.FormModel;
 
 import org.apache.commons.fileupload.FileItem;
 

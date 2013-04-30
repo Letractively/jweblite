@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import jweblite.util.LogUtils;
 import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
+import jweblite.web.page.FormModel;
+import jweblite.web.page.JWebLitePage;
+import jweblite.web.page.SkipException;
+import jweblite.web.page.WebContext;
 import jweblite.web.session.JWebLiteSessionManager;
-import jweblite.web.wrapper.FormModel;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
 
 import org.apache.commons.logging.Log;
@@ -178,7 +181,8 @@ public class JWebLiteFilter implements Filter {
 			JWebLitePage reqClassInstance = (JWebLitePage) reqClass
 					.newInstance();
 			req.setAttribute(attrPrefix, reqClassInstance);
-			reqClassInstance.doRequest(req, respWrapper, formModel);
+			reqClassInstance.doRequest(new WebContext(req, respWrapper),
+					formModel);
 		}
 	}
 

@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.web.JWebLiteFilterConfig;
-import jweblite.web.SkipException;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
-import jweblite.web.wrapper.FormModel;
+import jweblite.web.page.FormModel;
+import jweblite.web.page.SkipException;
 
 public class JWebLiteApplication implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -1,8 +1,11 @@
 JWebLite Change Log
 
-Version 0.5.2
+Version 0.6.0
 ====================
-．Add LineFilteredOutputStreamWriter
+．Add LineWriterListener
+．Add WebContext
+．Move JWebLitePage package into jweblite.web.page
+．Minor changes
 ．Minor bug fixes
 
 Version 0.5.1

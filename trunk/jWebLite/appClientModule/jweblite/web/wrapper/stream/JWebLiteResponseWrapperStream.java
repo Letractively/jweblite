@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import javax.servlet.ServletOutputStream;
 
-import jweblite.web.stream.LineFilteredOutputStreamEvent;
+import jweblite.web.stream.LineWriterListener;
 
 public interface JWebLiteResponseWrapperStream extends Serializable {
 
@@ -48,13 +48,12 @@ public interface JWebLiteResponseWrapperStream extends Serializable {
 	public void resetOutputStream(OutputStream os);
 
 	/**
-	 * Set LineFilteredOutputStreamEvent
+	 * Bind LineWriterListener
 	 * 
-	 * @param lineFilteredOutputStreamEvent
-	 *            LineFilteredOutputStreamEvent
+	 * @param lineWriterListener
+	 *            LineWriterListener
 	 */
-	public void setLineFilteredOutputStreamEvent(
-			LineFilteredOutputStreamEvent lineFilteredOutputStreamEvent);
+	public void bindLineWriterListener(LineWriterListener lineWriterListener);
 
 	/**
 	 * Is GZip Enabled

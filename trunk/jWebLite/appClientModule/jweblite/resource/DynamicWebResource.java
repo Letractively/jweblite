@@ -6,18 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.util.StringUtils;
-import jweblite.web.JWebLitePage;
-import jweblite.web.JWebLitePageEvent;
-import jweblite.web.SkipException;
 import jweblite.web.application.JWebLiteApplication;
-import jweblite.web.wrapper.FormModel;
+import jweblite.web.page.FormModel;
+import jweblite.web.page.JWebLitePage;
+import jweblite.web.page.SkipException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public abstract class DynamicWebResource implements JWebLitePage,
-		JWebLitePageEvent, WebResource {
+public abstract class DynamicWebResource implements JWebLitePage, WebResource {
 	private static final long serialVersionUID = 1L;
 	private static final Log _cat = LogFactory.getLog(DynamicWebResource.class);
 
@@ -35,8 +33,6 @@ public abstract class DynamicWebResource implements JWebLitePage,
 			this.doHeader(req, resp, formModel);
 			// body
 			this.doBody(req, resp, formModel);
-			// finish
-			this.doFinish(req, resp, formModel);
 		} catch (SkipException se) {
 			throw se;
 		} catch (Exception e) {
@@ -86,11 +82,6 @@ public abstract class DynamicWebResource implements JWebLitePage,
 		} finally {
 			IOUtils.closeQuietly(bos);
 		}
-	}
-
-	public void doFinish(HttpServletRequest req, HttpServletResponse resp,
-			FormModel formModel) {
-		// nothing
 	}
 
 	public String getEncoding() {
