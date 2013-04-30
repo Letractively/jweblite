@@ -3,7 +3,7 @@ package jweblite.web.stream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public interface LineFilteredOutputStreamEvent {
+public interface LineWriterListener {
 
 	/**
 	 * Do Init
@@ -15,7 +15,7 @@ public interface LineFilteredOutputStreamEvent {
 	public void doInit(OutputStreamWriter osw) throws IOException;
 
 	/**
-	 * Do Before Render Line
+	 * Do Before Line
 	 * 
 	 * @param osw
 	 *            OutputStreamWriter
@@ -24,11 +24,11 @@ public interface LineFilteredOutputStreamEvent {
 	 * @return String
 	 * @throws IOException
 	 */
-	public String doBeforeRenderLine(OutputStreamWriter osw, String line)
+	public String doBeforeLine(OutputStreamWriter osw, String line)
 			throws IOException;
 
 	/**
-	 * Do After Render Line
+	 * Do After Line
 	 * 
 	 * @param osw
 	 *            OutputStreamWriter
@@ -36,7 +36,7 @@ public interface LineFilteredOutputStreamEvent {
 	 *            String
 	 * @throws IOException
 	 */
-	public void doAfterRenderLine(OutputStreamWriter osw, String line)
+	public void doAfterLine(OutputStreamWriter osw, String line)
 			throws IOException;
 
 	/**

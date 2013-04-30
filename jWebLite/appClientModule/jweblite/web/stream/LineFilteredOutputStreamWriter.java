@@ -113,23 +113,23 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 	}
 
 	/**
-	 * Do Before Render Line
+	 * Do Before Line
 	 * 
 	 * @param line
 	 * @return String
 	 * @throws IOException
 	 */
-	public String doBeforeRenderLine(String line) throws IOException {
+	public String doBeforeLine(String line) throws IOException {
 		return line;
 	}
 
 	/**
-	 * Do After Render Line
+	 * Do After Line
 	 * 
 	 * @param line
 	 * @throws IOException
 	 */
-	public void doAfterRenderLine(String line) throws IOException {
+	public void doAfterLine(String line) throws IOException {
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 		// keep the current line data
 		String line = lineBuffer.toString();
 		lineBuffer = null;
-		line = doBeforeRenderLine(line);
+		line = doBeforeLine(line);
 		if (lineBuffer != null) {
 			lineBuffer.append(line);
 			line = lineBuffer.toString();
@@ -157,7 +157,7 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 		}
 		lineIndex++;
 		super.write(line, 0, line.length());
-		doAfterRenderLine(line);
+		doAfterLine(line);
 	}
 
 	/**

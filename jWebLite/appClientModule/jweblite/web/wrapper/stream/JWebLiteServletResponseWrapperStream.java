@@ -8,8 +8,8 @@ import java.io.PrintWriter;
 import javax.servlet.ServletOutputStream;
 
 import jweblite.web.stream.GZipServletOutputStream;
-import jweblite.web.stream.LineFilteredOutputStreamEvent;
 import jweblite.web.stream.LineFilteredOutputStreamWriter;
+import jweblite.web.stream.LineWriterListener;
 import jweblite.web.stream.ProxyServletOutputStream;
 
 import org.apache.commons.io.IOUtils;
@@ -25,7 +25,7 @@ public class JWebLiteServletResponseWrapperStream implements
 	private ServletOutputStream sos = null;
 	private PrintWriter pw = null;
 
-	private LineFilteredOutputStreamEvent lineFilteredOutputStreamEvent = null;
+	private LineWriterListener lineWriterListener = null;
 
 	/**
 	 * Default constructor.
@@ -71,36 +71,32 @@ public class JWebLiteServletResponseWrapperStream implements
 				sos = new GZipServletOutputStream(this.os);
 			}
 			OutputStreamWriter osw = null;
-			if (lineFilteredOutputStreamEvent == null) {
+			if (lineWriterListener == null) {
 				osw = new OutputStreamWriter(sos, this.encoding);
 			} else {
 				osw = new LineFilteredOutputStreamWriter(sos, this.encoding) {
 					@Override
 					public void doInit() throws IOException {
 						super.doInit();
-						lineFilteredOutputStreamEvent.doInit(this);
+						lineWriterListener.doInit(this);
 					}
 
 					@Override
-					public String doBeforeRenderLine(String line)
-							throws IOException {
-						line = super.doBeforeRenderLine(line);
-						return lineFilteredOutputStreamEvent
-								.doBeforeRenderLine(this, line);
+					public String doBeforeLine(String line) throws IOException {
+						line = super.doBeforeLine(line);
+						return lineWriterListener.doBeforeLine(this, line);
 					}
 
 					@Override
-					public void doAfterRenderLine(String line)
-							throws IOException {
-						super.doAfterRenderLine(line);
-						lineFilteredOutputStreamEvent.doAfterRenderLine(this,
-								line);
+					public void doAfterLine(String line) throws IOException {
+						super.doAfterLine(line);
+						lineWriterListener.doAfterLine(this, line);
 					}
 
 					@Override
 					public void doFinish() throws IOException {
 						super.doFinish();
-						lineFilteredOutputStreamEvent.doFinish(this);
+						lineWriterListener.doFinish(this);
 					}
 				};
 			}
@@ -130,9 +126,8 @@ public class JWebLiteServletResponseWrapperStream implements
 		}
 	}
 
-	public void setLineFilteredOutputStreamEvent(
-			LineFilteredOutputStreamEvent lineFilteredOutputStreamEvent) {
-		this.lineFilteredOutputStreamEvent = lineFilteredOutputStreamEvent;
+	public void bindLineWriterListener(LineWriterListener lineWriterListener) {
+		this.lineWriterListener = lineWriterListener;
 		resetOutputStream(this.os);
 	}
 

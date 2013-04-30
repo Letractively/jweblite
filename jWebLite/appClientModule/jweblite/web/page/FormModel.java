@@ -1,4 +1,4 @@
-package jweblite.web.wrapper;
+package jweblite.web.page;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;

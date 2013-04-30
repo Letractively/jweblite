@@ -55,8 +55,8 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 		PrintWriter pw = new PrintWriter(new LineFilteredOutputStreamWriter(
 				baos, "UTF-8") {
 			@Override
-			public String doBeforeRenderLine(String line) throws IOException {
-				line = super.doBeforeRenderLine(line);
+			public String doBeforeLine(String line) throws IOException {
+				line = super.doBeforeLine(line);
 				if (line.contains("Content2")) {
 					write("before1\nbefore2");
 					return "Content222\n";
@@ -65,8 +65,8 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 			}
 
 			@Override
-			public void doAfterRenderLine(String line) throws IOException {
-				super.doAfterRenderLine(line);
+			public void doAfterLine(String line) throws IOException {
+				super.doAfterLine(line);
 				if (line.contains("Content2")) {
 					write("after1\nafter2");
 				}
