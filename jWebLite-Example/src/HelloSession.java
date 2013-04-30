@@ -1,12 +1,9 @@
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import jweblite.web.JWebLitePage;
-import jweblite.web.SkipException;
-import jweblite.web.wrapper.FormModel;
+import jweblite.web.page.FormModel;
+import jweblite.web.page.JWebLitePage;
+import jweblite.web.page.SkipException;
+import jweblite.web.page.WebContext;
 
 public class HelloSession implements JWebLitePage {
-
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -16,9 +13,9 @@ public class HelloSession implements JWebLitePage {
 		super();
 	}
 
-	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel fm) throws SkipException {
-		req.getSession().setAttribute("test", "Session");
+	public void doRequest(WebContext context, FormModel fm)
+			throws SkipException {
+		context.getSession().setAttribute("test", "Session");
 	}
 
 }

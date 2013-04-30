@@ -3,10 +3,9 @@ package application;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import jweblite.web.application.JWebLiteApplication;
+import jweblite.web.JWebLiteApplication;
 
 public class WebApplication extends JWebLiteApplication {
-
 	private static final long serialVersionUID = 1L;
 
 	private String startedAt = null;

@@ -1,15 +1,12 @@
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import jweblite.web.JWebLitePage;
-import jweblite.web.SkipException;
-import jweblite.web.wrapper.FormModel;
+import jweblite.web.page.FormModel;
+import jweblite.web.page.JWebLitePage;
+import jweblite.web.page.SkipException;
+import jweblite.web.page.WebContext;
 
 public class HelloELTagLib implements JWebLitePage {
-
 	private static final long serialVersionUID = 1L;
 
 	private List<Integer> numberList = Arrays.asList(new Integer[] { 0, 1, 2,
@@ -22,8 +19,8 @@ public class HelloELTagLib implements JWebLitePage {
 		super();
 	}
 
-	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel fm) throws SkipException {
+	public void doRequest(WebContext context, FormModel fm)
+			throws SkipException {
 	}
 
 	public List<Integer> getNumberList() {
