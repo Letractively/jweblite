@@ -51,15 +51,25 @@ public class WebContext {
 	/**
 	 * Get Session
 	 * 
-	 * @param create
-	 *            boolean
 	 * @return HttpSession
 	 */
-	public HttpSession getSession(boolean create) {
+	public HttpSession getSession() {
 		if (request == null) {
 			throw new IllegalStateException();
 		}
-		return request.getSession(create);
+		return request.getSession(true);
+	}
+
+	/**
+	 * Is Session Existed
+	 * 
+	 * @return boolean
+	 */
+	public boolean isSessionExisted() {
+		if (request == null) {
+			throw new IllegalStateException();
+		}
+		return (request.getSession(false) != null);
 	}
 
 	/**
