@@ -1,13 +1,10 @@
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import jweblite.extension.resource.image.CaptchaImage;
-import jweblite.web.JWebLitePage;
-import jweblite.web.SkipException;
-import jweblite.web.wrapper.FormModel;
+import jweblite.web.page.FormModel;
+import jweblite.web.page.JWebLitePage;
+import jweblite.web.page.SkipException;
+import jweblite.web.page.WebContext;
 
 public class HelloCaptcha implements JWebLitePage {
-
 	private static final long serialVersionUID = 1L;
 
 	private String test = null;
@@ -19,9 +16,9 @@ public class HelloCaptcha implements JWebLitePage {
 		super();
 	}
 
-	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel fm) throws SkipException {
-		this.test = CaptchaImage.createChallenge(req,
+	public void doRequest(WebContext context, FormModel fm)
+			throws SkipException {
+		this.test = CaptchaImage.createChallenge(context.getRequest(),
 				String.valueOf((int) (Math.random() * 10000)));
 	}
 

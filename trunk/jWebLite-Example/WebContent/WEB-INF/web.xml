@@ -30,7 +30,7 @@
 		</init-param>
 		<init-param>
 			<param-name>ErrorPage</param-name>
-			<param-value>debug</param-value>
+			<param-value>/error/HelloErrorPage.jsp</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>

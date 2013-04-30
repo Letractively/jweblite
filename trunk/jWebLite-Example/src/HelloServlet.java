@@ -1,16 +1,15 @@
 import java.io.BufferedWriter;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jweblite.web.JWebLitePage;
-import jweblite.web.SkipException;
-import jweblite.web.wrapper.FormModel;
+import jweblite.web.page.FormModel;
+import jweblite.web.page.JWebLitePage;
+import jweblite.web.page.SkipException;
+import jweblite.web.page.WebContext;
 
 import org.apache.commons.io.IOUtils;
 
 public class HelloServlet implements JWebLitePage {
-
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -20,8 +19,9 @@ public class HelloServlet implements JWebLitePage {
 		super();
 	}
 
-	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel fm) throws SkipException {
+	public void doRequest(WebContext context, FormModel fm)
+			throws SkipException {
+		HttpServletResponse resp = context.getResponse();
 		resp.setContentType("text/html; charset=UTF-8");
 		// write
 		BufferedWriter bw = null;
