@@ -5,6 +5,7 @@ Version 0.6.0
 ．Add LineWriterListener
 ．Add WebContext
 ．Move JWebLitePage package into jweblite.web.page
+．Move JWebLiteApplication package into jweblite.web
 ．Minor changes
 ．Minor bug fixes
 

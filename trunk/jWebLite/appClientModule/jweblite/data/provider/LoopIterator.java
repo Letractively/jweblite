@@ -1,4 +1,4 @@
-package jweblite.util.iterator;
+package jweblite.data.provider;
 
 import java.io.Serializable;
 import java.util.Arrays;

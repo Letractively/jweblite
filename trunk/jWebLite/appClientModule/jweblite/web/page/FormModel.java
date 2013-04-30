@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import jweblite.data.MultiValueHashMap;
 import jweblite.data.MultiValueMap;
 import jweblite.util.StringUtils;
-import jweblite.web.application.JWebLiteApplication;
+import jweblite.web.JWebLiteApplication;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.util.StringUtils;
-import jweblite.web.application.JWebLiteApplication;
+import jweblite.web.JWebLiteApplication;
 import jweblite.web.page.FormModel;
 import jweblite.web.page.JWebLitePage;
 import jweblite.web.page.SkipException;

@@ -17,10 +17,10 @@ import org.apache.commons.lang.StringEscapeUtils;
 public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	private static final long serialVersionUID = 1L;
 
-	private AttributeCallback additionAttrValueCallback = null;
+	private AttributeCallback additionAttrValueRenderer = null;
 
 	private final Map<String, Object> originalAdditionalAttrMap = new HashMap();
-	private final AttributeCallback defaultAdditionAttrValueCallback = new AttributeCallback() {
+	private final AttributeCallback defaultAdditionAttrValueRenderer = new AttributeCallback() {
 		public Object callback(String localName, Object value) {
 			if (localName == null || value == null
 					|| !(value instanceof Comparable)) {
@@ -53,10 +53,9 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	 * @return String
 	 */
 	public String makeAdditionalTagAttr(Map<String, Object> m) {
-		AttributeCallback additionAttrValueCallback = this
-				.getAdditionAttrValueCallback();
-		if (additionAttrValueCallback == null) {
-			additionAttrValueCallback = this.defaultAdditionAttrValueCallback;
+		AttributeCallback additionAttrValueRenderer = this.additionAttrValueRenderer;
+		if (additionAttrValueRenderer == null) {
+			additionAttrValueRenderer = this.defaultAdditionAttrValueRenderer;
 		}
 		List<String> result = new ArrayList();
 		// prepare additionalAttrMap
@@ -68,8 +67,8 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 		// to string
 		for (String attrName : additionalAttrMap.keySet()) {
 			Object attrValue = additionalAttrMap.get(attrName);
-			if (additionAttrValueCallback != null) {
-				attrValue = additionAttrValueCallback.callback(attrName,
+			if (additionAttrValueRenderer != null) {
+				attrValue = additionAttrValueRenderer.callback(attrName,
 						attrValue);
 			}
 			if (attrValue != null) {
@@ -92,23 +91,23 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	}
 
 	/**
-	 * Get Addition Attr Value Callback
+	 * Get Addition Attr Value Renderer
 	 * 
 	 * @return AttributeCallback
 	 */
-	public AttributeCallback getAdditionAttrValueCallback() {
-		return additionAttrValueCallback;
+	public AttributeCallback getAdditionAttrValueRenderer() {
+		return additionAttrValueRenderer;
 	}
 
 	/**
-	 * Set Addition Attr Value Callback
+	 * Set Addition Attr Value Renderer
 	 * 
-	 * @param additionAttrValueCallback
+	 * @param additionAttrValueRenderer
 	 *            AttributeCallback
 	 */
-	public void setAdditionAttrCallback(
-			AttributeCallback additionAttrValueCallback) {
-		this.additionAttrValueCallback = additionAttrValueCallback;
+	public void setAdditionAttrRenderer(
+			AttributeCallback additionAttrValueRenderer) {
+		this.additionAttrValueRenderer = additionAttrValueRenderer;
 	}
 
 	/**

@@ -1,11 +1,10 @@
-package jweblite.web.application;
+package jweblite.web;
 
 import java.io.Serializable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jweblite.web.JWebLiteFilterConfig;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.page.FormModel;
 import jweblite.web.page.SkipException;
