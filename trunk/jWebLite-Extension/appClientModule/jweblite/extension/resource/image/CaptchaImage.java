@@ -15,13 +15,13 @@ import java.io.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jweblite.resource.DynamicWebResource;
-import jweblite.web.SkipException;
-import jweblite.web.application.JWebLiteApplication;
-import jweblite.web.wrapper.FormModel;
+import jweblite.web.JWebLiteApplication;
+import jweblite.web.page.FormModel;
+import jweblite.web.page.SkipException;
+import jweblite.web.page.WebContext;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -54,7 +54,7 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	}
 
 	@Override
-	public byte[] loadData(HttpServletRequest req, FormModel fm) {
+	public byte[] loadData(WebContext context, FormModel fm) {
 		if (this.font == null) {
 			return null;
 		}
@@ -93,25 +93,28 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	}
 
 	@Override
-	public void doHeader(HttpServletRequest req, HttpServletResponse resp,
-			FormModel fm) throws SkipException {
+	public void doHeader(WebContext context, FormModel fm) throws SkipException {
 		// get challenge from session
-		this.challenge = getChallenge(req);
+		this.challenge = getChallenge(context.getRequest());
 		if (this.challenge == null) {
 			throw new SkipException();
 		}
-		super.doHeader(req, resp, fm);
+		super.doHeader(context, fm);
 	}
 
 	/**
 	 * Create Challenge
 	 * 
+	 * @param request
+	 *            HttpServletRequest
+	 * @param challenge
+	 *            String
 	 * @return String
 	 */
-	public static String createChallenge(HttpServletRequest req,
+	public static String createChallenge(HttpServletRequest request,
 			String challenge) {
 		// set challenge to the session
-		HttpSession session = req.getSession(true);
+		HttpSession session = request.getSession(true);
 		String attrPrefix = JWebLiteApplication.get().getFilterConfig()
 				.getAttrPrefix();
 		String captchaImageId = String.valueOf(System.currentTimeMillis());
@@ -126,11 +129,13 @@ public abstract class CaptchaImage extends DynamicWebResource {
 	 * Get Challenge (could be a wrong challenge by another captcha image
 	 * request)
 	 * 
+	 * @param request
+	 *            HttpServletRequest
 	 * @return String
 	 */
-	public static String getChallenge(HttpServletRequest req) {
+	public static String getChallenge(HttpServletRequest request) {
 		// set challenge to the session
-		HttpSession session = req.getSession(true);
+		HttpSession session = request.getSession(true);
 		String attrPrefix = JWebLiteApplication.get().getFilterConfig()
 				.getAttrPrefix();
 		String captchaId = (String) session.getAttribute(attrPrefix
