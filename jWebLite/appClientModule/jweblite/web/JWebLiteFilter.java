@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jweblite.util.LogUtils;
-import jweblite.web.application.JWebLiteApplication;
 import jweblite.web.dispatcher.JWebLiteRequestDispatcher;
 import jweblite.web.page.FormModel;
 import jweblite.web.page.JWebLitePage;
