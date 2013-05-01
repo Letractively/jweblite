@@ -72,6 +72,14 @@
 				<attribute name="Implementation-Version" value="${version}" />
 			</manifest>
 		</war>
+		<zip destfile="${ant.project.name}-${version}.zip">
+			<zipfileset prefix="${ant.project.name}-${version}" dir="${basedir}">
+				<include name="src/" />
+				<include name="dependencies/" />
+				<include name="WebContent/" />
+				<include name="${ant.project.name}-${version}.war" />
+			</zipfileset>
+		</zip>
 	</target>
 
 </project>
