@@ -152,7 +152,7 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 		line = doBeforeLine(line);
 		if (line == null) {
 			throw new NullPointerException(
-					"The line writer cannot write the null pointer!");
+					"The LineWriterListener cannot write the null pointer!");
 		}
 		if (lineBuffer != null) {
 			lineBuffer.append(line);
