@@ -56,6 +56,14 @@ public interface JWebLiteResponseWrapperStream extends Serializable {
 	public void bindLineWriterListener(LineWriterListener lineWriterListener);
 
 	/**
+	 * Unbind LineWriterListener
+	 * 
+	 * @param lineWriterListener
+	 *            LineWriterListener
+	 */
+	public void unbindLineWriterListener(LineWriterListener lineWriterListener);
+
+	/**
 	 * Is GZip Enabled
 	 * 
 	 * @return boolean

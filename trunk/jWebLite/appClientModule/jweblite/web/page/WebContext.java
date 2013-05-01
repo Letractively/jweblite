@@ -49,6 +49,21 @@ public class WebContext {
 	}
 
 	/**
+	 * Unbind LineWriterListener
+	 * 
+	 * @param lineWriterListener
+	 *            LineWriterListener
+	 */
+	public void unbindLineWriterListener(LineWriterListener lineWriterListener) {
+		if (response == null || !(response instanceof JWebLiteResponseWrapper)) {
+			throw new IllegalStateException();
+		}
+		JWebLiteResponseWrapper respWrapper = (JWebLiteResponseWrapper) response;
+		respWrapper.getWrapperStream().unbindLineWriterListener(
+				lineWriterListener);
+	}
+
+	/**
 	 * Get Session
 	 * 
 	 * @return HttpSession
