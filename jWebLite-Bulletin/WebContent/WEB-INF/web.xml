@@ -26,7 +26,7 @@
 		</init-param>
 		<init-param>
 			<param-name>InitClassName</param-name>
-			<param-value>application.WebApplication</param-value>
+			<param-value></param-value>
 		</init-param>
 		<init-param>
 			<param-name>ErrorPage</param-name>
