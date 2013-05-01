@@ -29,12 +29,18 @@ fieldset {
 	-khtml-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+	/* for IE9/10.. */
+	margin-top: 15px;
 }
 
-legend {
-	padding: 10px 5px;
+/* for IE9/10.. */
+fieldset span.legend {
 	color: #4578D4;
-	font-size: small;
+	font-size: 12px;
 	font-weight: bold;
-	text-decoration: underline;
+	background-color: white;
+	position: relative;
+	top: -8px;
+	padding: 3px 15px;
+	cursor: pointer;
 }

@@ -14,11 +14,10 @@
 		<a href="${JwlCP}">[ JWebLite Bulletin ]</a>
 	</h3>
 	<fieldset>
-		<legend>JWebLite Bulletin</legend>
+		<span class="legend">JWebLite Bulletin</span>
 		<div>
-
-			
-
+		
+		
 		</div>
 	</fieldset>
 
