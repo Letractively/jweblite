@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 
@@ -25,7 +27,7 @@ public class JWebLiteServletResponseWrapperStream implements
 	private ServletOutputStream sos = null;
 	private PrintWriter pw = null;
 
-	private LineWriterListener lineWriterListener = null;
+	private List<LineWriterListener> lineWriterListeners = new ArrayList();
 
 	/**
 	 * Default constructor.
@@ -71,32 +73,41 @@ public class JWebLiteServletResponseWrapperStream implements
 				sos = new GZipServletOutputStream(this.os);
 			}
 			OutputStreamWriter osw = null;
-			if (lineWriterListener == null) {
+			if (lineWriterListeners == null || lineWriterListeners.size() <= 0) {
 				osw = new OutputStreamWriter(sos, this.encoding);
 			} else {
 				osw = new LineFilteredOutputStreamWriter(sos, this.encoding) {
 					@Override
 					public void doInit() throws IOException {
 						super.doInit();
-						lineWriterListener.doInit(this);
+						for (LineWriterListener lineWriterListener : lineWriterListeners) {
+							lineWriterListener.doInit(this);
+						}
 					}
 
 					@Override
 					public String doBeforeLine(String line) throws IOException {
 						line = super.doBeforeLine(line);
-						return lineWriterListener.doBeforeLine(this, line);
+						for (LineWriterListener lineWriterListener : lineWriterListeners) {
+							line = lineWriterListener.doBeforeLine(this, line);
+						}
+						return line;
 					}
 
 					@Override
 					public void doAfterLine(String line) throws IOException {
 						super.doAfterLine(line);
-						lineWriterListener.doAfterLine(this, line);
+						for (LineWriterListener lineWriterListener : lineWriterListeners) {
+							lineWriterListener.doAfterLine(this, line);
+						}
 					}
 
 					@Override
 					public void doFinish() throws IOException {
 						super.doFinish();
-						lineWriterListener.doFinish(this);
+						for (LineWriterListener lineWriterListener : lineWriterListeners) {
+							lineWriterListener.doFinish(this);
+						}
 					}
 				};
 			}
@@ -127,7 +138,18 @@ public class JWebLiteServletResponseWrapperStream implements
 	}
 
 	public void bindLineWriterListener(LineWriterListener lineWriterListener) {
-		this.lineWriterListener = lineWriterListener;
+		if (lineWriterListeners == null) {
+			throw new IllegalStateException();
+		}
+		lineWriterListeners.add(lineWriterListener);
+		resetOutputStream(this.os);
+	}
+
+	public void unbindLineWriterListener(LineWriterListener lineWriterListener) {
+		if (lineWriterListeners == null) {
+			throw new IllegalStateException();
+		}
+		lineWriterListeners.remove(lineWriterListener);
 		resetOutputStream(this.os);
 	}
 
