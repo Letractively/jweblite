@@ -150,6 +150,10 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 		String line = lineBuffer.toString();
 		lineBuffer = null;
 		line = doBeforeLine(line);
+		if (line == null) {
+			throw new NullPointerException(
+					"The line writer cannot write the null pointer!");
+		}
 		if (lineBuffer != null) {
 			lineBuffer.append(line);
 			line = lineBuffer.toString();
