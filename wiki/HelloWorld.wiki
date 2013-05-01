@@ -33,8 +33,7 @@ public class HelloWorld implements JWebLitePage {
 
 	private String test = null;
 
-	public void doRequest(HttpServletRequest req, HttpServletResponse resp,
-			FormModel fm) throws SkipException {
+	public void doRequest(WebContext context, FormModel fm) throws SkipException {
 		this.test = fm.getString("test", "World");
 	}
 
