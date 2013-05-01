@@ -6,7 +6,7 @@ import jweblite.web.page.WebContext;
 public class HelloIncludeSubpage implements JWebLitePage {
 	private static final long serialVersionUID = 1L;
 
-	private String test = "Subpage";
+	private String test = "subpage";
 
 	/**
 	 * Default constructor.

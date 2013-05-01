@@ -14,7 +14,7 @@
 		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Hello Error Page</legend>
+		<span class="legend">Hello Error Page</span>
 		<div>
 
 			Hello <font color="red">${JwlException}</font>!

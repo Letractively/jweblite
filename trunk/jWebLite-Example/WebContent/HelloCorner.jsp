@@ -16,7 +16,7 @@
 		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Hello Corner</legend>
+		<span class="legend">Hello Corner</span>
 		<div>
 
 			<JwlExtPageUtils:corner header="Hello Corner" width="300px"

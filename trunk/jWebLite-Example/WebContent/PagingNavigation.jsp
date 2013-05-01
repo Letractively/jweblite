@@ -17,7 +17,7 @@
 		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Paging Navigation</legend>
+		<span class="legend">Paging Navigation</span>
 		<div>
 
 			<c:set var="dataProvider" value="${Jwl.dataProvider}" />
