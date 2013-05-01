@@ -42,17 +42,14 @@ public class HelloLineWriterListener implements JWebLitePage {
 					throws IOException {
 			}
 
-			public void doFinish(Writer writer, int index)
-					throws IOException {
+			public void doFinish(Writer writer, int index) throws IOException {
 			}
 
-			public String doBeforeLine(Writer writer, String line,
-					int index) throws IOException {
+			public String doBeforeLine(Writer writer, String line, int index) throws IOException {
 				return line;
 			}
 
-			public void doAfterLine(Writer writer, String line,
-					int index) throws IOException {
+			public void doAfterLine(Writer writer, String line, int index) throws IOException {
 				if (line.contains("Hello LineWriterListener!")) {
 					writer.write("<br />LineWriterListener: Hello Sir!");
 				}
