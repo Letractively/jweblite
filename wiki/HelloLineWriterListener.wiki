@@ -38,8 +38,7 @@ public class HelloLineWriterListener implements JWebLitePage {
 	public void doRequest(WebContext context, FormModel fm)
 			throws SkipException {
 		context.bindLineWriterListener(new LineWriterListener() {
-			public void doInit(Writer writer, int index)
-					throws IOException {
+			public void doInit(Writer writer, int index) throws IOException {
 			}
 
 			public void doFinish(Writer writer, int index) throws IOException {
