@@ -1,26 +1,26 @@
 package jweblite.web.stream;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 public interface LineWriterListener {
 
 	/**
 	 * Do Init
 	 * 
-	 * @param osw
-	 *            OutputStreamWriter
+	 * @param writer
+	 *            Writer
 	 * @param index
 	 *            int
 	 * @throws IOException
 	 */
-	public void doInit(OutputStreamWriter osw, int index) throws IOException;
+	public void doInit(Writer writer, int index) throws IOException;
 
 	/**
 	 * Do Before Line
 	 * 
-	 * @param osw
-	 *            OutputStreamWriter
+	 * @param writer
+	 *            Writer
 	 * @param line
 	 *            String
 	 * @param index
@@ -28,32 +28,32 @@ public interface LineWriterListener {
 	 * @return String
 	 * @throws IOException
 	 */
-	public String doBeforeLine(OutputStreamWriter osw, String line, int index)
+	public String doBeforeLine(Writer writer, String line, int index)
 			throws IOException;
 
 	/**
 	 * Do After Line
 	 * 
-	 * @param osw
-	 *            OutputStreamWriter
+	 * @param writer
+	 *            Writer
 	 * @param line
 	 *            String
 	 * @param index
 	 *            int
 	 * @throws IOException
 	 */
-	public void doAfterLine(OutputStreamWriter osw, String line, int index)
+	public void doAfterLine(Writer writer, String line, int index)
 			throws IOException;
 
 	/**
 	 * Do Finish
 	 * 
-	 * @param osw
-	 *            OutputStreamWriter
+	 * @param writer
+	 *            Writer
 	 * @param index
 	 *            int
 	 * @throws IOException
 	 */
-	public void doFinish(OutputStreamWriter osw, int index) throws IOException;
+	public void doFinish(Writer writer, int index) throws IOException;
 
 }
