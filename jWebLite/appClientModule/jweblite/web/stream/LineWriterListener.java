@@ -10,9 +10,11 @@ public interface LineWriterListener {
 	 * 
 	 * @param osw
 	 *            OutputStreamWriter
+	 * @param index
+	 *            int
 	 * @throws IOException
 	 */
-	public void doInit(OutputStreamWriter osw) throws IOException;
+	public void doInit(OutputStreamWriter osw, int index) throws IOException;
 
 	/**
 	 * Do Before Line
@@ -21,10 +23,12 @@ public interface LineWriterListener {
 	 *            OutputStreamWriter
 	 * @param line
 	 *            String
+	 * @param index
+	 *            int
 	 * @return String
 	 * @throws IOException
 	 */
-	public String doBeforeLine(OutputStreamWriter osw, String line)
+	public String doBeforeLine(OutputStreamWriter osw, String line, int index)
 			throws IOException;
 
 	/**
@@ -34,9 +38,11 @@ public interface LineWriterListener {
 	 *            OutputStreamWriter
 	 * @param line
 	 *            String
+	 * @param index
+	 *            int
 	 * @throws IOException
 	 */
-	public void doAfterLine(OutputStreamWriter osw, String line)
+	public void doAfterLine(OutputStreamWriter osw, String line, int index)
 			throws IOException;
 
 	/**
@@ -44,8 +50,10 @@ public interface LineWriterListener {
 	 * 
 	 * @param osw
 	 *            OutputStreamWriter
+	 * @param index
+	 *            int
 	 * @throws IOException
 	 */
-	public void doFinish(OutputStreamWriter osw) throws IOException;
+	public void doFinish(OutputStreamWriter osw, int index) throws IOException;
 
 }

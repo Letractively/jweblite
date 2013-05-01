@@ -81,7 +81,8 @@ public class JWebLiteServletResponseWrapperStream implements
 					public void doInit() throws IOException {
 						super.doInit();
 						for (LineWriterListener lineWriterListener : lineWriterListeners) {
-							lineWriterListener.doInit(this);
+							lineWriterListener
+									.doInit(this, this.getLineIndex());
 						}
 					}
 
@@ -89,7 +90,8 @@ public class JWebLiteServletResponseWrapperStream implements
 					public String doBeforeLine(String line) throws IOException {
 						line = super.doBeforeLine(line);
 						for (LineWriterListener lineWriterListener : lineWriterListeners) {
-							line = lineWriterListener.doBeforeLine(this, line);
+							line = lineWriterListener.doBeforeLine(this, line,
+									this.getLineIndex());
 						}
 						return line;
 					}
@@ -98,7 +100,8 @@ public class JWebLiteServletResponseWrapperStream implements
 					public void doAfterLine(String line) throws IOException {
 						super.doAfterLine(line);
 						for (LineWriterListener lineWriterListener : lineWriterListeners) {
-							lineWriterListener.doAfterLine(this, line);
+							lineWriterListener.doAfterLine(this, line,
+									this.getLineIndex());
 						}
 					}
 
@@ -106,7 +109,8 @@ public class JWebLiteServletResponseWrapperStream implements
 					public void doFinish() throws IOException {
 						super.doFinish();
 						for (LineWriterListener lineWriterListener : lineWriterListeners) {
-							lineWriterListener.doFinish(this);
+							lineWriterListener.doFinish(this,
+									this.getLineIndex());
 						}
 					}
 				};
