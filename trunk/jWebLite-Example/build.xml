@@ -13,7 +13,7 @@
           target: clean              
          ================================= -->
 	<target name="clean" description="clean">
-		<delete file="${ant.project.name}.war" />
+		<delete file="${ant.project.name}-${version}.war" />
 		<delete dir="dependencies" />
 		<delete dir="deploy" />
 	</target>
@@ -62,7 +62,7 @@
 		<antcall target="clean" />
 		<antcall target="dependencies" />
 		<antcall target="compile" />
-		<war destfile="${ant.project.name}.war" webxml="WebContent/WEB-INF/web.xml">
+		<war destfile="${ant.project.name}-${version}.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="WebContent" />
 			<classes dir="deploy/classes" />
 			<lib dir="dependencies" />
