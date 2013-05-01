@@ -14,7 +14,7 @@
 		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>File Upload</legend>
+		<span class="legend">File Upload</span>
 		<div>
 
 			<p>Hello ${Jwl.test}!</p>

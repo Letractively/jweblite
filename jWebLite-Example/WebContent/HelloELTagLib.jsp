@@ -18,7 +18,7 @@
 		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Hello EL Tag Lib</legend>
+		<span class="legend">Hello EL Tag Lib</span>
 		<div>
 
 			Hello ${RequestELUtils:getEscapedString(JwlFM, "test", "")}!

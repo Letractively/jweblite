@@ -16,7 +16,7 @@
 		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Hello Include</legend>
+		<span class="legend">Hello Include</span>
 		<div>
 
 			Hello Include! <br />

@@ -14,13 +14,12 @@
 		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Hello World</legend>
+		<span class="legend">Hello World</span>
 		<div>
 
 			Hello ${Jwl.test}!
 
-			<form action="${JwlCP}/redirect/RedirectTarget.jsp"
-				method="get">
+			<form action="${JwlCP}/redirect/RedirectTarget.jsp" method="get">
 				<input type="submit" value="Submit" />
 			</form>
 

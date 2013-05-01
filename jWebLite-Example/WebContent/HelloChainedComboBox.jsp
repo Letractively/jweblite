@@ -16,7 +16,7 @@
 		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Hello Chained ComboBox</legend>
+		<span class="legend">Hello Chained ComboBox</span>
 		<div>
 
 			<JwlExtPageUtils:chainedComboBox eid="box1" toEid="box2"

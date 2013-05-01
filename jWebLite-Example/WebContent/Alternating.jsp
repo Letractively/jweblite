@@ -17,7 +17,7 @@
 		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<legend>Alternating</legend>
+		<span class="legend">Alternating</span>
 		<div>
 
 			<ul>
