@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 import jweblite.web.page.FormModel;
 import jweblite.web.page.JWebLitePage;
@@ -20,21 +20,19 @@ public class HelloLineWriterListener implements JWebLitePage {
 	public void doRequest(WebContext context, FormModel fm)
 			throws SkipException {
 		context.bindLineWriterListener(new LineWriterListener() {
-			public void doInit(OutputStreamWriter writer, int index)
-					throws IOException {
+			public void doInit(Writer writer, int index) throws IOException {
 			}
 
-			public void doFinish(OutputStreamWriter writer, int index)
-					throws IOException {
+			public void doFinish(Writer writer, int index) throws IOException {
 			}
 
-			public String doBeforeLine(OutputStreamWriter writer, String line,
-					int index) throws IOException {
+			public String doBeforeLine(Writer writer, String line, int index)
+					throws IOException {
 				return line;
 			}
 
-			public void doAfterLine(OutputStreamWriter writer, String line,
-					int index) throws IOException {
+			public void doAfterLine(Writer writer, String line, int index)
+					throws IOException {
 				if (line.contains("Hello LineWriterListener!")) {
 					writer.write("<br />LineWriterListener: Hello Sir!");
 				}
