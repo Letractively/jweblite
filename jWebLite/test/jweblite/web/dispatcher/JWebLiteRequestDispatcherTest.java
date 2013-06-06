@@ -18,6 +18,7 @@ public class JWebLiteRequestDispatcherTest extends TestCase {
 
 	public void testIllegalPath() throws Exception {
 		Assert.assertNull(this.dispatcher.dispatch("/"));
+		Assert.assertNull(this.dispatcher.dispatch("//"));
 		Assert.assertNull(this.dispatcher.dispatch(null));
 		Assert.assertNull(this.dispatcher.dispatch(""));
 		Assert.assertNull(this.dispatcher.dispatch(" "));

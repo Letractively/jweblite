@@ -54,7 +54,7 @@ public class JWebLiteRequestDispatcher implements Serializable {
 		if (lastUrlSlashIndex == urlLength - 1) {
 			return false;
 		}
-		// path pattern check (.)
+		// path pattern check ".", must the latest name suffix
 		int lastUrlCommaIndex = servletPath.lastIndexOf('.');
 		if (lastUrlCommaIndex == urlLength - 1
 				|| lastUrlCommaIndex < lastUrlSlashIndex
