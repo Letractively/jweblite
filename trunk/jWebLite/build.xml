@@ -33,7 +33,7 @@
 				<include name="commons-fileupload-1.2.2.jar" />
 				<include name="commons-io-2.2.jar" />
 				<include name="commons-codec-1.5.jar" />
-				<include name="json-20090211.jar" />
+				<include name="json-20080701.jar" />
 			</fileset>
 		</copy>
 	</target>
