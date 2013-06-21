@@ -12,16 +12,16 @@
 
 	<!-- toJsonValue -->
 	<function>
-		<name>toJSONObjectString</name>
+		<name>toJsonObjectString</name>
 		<function-class>jweblite.util.el.JsonELUtils</function-class>
-		<function-signature><![CDATA[ java.lang.String toJSONObjectString(java.util.Map) ]]></function-signature>
+		<function-signature><![CDATA[ java.lang.String toJsonObjectString(java.util.Map) ]]></function-signature>
 	</function>
 
 	<!-- toJsonArray -->
 	<function>
-		<name>toJSONArrayString</name>
+		<name>toJsonArrayString</name>
 		<function-class>jweblite.util.el.JsonELUtils</function-class>
-		<function-signature><![CDATA[ java.lang.String toJSONArrayString(java.util.Collection) ]]></function-signature>
+		<function-signature><![CDATA[ java.lang.String toJsonArrayString(java.util.Collection) ]]></function-signature>
 	</function>
 
 </taglib>
