@@ -1,5 +1,10 @@
 JWebLite Change Log
 
+Version -
+====================
+．Change json lib
+．Change JsonUtils to JsonELUtils
+
 Version 0.6.0
 ====================
 ．Add LineWriterListener

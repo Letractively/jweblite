@@ -15,13 +15,13 @@ public class JsonELUtils {
 	 */
 
 	/**
-	 * To JSON Object String
+	 * To Json Object String
 	 * 
 	 * @param map
 	 *            Map{String, ?}
 	 * @return String
 	 */
-	public static String toJSONObjectString(Map<String, ?> map) {
+	public static String toJsonObjectString(Map<String, ?> map) {
 		if (map == null) {
 			return "";
 		}
@@ -29,13 +29,13 @@ public class JsonELUtils {
 	}
 
 	/**
-	 * To JSON Array String
+	 * To Json Array String
 	 * 
 	 * @param c
 	 *            Collection{?}
 	 * @return String
 	 */
-	public static String toJSONArrayString(Collection<?> c) {
+	public static String toJsonArrayString(Collection<?> c) {
 		if (c == null) {
 			return "";
 		}
