@@ -26,11 +26,11 @@ public class IncludeTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		try {
-			ServletRequest req = this.pageContext.getRequest();
-			ServletResponse resp = this.pageContext.getResponse();
-			String pageData = WebUtils.writePageAsString(req, resp, this.page);
+			ServletRequest req = pageContext.getRequest();
+			ServletResponse resp = pageContext.getResponse();
+			String pageData = WebUtils.writePageAsString(req, resp, page);
 			// output
-			this.pageContext.getOut().write(pageData);
+			pageContext.getOut().write(pageData);
 		} catch (Exception e) {
 			_cat.warn("Do end tag failed!", e);
 		}

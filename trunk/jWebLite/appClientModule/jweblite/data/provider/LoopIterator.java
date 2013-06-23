@@ -20,7 +20,7 @@ public class LoopIterator<T> implements Serializable {
 	 */
 	public LoopIterator(Collection<T> c) {
 		super();
-		this.setList(c);
+		setList(c);
 	}
 
 	/**
@@ -36,17 +36,17 @@ public class LoopIterator<T> implements Serializable {
 	 * @return T
 	 */
 	public T getPrevious() {
-		if (this.listRefArray == null || this.listSize <= 0) {
+		if (listRefArray == null || listSize <= 0) {
 			return null;
 		}
 		// decrease index
-		if (this.index < 0 || this.index >= this.listSize) {
-			this.index = this.listSize - 1;
+		if (index < 0 || index >= listSize) {
+			index = listSize - 1;
 		} else {
-			this.index = this.getPreviousIndex();
+			index = getPreviousIndex();
 		}
 		// get element
-		return this.listRefArray[this.index];
+		return listRefArray[index];
 	}
 
 	/**
@@ -55,17 +55,17 @@ public class LoopIterator<T> implements Serializable {
 	 * @return T
 	 */
 	public T getNext() {
-		if (this.listRefArray == null || this.listSize <= 0) {
+		if (listRefArray == null || listSize <= 0) {
 			return null;
 		}
 		// increase index
-		if (this.index < 0 || this.index >= this.listSize) {
-			this.index = 0;
+		if (index < 0 || index >= listSize) {
+			index = 0;
 		} else {
-			this.index = this.getNextIndex();
+			index = getNextIndex();
 		}
 		// get element
-		return this.listRefArray[this.index];
+		return listRefArray[index];
 	}
 
 	/**
@@ -75,8 +75,8 @@ public class LoopIterator<T> implements Serializable {
 	 */
 	public int getPreviousIndex() {
 		int index = this.index - 1;
-		if (index < 0 || index >= this.listSize) {
-			index = (this.listSize > 0 ? this.listSize - 1 : 0);
+		if (index < 0 || index >= listSize) {
+			index = (listSize > 0 ? listSize - 1 : 0);
 		}
 		return index;
 	}
@@ -88,7 +88,7 @@ public class LoopIterator<T> implements Serializable {
 	 */
 	public int getNextIndex() {
 		int index = this.index + 1;
-		if (index < 0 || index >= this.listSize) {
+		if (index < 0 || index >= listSize) {
 			index = 0;
 		}
 		return index;
@@ -98,7 +98,7 @@ public class LoopIterator<T> implements Serializable {
 	 * Reset
 	 */
 	public void reset() {
-		this.index = -1;
+		index = -1;
 	}
 
 	/**
@@ -147,8 +147,8 @@ public class LoopIterator<T> implements Serializable {
 	public void setList(Collection<T> list) {
 		this.list = list;
 
-		this.listRefArray = CollectionUtils.toArray(list);
-		this.listSize = (list != null ? list.size() : 0);
+		listRefArray = CollectionUtils.toArray(list);
+		listSize = (list != null ? list.size() : 0);
 	}
 
 }

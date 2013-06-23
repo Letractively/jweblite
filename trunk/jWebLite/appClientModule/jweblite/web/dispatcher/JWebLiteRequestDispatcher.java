@@ -20,7 +20,7 @@ public class JWebLiteRequestDispatcher implements Serializable {
 	 * @return String
 	 */
 	public String dispatch(String servletPath) {
-		if (!this.isValidClassPath(servletPath)) {
+		if (!isValidClassPath(servletPath)) {
 			return null;
 		}
 		int lastUrlCommaIndex = servletPath.lastIndexOf('.');

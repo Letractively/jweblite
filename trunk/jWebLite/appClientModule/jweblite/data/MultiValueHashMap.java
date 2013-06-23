@@ -38,7 +38,7 @@ public class MultiValueHashMap extends HashMap implements MultiValueMap {
 	 */
 	public MultiValueHashMap(Map m) {
 		super();
-		this.putAll(m);
+		putAll(m);
 	}
 
 	public void put(Object key) {
@@ -76,7 +76,7 @@ public class MultiValueHashMap extends HashMap implements MultiValueMap {
 		Iterator mapIt = m.keySet().iterator();
 		while (mapIt.hasNext()) {
 			Object key = mapIt.next();
-			this.put(key, m.get(key));
+			put(key, m.get(key));
 		}
 	}
 

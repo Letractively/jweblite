@@ -36,9 +36,9 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 			throws SkipException {
 		try {
 			// header
-			this.doHeader(context, formModel);
+			doHeader(context, formModel);
 			// body
-			this.doBody(context, formModel);
+			doBody(context, formModel);
 		} catch (SkipException se) {
 			throw se;
 		} catch (Exception e) {
@@ -52,25 +52,25 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 		HttpServletRequest req = context.getRequest();
 		HttpServletResponse resp = context.getResponse();
 		// contentType
-		String contentType = this.getContentType();
+		String contentType = getContentType();
 		if (contentType != null) {
 			resp.setContentType(contentType);
 		}
 		// encoding
-		String encoding = this.getEncoding();
+		String encoding = getEncoding();
 		if (encoding == null) {
 			encoding = JWebLiteApplication.get().getFilterConfig()
 					.getEncoding();
 		}
 		// fileName
-		String fileName = this.getFileName();
+		String fileName = getFileName();
 		if (fileName != null
 				&& (fileName = StringUtils.encodeDownloadFileName(req,
 						fileName, encoding)) != null) {
 			resp.setHeader("Content-Disposition", "filename=".concat(fileName));
 		}
 		// cacheable
-		if (!this.isCacheable()) {
+		if (!isCacheable()) {
 			resp.setHeader("Pragma", "no-cache");
 			resp.setHeader("Cache-Control", "no-cache");
 			resp.setDateHeader("Expires", 0);
@@ -83,8 +83,8 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 		InputStream is = null;
 		OutputStream os = null;
 		try {
-			is = new BufferedInputStream(new FileInputStream(this.loadData(
-					context, formModel)));
+			is = new BufferedInputStream(new FileInputStream(loadData(context,
+					formModel)));
 			os = new BufferedOutputStream(context.getResponse()
 					.getOutputStream());
 			IOUtils.copy(is, os);

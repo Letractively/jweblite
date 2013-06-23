@@ -29,29 +29,29 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 		super();
 		this.filterConfig = filterConfig;
 		// parameters
-		this.attrPrefix = StringUtils.getStringValue(
+		attrPrefix = StringUtils.getStringValue(
 				(filterConfig != null ? filterConfig
 						.getInitParameter("AttrPrefix") : null), "Jwl", true);
-		this.encoding = StringUtils.getStringValue(
+		encoding = StringUtils.getStringValue(
 				(filterConfig != null ? filterConfig
 						.getInitParameter("Encoding") : null), "UTF-8", true);
-		this.isGZipEnabled = "true".equalsIgnoreCase(StringUtils
-				.getStringValue(
+		isGZipEnabled = "true"
+				.equalsIgnoreCase(StringUtils.getStringValue(
 						(filterConfig != null ? filterConfig
 								.getInitParameter("GZipEnabled") : null),
 						"true", true));
-		this.initClassName = StringUtils.getStringValue(
+		initClassName = StringUtils.getStringValue(
 				(filterConfig != null ? filterConfig
 						.getInitParameter("InitClassName") : null), null, true);
-		this.errorPage = StringUtils.getStringValue(
+		errorPage = StringUtils.getStringValue(
 				(filterConfig != null ? filterConfig
 						.getInitParameter("ErrorPage") : null), null, true);
-		this.fileUploadSizeMax = StringUtils.getLongValue(
+		fileUploadSizeMax = StringUtils.getLongValue(
 				(filterConfig != null ? filterConfig
 						.getInitParameter("FileUploadSizeMax") : null),
 				10 * 1024 * 1024);
 		if (_cat.isInfoEnabled()) {
-			_cat.info(this.toString());
+			_cat.info(toString());
 		}
 	}
 
@@ -59,36 +59,35 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 	public String toString() {
 		String infoFormat = "AttrPrefix=%s, Encoding=%s, GZipEnabled=%s, InitClassName=%s, ErrorPage=%s";
 		return LogUtils.formatDebugLog("JWebLiteFilterConfig", infoFormat,
-				this.attrPrefix, this.encoding, this.isGZipEnabled,
-				this.initClassName, this.errorPage);
+				attrPrefix, encoding, isGZipEnabled, initClassName, errorPage);
 	}
 
 	public String getFilterName() {
-		if (this.filterConfig == null) {
+		if (filterConfig == null) {
 			return null;
 		}
-		return this.filterConfig.getFilterName();
+		return filterConfig.getFilterName();
 	}
 
 	public String getInitParameter(String name) {
-		if (this.filterConfig == null) {
+		if (filterConfig == null) {
 			return null;
 		}
-		return this.filterConfig.getInitParameter(name);
+		return filterConfig.getInitParameter(name);
 	}
 
 	public Enumeration<?> getInitParameterNames() {
-		if (this.filterConfig == null) {
+		if (filterConfig == null) {
 			return null;
 		}
-		return this.filterConfig.getInitParameterNames();
+		return filterConfig.getInitParameterNames();
 	}
 
 	public ServletContext getServletContext() {
-		if (this.filterConfig == null) {
+		if (filterConfig == null) {
 			return null;
 		}
-		return this.filterConfig.getServletContext();
+		return filterConfig.getServletContext();
 	}
 
 	/**

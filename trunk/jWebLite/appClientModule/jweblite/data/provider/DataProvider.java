@@ -27,7 +27,7 @@ public abstract class DataProvider<T> implements Serializable {
 		this.viewCountPrefix = viewCountPrefix;
 		this.viewCountSuffix = viewCountSuffix;
 		// init
-		this.initialize();
+		initialize();
 	}
 
 	/**
@@ -41,8 +41,8 @@ public abstract class DataProvider<T> implements Serializable {
 	 * Initialize
 	 */
 	protected void initialize() {
-		this.totalSize = this.loadTotalSize();
-		this.totalPageCount = this.totalSize / this.perPage + 1;
+		totalSize = loadTotalSize();
+		totalPageCount = totalSize / perPage + 1;
 	}
 
 	/**
@@ -83,9 +83,9 @@ public abstract class DataProvider<T> implements Serializable {
 		}
 		this.perPage = perPage;
 		// recalculate
-		this.currentIndex = 0;
-		this.viewList = this.loadViewList(this.currentIndex * perPage, perPage);
-		this.totalPageCount = this.totalSize / perPage + 1;
+		currentIndex = 0;
+		viewList = loadViewList(currentIndex * perPage, perPage);
+		totalPageCount = totalSize / perPage + 1;
 	}
 
 	/**
@@ -104,13 +104,12 @@ public abstract class DataProvider<T> implements Serializable {
 	 *            int
 	 */
 	public void setCurrentIndex(int currentIndex) {
-		if (currentIndex < 0 || currentIndex >= this.totalPageCount) {
+		if (currentIndex < 0 || currentIndex >= totalPageCount) {
 			return;
 		}
 		this.currentIndex = currentIndex;
 		// recalculate
-		this.viewList = this.loadViewList(currentIndex * this.perPage,
-				this.perPage);
+		viewList = loadViewList(currentIndex * perPage, perPage);
 	}
 
 	/**
@@ -119,7 +118,7 @@ public abstract class DataProvider<T> implements Serializable {
 	 * @return boolean
 	 */
 	public boolean isHasPrevious() {
-		return this.currentIndex > 0;
+		return currentIndex > 0;
 	}
 
 	/**
@@ -128,7 +127,7 @@ public abstract class DataProvider<T> implements Serializable {
 	 * @return boolean
 	 */
 	public boolean isHasNext() {
-		return this.currentIndex < this.totalPageCount - 1;
+		return currentIndex < totalPageCount - 1;
 	}
 
 	/**
@@ -175,7 +174,7 @@ public abstract class DataProvider<T> implements Serializable {
 	 * @return int
 	 */
 	public int getMinimumViewIndex() {
-		int minIndex = this.currentIndex - this.viewCountPrefix;
+		int minIndex = currentIndex - viewCountPrefix;
 		if (minIndex < 0) {
 			minIndex = 0;
 		}
@@ -188,9 +187,9 @@ public abstract class DataProvider<T> implements Serializable {
 	 * @return int
 	 */
 	public int getMaximumViewIndex() {
-		int maxIndex = this.currentIndex + this.viewCountSuffix;
-		if (maxIndex >= this.totalPageCount) {
-			maxIndex = this.totalPageCount - 1;
+		int maxIndex = currentIndex + viewCountSuffix;
+		if (maxIndex >= totalPageCount) {
+			maxIndex = totalPageCount - 1;
 		}
 		return maxIndex;
 	}
@@ -202,8 +201,7 @@ public abstract class DataProvider<T> implements Serializable {
 	 */
 	public List<Integer> getViewIndexList() {
 		List<Integer> viewIndexList = new ArrayList<Integer>();
-		for (int i = this.getMinimumViewIndex(); i <= this
-				.getMaximumViewIndex(); i++) {
+		for (int i = getMinimumViewIndex(); i <= this.getMaximumViewIndex(); i++) {
 			viewIndexList.add(i);
 		}
 		return viewIndexList;

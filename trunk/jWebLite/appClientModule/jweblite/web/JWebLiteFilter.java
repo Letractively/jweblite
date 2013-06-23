@@ -137,7 +137,7 @@ public class JWebLiteFilter implements Filter {
 		} catch (Throwable e) {
 			_cat.warn("Do filter failed!", e);
 			application.doError(context, e);
-			this.doErrorPage(filterConfig, req, respWrapper, e);
+			doErrorPage(filterConfig, req, respWrapper, e);
 		}
 	}
 

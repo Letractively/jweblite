@@ -30,22 +30,22 @@ public class PagesTag extends TagSupport {
 
 	@Override
 	public int doStartTag() throws JspException {
-		Tag tag = this.getParent();
+		Tag tag = getParent();
 		if (tag == null || !(tag instanceof PagingTag)) {
 			throw new JspTagException("parent tag error");
 		}
 		PagingTag parent = (PagingTag) tag;
-		this.index = parent.getIndex();
+		index = parent.getIndex();
 		DataProvider<?> provider = parent.getProvider();
 		if (provider != null) {
-			this.currentIndex = provider.getCurrentIndex();
+			currentIndex = provider.getCurrentIndex();
 			List<Integer> viewIndexList = provider.getViewIndexList();
 			if (viewIndexList != null) {
-				this.indexIterator = viewIndexList.iterator();
+				indexIterator = viewIndexList.iterator();
 			}
 		}
 		// iterator
-		if (this.iterate()) {
+		if (iterate()) {
 			return TagSupport.EVAL_BODY_INCLUDE;
 		}
 		return TagSupport.SKIP_BODY;
@@ -54,7 +54,7 @@ public class PagesTag extends TagSupport {
 	@Override
 	public int doAfterBody() throws JspException {
 		// iterator
-		if (this.iterate()) {
+		if (iterate()) {
 			return TagSupport.EVAL_BODY_AGAIN;
 		}
 		return TagSupport.SKIP_BODY;
@@ -67,23 +67,22 @@ public class PagesTag extends TagSupport {
 	 */
 	public boolean iterate() {
 		// test
-		if (this.test == null) {
-			if (this.indexIterator == null || !this.indexIterator.hasNext()) {
+		if (test == null) {
+			if (indexIterator == null || !indexIterator.hasNext()) {
 				return false;
 			}
-		} else if (!this.test.booleanValue()) {
+		} else if (!test.booleanValue()) {
 			return false;
 		}
 		// index
-		int index = (this.indexIterator != null && this.indexIterator.hasNext() ? this.indexIterator
+		int nextIndex = (indexIterator != null && indexIterator.hasNext() ? indexIterator
 				.next() : null);
-		if (this.index != null) {
-			this.pageContext.setAttribute(this.index, index);
+		if (index != null) {
+			pageContext.setAttribute(index, nextIndex);
 		}
 		// selected
-		if (this.selected != null) {
-			this.pageContext.setAttribute(this.selected,
-					(index == this.currentIndex));
+		if (selected != null) {
+			pageContext.setAttribute(selected, (nextIndex == currentIndex));
 		}
 		return true;
 	}
@@ -91,8 +90,8 @@ public class PagesTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		// selected
-		if (this.selected != null) {
-			this.pageContext.removeAttribute(this.selected);
+		if (selected != null) {
+			pageContext.removeAttribute(selected);
 		}
 		return TagSupport.EVAL_PAGE;
 	}

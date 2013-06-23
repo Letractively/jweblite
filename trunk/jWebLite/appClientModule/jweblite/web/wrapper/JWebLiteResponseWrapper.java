@@ -36,16 +36,20 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 			HttpServletResponse resp, String encoding, boolean isGZipEnabled)
 			throws IOException {
 		super(resp);
-		this.setEncoding(encoding);
+		this.encoding = encoding;
+		this.isGZipEnabled = isGZipEnabled;
 		String acceptContentEncoding = null;
-		this.isGZipAccepted = (req != null
+		isGZipAccepted = (req != null
 				&& (acceptContentEncoding = req.getHeader("Accept-Encoding")) != null && acceptContentEncoding
 				.indexOf("gzip") >= 0);
-		this.setGZipEnabled(isGZipEnabled);
+
+		setEncoding(encoding);
+		setGZipEnabled(isGZipEnabled);
+		isGZipEnabled = this.isGZipEnabled;
 		// init
 		resp.setHeader("Implementation-Title", "jweblite");
-		this.wrapperStream = new JWebLiteServletResponseWrapperStream(
-				super.getOutputStream(), this.encoding, this.isGZipEnabled);
+		wrapperStream = new JWebLiteServletResponseWrapperStream(
+				super.getOutputStream(), encoding, isGZipEnabled);
 	}
 
 	/**
@@ -64,29 +68,29 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 
 	@Override
 	public ServletOutputStream getOutputStream() throws IOException {
-		if (this.wrapperStream == null) {
+		if (wrapperStream == null) {
 			throw new IllegalStateException();
 		}
-		return this.wrapperStream.getServletOutputStream();
+		return wrapperStream.getServletOutputStream();
 	}
 
 	@Override
 	public PrintWriter getWriter() throws IOException {
-		if (this.wrapperStream == null) {
+		if (wrapperStream == null) {
 			throw new IllegalStateException();
 		}
-		return this.wrapperStream.getServletWriter();
+		return wrapperStream.getServletWriter();
 	}
 
 	@Override
 	public void sendError(int sc, String msg) throws IOException {
-		this.reset();
+		reset();
 		super.sendError(sc, msg);
 	}
 
 	@Override
 	public void sendError(int sc) throws IOException {
-		this.reset();
+		reset();
 		super.sendError(sc);
 	}
 
@@ -96,10 +100,10 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 	 * @throws IOException
 	 */
 	public void doFinish() throws IOException {
-		if (this.wrapperStream == null) {
+		if (wrapperStream == null) {
 			throw new IllegalStateException();
 		}
-		this.wrapperStream.doFinish();
+		wrapperStream.doFinish();
 	}
 
 	/**
@@ -120,7 +124,7 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
 		if (encoding != null) {
-			this.setCharacterEncoding(encoding);
+			setCharacterEncoding(encoding);
 		}
 	}
 
@@ -140,11 +144,11 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 	 *            boolean
 	 */
 	public void setGZipEnabled(boolean isGZipEnabled) {
-		if (!this.isGZipAccepted) {
+		if (!isGZipAccepted) {
 			isGZipEnabled = false;
 		}
 		this.isGZipEnabled = isGZipEnabled;
-		this.setHeader("Content-Encoding", (isGZipEnabled ? "gzip" : null));
+		setHeader("Content-Encoding", (isGZipEnabled ? "gzip" : null));
 	}
 
 	/**
