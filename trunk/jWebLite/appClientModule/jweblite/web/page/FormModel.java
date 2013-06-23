@@ -81,6 +81,7 @@ public class FormModel implements Serializable {
 	 * @throws FileUploadException
 	 * @throws UnsupportedEncodingException
 	 */
+	@SuppressWarnings("unchecked")
 	public void initHTTPRequest(HttpServletRequest req, String encoding) {
 		for (Enumeration<String> e = req.getParameterNames(); e
 				.hasMoreElements();) {
@@ -89,7 +90,7 @@ public class FormModel implements Serializable {
 				continue;
 			}
 			String[] paramValueArray = req.getParameterValues(paramName);
-			List<String> paramValueList = new ArrayList();
+			List<String> paramValueList = new ArrayList<String>();
 			if (paramValueArray != null) {
 				for (String paramValue : paramValueArray) {
 					if (paramValue == null) {
@@ -115,6 +116,7 @@ public class FormModel implements Serializable {
 	 * @throws FileUploadException
 	 * @throws UnsupportedEncodingException
 	 */
+	@SuppressWarnings("unchecked")
 	public void initMultipartRequest(HttpServletRequest req, String encoding,
 			long maxFileSize) throws FileUploadException,
 			UnsupportedEncodingException {
@@ -143,6 +145,7 @@ public class FormModel implements Serializable {
 	 *            String
 	 * @return List{T}
 	 */
+	@SuppressWarnings("unchecked")
 	public <T> List<T> getParameterValues(String name) {
 		if (name == null) {
 			return null;
@@ -175,6 +178,7 @@ public class FormModel implements Serializable {
 	 * 
 	 * @return List{String}
 	 */
+	@SuppressWarnings("unchecked")
 	public List<String> getParameterNames() {
 		return new ArrayList<String>(parameterMap.keySet());
 	}
@@ -206,6 +210,7 @@ public class FormModel implements Serializable {
 	 * @param value
 	 *            T
 	 */
+	@SuppressWarnings("unchecked")
 	public <T> void putParameter(String name, T value) {
 		if (name == null) {
 			return;

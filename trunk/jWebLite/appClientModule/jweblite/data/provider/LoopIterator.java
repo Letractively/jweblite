@@ -4,13 +4,15 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 
+import jweblite.util.CollectionUtils;
+
 public class LoopIterator<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int index = -1;
 
 	private Collection<T> list = null;
-	private Object[] listRefArray = null;
+	private T[] listRefArray = null;
 	private int listSize = 0;
 
 	/**
@@ -44,7 +46,7 @@ public class LoopIterator<T> implements Serializable {
 			this.index = this.getPreviousIndex();
 		}
 		// get element
-		return (T) this.listRefArray[this.index];
+		return this.listRefArray[this.index];
 	}
 
 	/**
@@ -63,7 +65,7 @@ public class LoopIterator<T> implements Serializable {
 			this.index = this.getNextIndex();
 		}
 		// get element
-		return (T) this.listRefArray[this.index];
+		return this.listRefArray[this.index];
 	}
 
 	/**
@@ -144,7 +146,8 @@ public class LoopIterator<T> implements Serializable {
 	 */
 	public void setList(Collection<T> list) {
 		this.list = list;
-		this.listRefArray = (list != null ? list.toArray() : null);
+
+		this.listRefArray = CollectionUtils.toArray(list);
 		this.listSize = (list != null ? list.size() : 0);
 	}
 

@@ -11,6 +11,7 @@ public class CollectionUtils {
 	 *            Collection
 	 * @return T[]
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T> T[] toArray(Collection<T> c) {
 		if (c == null) {
 			return null;

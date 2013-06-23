@@ -3,6 +3,7 @@ package jweblite.data;
 import java.util.Collection;
 import java.util.Map;
 
+@SuppressWarnings("rawtypes")
 public interface MultiValueMap extends Map {
 
 	/**

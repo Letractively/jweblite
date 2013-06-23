@@ -16,9 +16,9 @@ public class ArrayELUtils {
 	 * 
 	 * @param a
 	 *            Object[]
-	 * @return String
+	 * @return List{Object}
 	 */
-	public static List asList(Object[] a) {
+	public static List<Object> asList(Object[] a) {
 		if (a == null) {
 			return null;
 		}

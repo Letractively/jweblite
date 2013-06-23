@@ -26,7 +26,7 @@ public class PrevTag extends TagSupport {
 			throw new JspTagException("parent tag error");
 		}
 		PagingTag parent = (PagingTag) tag;
-		DataProvider provider = parent.getProvider();
+		DataProvider<?> provider = parent.getProvider();
 		int previousIndex = (provider != null ? provider.getCurrentIndex() - 1
 				: 0);
 		// test

@@ -201,7 +201,7 @@ public abstract class DataProvider<T> implements Serializable {
 	 * @return List
 	 */
 	public List<Integer> getViewIndexList() {
-		List<Integer> viewIndexList = new ArrayList();
+		List<Integer> viewIndexList = new ArrayList<Integer>();
 		for (int i = this.getMinimumViewIndex(); i <= this
 				.getMaximumViewIndex(); i++) {
 			viewIndexList.add(i);

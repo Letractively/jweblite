@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class MultiValueLinkedHashMap extends LinkedHashMap implements
 		MultiValueMap {
 	private static final long serialVersionUID = 1L;

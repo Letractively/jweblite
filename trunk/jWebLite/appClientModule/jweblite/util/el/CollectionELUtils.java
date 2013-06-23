@@ -15,10 +15,10 @@ public class CollectionELUtils {
 	 * Sort
 	 * 
 	 * @param list
-	 *            List
-	 * @return List
+	 *            List{T}
+	 * @return List{T}
 	 */
-	public static List sort(List list) {
+	public static <T extends Comparable<? super T>> List<T> sort(List<T> list) {
 		if (list == null) {
 			return null;
 		}
@@ -30,10 +30,10 @@ public class CollectionELUtils {
 	 * Reverse
 	 * 
 	 * @param list
-	 *            List
-	 * @return List
+	 *            List{?}
+	 * @return List{?}
 	 */
-	public static List reverse(List list) {
+	public static List<?> reverse(List<?> list) {
 		if (list == null) {
 			return null;
 		}

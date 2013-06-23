@@ -78,7 +78,7 @@ public class StringUtils {
 	 */
 	public static List<String> split(String str, String regex) {
 		if (str == null) {
-			new ArrayList();
+			return new ArrayList<String>();
 		}
 		return Arrays.asList(str.split(regex));
 	}

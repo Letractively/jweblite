@@ -66,7 +66,7 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 			return;
 		}
 		for (int i = off; i < off + len; i++) {
-			write((int) cbuf[i]);
+			write(cbuf[i]);
 		}
 	}
 

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class MultiValueHashMap extends HashMap implements MultiValueMap {
 	private static final long serialVersionUID = 1L;
 

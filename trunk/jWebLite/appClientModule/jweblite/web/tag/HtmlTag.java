@@ -19,7 +19,7 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 
 	private AttributeCallback additionAttrValueRenderer = null;
 
-	private final Map<String, Object> originalAdditionalAttrMap = new HashMap();
+	private final Map<String, Object> originalAdditionalAttrMap = new HashMap<String, Object>();
 	private final AttributeCallback defaultAdditionAttrValueRenderer = new AttributeCallback() {
 		public Object callback(String localName, Object value) {
 			if (localName == null || value == null
@@ -57,9 +57,9 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 		if (additionAttrValueRenderer == null) {
 			additionAttrValueRenderer = this.defaultAdditionAttrValueRenderer;
 		}
-		List<String> result = new ArrayList();
+		List<String> result = new ArrayList<String>();
 		// prepare additionalAttrMap
-		Map<String, Object> additionalAttrMap = new HashMap();
+		Map<String, Object> additionalAttrMap = new HashMap<String, Object>();
 		additionalAttrMap.putAll(this.originalAdditionalAttrMap);
 		if (m != null) {
 			additionalAttrMap.putAll(m);
