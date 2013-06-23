@@ -24,17 +24,16 @@ public class PagingTag extends TagSupport {
 	@Override
 	public int doStartTag() throws JspException {
 		// init
-		if (this.provider == null) {
+		if (provider == null) {
 			return TagSupport.SKIP_BODY;
 		}
 		// var
-		if (this.var != null) {
-			this.pageContext.setAttribute(this.var, this.provider);
+		if (var != null) {
+			pageContext.setAttribute(var, provider);
 		}
 		// total
-		if (this.total != null) {
-			this.pageContext.setAttribute(this.total,
-					this.provider.getTotalPageCount());
+		if (total != null) {
+			pageContext.setAttribute(total, provider.getTotalPageCount());
 		}
 		return TagSupport.EVAL_BODY_INCLUDE;
 	}
@@ -42,16 +41,16 @@ public class PagingTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		// index
-		if (this.index != null) {
-			this.pageContext.removeAttribute(this.index);
+		if (index != null) {
+			pageContext.removeAttribute(index);
 		}
 		// var
-		if (this.var != null) {
-			this.pageContext.removeAttribute(this.var);
+		if (var != null) {
+			pageContext.removeAttribute(var);
 		}
 		// total
-		if (this.total != null) {
-			this.pageContext.removeAttribute(this.total);
+		if (total != null) {
+			pageContext.removeAttribute(total);
 		}
 		return TagSupport.EVAL_PAGE;
 	}

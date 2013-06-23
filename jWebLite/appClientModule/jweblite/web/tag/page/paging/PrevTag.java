@@ -21,7 +21,7 @@ public class PrevTag extends TagSupport {
 
 	@Override
 	public int doStartTag() throws JspException {
-		Tag tag = this.getParent();
+		Tag tag = getParent();
 		if (tag == null || !(tag instanceof PagingTag)) {
 			throw new JspTagException("parent tag error");
 		}
@@ -30,16 +30,16 @@ public class PrevTag extends TagSupport {
 		int previousIndex = (provider != null ? provider.getCurrentIndex() - 1
 				: 0);
 		// test
-		if (this.test == null) {
+		if (test == null) {
 			if (provider == null || !provider.isHasPrevious()) {
 				return TagSupport.SKIP_BODY;
 			}
-		} else if (!this.test.booleanValue()) {
+		} else if (!test.booleanValue()) {
 			return TagSupport.SKIP_BODY;
 		}
 		// index
 		if (parent.getIndex() != null) {
-			this.pageContext.setAttribute(parent.getIndex(), previousIndex);
+			pageContext.setAttribute(parent.getIndex(), previousIndex);
 		}
 		return TagSupport.EVAL_BODY_INCLUDE;
 	}

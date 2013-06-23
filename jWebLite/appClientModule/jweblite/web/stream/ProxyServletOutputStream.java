@@ -18,27 +18,27 @@ public class ProxyServletOutputStream extends ServletOutputStream {
 
 	@Override
 	public void write(byte[] b, int off, int len) throws IOException {
-		this.outputStream.write(b, off, len);
+		outputStream.write(b, off, len);
 	}
 
 	@Override
 	public void write(byte[] b) throws IOException {
-		this.outputStream.write(b);
+		outputStream.write(b);
 	}
 
 	@Override
 	public void write(int b) throws IOException {
-		this.outputStream.write(b);
+		outputStream.write(b);
 	}
 
 	@Override
 	public void flush() throws IOException {
-		this.outputStream.flush();
+		outputStream.flush();
 	}
 
 	@Override
 	public void close() throws IOException {
-		this.outputStream.close();
+		outputStream.close();
 	}
 
 }

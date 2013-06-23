@@ -100,7 +100,7 @@ public class FormModel implements Serializable {
 							"ISO-8859-1", encoding));
 				}
 			}
-			this.parameterMap.replaceAll(paramName, paramValueList);
+			parameterMap.replaceAll(paramName, paramValueList);
 		}
 	}
 
@@ -133,7 +133,7 @@ public class FormModel implements Serializable {
 			if (fieldName == null) {
 				continue;
 			}
-			this.parameterMap.put(fieldName,
+			parameterMap.put(fieldName,
 					(item.isFormField() ? item.getString(encoding) : item));
 		}
 	}

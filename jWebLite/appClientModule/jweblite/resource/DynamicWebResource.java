@@ -32,9 +32,9 @@ public abstract class DynamicWebResource implements JWebLitePage, WebResource {
 			throws SkipException {
 		try {
 			// header
-			this.doHeader(context, formModel);
+			doHeader(context, formModel);
 			// body
-			this.doBody(context, formModel);
+			doBody(context, formModel);
 		} catch (SkipException se) {
 			throw se;
 		} catch (Exception e) {
@@ -48,25 +48,25 @@ public abstract class DynamicWebResource implements JWebLitePage, WebResource {
 		HttpServletRequest req = context.getRequest();
 		HttpServletResponse resp = context.getResponse();
 		// contentType
-		String contentType = this.getContentType();
+		String contentType = getContentType();
 		if (contentType != null) {
 			resp.setContentType(contentType);
 		}
 		// encoding
-		String encoding = this.getEncoding();
+		String encoding = getEncoding();
 		if (encoding == null) {
 			encoding = JWebLiteApplication.get().getFilterConfig()
 					.getEncoding();
 		}
 		// fileName
-		String fileName = this.getFileName();
+		String fileName = getFileName();
 		if (fileName != null
 				&& (fileName = StringUtils.encodeDownloadFileName(req,
 						fileName, encoding)) != null) {
 			resp.setHeader("Content-Disposition", "filename=".concat(fileName));
 		}
 		// cacheable
-		if (!this.isCacheable()) {
+		if (!isCacheable()) {
 			resp.setHeader("Pragma", "no-cache");
 			resp.setHeader("Cache-Control", "no-cache");
 			resp.setDateHeader("Expires", 0);
@@ -80,7 +80,7 @@ public abstract class DynamicWebResource implements JWebLitePage, WebResource {
 		try {
 			os = new BufferedOutputStream(context.getResponse()
 					.getOutputStream());
-			IOUtils.write(this.loadData(context, formModel), os);
+			IOUtils.write(loadData(context, formModel), os);
 			os.flush();
 		} catch (Exception e) {
 			_cat.warn("Write data failed!", e);

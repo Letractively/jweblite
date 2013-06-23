@@ -23,11 +23,11 @@ public class AlternatingTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		// var
-		if (this.var != null) {
+		if (var != null) {
 			LoopIterator<String> loopIt = new LoopIterator<String>(
-					StringUtils.split(this.data,
-							(this.separator != null ? this.separator : ",")));
-			this.pageContext.setAttribute(this.var, loopIt);
+					StringUtils.split(data, (separator != null ? separator
+							: ",")));
+			pageContext.setAttribute(var, loopIt);
 		}
 		return TagSupport.EVAL_PAGE;
 	}

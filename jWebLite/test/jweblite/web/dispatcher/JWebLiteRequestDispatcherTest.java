@@ -13,30 +13,29 @@ public class JWebLiteRequestDispatcherTest extends TestCase {
 	}
 
 	public void setUp() throws Exception {
-		this.dispatcher = new JWebLiteRequestDispatcher();
+		dispatcher = new JWebLiteRequestDispatcher();
 	}
 
 	public void testIllegalPath() throws Exception {
-		Assert.assertNull(this.dispatcher.dispatch("/"));
-		Assert.assertNull(this.dispatcher.dispatch("//"));
-		Assert.assertNull(this.dispatcher.dispatch(null));
-		Assert.assertNull(this.dispatcher.dispatch(""));
-		Assert.assertNull(this.dispatcher.dispatch(" "));
-		Assert.assertNull(this.dispatcher.dispatch("."));
-		Assert.assertNull(this.dispatcher.dispatch("/Test."));
-		Assert.assertNull(this.dispatcher.dispatch("/Te.st."));
-		Assert.assertNull(this.dispatcher.dispatch("/Te..st"));
-		Assert.assertNull(this.dispatcher.dispatch("/./Test"));
-		Assert.assertNull(this.dispatcher.dispatch("/ /Test"));
-		Assert.assertNull(this.dispatcher.dispatch("/^/Test"));
+		Assert.assertNull(dispatcher.dispatch("/"));
+		Assert.assertNull(dispatcher.dispatch("//"));
+		Assert.assertNull(dispatcher.dispatch(null));
+		Assert.assertNull(dispatcher.dispatch(""));
+		Assert.assertNull(dispatcher.dispatch(" "));
+		Assert.assertNull(dispatcher.dispatch("."));
+		Assert.assertNull(dispatcher.dispatch("/Test."));
+		Assert.assertNull(dispatcher.dispatch("/Te.st."));
+		Assert.assertNull(dispatcher.dispatch("/Te..st"));
+		Assert.assertNull(dispatcher.dispatch("/./Test"));
+		Assert.assertNull(dispatcher.dispatch("/ /Test"));
+		Assert.assertNull(dispatcher.dispatch("/^/Test"));
 	}
 
 	public void testLegalPath() throws Exception {
-		Assert.assertEquals("test", this.dispatcher.dispatch("/test.jsp"));
-		Assert.assertEquals("tEsT", this.dispatcher.dispatch("/tEsT.jsp"));
-		Assert.assertEquals(".Test", this.dispatcher.dispatch("//Test.jsp"));
-		Assert.assertEquals("test.Test",
-				this.dispatcher.dispatch("/test/Test.jsp"));
+		Assert.assertEquals("test", dispatcher.dispatch("/test.jsp"));
+		Assert.assertEquals("tEsT", dispatcher.dispatch("/tEsT.jsp"));
+		Assert.assertEquals(".Test", dispatcher.dispatch("//Test.jsp"));
+		Assert.assertEquals("test.Test", dispatcher.dispatch("/test/Test.jsp"));
 	}
 
 }

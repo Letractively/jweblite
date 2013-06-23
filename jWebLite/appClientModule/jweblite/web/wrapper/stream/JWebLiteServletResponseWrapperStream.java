@@ -48,41 +48,40 @@ public class JWebLiteServletResponseWrapperStream implements
 	}
 
 	public ServletOutputStream getServletOutputStream() throws IOException {
-		if (this.pw != null) {
+		if (pw != null) {
 			throw new IllegalStateException();
 		}
-		if (this.sos == null) {
-			if (this.isGZipEnabled) {
-				this.sos = new GZipServletOutputStream(this.os);
-			} else if (this.os instanceof ServletOutputStream) {
-				this.sos = (ServletOutputStream) this.os;
+		if (sos == null) {
+			if (isGZipEnabled) {
+				sos = new GZipServletOutputStream(os);
+			} else if (os instanceof ServletOutputStream) {
+				sos = (ServletOutputStream) os;
 			} else {
-				this.sos = new ProxyServletOutputStream(this.os);
+				sos = new ProxyServletOutputStream(os);
 			}
 		}
-		return this.sos;
+		return sos;
 	}
 
 	public PrintWriter getServletWriter() throws IOException {
-		if (this.sos != null) {
+		if (sos != null) {
 			throw new IllegalStateException();
 		}
-		if (this.pw == null) {
-			OutputStream sos = this.os;
-			if (this.isGZipEnabled) {
-				sos = new GZipServletOutputStream(this.os);
+		if (pw == null) {
+			OutputStream sos = os;
+			if (isGZipEnabled) {
+				sos = new GZipServletOutputStream(os);
 			}
 			OutputStreamWriter osw = null;
 			if (lineWriterListeners == null || lineWriterListeners.size() <= 0) {
-				osw = new OutputStreamWriter(sos, this.encoding);
+				osw = new OutputStreamWriter(sos, encoding);
 			} else {
-				osw = new LineFilteredOutputStreamWriter(sos, this.encoding) {
+				osw = new LineFilteredOutputStreamWriter(sos, encoding) {
 					@Override
 					public void doInit() throws IOException {
 						super.doInit();
 						for (LineWriterListener lineWriterListener : lineWriterListeners) {
-							lineWriterListener
-									.doInit(this, this.getLineIndex());
+							lineWriterListener.doInit(this, getLineIndex());
 						}
 					}
 
@@ -91,7 +90,7 @@ public class JWebLiteServletResponseWrapperStream implements
 						line = super.doBeforeLine(line);
 						for (LineWriterListener lineWriterListener : lineWriterListeners) {
 							line = lineWriterListener.doBeforeLine(this, line,
-									this.getLineIndex());
+									getLineIndex());
 						}
 						return line;
 					}
@@ -101,7 +100,7 @@ public class JWebLiteServletResponseWrapperStream implements
 						super.doAfterLine(line);
 						for (LineWriterListener lineWriterListener : lineWriterListeners) {
 							lineWriterListener.doAfterLine(this, line,
-									this.getLineIndex());
+									getLineIndex());
 						}
 					}
 
@@ -109,34 +108,33 @@ public class JWebLiteServletResponseWrapperStream implements
 					public void doFinish() throws IOException {
 						super.doFinish();
 						for (LineWriterListener lineWriterListener : lineWriterListeners) {
-							lineWriterListener.doFinish(this,
-									this.getLineIndex());
+							lineWriterListener.doFinish(this, getLineIndex());
 						}
 					}
 				};
 			}
-			this.pw = new PrintWriter(osw);
+			pw = new PrintWriter(osw);
 		}
-		return this.pw;
+		return pw;
 	}
 
 	public void doFinish() {
-		if (this.sos != null) {
-			IOUtils.closeQuietly(this.sos);
+		if (sos != null) {
+			IOUtils.closeQuietly(sos);
 		}
-		if (this.pw != null) {
-			IOUtils.closeQuietly(this.pw);
+		if (pw != null) {
+			IOUtils.closeQuietly(pw);
 		}
 	}
 
 	public OutputStream getOriginalOutputStream() {
-		return this.os;
+		return os;
 	}
 
 	public void resetOutputStream(OutputStream os) {
 		synchronized (this) {
-			this.sos = null;
-			this.pw = null;
+			sos = null;
+			pw = null;
 			this.os = os;
 		}
 	}
@@ -146,7 +144,7 @@ public class JWebLiteServletResponseWrapperStream implements
 			throw new IllegalStateException();
 		}
 		lineWriterListeners.add(lineWriterListener);
-		resetOutputStream(this.os);
+		resetOutputStream(os);
 	}
 
 	public void unbindLineWriterListener(LineWriterListener lineWriterListener) {
@@ -154,7 +152,7 @@ public class JWebLiteServletResponseWrapperStream implements
 			throw new IllegalStateException();
 		}
 		lineWriterListeners.remove(lineWriterListener);
-		resetOutputStream(this.os);
+		resetOutputStream(os);
 	}
 
 	public boolean isGZipEnabled() {

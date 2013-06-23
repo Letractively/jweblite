@@ -47,7 +47,7 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 	 */
 	public MultiValueLinkedHashMap(Map m) {
 		super();
-		this.putAll(m);
+		putAll(m);
 	}
 
 	public void put(Object key) {
@@ -85,7 +85,7 @@ public class MultiValueLinkedHashMap extends LinkedHashMap implements
 		Iterator mapIt = m.keySet().iterator();
 		while (mapIt.hasNext()) {
 			Object key = mapIt.next();
-			this.put(key, m.get(key));
+			put(key, m.get(key));
 		}
 	}
 

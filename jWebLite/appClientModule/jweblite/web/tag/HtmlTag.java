@@ -42,7 +42,7 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 		if (localName == null) {
 			return;
 		}
-		this.originalAdditionalAttrMap.put(localName.toLowerCase(), value);
+		originalAdditionalAttrMap.put(localName.toLowerCase(), value);
 	}
 
 	/**
@@ -55,12 +55,12 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	public String makeAdditionalTagAttr(Map<String, Object> m) {
 		AttributeCallback additionAttrValueRenderer = this.additionAttrValueRenderer;
 		if (additionAttrValueRenderer == null) {
-			additionAttrValueRenderer = this.defaultAdditionAttrValueRenderer;
+			additionAttrValueRenderer = defaultAdditionAttrValueRenderer;
 		}
 		List<String> result = new ArrayList<String>();
 		// prepare additionalAttrMap
 		Map<String, Object> additionalAttrMap = new HashMap<String, Object>();
-		additionalAttrMap.putAll(this.originalAdditionalAttrMap);
+		additionalAttrMap.putAll(originalAdditionalAttrMap);
 		if (m != null) {
 			additionalAttrMap.putAll(m);
 		}
@@ -87,7 +87,7 @@ public class HtmlTag extends BodyTagSupport implements DynamicAttributes {
 	 * @return String
 	 */
 	public String makeAdditionalTagAttr() {
-		return this.makeAdditionalTagAttr(null);
+		return makeAdditionalTagAttr(null);
 	}
 
 	/**

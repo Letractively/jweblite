@@ -35,16 +35,16 @@ public class JWebLiteSessionManager implements HttpSessionBindingListener,
 	}
 
 	public void valueBound(HttpSessionBindingEvent event) {
-		this.activationCount++;
-		if (this.boundEvent != null) {
-			this.boundEvent.callback(event.getSession());
+		activationCount++;
+		if (boundEvent != null) {
+			boundEvent.callback(event.getSession());
 		}
 	}
 
 	public void valueUnbound(HttpSessionBindingEvent event) {
-		this.activationCount--;
-		if (this.unboundEvent != null) {
-			this.unboundEvent.callback(event.getSession());
+		activationCount--;
+		if (unboundEvent != null) {
+			unboundEvent.callback(event.getSession());
 		}
 	}
 
