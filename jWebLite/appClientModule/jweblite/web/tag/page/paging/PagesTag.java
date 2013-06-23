@@ -36,7 +36,7 @@ public class PagesTag extends TagSupport {
 		}
 		PagingTag parent = (PagingTag) tag;
 		this.index = parent.getIndex();
-		DataProvider provider = parent.getProvider();
+		DataProvider<?> provider = parent.getProvider();
 		if (provider != null) {
 			this.currentIndex = provider.getCurrentIndex();
 			List<Integer> viewIndexList = provider.getViewIndexList();

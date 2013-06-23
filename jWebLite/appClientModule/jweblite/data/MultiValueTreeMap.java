@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class MultiValueTreeMap extends TreeMap implements MultiValueMap {
 	private static final long serialVersionUID = 1L;
 

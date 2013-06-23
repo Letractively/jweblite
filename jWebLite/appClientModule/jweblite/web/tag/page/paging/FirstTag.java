@@ -26,7 +26,7 @@ public class FirstTag extends TagSupport {
 			throw new JspTagException("parent tag error");
 		}
 		PagingTag parent = (PagingTag) tag;
-		DataProvider provider = parent.getProvider();
+		DataProvider<?> provider = parent.getProvider();
 		int firstIndex = 0;
 		// test
 		if (this.test == null) {

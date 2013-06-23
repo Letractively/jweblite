@@ -27,7 +27,7 @@ public class JWebLiteServletResponseWrapperStream implements
 	private ServletOutputStream sos = null;
 	private PrintWriter pw = null;
 
-	private List<LineWriterListener> lineWriterListeners = new ArrayList();
+	private List<LineWriterListener> lineWriterListeners = new ArrayList<LineWriterListener>();
 
 	/**
 	 * Default constructor.

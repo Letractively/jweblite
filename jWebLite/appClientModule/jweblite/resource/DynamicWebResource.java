@@ -1,6 +1,7 @@
 package jweblite.resource;
 
 import java.io.BufferedOutputStream;
+import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,16 +76,16 @@ public abstract class DynamicWebResource implements JWebLitePage, WebResource {
 	public void doBody(WebContext context, FormModel formModel)
 			throws SkipException {
 		// write
-		BufferedOutputStream bos = null;
+		OutputStream os = null;
 		try {
-			bos = new BufferedOutputStream(context.getResponse()
+			os = new BufferedOutputStream(context.getResponse()
 					.getOutputStream());
-			IOUtils.write(this.loadData(context, formModel), bos);
-			bos.flush();
+			IOUtils.write(this.loadData(context, formModel), os);
+			os.flush();
 		} catch (Exception e) {
 			_cat.warn("Write data failed!", e);
 		} finally {
-			IOUtils.closeQuietly(bos);
+			IOUtils.closeQuietly(os);
 		}
 	}
 

@@ -46,7 +46,7 @@ public class JWebLiteFilter implements Filter {
 		String initClassName = filterConfig.getInitClassName();
 		if (initClassName != null) {
 			try {
-				Class initClass = Class.forName(initClassName);
+				Class<?> initClass = Class.forName(initClassName);
 				if (initClass != null) {
 					Object initClassInstance = initClass.newInstance();
 					if (JWebLiteApplication.class.isAssignableFrom(initClass)) {
@@ -161,7 +161,7 @@ public class JWebLiteFilter implements Filter {
 		String attrPrefix = filterConfig.getAttrPrefix();
 		JWebLiteRequestDispatcher reqDispatcher = application
 				.getRequestDispatcher();
-		Class reqClass = null;
+		Class<?> reqClass = null;
 		String refClassName = null;
 		if (reqDispatcher != null
 				&& (refClassName = reqDispatcher.dispatch(req.getServletPath())) != null) {

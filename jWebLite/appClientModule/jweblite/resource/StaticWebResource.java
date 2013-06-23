@@ -4,6 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,20 +80,20 @@ public abstract class StaticWebResource implements JWebLitePage, WebResource {
 	public void doBody(WebContext context, FormModel formModel)
 			throws SkipException {
 		// write
-		BufferedInputStream bis = null;
-		BufferedOutputStream bos = null;
+		InputStream is = null;
+		OutputStream os = null;
 		try {
-			bis = new BufferedInputStream(new FileInputStream(this.loadData(
+			is = new BufferedInputStream(new FileInputStream(this.loadData(
 					context, formModel)));
-			bos = new BufferedOutputStream(context.getResponse()
+			os = new BufferedOutputStream(context.getResponse()
 					.getOutputStream());
-			IOUtils.copy(bis, bos);
-			bos.flush();
+			IOUtils.copy(is, os);
+			os.flush();
 		} catch (Exception e) {
 			_cat.warn("Write data failed!", e);
 		} finally {
-			IOUtils.closeQuietly(bis);
-			IOUtils.closeQuietly(bos);
+			IOUtils.closeQuietly(is);
+			IOUtils.closeQuietly(os);
 		}
 	}
 

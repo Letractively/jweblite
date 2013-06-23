@@ -8,7 +8,7 @@ import jweblite.data.provider.DataProvider;
 public class PagingTag extends TagSupport {
 	private static final long serialVersionUID = 1L;
 
-	private DataProvider provider = null;
+	private DataProvider<?> provider = null;
 
 	private String index = null;
 	private String var = null;
@@ -61,7 +61,7 @@ public class PagingTag extends TagSupport {
 	 * 
 	 * @return DataProvider
 	 */
-	public DataProvider getProvider() {
+	public DataProvider<?> getProvider() {
 		return provider;
 	}
 
@@ -71,7 +71,7 @@ public class PagingTag extends TagSupport {
 	 * @param provider
 	 *            DataProvider
 	 */
-	public void setProvider(DataProvider provider) {
+	public void setProvider(DataProvider<?> provider) {
 		this.provider = provider;
 	}
 

@@ -77,7 +77,7 @@ public class JWebLiteFilterConfig implements FilterConfig, Serializable {
 		return this.filterConfig.getInitParameter(name);
 	}
 
-	public Enumeration getInitParameterNames() {
+	public Enumeration<?> getInitParameterNames() {
 		if (this.filterConfig == null) {
 			return null;
 		}
