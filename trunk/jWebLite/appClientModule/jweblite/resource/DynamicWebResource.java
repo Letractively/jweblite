@@ -63,7 +63,8 @@ public abstract class DynamicWebResource implements JWebLitePage, WebResource {
 		if (fileName != null
 				&& (fileName = StringUtils.encodeDownloadFileName(req,
 						fileName, encoding)) != null) {
-			resp.setHeader("Content-Disposition", "filename=".concat(fileName));
+			resp.setHeader("Content-Disposition",
+					"attachment; filename=".concat(fileName));
 		}
 		// cacheable
 		if (!isCacheable()) {
