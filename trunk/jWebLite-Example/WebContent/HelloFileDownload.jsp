@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="${JwlCP}/style/stylesheet.css" rel="stylesheet"
 	type="text/css" />
-<title>File Upload</title>
+<title>Hello File Upload</title>
 </head>
 <body>
 
@@ -14,17 +14,10 @@
 		<a href="${JwlCP}/index.html">[ JWebLite Example ]</a>
 	</h3>
 	<fieldset>
-		<span class="legend">File Upload</span>
+		<span class="legend">Hello File Download</span>
 		<div>
 
-			<p>Hello ${Jwl.test}!</p>
-			<p>File Uploaded: ${Jwl.file.name} (${Jwl.file.size}B)</p>
-			<br />
-			<form action="" method="post" enctype="multipart/form-data">
-				<input type="text" name="test" value="${Jwl.test}" />&nbsp;<input
-					type="file" name="file" /><br /> <br /> <input type="submit"
-					value="Submit" />
-			</form>
+			<a href="${JwlCP}/FileDownload.jsp">Download</a>
 
 		</div>
 	</fieldset>
