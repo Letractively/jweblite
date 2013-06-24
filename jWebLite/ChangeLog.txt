@@ -1,9 +1,11 @@
 JWebLite Change Log
 
-Version -
+Version 0.6.1
 ====================
 ．Change json lib
 ．Change JsonUtils to JsonELUtils
+．Minor changes
+．Minor bug fixes
 
 Version 0.6.0
 ====================

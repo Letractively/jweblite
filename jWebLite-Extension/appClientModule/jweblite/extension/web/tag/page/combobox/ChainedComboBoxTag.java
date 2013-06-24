@@ -9,13 +9,13 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import jweblite.data.MultiValueMap;
-import jweblite.util.JsonUtils;
 import jweblite.util.StringUtils;
 import jweblite.web.tag.HtmlTag;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONObject;
 
 public class ChainedComboBoxTag extends HtmlTag {
 
@@ -40,7 +40,7 @@ public class ChainedComboBoxTag extends HtmlTag {
 			// element
 			jw.print(StringUtils.format("<select id='$1' ", "$", this.eid));
 			// additional tag attrs
-			Map<String, Object> additionalAttrMap = new HashMap();
+			Map<String, Object> additionalAttrMap = new HashMap<String, Object>();
 			additionalAttrMap.put("onchange", StringUtils.format(
 					"$1;$2Func(typeof($3Func)=='function'?$3Func:null);", "$",
 					StringUtils.getStringValue((String) this
@@ -64,12 +64,12 @@ public class ChainedComboBoxTag extends HtmlTag {
 			jw.println("//<![CDATA[");
 			InputStream is = null;
 			try {
-				Class thisClass = this.getClass();
+				Class<?> thisClass = this.getClass();
 				is = thisClass.getResourceAsStream(thisClass.getSimpleName()
 						.concat(".js"));
 				String source = IOUtils.toString(is, "UTF-8");
 				jw.print(StringUtils.format(source, "$", this.eid, this.toEid,
-						JsonUtils.toJsonObject(this.map, false)));
+						new JSONObject(this.map).toString()));
 			} catch (Exception e) {
 				throw e;
 			} finally {
