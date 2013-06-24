@@ -62,10 +62,11 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 
 	@Override
 	public void write(char[] cbuf, int off, int len) throws IOException {
-		if (cbuf == null) {
-			return;
+		int end = 0;
+		if (off < 0 || len < 0 || (end = off + len) < 0 || end > cbuf.length) {
+			throw new IndexOutOfBoundsException();
 		}
-		for (int i = off; i < off + len; i++) {
+		for (int i = off; i < end; i++) {
 			write(cbuf[i]);
 		}
 	}
@@ -87,9 +88,6 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 
 	@Override
 	public void write(String str, int off, int len) throws IOException {
-		if (str == null) {
-			return;
-		}
 		write(str.substring(off, off + len).toCharArray(), 0, len);
 	}
 
