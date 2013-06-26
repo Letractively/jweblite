@@ -4,9 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
-import junit.swingui.TestRunner;
+import junit.textui.TestRunner;
 
 public class LineFilteredOutputStreamWriterTest extends TestCase {
 
@@ -25,7 +24,7 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 				baos, "UTF-8"));
 		pw.print("Content1\nContent2\nContent3");
 		pw.close();
-		Assert.assertEquals("Content1\nContent2\nContent3",
+		assertEquals("Content1\nContent2\nContent3",
 				new String(baos.toByteArray()));
 	}
 
@@ -46,7 +45,7 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 		});
 		pw.print("Content1\nContent2\nContent3");
 		pw.close();
-		Assert.assertEquals(
+		assertEquals(
 				"before1\nbefore2Content1\nContent2\nContent3after1\nafter2",
 				new String(baos.toByteArray()));
 	}
@@ -74,7 +73,7 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 		});
 		pw.print("Content1\nContent2\nContent3");
 		pw.close();
-		Assert.assertEquals(
+		assertEquals(
 				"Content1\nbefore1\nbefore2Content222\nafter1\nafter2Content3",
 				new String(baos.toByteArray()));
 	}
