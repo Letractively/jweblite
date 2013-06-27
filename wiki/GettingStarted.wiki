@@ -9,7 +9,7 @@ Getting Started
 
 *Depends:*
   * JDK 1.5+
-  * Tomcat 5+
+  * Tomcat 5.5+
   * jstl.jar (JSTL 1.1+)
   * standard.jar (JSTL 1.1+)
   * commons-logging-1.1.1.jar
@@ -17,7 +17,7 @@ Getting Started
   * commons-fileupload-1.2.2.jar
   * commons-io-2.2.jar
   * commons-codec-1.5.jar
-  * google-gson-stream-1.7.1.jar
+  * json-20080701.jar
 
 <hr />
 
