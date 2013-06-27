@@ -81,17 +81,23 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter
 
 	@Override
 	public void write(int c) throws IOException {
+		boolean isFirstLine = false;
+		if (isListenerEnabled()) {
+			if (lineIndex < 0) {
+				isFirstLine = true;
+			}
+			if (lineBuffer == null) {
+				lineBuffer = new StringBuilder();
+				lineIndex++;
+			}
+		}
 		// first line
-		if (isListenerEnabled() && lineIndex < 0) {
+		if (isListenerEnabled() && isFirstLine) {
 			stopListener();
 			onFirstLine(this);
 			startListener();
 		}
 		if (isListenerEnabled()) {
-			if (lineBuffer == null) {
-				lineBuffer = new StringBuilder();
-				lineIndex++;
-			}
 			lineBuffer.append((char) c);
 			if (c == '\n') {
 				writeNewLineBuffer();
