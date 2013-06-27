@@ -39,15 +39,13 @@ public class HelloLineWriterListener implements JWebLitePage, LineWriterListener
 			throws SkipException {
 	}
 
-	public void onAfterLine(Writer writer, int index, String line)
-			throws IOException {
+	public void onAfterLine(Writer writer, int index, String line) throws IOException {
 		if (line.contains("Hello LineWriterListener!")) {
 			writer.write("<br />LineWriterListener: Hello Sir!");
 		}
 	}
 
-	public void onBeforeLine(Writer writer, int index, String line)
-			throws IOException {
+	public void onBeforeLine(Writer writer, int index, String line) throws IOException {
 	}
 
 	public void onFirstLine(Writer writer) throws IOException {
