@@ -7,7 +7,8 @@ import jweblite.web.page.SkipException;
 import jweblite.web.page.WebContext;
 import jweblite.web.stream.LineWriterListener;
 
-public class HelloLineWriterListener implements JWebLitePage {
+public class HelloLineWriterListener implements JWebLitePage,
+		LineWriterListener {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -19,25 +20,23 @@ public class HelloLineWriterListener implements JWebLitePage {
 
 	public void doRequest(WebContext context, FormModel fm)
 			throws SkipException {
-		context.bindLineWriterListener(new LineWriterListener() {
-			public void doInit(Writer writer, int index) throws IOException {
-			}
+	}
 
-			public void doFinish(Writer writer, int index) throws IOException {
-			}
+	public void onAfterLine(Writer writer, int index, String line)
+			throws IOException {
+		if (line.contains("Hello LineWriterListener!")) {
+			writer.write("<br />LineWriterListener: Hello Sir!");
+		}
+	}
 
-			public String doBeforeLine(Writer writer, String line, int index)
-					throws IOException {
-				return line;
-			}
+	public void onBeforeLine(Writer writer, int index, String line)
+			throws IOException {
+	}
 
-			public void doAfterLine(Writer writer, String line, int index)
-					throws IOException {
-				if (line.contains("Hello LineWriterListener!")) {
-					writer.write("<br />LineWriterListener: Hello Sir!");
-				}
-			}
-		});
+	public void onFirstLine(Writer writer) throws IOException {
+	}
+
+	public void onLastLine(Writer writer) throws IOException {
 	}
 
 }
