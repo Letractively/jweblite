@@ -117,19 +117,20 @@ public class JWebLiteFilter implements Filter {
 			}
 			req.setAttribute(formModelAttrName, formModel);
 			// starting
-			boolean isIgnoreView = false;
+			boolean isIgnoreTemplate = false;
+			JWebLitePage reqClassInstance = null;
 			try {
 				// trigger doBeforeRequest event
 				application.doBeforeRequest(context, formModel);
 				// init class
-				JWebLitePage reqClassInstance = doRequest(context, formModel);
-				// listener
-				doListener(respWrapper, reqClassInstance);
+				reqClassInstance = doRequest(context, formModel);
 			} catch (SkipException se) {
-				isIgnoreView = true;
+				isIgnoreTemplate = true;
 			}
+			// listener
+			doListener(respWrapper, reqClassInstance);
 			// pass the request along the filter chain
-			if (!isIgnoreView) {
+			if (!isIgnoreTemplate) {
 				// trigger doBeforeRender event
 				application.doBeforeRender(context, formModel);
 				chain.doFilter(req, respWrapper);
