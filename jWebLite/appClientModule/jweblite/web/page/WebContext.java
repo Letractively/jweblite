@@ -4,9 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jweblite.web.stream.LineWriterListener;
-import jweblite.web.wrapper.JWebLiteResponseWrapper;
-
 public class WebContext {
 
 	private HttpServletRequest request = null;
@@ -31,36 +28,6 @@ public class WebContext {
 		super();
 		this.request = request;
 		this.response = response;
-	}
-
-	/**
-	 * Bind LineWriterListener
-	 * 
-	 * @param lineWriterListener
-	 *            LineWriterListener
-	 */
-	public void bindLineWriterListener(LineWriterListener lineWriterListener) {
-		if (response == null || !(response instanceof JWebLiteResponseWrapper)) {
-			throw new IllegalStateException();
-		}
-		JWebLiteResponseWrapper respWrapper = (JWebLiteResponseWrapper) response;
-		respWrapper.getWrapperStream().bindLineWriterListener(
-				lineWriterListener);
-	}
-
-	/**
-	 * Unbind LineWriterListener
-	 * 
-	 * @param lineWriterListener
-	 *            LineWriterListener
-	 */
-	public void unbindLineWriterListener(LineWriterListener lineWriterListener) {
-		if (response == null || !(response instanceof JWebLiteResponseWrapper)) {
-			throw new IllegalStateException();
-		}
-		JWebLiteResponseWrapper respWrapper = (JWebLiteResponseWrapper) response;
-		respWrapper.getWrapperStream().unbindLineWriterListener(
-				lineWriterListener);
 	}
 
 	/**

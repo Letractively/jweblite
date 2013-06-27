@@ -3,6 +3,7 @@ package jweblite.web.stream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
@@ -32,14 +33,12 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 		PrintWriter pw = new PrintWriter(new LineFilteredOutputStreamWriter(
 				baos, "UTF-8") {
 			@Override
-			public void doInit() throws IOException {
-				super.doInit();
+			public void onFirstLine(Writer writer) throws IOException {
 				write("before1\nbefore2");
 			}
 
 			@Override
-			public void doFinish() throws IOException {
-				super.doFinish();
+			public void onLastLine(Writer writer) throws IOException {
 				write("after1\nafter2");
 			}
 		});
@@ -54,18 +53,16 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 		PrintWriter pw = new PrintWriter(new LineFilteredOutputStreamWriter(
 				baos, "UTF-8") {
 			@Override
-			public String doBeforeLine(String line) throws IOException {
-				line = super.doBeforeLine(line);
+			public void onBeforeLine(Writer writer, int index, String line)
+					throws IOException {
 				if (line.contains("Content2")) {
 					write("before1\nbefore2");
-					return "Content222\n";
 				}
-				return line;
 			}
 
 			@Override
-			public void doAfterLine(String line) throws IOException {
-				super.doAfterLine(line);
+			public void onAfterLine(Writer writer, int index, String line)
+					throws IOException {
 				if (line.contains("Content2")) {
 					write("after1\nafter2");
 				}
@@ -74,7 +71,7 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 		pw.print("Content1\nContent2\nContent3");
 		pw.close();
 		assertEquals(
-				"Content1\nbefore1\nbefore2Content222\nafter1\nafter2Content3",
+				"Content1\nbefore1\nbefore2Content2\nafter1\nafter2Content3",
 				new String(baos.toByteArray()));
 	}
 

@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 
-public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
+public class LineFilteredOutputStreamWriter extends OutputStreamWriter
+		implements LineWriterListener {
 
-	private int lineIndex = 0;
+	private int lineIndex = -1;
 	private StringBuilder lineBuffer = null;
+	private boolean isListenerEnabled = true;
 
 	/**
 	 * Default constructor.
@@ -72,70 +75,53 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 	}
 
 	@Override
-	public void write(int c) throws IOException {
-		if (lineBuffer == null) {
-			lineBuffer = new StringBuilder();
-			// trigger first line event
-			if (lineIndex == 0) {
-				doInit();
-			}
-		}
-		lineBuffer.append((char) c);
-		if (c == '\n') {
-			writeNewLineBuffer();
-		}
-	}
-
-	@Override
 	public void write(String str, int off, int len) throws IOException {
 		write(str.substring(off, off + len).toCharArray(), 0, len);
 	}
 
 	@Override
-	public void close() throws IOException {
-		doFinish();
-		// flush
-		if (lineBuffer != null) {
-			writeNewLineBuffer();
+	public void write(int c) throws IOException {
+		// first line
+		if (isListenerEnabled() && lineIndex < 0) {
+			stopListener();
+			onFirstLine(this);
+			startListener();
 		}
-		flush();
-		super.close();
+		if (isListenerEnabled()) {
+			if (lineBuffer == null) {
+				lineBuffer = new StringBuilder();
+				lineIndex++;
+			}
+			lineBuffer.append((char) c);
+			if (c == '\n') {
+				writeNewLineBuffer();
+			}
+		} else {
+			super.write(c);
+		}
 	}
 
 	/**
-	 * Do Init
+	 * Is Listener Enabled
 	 * 
-	 * @throws IOException
+	 * @return boolean
 	 */
-	public void doInit() throws IOException {
+	public boolean isListenerEnabled() {
+		return isListenerEnabled;
 	}
 
 	/**
-	 * Do Before Line
-	 * 
-	 * @param line
-	 * @return String
-	 * @throws IOException
+	 * Start Listener
 	 */
-	public String doBeforeLine(String line) throws IOException {
-		return line;
+	public void startListener() {
+		isListenerEnabled = true;
 	}
 
 	/**
-	 * Do After Line
-	 * 
-	 * @param line
-	 * @throws IOException
+	 * Stop Listener
 	 */
-	public void doAfterLine(String line) throws IOException {
-	}
-
-	/**
-	 * Do Finish
-	 * 
-	 * @throws IOException
-	 */
-	public void doFinish() throws IOException {
+	public void stopListener() {
+		isListenerEnabled = false;
 	}
 
 	/**
@@ -143,30 +129,61 @@ public class LineFilteredOutputStreamWriter extends OutputStreamWriter {
 	 * 
 	 * @throws IOException
 	 */
-	private void writeNewLineBuffer() throws IOException {
-		// keep the current line data
+	public void writeNewLineBuffer() throws IOException {
+		// keep
 		String line = lineBuffer.toString();
 		lineBuffer = null;
-		line = doBeforeLine(line);
-		if (line == null) {
-			throw new NullPointerException(
-					"The LineWriterListener cannot write the null pointer!");
+		// before
+		if (isListenerEnabled()) {
+			stopListener();
+			onBeforeLine(this, lineIndex, line);
+			startListener();
 		}
-		if (lineBuffer != null) {
-			lineBuffer.append(line);
-			line = lineBuffer.toString();
-			lineBuffer = null;
-		}
-		lineIndex++;
 		super.write(line, 0, line.length());
-		doAfterLine(line);
+		// after
+		if (isListenerEnabled()) {
+			stopListener();
+			onAfterLine(this, lineIndex, line);
+			startListener();
+		}
+	}
+
+	@Override
+	public void close() throws IOException {
+		// flush
+		if (isListenerEnabled() && lineBuffer != null) {
+			writeNewLineBuffer();
+		}
+		if (isListenerEnabled()) {
+			stopListener();
+			onLastLine(this);
+			startListener();
+		}
+		flush();
+		super.close();
 	}
 
 	/**
-	 * @return the lineIndex
+	 * Get LineIndex
+	 * 
+	 * @return int
 	 */
 	public int getLineIndex() {
 		return lineIndex;
+	}
+
+	public void onFirstLine(Writer writer) throws IOException {
+	}
+
+	public void onBeforeLine(Writer writer, int index, String line)
+			throws IOException {
+	}
+
+	public void onAfterLine(Writer writer, int index, String line)
+			throws IOException {
+	}
+
+	public void onLastLine(Writer writer) throws IOException {
 	}
 
 }

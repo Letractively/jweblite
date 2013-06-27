@@ -6,54 +6,49 @@ import java.io.Writer;
 public interface LineWriterListener {
 
 	/**
-	 * Do Init
+	 * On First Line
 	 * 
 	 * @param writer
 	 *            Writer
-	 * @param index
-	 *            int
 	 * @throws IOException
 	 */
-	public void doInit(Writer writer, int index) throws IOException;
+	public void onFirstLine(Writer writer) throws IOException;
 
 	/**
-	 * Do Before Line
+	 * On Before Line
 	 * 
 	 * @param writer
 	 *            Writer
-	 * @param line
-	 *            String
 	 * @param index
 	 *            int
-	 * @return String
+	 * @param line
+	 *            String
 	 * @throws IOException
 	 */
-	public String doBeforeLine(Writer writer, String line, int index)
+	public void onBeforeLine(Writer writer, int index, String line)
 			throws IOException;
 
 	/**
-	 * Do After Line
+	 * On After Line
 	 * 
 	 * @param writer
 	 *            Writer
-	 * @param line
-	 *            String
 	 * @param index
 	 *            int
+	 * @param line
+	 *            String
 	 * @throws IOException
 	 */
-	public void doAfterLine(Writer writer, String line, int index)
+	public void onAfterLine(Writer writer, int index, String line)
 			throws IOException;
 
 	/**
-	 * Do Finish
+	 * On Last Line
 	 * 
 	 * @param writer
 	 *            Writer
-	 * @param index
-	 *            int
 	 * @throws IOException
 	 */
-	public void doFinish(Writer writer, int index) throws IOException;
+	public void onLastLine(Writer writer) throws IOException;
 
 }
