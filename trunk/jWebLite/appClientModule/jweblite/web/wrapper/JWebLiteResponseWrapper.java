@@ -103,7 +103,7 @@ public class JWebLiteResponseWrapper extends HttpServletResponseWrapper {
 		if (wrapperStream == null) {
 			throw new IllegalStateException();
 		}
-		wrapperStream.doFinish();
+		wrapperStream.close();
 	}
 
 	/**

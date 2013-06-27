@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Writer;
 
 import javax.servlet.ServletOutputStream;
 
@@ -27,7 +26,7 @@ public class JWebLiteServletResponseWrapperStream implements
 	private ServletOutputStream sos = null;
 	private PrintWriter pw = null;
 
-	private List<LineWriterListener> lineWriterListeners = new ArrayList<LineWriterListener>();
+	private LineWriterListener lineWriterListener = null;
 
 	/**
 	 * Default constructor.
@@ -73,43 +72,30 @@ public class JWebLiteServletResponseWrapperStream implements
 				sos = new GZipServletOutputStream(os);
 			}
 			OutputStreamWriter osw = null;
-			if (lineWriterListeners == null || lineWriterListeners.size() <= 0) {
+			if (lineWriterListener == null) {
 				osw = new OutputStreamWriter(sos, encoding);
 			} else {
 				osw = new LineFilteredOutputStreamWriter(sos, encoding) {
 					@Override
-					public void doInit() throws IOException {
-						super.doInit();
-						for (LineWriterListener lineWriterListener : lineWriterListeners) {
-							lineWriterListener.doInit(this, getLineIndex());
-						}
+					public void onFirstLine(Writer writer) throws IOException {
+						lineWriterListener.onFirstLine(writer);
 					}
 
 					@Override
-					public String doBeforeLine(String line) throws IOException {
-						line = super.doBeforeLine(line);
-						for (LineWriterListener lineWriterListener : lineWriterListeners) {
-							line = lineWriterListener.doBeforeLine(this, line,
-									getLineIndex());
-						}
-						return line;
+					public void onBeforeLine(Writer writer, int index,
+							String line) throws IOException {
+						lineWriterListener.onBeforeLine(writer, index, line);
 					}
 
 					@Override
-					public void doAfterLine(String line) throws IOException {
-						super.doAfterLine(line);
-						for (LineWriterListener lineWriterListener : lineWriterListeners) {
-							lineWriterListener.doAfterLine(this, line,
-									getLineIndex());
-						}
+					public void onAfterLine(Writer writer, int index,
+							String line) throws IOException {
+						lineWriterListener.onAfterLine(writer, index, line);
 					}
 
 					@Override
-					public void doFinish() throws IOException {
-						super.doFinish();
-						for (LineWriterListener lineWriterListener : lineWriterListeners) {
-							lineWriterListener.doFinish(this, getLineIndex());
-						}
+					public void onLastLine(Writer writer) throws IOException {
+						lineWriterListener.onLastLine(writer);
 					}
 				};
 			}
@@ -118,13 +104,21 @@ public class JWebLiteServletResponseWrapperStream implements
 		return pw;
 	}
 
-	public void doFinish() {
+	public void close() throws IOException {
 		if (sos != null) {
 			IOUtils.closeQuietly(sos);
 		}
 		if (pw != null) {
 			IOUtils.closeQuietly(pw);
 		}
+	}
+
+	public boolean isGZipEnabled() {
+		return isGZipEnabled;
+	}
+
+	public void setGZipEnabled(boolean isGZipEnabled) {
+		this.isGZipEnabled = isGZipEnabled;
 	}
 
 	public OutputStream getOriginalOutputStream() {
@@ -139,28 +133,12 @@ public class JWebLiteServletResponseWrapperStream implements
 		}
 	}
 
-	public void bindLineWriterListener(LineWriterListener lineWriterListener) {
-		if (lineWriterListeners == null) {
-			throw new IllegalStateException();
-		}
-		lineWriterListeners.add(lineWriterListener);
-		resetOutputStream(os);
+	public LineWriterListener getLineWriterListener() {
+		return lineWriterListener;
 	}
 
-	public void unbindLineWriterListener(LineWriterListener lineWriterListener) {
-		if (lineWriterListeners == null) {
-			throw new IllegalStateException();
-		}
-		lineWriterListeners.remove(lineWriterListener);
-		resetOutputStream(os);
-	}
-
-	public boolean isGZipEnabled() {
-		return isGZipEnabled;
-	}
-
-	public void setGZipEnabled(boolean isGZipEnabled) {
-		this.isGZipEnabled = isGZipEnabled;
+	public void setLineWriterListener(LineWriterListener lineWriterListener) {
+		this.lineWriterListener = lineWriterListener;
 	}
 
 }

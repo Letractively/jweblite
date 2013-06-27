@@ -1,5 +1,6 @@
 package jweblite.web.wrapper.stream;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -9,7 +10,7 @@ import javax.servlet.ServletOutputStream;
 
 import jweblite.web.stream.LineWriterListener;
 
-public interface JWebLiteResponseWrapperStream extends Serializable {
+public interface JWebLiteResponseWrapperStream extends Serializable, Closeable {
 
 	/**
 	 * Get Servlet OutputStream
@@ -28,42 +29,6 @@ public interface JWebLiteResponseWrapperStream extends Serializable {
 	public PrintWriter getServletWriter() throws IOException;
 
 	/**
-	 * Do Finish
-	 */
-	public void doFinish();
-
-	/**
-	 * Get Original OutputStream
-	 * 
-	 * @return OutputStream
-	 */
-	public OutputStream getOriginalOutputStream();
-
-	/**
-	 * Reset OutputStream
-	 * 
-	 * @param os
-	 *            OutputStream
-	 */
-	public void resetOutputStream(OutputStream os);
-
-	/**
-	 * Bind LineWriterListener
-	 * 
-	 * @param lineWriterListener
-	 *            LineWriterListener
-	 */
-	public void bindLineWriterListener(LineWriterListener lineWriterListener);
-
-	/**
-	 * Unbind LineWriterListener
-	 * 
-	 * @param lineWriterListener
-	 *            LineWriterListener
-	 */
-	public void unbindLineWriterListener(LineWriterListener lineWriterListener);
-
-	/**
 	 * Is GZip Enabled
 	 * 
 	 * @return boolean
@@ -77,5 +42,35 @@ public interface JWebLiteResponseWrapperStream extends Serializable {
 	 *            boolean
 	 */
 	public void setGZipEnabled(boolean isGZipEnabled);
+
+	/**
+	 * Get Original OutputStream
+	 * 
+	 * @return OutputStream
+	 */
+	public OutputStream getOriginalOutputStream();
+
+	/**
+	 * Reset OutputStream
+	 * 
+	 * @param outputStream
+	 *            OutputStream
+	 */
+	public void resetOutputStream(OutputStream outputStream);
+
+	/**
+	 * Get LineWriterListener
+	 * 
+	 * @return LineWriterListener
+	 */
+	public LineWriterListener getLineWriterListener();
+
+	/**
+	 * Set LineWriterListener
+	 * 
+	 * @param lineWriterListener
+	 *            LineWriterListener
+	 */
+	public void setLineWriterListener(LineWriterListener lineWriterListener);
 
 }

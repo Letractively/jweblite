@@ -18,7 +18,9 @@ import jweblite.web.page.JWebLitePage;
 import jweblite.web.page.SkipException;
 import jweblite.web.page.WebContext;
 import jweblite.web.session.JWebLiteSessionManager;
+import jweblite.web.stream.LineWriterListener;
 import jweblite.web.wrapper.JWebLiteResponseWrapper;
+import jweblite.web.wrapper.stream.JWebLiteResponseWrapperStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -120,7 +122,9 @@ public class JWebLiteFilter implements Filter {
 				// trigger doBeforeRequest event
 				application.doBeforeRequest(context, formModel);
 				// init class
-				doRequest(context, formModel);
+				JWebLitePage reqClassInstance = doRequest(context, formModel);
+				// listener
+				doListener(respWrapper, reqClassInstance);
 			} catch (SkipException se) {
 				isIgnoreView = true;
 			}
@@ -152,7 +156,7 @@ public class JWebLiteFilter implements Filter {
 	 * @throws IllegalAccessException
 	 * @throws SkipException
 	 */
-	public void doRequest(WebContext context, FormModel formModel)
+	public JWebLitePage doRequest(WebContext context, FormModel formModel)
 			throws InstantiationException, IllegalAccessException,
 			SkipException {
 		HttpServletRequest req = context.getRequest();
@@ -170,17 +174,40 @@ public class JWebLiteFilter implements Filter {
 			} catch (Exception e) {
 			}
 		}
+		JWebLitePage reqClassInstance = null;
 		if (reqClass != null && JWebLitePage.class.isAssignableFrom(reqClass)) {
 			if (_cat.isInfoEnabled()) {
 				_cat.info(LogUtils.formatDebugLog("DispatchInfo",
 						"ClientIP=%s, ReqUri=%s, refClassName=%s",
 						req.getRemoteAddr(), req.getRequestURI(), refClassName));
 			}
-			JWebLitePage reqClassInstance = (JWebLitePage) reqClass
-					.newInstance();
+			reqClassInstance = (JWebLitePage) reqClass.newInstance();
 			req.setAttribute(attrPrefix, reqClassInstance);
 			reqClassInstance.doRequest(context, formModel);
 		}
+		return reqClassInstance;
+	}
+
+	/**
+	 * Do Listener
+	 * 
+	 * @param respWrapper
+	 *            JWebLiteResponseWrapper
+	 * @param reqClassInstance
+	 *            JWebLitePage
+	 */
+	public void doListener(JWebLiteResponseWrapper respWrapper,
+			JWebLitePage reqClassInstance) {
+		if (reqClassInstance == null
+				|| !(reqClassInstance instanceof LineWriterListener)) {
+			return;
+		}
+		JWebLiteResponseWrapperStream respWrapperStream = respWrapper
+				.getWrapperStream();
+		respWrapperStream
+				.setLineWriterListener((LineWriterListener) reqClassInstance);
+		respWrapperStream.resetOutputStream(respWrapperStream
+				.getOriginalOutputStream());
 	}
 
 	/**
