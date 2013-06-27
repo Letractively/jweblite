@@ -35,11 +35,13 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 			@Override
 			public void onFirstLine(Writer writer) throws IOException {
 				write("before1\nbefore2");
+				assertEquals(getLineIndex(), 0);
 			}
 
 			@Override
 			public void onLastLine(Writer writer) throws IOException {
 				write("after1\nafter2");
+				assertEquals(getLineIndex(), 2);
 			}
 		});
 		pw.print("Content1\nContent2\nContent3");
@@ -57,6 +59,7 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 					throws IOException {
 				if (line.contains("Content2")) {
 					write("before1\nbefore2");
+					assertEquals(getLineIndex(), 1);
 				}
 			}
 
@@ -65,6 +68,7 @@ public class LineFilteredOutputStreamWriterTest extends TestCase {
 					throws IOException {
 				if (line.contains("Content2")) {
 					write("after1\nafter2");
+					assertEquals(getLineIndex(), 1);
 				}
 			}
 		});
