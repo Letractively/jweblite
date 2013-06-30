@@ -4,8 +4,8 @@
 	<property name="version" value="0.6.2" />
 	<property name="corePath" location="../jweblite" />
 	<property name="serverLibPath" location="../../apache-tomcat-5.5.35/common/lib" />
-	<!-- Google Closure Compiler 20130411 (http://code.google.com/p/closure-compiler/downloads/list) -->
-	<property name="compressorPath" location="../../ex_js/compiler-20130411/compiler.jar" />
+	<!-- Google Closure Compiler (http://code.google.com/p/closure-compiler/downloads/list) -->
+	<property name="compressorPath" location="../../ex_js/compiler-20130603/compiler.jar" />
 	<tstamp>
 		<format property="today" pattern="yyyy/MM/dd" />
 	</tstamp>
