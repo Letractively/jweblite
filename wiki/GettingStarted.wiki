@@ -8,7 +8,7 @@ Getting Started
 = Details =
 
 *Depends:*
-  * JDK 1.5+
+  * JRE 1.5+
   * Tomcat 5.5+
   * jstl.jar (JSTL 1.1+)
   * standard.jar (JSTL 1.1+)
